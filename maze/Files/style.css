@@ -12,8 +12,8 @@ h3 {
 
 #rotate {
     transform:rotate(-90deg);
-    width: 473px;
-    margin: 8px 0px 0px -225px;
+    width: 480px;
+    margin: 223px 0px 0px -229px;
     position:fixed;
 }
 

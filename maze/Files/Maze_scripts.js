@@ -98,7 +98,7 @@ var obstacles = []; //contains a list of all obstacles.
 loadHTML = "<input type='submit' value='How to Play' onclick='openInstructions()' style='font-weight:bold;'/> <input type='submit' value='Load Sample'  style='font-weight:bold;' onclick='loadSample()' style='margin-left:20px;'/> <input type='submit' value='Create New Maze' onclick='createMaze()'> <input type='submit' value='Load from File' onclick='loadMaze()' />   "
                         
 //All of the different possible buttons for the action bar
-startingHTML = "Actions: <input type='submit' value='How to Play' onclick='openInstructions()' style='font-weight:bold;'/> <input type='submit' value='Solve Maze' style='font-weight:bold;' onclick='solveMaze()'/> <input type='submit' value='Add Obstacles' onclick='createMaze()'/> <input type='submit' value='Load Maze' onclick='loadMaze()'/>"
+startingHTML = "<input type='submit' value='Solve Maze' style='font-weight:bold;' onclick='solveMaze()'/> <input type='submit' value='Add Obstacles' onclick='createMaze()'/> <input type='submit' value='Load Maze' onclick='loadMaze()'/>"
 
 mazeSOLVER = "Starting location: <input type='submit' value='Beginning' style='font-weight:bold;' onclick='startMaze()'/> <input type='submit' value='Custom Spot' onclick='startCustom()'/> <input type='submit' value='Add Obstacles' onclick='createMaze()' style='margin-left: 20px;'/> "
 
