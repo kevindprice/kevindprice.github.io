@@ -1,4 +1,4 @@
-h3 {
+#title {
     margin:-4px 0px 0px 25px;
     padding: 0px 0px 0px 30px;
     font-family:'Lucida Sans Unicode',Garamond;
@@ -6,7 +6,7 @@ h3 {
     font-size:16pt;
     background-color:#ccffff;
     border-radius:5px;
-    width:500px;
+    width:420px;
 
 }
 
