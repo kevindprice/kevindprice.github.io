@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset=utf-8 />
+    <title id="title">Open-Wall Maze       </title>
+    <link type="text/css" rel="stylesheet" href="Files/style.css" />
+    <link rel="shortcut icon" href="Files/favicon.ico">
+
+    <script type="text/javascript" src="Files/FileSaver.js"></script>
+
+    <script type="text/javascript" src="Files/Maze_scripts.js">
+
+</script>
+</head>
+<body onload="setPage();" onunload="window_onunload()">
+    <h3>Open-Wall Maze</h3>
+
+    <div id="action"></div> <br/><br/>
+
+    <div id="rotate">
+        <input type="submit" value="Zoom In" onclick="zoomIn()"/>
+        <input type="submit" value="Zoom Out" onclick="zoomOut()"/>
+        <!--<input type="submit" value="Refresh" onclick="drawGrid()"/>-->
+        <input type="submit" value="Main Menu" style='font-weight:bold;' onclick="document.getElementById('action').innerHTML = startingHTML;"/>
+    </div>
+    <canvas id="canvas" onclick="clickHandler(event);"></canvas>
+</body>
+</html>

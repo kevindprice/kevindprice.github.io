@@ -1,0 +1,35 @@
+h3 {
+    margin:-4px 0px 0px 25px;
+    padding: 0px 0px 0px 30px;
+    font-family:'Lucida Sans Unicode',Garamond;
+    color:#ff4400;
+    font-size:16pt;
+    background-color:#ccffff;
+    border-radius:5px;
+    width:500px;
+
+}
+
+#rotate {
+    transform:rotate(-90deg);
+    width: 473px;
+    margin: 8px 0px 0px -225px;
+    position:fixed;
+}
+
+#action {
+    border:solid brown;
+    padding:5px; 
+    margin-left:25px;
+    display:inline-block;
+    position:fixed;
+    height:20px;
+}
+
+#canvas {
+    /*margin-top: -120px; 
+      not necessary if #rotate has value position:fixed */
+    margin-top: 5px;
+    margin-left: 25px;
+    float:left;
+}
