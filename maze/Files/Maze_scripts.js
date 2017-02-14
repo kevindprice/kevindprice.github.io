@@ -50,9 +50,9 @@ speedUp
 slowDown
 
 loadMaze
+loadSample
 getFile
 processFile
-loadSample
 sampleFile
 saveMaze
 outputFile
@@ -1668,9 +1668,21 @@ function loadMaze()
         tempHTML = document.getElementById("action").innerHTML;
     }
     
-    document.getElementById("action").innerHTML = "Browse For File: <input type='file' accept='.maze' onchange='getFile(event)' id='files' name='files[]'/> <input type='submit' value='Cancel'  onclick='cancel_button()'/> <input type='submit' value='Load Sample Maze'  onclick='loadSample()' style='margin-left:35px;'/>"
+    document.getElementById("action").innerHTML = "Browse For File: <input type='file' accept='.maze' onchange='getFile(event)' id='files' name='files[]'/> <input type='submit' value='Cancel'  onclick='cancel_button()'/>"
 	
 }	//style='margin-right: -60px;'
+
+
+function loadSample()
+{
+    if(tempHTML == "")
+    {
+        tempHTML = document.getElementById("action").innerHTML;
+    }
+    
+    document.getElementById('action').innerHTML = "<input type='submit' value='Sample 1 (Easy)' onclick='sampleFile(1, 20)'/> <input type='submit' value='Sample 2 (Challenging)' onclick='sampleFile(2, 15)' />  <input type='submit' value='Cancel'  onclick='cancel_button()' style='font-weight:bold;'/> <input type='submit' value='Load from File' style='margin-left:25px;' onclick='loadMaze()' />"
+}
+
 
 function getFile(event)
 {
@@ -1733,16 +1745,6 @@ function processFile(contents)
 
 }
 
-
-function loadSample()
-{
-    if(tempHTML == "")
-    {
-        tempHTML = document.getElementById("action").innerHTML;
-    }
-    
-    document.getElementById('action').innerHTML = "<input type='submit' value='Sample 1 (Easy)' onclick='sampleFile(1, 20)'/> <input type='submit' value='Sample 2 (Challenging)' onclick='sampleFile(2, 15)' />  <input type='submit' value='Cancel'  onclick='cancel_button()'/>"
-}
 
 function sampleFile(sampleNum, customInterval)
 {

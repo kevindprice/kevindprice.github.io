@@ -12,8 +12,8 @@
 
 #rotate {
     transform:rotate(-90deg);
-    width: 480px;
-    margin: 223px 0px 0px -229px;
+    width: 560px;
+    margin: 223px 0px 0px -270px;
     position:fixed;
 }
 
