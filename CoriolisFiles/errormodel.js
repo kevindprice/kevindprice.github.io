@@ -124,7 +124,7 @@ function submit() {
 	document.getElementById("verticalvelocityunits").innerHTML = "";
 	document.getElementById("verticalvelocityunits2").innerHTML = "";
 	document.getElementById("timeinair").innerHTML = "";
-	document.getElementById("timeinairunits").innerHTML = round(time).toString()
+	document.getElementById("timeinairunits").innerHTML = "";
 
 	var accel_earth
 	
