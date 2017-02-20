@@ -53,7 +53,7 @@ function outputgs(percentgravity)
 	gs = percentgravity / 100
 	//Tell the user what the gravity is.
 	if(gs!=1) {
-		document.getElementById("gravitygs").innerHTML = String.concat(gs.toString(), " g's") //, g_accel.toString(), " ", units, "/s/s");
+		document.getElementById("gravitygs").innerHTML = gs.toString() + " g's"; //, g_accel.toString(), " ", units, "/s/s");
 	} else {
 		document.getElementById("gravitygs").innerHTML = "1 g";
 	}
@@ -166,7 +166,7 @@ function submit() {
 	//expected values
 	var expectedheight = hstart + heightthrown
 	document.getElementById("expectedheight").innerHTML = round( expectedheight )
-	document.getElementById("expectedheightunits").innerHTML = 	String.concat("&nbsp;", units)
+	document.getElementById("expectedheightunits").innerHTML = 	"&nbsp;" + units
 	document.getElementById("expectedtime").innerHTML = round( Math.sqrt( 2 * expectedheight / accel_earth ) + (start_v_y / accel_earth)  )
 	document.getElementById("expectedtimeunits").innerHTML = "&nbsp;s"
 	
@@ -298,9 +298,9 @@ function submit() {
 		
 		var standingvelocity2 = standingvelocity * 0.681818
 		var verticalvelocity2 = start_v_y * 0.681818
-		document.getElementById("standingvelocity2").innerHTML = String.concat("(",round(standingvelocity2).toString());
+		document.getElementById("standingvelocity2").innerHTML = "(" + round(standingvelocity2).toString();
 		document.getElementById("standingvelocityunits2").innerHTML = "&nbsp;mph)";		
-		document.getElementById("verticalvelocity2").innerHTML = String.concat("(",round(verticalvelocity2).toString());
+		document.getElementById("verticalvelocity2").innerHTML = "(" + round(verticalvelocity2).toString();
 		document.getElementById("verticalvelocityunits2").innerHTML = "&nbsp;mph)";
 		
 	} else if(units=="m")
@@ -311,9 +311,9 @@ function submit() {
 		
 		var standingvelocity2 = standingvelocity * 3.6;
 		var verticalvelocity2 = start_v_y * 3.6;
-		document.getElementById("standingvelocity2").innerHTML = String.concat("(",round(standingvelocity2).toString());
+		document.getElementById("standingvelocity2").innerHTML = "(" + round(standingvelocity2).toString();
 		document.getElementById("standingvelocityunits2").innerHTML = "km/h)";
-		document.getElementById("verticalvelocity2").innerHTML = String.concat("(",round(verticalvelocity2).toString());
+		document.getElementById("verticalvelocity2").innerHTML = "(" + round(verticalvelocity2).toString();
 		document.getElementById("verticalvelocityunits2").innerHTML = "km/h)";
 	}
 	
@@ -345,14 +345,14 @@ function submit() {
 		if(units=="ft")
 		{
 			var finalseparation2 = total_difference * 12
-			document.getElementById("finalseparation2").innerHTML = String.concat("(",round(finalseparation2).toString() );
+			document.getElementById("finalseparation2").innerHTML = "(" + round(finalseparation2).toString();
 			document.getElementById("finalseparationunits2").innerHTML = "in)";
 		}
 		
 		if(units=="m")
 		{
 			var finalseparation2 = total_difference * 100
-			document.getElementById("finalseparation2").innerHTML = String.concat("(",round(finalseparation2).toString() );
+			document.getElementById("finalseparation2").innerHTML = "(" + round(finalseparation2).toString();
 			document.getElementById("finalseparationunits2").innerHTML = "cm)";
 		}
 	}
@@ -372,17 +372,17 @@ function submit() {
 
 	if(height_person > radius )
 	{
-		errortext = String.concat(errortext, "Error: The person is larger than the radius of the station.<br/>")
+		errortext += "Error: The person is larger than the radius of the station.<br/>";
 	}
 	
 	if(heightthrown > (2 * radius) )
 	{
-		errortext = String.concat(errortext, "Warning: the throwing height is larger than the station (the ball will just hit the ceiling).<br/>")
+		errortext += "Warning: the throwing height is larger than the station (the ball will just hit the ceiling).<br/>";
 	}
 
 	if(gs > 5 )
 	{
-		errortext = String.concat(errortext, "Warning: Dangerous g-forces.<br/>")
+		errortext += "Warning: Dangerous g-forces.<br/>";
 	}
 
 	if(units=="ft")
@@ -390,14 +390,14 @@ function submit() {
 		throw_vel = round( start_v_y * 0.681818 );
 		if(throw_vel > 100)
 		{
-			errortext = String.concat(errortext, "Warning: the throwing height requires a throwing velocity of ", throw_vel, " mph. This is unrealistic even for a pro-baseball pitcher.<br/>")
+			errortext += "Warning: the throwing height requires a throwing velocity of " + throw_vel + " mph. This is unrealistic even for a pro-baseball pitcher.<br/>";
 		}
 	} else if(units=="m")
 	{
 		throw_vel_mph = round( start_v_y * 2.23694 );
 		if(throw_vel_mph > 100)
 		{
-			errortext = String.concat(errortext, "Warning: the throwing height requires a throwing velocity of ", start_v_y, " m/s. This is unrealistic even for a pro-baseball pitcher.<br/>")
+			errortext += errortext, "Warning: the throwing height requires a throwing velocity of " + start_v_y + " m/s. This is unrealistic even for a pro-baseball pitcher.<br/>";
 		}
 	}
 	
