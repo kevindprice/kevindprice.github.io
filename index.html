@@ -38,7 +38,7 @@
                                 </a>
                             </div> <!-- logo -->
                         </div> <!-- logo span -->
-
+						
                         <div class="span7"> <!-- header -->
                             <!--[if lt IE 9]>
                                 <p class="chromeframe alert alert-warning">You are using an <strong>outdated</strong> browser, and this site might not look best in it. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
@@ -65,6 +65,528 @@
 <div class="article-page">
     <div class="span7 offset2">
         <header class="article">
+            <h2><a href="./coriolis.html" rel="bookmark">The Coriolis Pseudoforce: Why Space Life with Artificial Gravity Would Be Weird</a></h2>
+            <time datetime="2017-02-19T00:00:00-05:00">
+                Feb 19, 2017
+            </time>
+        </header>
+    </div>
+
+    <div class="span2">
+    </div>
+
+    <div class="span7">
+        <section>
+            <article class="entry">
+    <div id="first-article">
+        <h1>The Coriolis Pseudoforce: Why Space Life in Artificial Gravity Would Be Weird</h1>
+<p>Artificial gravity is as important to pop culture as it is to the future of space missions. It is an important part of nearly every space movie, and it is important to the future health of real astronauts. How would it work? How does the physics hold up in your favorite sci-fi movies?</p>
+<p>I’m not asking you to discount any of your favorite movies just because the physics principles in them might not be accurate. But really, what would artificial gravity look like? I have generated a computer model to address this very question.</p>
+<p><img style="float: right; margin-left:10px;" src="CoriolisFiles/RotatingStation.png" width=200 height=200/></p>
+<p>First, let's assume you're on Earth, and you throw the coin 3 feet up. This coin will land directly beneath you.</p>
+<p>Now, let's duplicate this throw in an artificial gravity environment. How far away from your feet will the coin be when it lands on the floor? Spoiler alert: it will not land next to you.</p>
+<p>My initial assumptions are that our virtual station has a radius of 25 feet, you are 6 feet tall, and you throw from 2/3 of your body height (at 4 feet).</p>
+<p>Now look at my table! It will tell you how far away from you it would land.</p>
+<p><link type="text/css" rel="stylesheet" href="CoriolisFiles/style.css">
+<script type="text/javascript" src="CoriolisFiles/errormodel.js"></script></p>
+<table border="1" onmouseover="setfields()">
+    <tr>
+        <!--section titles-->
+        <td style="width:285px;"><h4 class="title" style="color:#CE0D45;">Input Values</h4></td>
+        <td style="width:280px;"><h4 class="title" style="color:#CE0D45;">Output</h4></td>
+    </tr>
+    <tr id="calculations">
+        <td style="padding:10px;">
+            <!--input fields-->
+            <form action="" style="margin-bottom:5px;">
+              <input type="radio" name="units" id="imperial" value="ft" onClick="convertunits(this.value)"/> Imperial (feet)&nbsp;&nbsp;
+              <input type="radio" name="units" id="metric" checked="checked" value="m" onClick="convertunits(this.value)"/> Metric (meters)
+            </form>
+            <div class="smallbreak"></div> <!--smaller text break-->
+            <table>
+                <tr>
+                    <td id="textright">Height of person</td>
+                    <td id="fieldleft"><input type='number' step="any" class="inputfield" id="heightperson" onchange="changeit()"/>&nbsp;
+                        <div class="units" id="heightpersonunits"></div> 
+                        </td>
+                    <td id="heightpersonconversion"></td>
+                </tr>
+                <tr>
+                    <td id="textright">Radius</td>
+                    <td id="fieldleft"><input type='number' step="any" class="inputfield" id="radius" onchange="changeit()"/>&nbsp;
+                        <div class="units" id="radiusunits"></div></td>
+                    <td id="radiusconversion"></td>
+                </tr>
+                <tr>
+                    <td id="textright">Percent Gravity</td>
+                    <td id="fieldleft"><input type='number' step="any" class="inputfield" id="percentgravity" onchange="outputgs(this.value); changeit();" style="width:40px"/>%
+                        <div id="gravitygs" style="display:inline-block;"></div></td>
+                    <td id="gravityconversion"></td>
+                </tr>
+                <tr>
+                    <td id="textright">Height thrown<div></div>"up" on Earth</td>
+                    <td id="fieldleft"><input type='number' step="any" class="inputfield" id="heightthrown" onchange="changeit()"/>&nbsp;
+                        <div class="units" id="heightthrownunits"></div></td>
+                    <td id="heightthrownconversion"></td>
+                </tr>
+            </table><br/>
+            <table>
+                <tr class="t_row">
+                    <td style="text-align:right;">Vertical &nbsp;&nbsp;<div></div>throw velocity:&nbsp;</td>
+                    <td>
+                        <div id="verticalvelocity" class="output"></div>
+                        <div id="verticalvelocity2" class="output"></div>
+                    </td>
+                    <td>
+                        <div id="verticalvelocityunits"></div>
+                        <div id="verticalvelocityunits2"></div>
+                    </td>
+                </tr>
+            </table>
+
+            <div class="smallbreak"></div> <!--smaller text break-->
+
+            <!--<div style="text-align:center;"><input type="submit" value="Submit Values" onclick="submit()"></div>-->
+        </td>
+        <td style="padding:10px;">
+            <!--Additional variable facts, also errors and warnings-->
+            <table style="border-collapse:separate; border-spacing:0 5px;">
+                <tr class="t_row">  
+                    <td style="text-align:right;">Centripetal&nbsp;&nbsp;<div></div> acceleration at floor:&nbsp;</td>
+                    <td id="centripaccel" class="output"></td>
+                    <td id="centripaccelunits"></td>
+                </tr>
+                <tr class="t_row">
+                    <td style="text-align:right;">Standing &nbsp;&nbsp;<div></div> velocity of person:&nbsp;</td>
+                    <td>
+                        <div id="standingvelocity" class="output"></div>
+                        <div id="standingvelocity2" class="output"></div>
+                    </td>
+                    <td>
+                        <div id="standingvelocityunits"></div>
+                        <div id="standingvelocityunits2"></div>
+                    </td>
+                </tr>
+                <tr class="t_row">  
+                    <td style="text-align:right;">Rotational &nbsp;&nbsp;<div></div> velocity of station:&nbsp;</td>
+                    <td id="rotationalvelocity" class="output"></td>
+                    <td id="rotationalvelocityunits"></td>
+                </tr>
+            </table>
+
+            <div class="smallbreak"></div>
+            <div id="error" style="color:red; font-weight:bold; text-align:center;"></div>
+        </td>
+    </tr>
+    <tr>
+        <td><div style="color:#CE0D45; text-align:center;">Expected values on Earth</div></td>
+        <td><div style="color:#CE0D45; text-align:center;">Results on station</div></td>
+    </tr>
+    <tr>
+        <td style="padding:5px">
+            <table style="border-collapse:separate; border-spacing:0 5px;">
+            <tr>
+                <td style="text-align:right;"><div>Time in the air:&nbsp;&nbsp;</td>
+                <td id="expectedtime"></td>
+                <td id="expectedtimeunits"></td>
+            </tr>
+            <tr>
+                <td style="text-align:right;"><div>Max height:&nbsp;&nbsp;<div></div></td>
+                <td id="expectedheight"></td>
+                <td id="expectedheightunits"></td>
+            </tr>
+            <tr>
+                <td style="text-align:right;"><div>Distance "away"&nbsp;&nbsp;&nbsp;<div></div> at landing:&nbsp;&nbsp;</td>
+                <td id="expecteddist">0</td><td></td>
+            </tr>
+            </table>
+        </td>
+
+        <td style="padding:5px">
+            <table style="border-collapse:separate; border-spacing:0 5px;">
+                <tr class="t_row">
+                    <td style="text-align:right;">Time in the air:&nbsp;</td>
+                    <td id="timeinair" class="output"></td>
+                    <td id="timeinairunits"></td>
+                </tr>
+                <tr class="t_row">
+                    <td style="text-align:right;">Max height achieved:&nbsp;</td>
+                    <td id="maxheightachieved" class="output"></td>
+                    <td id="maxheightachievedunits"></td>
+                </tr>
+                <tr class="t_row">
+                    <td style="text-align:right;"><b><div style="color:#CE0D45;">Distance "away"&nbsp;&nbsp;<div></div> at landing:</b>&nbsp;</td>
+                    <td>
+                        <div id="finalseparation" class="output"></div>
+                        <div id="finalseparation2" class="output"></div>
+                    </td>
+                    <td>
+                        <div id="finalseparationunits"></div>
+                        <div id="finalseparationunits2"></div>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+
+<p><br/></p>
+<p>A coin thrown straight upwards would land about as far over as you threw it upwards! This is because of the Coriolis pseudoforce. If you scroll to the next section, you can watch this concept in action.</p>
+<p>The Coriolis pseudoforce—pseudo, because it’s not technically a force—is an artifact of artificial gravity that causes objects to move in unexpected directions. The Coriolis pseudoforce is not a force, because forces only exist from a point of view that is not rotating. From this point forward, I'll call it the Coriolis force.</p>
+<p>The more I’ve read and seen about it, the more I’m convinced that life with artificial gravity would be very difficult to get used to. In artificial gravity, twitchy effects would surround you, constantly taking you where you don’t expect.</p>
+<p>Artificial gravity would be generated by rotation, in the same way that you feel a push from your car when you make a sharp turn. If you keep on turning forever around a curve, then you have gravity. Unfortunately, we do not currently have a space station with artificial gravity, so the concepts in this article are essentially discussing future tech; but the concepts behind artificial gravity are real.</p>
+<p>In this article, I’ll show you what the Coriolis force would look like. Next, I will discuss the importance of artificial gravity. I’ll discuss the physics of how artificial gravity works, and then I’ll use that to dive into the physics of everyone’s favorite sci-fi movies. Finally, I’ll finish with the boring part—the math I used to generate the model. I would love you to read the math and prove me wrong. I dare you.
+<br/></p>
+<h3>Visualizing the Coriolis Force</h3>
+<p>As I was planning this article, I wanted to produce a visual model that shows you what this throw would look like, from both a spinning point of view, and from a point of view outside the station. However, the more I thought about producing this model, the more I realized it would be impractical: I would never be able to zoom correctly. The larger you set the radius to be, the smaller you would be relative to it, and the harder it would be to even see the throw at all.</p>
+<p><a href="http://andygiger.com/science/e-coriolis/">This computer model</a> basically accomplishes my task for me! Andy Giger, on <a href="http://andygiger.com/science/e-coriolis/">this</a> website, posed a similar question. What would it look like if you had a spinning water fountain, with water jets pointing inward? I simply copied his code and modified the starting parameters so that my point is evident.</p>
+<p>You can use his model to answer my similar question. Imagine each dot on his model as if it were the coin from mine. The only difference is that his jets start from the ground. </p>
+<p>(You can make my coin toss start from the ground, too, by setting the person height equal to zero.)</p>
+<script type="text/javascript" src="CoriolisFiles/processing.js"></script>
+
+<table>
+    <tr>
+    <td>
+<div id="coriolis_web_container" align="center" style="position:inline-block;">
+  <canvas data-src="CoriolisFiles/coriolis_web.pde" tabindex="0" id="__processing0" width="300" height="300" style="image-rendering: -moz-crisp-edges ! important;"></canvas>
+</div>
+    </td>
+    <td>
+    <div id="content-left-banner" style="margin:20 0 10 0; padding:10px;">
+      <h3>Controls: </h3>
+      <p>(Click on applet to activate controls.)</p>
+      <table border="0" cellspacing="8" cellpadding="0">
+        <tr style="vertical-align: top;">
+          <td align="right">a, z -</td>
+          <td>in-/decrease rotation speed</td>
+        </tr><tr style="vertical-align: top;">
+          <td align="right">s, x -</td>
+          <td>in-/decrease water pressure</td>
+        </tr><tr style="vertical-align: top;">
+          <td align="right">d, c -</td>
+          <td>in-/decrease frame rate <br>of animation</td>
+        </tr><tr style="vertical-align: top;">
+          <td align="right">t -</td>
+          <td>toggle tracing</td>
+        </tr><tr style="vertical-align: top;">
+          <td align="right">f -</td>
+          <td>toggle reference frame <br>(switch camera)</td>
+        </tr>
+      </table>
+    </div>
+    </td>
+    </tr>
+</table>
+
+<p>As you can see in his model, the coin veers forward, into the direction of rotation. This is because the water is rotating with the station when it starts; it has a horizontal velocity! If you look carefully, you will see that every dot follows a perfectly straight line. If you don't believe me, his graphic has a tracking feature you can activate by pressing "t". Together, the dots look like they are forming a curve. This curve is what the coin’s path would look like in a space station.</p>
+<p><br/></p>
+<h3>The Mechanics of the Coriolis Force</h3>
+<p>On a space station with artificial gravity, you would be intuitively and constantly aware which direction the space station is spinning. Simply by moving your body, the Coriolis force would indicate to you which direction you are going; there would be different forces in every direction. What would those forces look like? There are some directions we can easily infer. Other directions would need to be modeled with a computer.</p>
+<p><img style="float: right; margin-left:10px;" src="CoriolisFiles/CentripetalForce.png" width=200 height=200/></p>
+<p>Artificial gravity works by fighting your inertia. As your body attempts to move in a straight line, the station pushes you constantly upwards.</p>
+<p>If you were to move in the direction of rotation ("forward"), you would be effectively increasing your rotation rate, and you would increase the downward "force" felt. Objects moving in this relative direction would seem to move down more quickly.</p>
+<p>If you were to move opposite the direction of rotation, you would feel lighter; you would be decreasing your rotation. Objects moving in this direction would move up (relative to what you expect).</p>
+<p><br/></p>
+<h3>The problem of weightlessness</h3>
+<p>As you read this, you might be wondering, what’s the point of going to space, if you’re just going to produce artificial gravity anyway? Why use artificial gravity in a space station if it is so difficult to produce? You should use it because weightlessness is damaging to your health! </p>
+<p>Astronaut Scott Kelley just completed an important mission on the International Space Station: he stayed in space for an entire year while his identical twin brother lived on earth. This allowed scientists to study the molecular changes that occurred in Scott’s body, so NASA can better prepare for a mission to Mars. <a href="https://www.nasa.gov/feature/how-stressful-will-a-trip-to-mars-be-on-the-human-body-we-now-have-a-peek-into-what-the-nasa">Here</a> is an article that discusses some of the findings. Let me summarize it so you don’t have to read it: in Scott’s body, scientists discovered inflammation, premature aging, bone loss, and (small) decreases in cognitive ability. If our country is planning long-distance missions to Mars, then artificial gravity will (or should be) important!</p>
+<p><br/></p>
+<h3>Would artificial gravity be practical?</h3>
+<p>Artificial gravity by rotation may prove to be impractical, even in the distant future. The centripetal force—the source of the gravity—is a real force and thus would require energy. How much energy would it need?</p>
+<p>Well, let's think of an equivalent force. How much force does it take to counter the force of gravity on earth? A jet-pack is a technology for doing just that. Jet-packs are not widely used because of their absurd energy requirements. It's simply not possible to pack in enough fuel to make it useful! The max flight length achieved with a jet pack is about 30 seconds.</p>
+<p>Every object on the space station would need a "jet pack" of energy to keep pushing on it. The station would need a very efficient power source to keep it moving at 1g.</p>
+<p><br/></p>
+<h3>My theoretical space station design</h3>
+<p>As you saw in my model, the coin landed about as far over as you threw it upwards. This was in a station with a 25-foot radius. If you increase the radius of the station (try it!), the weirdness of the throw decreases! As the station gets larger, the artificial gravity approaches real gravity. What is surprising to me, though, is how slowly this happens. To achieve earth-“normalness” (close to zero distance from expected), you would need a massively huge station!</p>
+<p>If it requires such a large radius to minimize the Coriolis force, then how can a decent space station ever be constructed? No one ever said the station <em>had</em> to be circular. What if, instead of a large ring, we created two smaller stations connected by a tether?</p>
+<div style="text-align:center;"><img style="margin: -10px 10px 10px 10px;" src="CoriolisFiles/TwoCapsules.png" width=300 height=300/></div>
+
+<p>A space station like this could have an arbitrarily large radius, defined only by the strength of the tether holding it.</p>
+<p><br/></p>
+<h3>Artificial gravity in science fiction</h3>
+<p>Sci-fi movies are entertaining, but they do not give you a realistic picture of artificial gravity. I’m not suggesting that science fiction should change; a “real” picture of artificial gravity would not be cinematic! However, I would like to discuss the physics in these movies so that we can better understand how it works. From what I have seen, there are multiple different categories of sci-fi movies. Let me discuss how artificial gravity fits into these universes.</p>
+<h5>Fantasy Sci-fi</h5>
+<p>While I was sitting in one of my physics classes at BYU, my teacher made a comment that sums up the science of most sci-fi movies. He said something along the lines of, “When I watch a sci-fi movie, I allow one, or maybe two, impossible technologies. After that, I consider it fantasy.” </p>
+<p>Sci-fi movies are entertaining, and I enjoy watching them. But I also understand that they are essentially fantasy.</p>
+<p><img style="float: right; margin-left:10px;" src="CoriolisFiles/StarTrek.jpg" width=200 height=200/></p>
+<p>What you see in most sci-fi movies is an artificial gravity “generator” underneath the station that uses an energy source to produce pure gravity. This is the view in the Star Wars and Star Trek universes. </p>
+<p><img style="float: left; margin-right:10px;" src="CoriolisFiles/DeathStar.jpg" width=200 height=200/></p>
+<p>A “pure” gravity source would not be possible! Even if, in the far-distant future, a method were found to convert energy into pure gravity, it would take such an unimaginably huge energy source that it would never be practical. Furthermore, it would create a very real gravity well, and earth would start orbiting around the space station (actually, they would start orbiting each other in a binary pair). Can you imagine how much energy it would take to knock the earth out of its orbit? That’s the kind of energy it would take to create such a gravity source, if indeed it is possible.</p>
+<h5>Other Sci-fi Stories</h5>
+<p>Next, there are movies that mix elements of fantasy and science. <em>Ender’s Game</em> is a fantasy story, but the story centers around realistic artificial gravity. Orson Scott Card can be lauded for the extensive effort he makes to depict artificial gravity correctly. To recap: Ender lives on an artificial-gravity space station. He is a genius in a space-army of children being trained for war. His military commanders manipulate gravity on the station so that children can learn to fight space battles with no gravity.</p>
+<p><img style="float: left; margin-right:10px;" src="CoriolisFiles/EnderGame.jpg" width=250 height=250/></p>
+<p>Orson Scott Card is mostly correct in his description of how artificial gravity works. Ender finds that there is less gravity closer to the center of the station. When he enters the battle room, there is no gravity at all.</p>
+<p>The story naturally never mentions the Coriolis force. Even in such a massive space station where Ender finds himself, the Coriolis force could not be avoided. Ender would need battle training in artificial gravity to get acclimatized to the station. In an artificial-gravity battle room, everything he does would depend on the direction he is facing. My computer model has addressed the Coriolis pesudoforce in two directions: up and down; there would be other effects in the other directions of movement as well.</p>
+<p>To truly “minimize” the effects of the Coriolis force, a space station would need to be at least dozens of miles across. So now I would like to discuss one final space station that would fit this ticket: the station from <em>Halo: Combat Evolved</em>! There is one unfortunate problem with the Halo station: it uses “fake” gravity! The station does not generate its gravity through rotation. (See <a href="https://en.wikipedia.org/wiki/Artificial_gravity_(fiction)">this link</a>: Halo “also uses some form of field or other artificially generated gravity as it is stated in <em>Halo: The Flood</em>, the ring world does not spin nearly fast enough to create the amount of gravity it possesses.”)</p>
+<p><img style="float: right; margin-left:10px;" src="CoriolisFiles/Halo.jpg" width=250 height=250/></p>
+<p>Let’s set that detail aside for a moment, and let’s pretend that the station does correctly generate artificial gravity. What would be the size of the Coriolis effect on such a large station? According to <a href="https://en.wikipedia.org/wiki/Artificial_gravity_(fiction)">this</a> Wikipedia article, the ring in <em>Halo: Combat Evolved</em> has a radius of 5,000 miles or 8,000 km (26,400,000 feet or 8,000,000 meters). According to my model, if you threw a coin three feet into the air, it would land about a millimeter away.</p>
+<p>The Master Chief shoots projectiles much farther than three feet into the air. The accumulated error over long distances would be large enough to make his target practice quite difficult. Furthermore, the error would be different depending on the direction he is facing, the velocity of the projectile, and the radius of the station. He would need some sort of “smart ballistics” capable of calculating the constantly changing error. Then again, he is a genetically-engineered super-soldier.</p>
+<p>Even if a station such as the one in <em>Halo</em> did exist, it seems unlikely to me that it would be able to retain an atmosphere. Would there really be enough friction to pull it along with the station? What would keep the air rotating? It seems to me that you would need a transparent ceiling to contain it.</p>
+<h5>“Real” Sci-fi</h5>
+<p>I find it interesting that, more recently, some movies have chosen to display the science of sci-fi more accurately. Two of these movies are <em>Gravity</em> and <em>The Martian</em>.</p>
+<p>The movie <em>Gravity</em> is notable because the entire movie takes place <em>without</em> gravity. The main character lives in orbit.</p>
+<p><img style="float: right; margin-left:10px; margin-top: -30px;" src="CoriolisFiles/TheMartian.jpg" width=220 height=220/></p>
+<p>In <em>The Martian</em>, astronauts live in a spacerocket with artificial gravity; this rocket takes them between Earth and Mars. This gravity is correctly generated by rotation.</p>
+<p>There are some reasonably accurate sci-fi stories out there, but none of them mentions the Coriolis force. This is to be expected. We’ve never even built such a station before, so how could we depict it? If we someday build a massive space infrastructure capable of supporting artificial-gravity environments, the Coriolis force will be the least of our troubles.</p>
+<p><br/></p>
+<h3>Conclusion</h3>
+<p>We have a long way to go before we'll be producing artificial gravity environments in space. As you can see, it would be very difficult to accomplish. Artificial gravity would have large energy requirements to produce, and we would feel strange effects aboard an artificial gravity space station. Nonetheless, it gives us something to think about. Now we know how it would work.</p>
+<p><br/><br/></p>
+<h3>The Math</h3>
+<p>As you look at the math I used to solve this problem, you will see the math is quite thorny. Nonetheless, the events that would take place still follow the rules of basic physics.</p>
+<p>To understand the events that take place in our coin toss, we must look at these events from a perspective that is not rotating. The Coriolis force is not a force, but is simply described by the difference between rotation and real gravity.</p>
+<p>I assumed that the station is rotating clockwise. The station is a virtual coordinate system, where (0,0) is the exact center of the station. For our convenience, the moment of the throw takes place at the instant the person is standing at the bottom of the curve. The person throws the coin with the force that would have been needed to get it 3 feet up in the air on Earth.</p>
+<div style="text-align:center;"><img style="margin: -10px 10px 10px 10px;" src="CoriolisFiles/CoordinateSystem.png" width=300 height=300/></div>
+
+<p>While we are still holding the coin, we (and the coin) have a leftwards velocity due to the clockwise rotation. The centripetal force is pushing us upwards, directly towards the middle of the station.</p>
+<div style="text-align:center; margin:20px;"><img style="margin: -10px 10px 10px 10px; float:left;" src="CoriolisFiles/BeforeThrow.png" width=200 height=200/><img style="float:right; margin: -10px 10px 10px 10px;" src="CoriolisFiles/AfterThrow.png" width=200 height=200/></div>
+
+<p><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/></p>
+<p>At the moment the coin is released, it will no longer have any forces acting on it. The coin is no longer touching the station. It will continue to have the same leftwards horizontal velocity, but it will now have a vertical velocity component defined by how hard you would have thrown it on earth.</p>
+<p>Now that I have set up the physics, I will explain the order of operations for our quest. In my advanced physics classes, the professors emphasized creating an equation that can solve your problem for you. This problem is far too complex to be placed into one equation; thus, we will solve it in steps, and the computer will give us the answer. </p>
+<p>We are solving for the separation distance from where the coin landed and where we are standing at that moment. To find this, we need to find out the coordinates of where both we, and the coin, would end up. We know the velocity of the coin when it launches (or can solve for it easily). Using this, we can solve for its landing coordinate and the time it elapsed in the air. We can then use the time elapsed in the air to find where <em>we</em> would end up in an equivalent time period. This will give us our answer.</p>
+<p>To review:</p>
+<ol type="1">
+    <li>Solve for the coin's starting velocity
+        <ul><li>Both horizontal and vertical components</li></ul>
+    </li>
+    <li>Find the coin's landing coordinates</li>
+    <li>Get the time elapsed</li>
+    <li>Calculate the arc swept by you in this time period
+        <ul><li>Use this to get your final coordinates</li></ul>
+    </li>
+    <li>Calculate the difference between the final coordinates</li>
+</ol>
+
+<p><br/></p>
+<h5>Starting Velocity</h5>
+<h6>Vertical Component</h6>
+<p>The velocity of your throw is based on how hard you <em>would</em> have thrown the coin on Earth. This is the easy part of our quest; it's basic kinematics, and it uses Earth's gravity.</p>
+<p><img style="float: right; margin-left:10px;" src="CoriolisFiles/BasicKinematics.png" width=150 height=150/></p>
+<p>Physics tells us, that at the top of an arc of motion on earth, the velocity will exactly equal zero. </p>
+<p>In the image on the right, I expanded the path so you can better see the vertical throw; however, the coin still falls directly under where it was thrown.</p>
+<p>This is the relevant kinematics fomula:</p>
+<div class="math">$$v_f^2=v_0^2+2ax$$</div>
+<p>Variables:</p>
+<ul>
+<li><span class="math">\(v_f\)</span> is the final velocity</li>
+<li><span class="math">\(v_0\)</span> is the initial velocty</li>
+<li><span class="math">\(a\)</span> is the acceleration</li>
+<li><span class="math">\(x\)</span> is the distance traveled</li>
+</ul>
+<p>In our formula:</p>
+<ul>
+<li><span class="math">\(v_0\)</span> is the initial velocity, the variable we want</li>
+<li><span class="math">\(v_f=0\)</span> (the top of our throwing arc)</li>
+<li><span class="math">\(x\)</span> is the height of our throw (3 feet up)</li>
+<li><span class="math">\(a=-g_e=-32.174\)</span> ft/s/s, the gravity on earth.
+<br/><br/>
+By solving, we get:
+<div class="math">$$0=v_0^2-2gx$$</div>
+</li>
+</ul>
+<div class="math">$$v_{0y}=\sqrt {2g_ex}$$</div>
+<h6>Horizontal Component</h6>
+<p>Before we solve for the coin's initial horizontal velocity, please note that the coin does not feel the same force of gravity as you do on the floor of the station. It has a smaller radius to the center of the station because you are holding it in your hand. Thus, the coin's horizontal velocity would not be <em>quite</em> the same as if it were touching the floor.</p>
+<p>This is the equation of interest for us here, the equation for rotational acceleration:</p>
+<div class="math">$$a=\frac{v_t^2}{r}=\omega^2r$$</div>
+<p>Variables:</p>
+<ul>
+<li><span class="math">\(v_t\)</span> is the tangential velocity of an object on the station</li>
+<li>r is the radius where the object is located</li>
+<li>a is the acceleration felt by the object</li>
+<li><span class="math">\(\omega\)</span> is the rotational rate of the station in radians/second.</li>
+</ul>
+<p><span class="math">\(\omega\)</span> would be the same at the floor and at the coin. We can calculate <span class="math">\(\omega\)</span> using values at the floor (1g acceleration), and then use <span class="math">\(\omega\)</span> to find the tangential/horizontal velocity of the coin.</p>
+<div class="math">$$\omega=\sqrt {\frac {a}{r}}$$</div>
+<p>In our formula:</p>
+<ul>
+<li><span class="math">\(a=-32.174\)</span> ft/s/s, the acceleration at the floor</li>
+<li><span class="math">\(r\)</span> is the radius of the station.</li>
+</ul>
+<p>We can then use omega to calculate the tangential velocity of the coin at its radius. Using the formula at the top, we get:</p>
+<div class="math">$$v_x = -v_t=-\omega*r_{coin}$$</div>
+<div class="math">$$r_{coin}=r_{station}-\frac {2}{3}*h_{person}$$</div>
+<p>The coin is thrown from <span class="math">\(\frac {2}{3}\)</span> the height of the person. The velocity is set to be negative, because the coin is going left in our coordinate plane. Left is a negative direction.</p>
+<p>Thus, our final formula:</p>
+<div class="math">$$v_x = -\sqrt {\frac{a}{r_{station}}}*(r_{station}-\frac {2}{3}*h_{person})$$</div>
+<p>Our variables:</p>
+<ul>
+<li>a = the acceleration of the station, -32.174 ft/s/s</li>
+<li><span class="math">\(r_{station}\)</span>=the radius of the station</li>
+<li><span class="math">\(h_{person}\)</span>=the height of the person</li>
+</ul>
+<p><br/></p>
+<h5>The Coin's Landing Coordinates</h5>
+<p>We can use the velocity components of the coin to find its landing coordinates. The coin is traveling up and to the left in a straight line; the slope of the path it follows is the fraction of the two velocity components, <span class="math">\(\frac{v_y}{v_x}\)</span>.</p>
+<p>The equation for a line: <span class="math">\(y = mx + b\)</span></p>
+<p>Our variables:</p>
+<ul>
+<li><span class="math">\(m=\frac {rise}{run}=\frac{v_y}{v_x}\)</span>, it will be <em>negative</em>.</li>
+<li><span class="math">\(b=\)</span>&nbsp;the y-intercept&nbsp;<span class="math">\(=-(r_{station}-\frac {2}{3}*h_{person})\)</span></li>
+</ul>
+<p>My computer tells me that <span class="math">\(v_x=-23.82329\)</span> ft/s, and <span class="math">\(v_y=13.80403\)</span> ft/s. This is the formula for the path of the coin:</p>
+<div class="math">$$y=-.579434x-21$$</div>
+<p>Now, we need to find where this line intersects with a circle. Here is the formula for a circle:</p>
+<div class="math">$$x^2 + y^2 = r^2$$</div>
+<p>We can cheat and solve this using an <a href="https://www.desmos.com/calculator">online graphing website</a>:</p>
+<div style="text-align:center;"><img style="margin: -10px 10px 10px 10px;" src="CoriolisFiles/IntersectPoint.png" width=250 height=250/></div>
+
+<p>In this image, you can see the path of the coin and its final intersection with the ground, up and to the left. The coin starts at the y-intercept.</p>
+<p>Now, we will solve this by hand. For our computer model, we need formulas that the computer can solve! </p>
+<div class="math">$$x^2 + y^2 = r_{station}^2$$</div>
+<div class="math">$$y=mx-r_{coin}$$</div>
+<div class="math">$$x^2 + (mx-r_{coin})^2 = r_{station}^2$$</div>
+<p>Rearrange and simplify to a quadratic equation (format <span class="math">\(0=ax^2+bx+c\)</span>):
+</p>
+<div class="math">$$0=(1+m^2)x^2-2mr_{coin}x+(r_{coin}^2-r_{station}^2)$$</div>
+<p>The quadratic formula:</p>
+<div class="math">$$x=\frac {-b\pm\sqrt {b^2-4ac}}{2a}$$</div>
+<p>Plug in our variables and simplify:</p>
+<div class="math">$$x=\frac{mr_{coin}\pm\sqrt{m^2r_{coin}^2-(1+m^2)(r_{coin}^2-r_{station}^2)}}{1+m^2}$$</div>
+<p>This is our formula for the x-coordinate of the coin. The correct value will be the answer that is negative, because the coin goes to the <em>left</em>. The equation correctly gives us -23.967 when we solve with the (+) operator.</p>
+<p>Now we need to solve for the y-component that matches this x-component:</p>
+<div class="math">$$x^2 + y^2= r_{station}^2$$</div>
+<div class="math">$$y=\sqrt {r_{station}^2-x^2}$$</div>
+<p>This gives us 7.113. There is one problem: solving this way only gives us the <em>absolute value</em> of the y-component!</p>
+<p>To get the correct sign of the y-component, we need to use the quadratic formula <em>again</em>.</p>
+<div class="math">$$y=mx-r_{coin}$$</div>
+<div class="math">$$x=\frac{y+r_{coin}}{m}$$</div>
+<div class="math">$$\left(\frac {y+r_{coin}}{m}\right)^2 + y^2= r_{station}^2$$</div>
+<p>Rearrange and simplify to a quadratic equation:</p>
+<div class="math">$$0=y^2(1+m^2)+2r_{coin}y+(r_{coin}^2-r_{station}^2m^2)$$</div>
+<p>Put into the quadratic formula and simplify:</p>
+<div class="math">$$y=\frac{-r_{coin}\pm\sqrt{r_{coin}^2-(1+m^2)(r_{coin}^2-r_{station}^2m^2)}}{1+m^2}$$</div>
+<p>We already know the absolute value of the y-component. The quadratic formula tells us that this number should be negative, -7.113. We arrived at this number using the (-) operator.</p>
+<p>Our final coordinates are (-23.967, -7.113). This matches the values from the graphing website. </p>
+<p>The correct operators in the quadratic formula were (+) when solving for x, and (-) when solving for y. Thus, our final formulas are:</p>
+<div class="math">$$x=\frac{mr_{coin}+\sqrt{m^2r_{coin}^2-(1+m^2)(r_{coin}^2-r_{station}^2)}}{1+m^2}$$</div>
+<div class="math">$$y=\frac{-r_{coin}-\sqrt{r_{coin}^2-(1+m^2)(r_{coin}^2-r_{station}^2m^2)}}{1+m^2}$$</div>
+<p>Our variables:</p>
+<ul>
+<li><span class="math">\(m=\frac {v_y}{v_x}\)</span>. <span class="math">\(v_x\)</span> is negative because the coin is moving left.</li>
+<li><span class="math">\(r_{coin}\)</span> is the radius at the coin.</li>
+<li><span class="math">\(r_{station}\)</span> is the radius of the station.</li>
+</ul>
+<p><br/><br/></p>
+<h5>Time Elapsed in the Air</h5>
+<p>Now that we have the landing coordinates, we can solve for the exact time elapsed using kinematics equations. First, we need the distance traveled. We will calculate this using the Pythagorean Theorem. The final coordinates of the coin are (x_f, y_f), and the initial coordinates are (0,<span class="math">\(-r_{coin}\)</span>).</p>
+<p>Pythagorean theorem: <span class="math">\(d=\sqrt{(x_2-x_1)^2 + (y_2-y_1)^2}\)</span>.</p>
+<p>Using our variables: <span class="math">\(d=\sqrt{x_f^2+(y_f+r_{coin})^2}\)</span></p>
+<p>We also need to solve for the velocity. We have the x and y components. The velocity, with the Pythagorean theorem, is <span class="math">\(v=\sqrt {v_x^2 + v_y^2}\)</span>.</p>
+<p>We know from basic kinematics that <span class="math">\(d=vt\)</span> for objects that are not accelerating. We can rearrange this and plug in our values. We get:</p>
+<div class="math">$$t=\frac {\sqrt{x_f^2+(y_f+r_{coin})^2}}{\sqrt {v_x^2 + v_y^2}}$$</div>
+<p>Our variables:</p>
+<ul>
+<li><span class="math">\(x_f\)</span> = the final x-coordinate of the coin</li>
+<li><span class="math">\(y_f\)</span> = the final y-coordinate of the coin</li>
+<li><span class="math">\(v_x\)</span> = the velocity x-component</li>
+<li><span class="math">\(v_y\)</span> = the velocity y-component</li>
+<li><span class="math">\(r_{coin}\)</span> = the radius at the coin, before it is launched</li>
+</ul>
+<p><br/></p>
+<h5>The Arc Swept By the Person</h5>
+<p>We can use the time variable to calculate the angle a person will cover while the coin is in the air. This will give us the final coordinates of the person.</p>
+<p>We have already calculated the station's rotation rate in the beginning of our problem. This is <span class="math">\(\omega\)</span>, in radians/second.</p>
+<p>The person starts at an angle of <span class="math">\(\frac{3\pi}{2}\)</span> (270 degrees in radians). The person is sweeping a negative arc, because they are traveling clockwise (counterclockwise is positive for angles).</p>
+<p>If <span class="math">\(\theta_t\)</span> is the total arc swept by the person, then you would expect <span class="math">\(\theta_t=\theta_f-\theta_0\)</span>. However, you must keep in mind the negative direction of the arc being traveled. We can switch the sign by flipping the terms of the equation. Thus, our formula is <span class="math">\(\theta_t=\theta_0-\theta_f\)</span>, where <span class="math">\(\theta_0=\frac{3\pi}{2}\)</span>. Now rearrange the terms:
+</p>
+<div class="math">$$\theta_f = \theta_0 - \theta_t$$</div>
+<p>With rotational kinematics, we can calculate the arc swept by the person: 
+</p>
+<div class="math">$$\theta_t = \omega*t$$</div>
+<p>Put the equations together:</p>
+<div class="math">$$\theta_f = \theta_0 - \omega*t$$</div>
+<p>We have just calculated the person's final angle in the station. Now, we have a set of polar coordinates: we have the final angle and the radius. We can convert these polar coordinates to cartesian coordinates using the equations:</p>
+<div class="math">$$x=r*cos(\theta)$$</div>
+<div class="math">$$y=r*sin(\theta)$$</div>
+<p>Our final x and y coordinates:</p>
+<div class="math">$$x=r*cos(\frac{3\pi}{2} - \omega*t)$$</div>
+<div class="math">$$y=r*sin(\frac{3\pi}{2} - \omega*t)$$</div>
+<p>Our variables:</p>
+<ul>
+<li>r = the radius of the station</li>
+<li><span class="math">\(\omega\)</span> = the rotational rate of the station (calculated when we found the horizontal velocity)</li>
+<li>t = the time elapsed while the coin is in the air</li>
+</ul>
+<p><br/></p>
+<h5>The Final Answer</h5>
+<p>Now that we have the landing coordinates of the coin, and the person's final coordinates, we can calculate the straight line distance between the two using the Pythagorean theorem. This formula gives us our answer:</p>
+<div class="math">$$d = \sqrt{(x_{coin}-x_{person})^2 + (y_{coin}-y_{person})^2}$$</div>
+<p>Javascript calculates to a precision of about 15 decimal points.</p>
+<p><br/></p>
+<h5>Max Height Achieved</h5>
+<p>My table also displays the max height achieved by the coin. Unfortunately, there is no formula to calculate this. I generated this number by creating a maximization script; the script sweeps up and down the path of the coin to find the point that is at the farthest distance from the circle.</p>
+<p><br/></p>
+<h3>Final Notes</h3>
+<p>I would quickly like to note my experience with physics. I do not have a physics degree, but I have studied physics-mechanics three times. I originally took physics as a high school student, and I was fascinated by it! I decided to take it again as an AP course, and I earned a 4/5 on the final AP exam. In college, I ended up retaking this course, even though I already had credit for it. I wanted to prepare for medical school; medical schools do not accept AP credit. The equivalent course at BYU was Principles of Physics I, for Scientists and Engineers. This was a repeat of my course in high school, so it was easy for me; I earned an A (BYU does not administer A+ grades). I then continued this advanced physics track through Principles of Physics II and III.</p>
+<p>In none of these classes was the Coriolis force ever mentioned. I was never given a physics problem similar to this one. It seems it would be far too complicated for an exam. I cannot remember where I originally read about the Coriolis force. This subject is something that has fascinated me ever since I took AP physics in high school.</p>
+<script type="text/javascript">if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
+    var align = "center",
+        indent = "0em",
+        linebreak = "false";
+
+    if (false) {
+        align = (screen.width < 768) ? "left" : align;
+        indent = (screen.width < 768) ? "0em" : indent;
+        linebreak = (screen.width < 768) ? 'true' : linebreak;
+    }
+
+    var mathjaxscript = document.createElement('script');
+    var location_protocol = (false) ? 'https' : document.location.protocol;
+    if (location_protocol !== 'http' && location_protocol !== 'https') location_protocol = 'https:';
+    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
+    mathjaxscript.type = 'text/javascript';
+    mathjaxscript.src = location_protocol + '//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
+    mathjaxscript[(window.opera ? "innerHTML" : "text")] =
+        "MathJax.Hub.Config({" +
+        "    config: ['MMLorHTML.js']," +
+        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'AMS' } }," +
+        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
+        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
+        "    displayAlign: '"+ align +"'," +
+        "    displayIndent: '"+ indent +"'," +
+        "    showMathMenu: true," +
+        "    messageStyle: 'normal'," +
+        "    tex2jax: { " +
+        "        inlineMath: [ ['\\\\(','\\\\)'] ], " +
+        "        displayMath: [ ['$$','$$'] ]," +
+        "        processEscapes: true," +
+        "        preview: 'TeX'," +
+        "    }, " +
+        "    'HTML-CSS': { " +
+        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'inherit ! important'} }," +
+        "        linebreaks: { automatic: "+ linebreak +", width: '90% container' }," +
+        "    }, " +
+        "}); " +
+        "if ('default' !== 'default') {" +
+            "MathJax.Hub.Register.StartupHook('HTML-CSS Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax['HTML-CSS'].FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+            "MathJax.Hub.Register.StartupHook('SVG Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax.SVG.FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+        "}";
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
+}
+</script>
+    </div>
+ 
+            </article>
+        </section>
+    </div> <!-- span -->
+</div>
+<div class="article-page">
+    <div class="span7 offset2">
+        <header class="article">
             <h2><a href="./my-super-post.html" rel="bookmark"></a></h2>
             <time datetime="2017-02-11T13:28:40.386041-05:00">
                 Feb 11, 2017
@@ -78,7 +600,8 @@
     <div class="span7">
         <section>
             <article class="entry">
-    <div id="first-article">
+    <div class="article-summary">
+        <!-- show full content instead of summary -->
         <!-- :date:
 :modified: -->
 <p>Welcome to my website! I built this site using a site generator in Python called Pelican. I write all of my articles using reStructuredText, and they are automatically converted by Python into this wonderful webpage. I just have to set the Python code the way I want it.</p>
@@ -92,6 +615,11 @@
             </article>
         </section>
     </div> <!-- span -->
+</div>
+<div class="span7 offset2">
+    <p class="paginator">
+        Page 1 / 1
+    </p>
 </div>
     </div>
                         </div>
@@ -175,6 +703,9 @@ Our family blog, written by my wife Erin
 			<ul>
 					<li>
 						<a href="./category/about-this-site.html">About this site</a>
+					</li>
+					<li>
+						<a href="./category/computer-modeling.html">Computer Modeling</a>
 					</li>
 			</ul>
 		</li>

@@ -1,0 +1,28 @@
+p {
+	/*display:inline-block;*/
+}
+
+#textright {
+	text-align:right;
+}
+
+.units {
+	display:inline-block;		
+}
+
+.inputfield {
+	width:73px;
+	margin-left: 5px;
+}
+
+.title {
+	text-align:center;
+}
+
+.smallbreak {
+	height:8px;
+}
+
+.output {
+	text-align:right;
+}
