@@ -321,7 +321,7 @@ function submit() {
 	var rotation = omega / (2 * Math.PI);
 	if(rotation < 1)
 	{
-		rotational_units = "&nbsp;rev/min"
+		rotational_units = "&nbsp;rpm"
 		rotation = rotation * 60;
 	}
 	
