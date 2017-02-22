@@ -523,21 +523,21 @@ By solving, we get:
 <h5>The Arc Swept By the Person</h5>
 <p>We can use the time variable to calculate the angle a person will cover while the coin is in the air. This will give us the final coordinates of the person.</p>
 <p>We have already calculated the station's rotation rate in the beginning of our problem. This is <span class="math">\(\omega\)</span>, in radians/second.</p>
-<p>The person starts at an angle of <span class="math">\(\frac{3\pi}{2}\)</span> (270 degrees in radians). The person is sweeping a negative arc, because they are traveling clockwise (counterclockwise is positive for angles).</p>
+<p>The person starts at an angle of <span class="math">\(\frac{3\pi}{2}\)</span> (270 degrees). The person is sweeping a negative arc, because they are traveling clockwise (counterclockwise is positive for angles).</p>
 <p>If <span class="math">\(\theta_t\)</span> is the total arc swept by the person, then you would expect <span class="math">\(\theta_t=\theta_f-\theta_0\)</span>. However, you must keep in mind the negative direction of the arc being traveled. We can switch the sign by flipping the terms of the equation. Thus, our formula is <span class="math">\(\theta_t=\theta_0-\theta_f\)</span>, where <span class="math">\(\theta_0=\frac{3\pi}{2}\)</span>. Now rearrange the terms:
 </p>
 <div class="math">$$\theta_f = \theta_0 - \theta_t$$</div>
 <p>With rotational kinematics, we can calculate the arc swept by the person: 
 </p>
-<div class="math">$$\theta_t = \omega*t$$</div>
+<div class="math">$$\theta_t = \omega t$$</div>
 <p>Put the equations together:</p>
-<div class="math">$$\theta_f = \theta_0 - \omega*t$$</div>
+<div class="math">$$\theta_f = \theta_0 - \omega t$$</div>
 <p>We have just calculated the person's final angle in the station. Now, we have a set of polar coordinates: we have the final angle and the radius. We can convert these polar coordinates to cartesian coordinates using the equations:</p>
 <div class="math">$$x=r*cos(\theta)$$</div>
 <div class="math">$$y=r*sin(\theta)$$</div>
 <p>Our final x and y coordinates:</p>
-<div class="math">$$x=r*cos(\frac{3\pi}{2} - \omega*t)$$</div>
-<div class="math">$$y=r*sin(\frac{3\pi}{2} - \omega*t)$$</div>
+<div class="math">$$x=r*cos(\frac{3\pi}{2} - \omega t)$$</div>
+<div class="math">$$y=r*sin(\frac{3\pi}{2} - \omega t)$$</div>
 <p>Our variables:</p>
 <ul>
 <li>r = the radius of the station</li>
