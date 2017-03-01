@@ -1828,7 +1828,7 @@ function openInstructions()
     var windowFeatures = "width=770,height=570,scrollbars=yes,";
     windowFeatures = windowFeatures + "left=" + winLeft + ",";
     windowFeatures = windowFeatures + "top=" + winTop;
-    newWindow = window.open("Instructions.html", "Instructions", windowFeatures);
+    newWindow = window.open("instructions.html", "Instructions", windowFeatures);
 }
 
 
