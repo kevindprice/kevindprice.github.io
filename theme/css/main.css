@@ -40,8 +40,12 @@ hr {
     text-align: center;
     margin: 0 auto;
     padding-top: 1rem;
-    width: 100px;
+    width: 135px;
 }
+#logo img{
+	border-radius:17px;
+}
+
 
 @media screen and (min-width: 768px) {
     .article-page {
