@@ -497,8 +497,8 @@ function drawObstacle(obstacle)
 
     context.beginPath();
     
-    context.moveTo(x, y);  //Move the line to the coordinate
-    context.lineTo(x + moveX, y + moveY);  //and draw the hash.
+    context.moveTo(x+1, y+1);  //Move the line to the coordinate
+    context.lineTo(x + moveX+1, y + moveY+1);  //and draw the hash.
 
     context.stroke();
 }
@@ -913,8 +913,8 @@ function move()
         context.beginPath();   //First draw a line in GREEN
         context.strokeStyle="#007700"; //dark green
 
-        context.moveTo( Math.round(spot[0]*INTERVAL + INTERVAL/2), 
-                         Math.round(spot[1]*INTERVAL + INTERVAL/2) ); 
+        context.moveTo( Math.round(spot[0]*INTERVAL + INTERVAL/2)+1, 
+                         Math.round(spot[1]*INTERVAL + INTERVAL/2)+1 ); 
 
         switch(spot[2])  //move the line in the right direction,
         {                //while keeping it in reference to the grids.
@@ -942,8 +942,8 @@ function move()
 
         
         //draw the line, ALWAYS keeping it in reference to the grids.
-        context.lineTo( Math.round(spot[0]*INTERVAL + INTERVAL/2), 
-                        Math.round(spot[1]*INTERVAL + INTERVAL/2) );  
+        context.lineTo( Math.round(spot[0]*INTERVAL + INTERVAL/2)+1, 
+                        Math.round(spot[1]*INTERVAL + INTERVAL/2)+1 );  
         context.stroke();
 
         //Decrease the distance to the next obstacle
