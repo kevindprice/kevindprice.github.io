@@ -128,7 +128,6 @@
   <obstacle><type>wall</type><orient>horizontal</orient><x>13</x><y>18</y></obstacle>
   <obstacle><type>wall</type><orient>vertical</orient><x>34</x><y>19</y></obstacle>
   <obstacle><type>wall</type><orient>horizontal</orient><x>33</x><y>20</y></obstacle>
-  <obstacle><type>wall</type><orient>vertical</orient><x>33</x><y>14</y></obstacle>
   <obstacle><type>wall</type><orient>horizontal</orient><x>17</x><y>0</y></obstacle>
   <obstacle><type>permeable</type><orient>vertical</orient><x>12</x><y>0</y></obstacle>
   <obstacle><type>wall</type><orient>vertical</orient><x>12</x><y>12</y></obstacle>
@@ -187,4 +186,6 @@
   <obstacle><type>wall</type><orient>horizontal</orient><x>5</x><y>25</y></obstacle>
   <obstacle><type>permeable</type><orient>horizontal</orient><x>10</x><y>22</y></obstacle>
   <obstacle><type>wall</type><orient>vertical</orient><x>10</x><y>23</y></obstacle>
+  <obstacle><type>wall</type><orient>vertical</orient><x>33</x><y>16</y></obstacle>
+  <obstacle><type>wall</type><orient>horizontal</orient><x>32</x><y>16</y></obstacle>
 </maze>

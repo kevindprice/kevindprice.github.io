@@ -231,13 +231,13 @@ function drawGrid()
     context.strokeStyle="#DDDDDD"; //gray color
     context.beginPath();
 
-    //vertical grid marks
+    //vertical grid marks  x=1 b/c 1 pixel buffer at edge.
     for (var x=1; x<=canvas.width; x+=INTERVAL) {
         context.moveTo(x, 0); 
         context.lineTo(x, canvas.height);
     }
 
-    //horizontal grid marks
+    //horizontal grid marks  y=1 b/c 1 pixel buffer at edge.
     for (var y=1; y<canvas.height; y+=INTERVAL) {
         context.moveTo(0, y); 
         context.lineTo(canvas.width, y);
