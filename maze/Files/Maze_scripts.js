@@ -178,11 +178,11 @@ function setPage()
 	sample = getQueryVariable("sample");
 	if(sample!=null)
 	{
-		sampleFile(sample,20)
+		sampleFile(sample)
 	}
 	else
 	{
-		sampleFile(1, 20);
+		sampleFile(1);
 	}
 }
 
@@ -1703,7 +1703,7 @@ function loadSample()
         tempHTML = document.getElementById("action").innerHTML;
     }
     
-    document.getElementById('action').innerHTML = "<input type='submit' value='Sample 1 (Easy)' onclick='sampleFile(1, 20)'/> <input type='submit' value='Sample 2 (Challenging)' onclick='sampleFile(2, 15)' /> <input type='submit' value='Sample 3 (Challenging)' onclick='sampleFile(3, 20)' /> <input type='submit' value='Cancel'  onclick='cancel_button()' style='font-weight:bold;'/> <input type='submit' value='Load from File' style='margin-left:25px;' onclick='loadMaze()' />"
+    document.getElementById('action').innerHTML = "<input type='submit' value='Sample 1 (Easy)' onclick='sampleFile(1)'/> <input type='submit' value='Sample 2 (Challenging)' onclick='sampleFile(2)' /> <input type='submit' value='Sample 3 (Challenging)' onclick='sampleFile(3)' /> <input type='submit' value='Cancel'  onclick='cancel_button()' style='font-weight:bold;'/> <input type='submit' value='Load from File' style='margin-left:25px;' onclick='loadMaze()' />"
 }
 
 
@@ -1738,7 +1738,8 @@ function processFile(contents)
 	    
 	X_GRIDS = parseInt(xml.getElementsByTagName('X_GRIDS')[0].firstChild.nodeValue);
     Y_GRIDS = parseInt(xml.getElementsByTagName('Y_GRIDS')[0].firstChild.nodeValue);
-
+	DefaultSpacing = parseInt(xml.getElementsByTagName('DefaultSpacing')[0].firstChild.nodeValue);
+	
     //Each obstacle contains dictionaries:
     // { "type":  <obstacle type>
     //   "orient": <obstacle orientation>
@@ -1764,7 +1765,8 @@ function processFile(contents)
 	
     CANVAS_WIDTH = INTERVAL * X_GRIDS;
     CANVAS_HEIGHT = INTERVAL * Y_GRIDS;
-    drawGrid()
+    INTERVAL = DefaultSpacing
+	drawGrid()
 
 }
 

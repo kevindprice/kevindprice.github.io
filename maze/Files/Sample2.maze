@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <maze>
-  <size><X_GRIDS>32</X_GRIDS><Y_GRIDS>35</Y_GRIDS></size>
+  <size><X_GRIDS>32</X_GRIDS><Y_GRIDS>35</Y_GRIDS><DefaultSpacing>15</DefaultSpacing></size>
   <obstacle><type>wall</type><orient>vertical</orient><x>2</x><y>33</y></obstacle>
   <obstacle><type>wall</type><orient>horizontal</orient><x>1</x><y>33</y></obstacle>
   <obstacle><type>wall</type><orient>vertical</orient><x>1</x><y>32</y></obstacle>
