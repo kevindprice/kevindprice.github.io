@@ -1762,10 +1762,10 @@ function processFile(contents)
         obstacles.push(newObstacle)
 	
 	}
-	
+
+    INTERVAL = DefaultSpacing
     CANVAS_WIDTH = INTERVAL * X_GRIDS;
     CANVAS_HEIGHT = INTERVAL * Y_GRIDS;
-    INTERVAL = DefaultSpacing
 	drawGrid()
 
 }
