@@ -9,6 +9,7 @@ Global variable definitions
 
 cancel_button
 setPage
+setQueryVariable
 animate_string
 
 drawGrid
@@ -21,6 +22,7 @@ checkForObstacle
 findBegin
 isIn
 
+Arrow key handling function (anonymous)
 clickHandler
 startCustom
 
@@ -44,6 +46,7 @@ moveForward
 turnBackward
 backTrack
 
+zoomPrompt
 zoomIn
 zoomOut
 speedUp
@@ -72,6 +75,8 @@ var INTERVAL = 20;  //line spacing
 //size of canvas based on number of grids
 var X_GRIDS = 28;
 var Y_GRIDS = 25;
+
+var BORDER = 1; //1 px border around the maze, so the edges show completely.
 
 var CANVAS_WIDTH = INTERVAL * X_GRIDS;
 var CANVAS_HEIGHT = INTERVAL * Y_GRIDS;
@@ -232,13 +237,13 @@ function drawGrid()
     context.beginPath();
 
     //vertical grid marks  x=1 b/c 1 pixel buffer at edge.
-    for (var x=1; x<=canvas.width; x+=INTERVAL) {
+    for (var x=BORDER; x<=canvas.width; x+=INTERVAL) {
         context.moveTo(x, 0); 
         context.lineTo(x, canvas.height);
     }
 
     //horizontal grid marks  y=1 b/c 1 pixel buffer at edge.
-    for (var y=1; y<canvas.height; y+=INTERVAL) {
+    for (var y=BORDER; y<canvas.height; y+=INTERVAL) {
         context.moveTo(0, y); 
         context.lineTo(canvas.width, y);
     }
@@ -258,13 +263,13 @@ function refreshRoute(canvas, context)
     context.beginPath();
     context.strokeStyle="#00FF00"; //green
 
-    context.moveTo( Math.round( route[0]["spot"][0]*INTERVAL + INTERVAL/2)+1, 
-                    Math.round( route[0]["spot"][1]*INTERVAL + INTERVAL/2)+1 ); 
+    context.moveTo( Math.round( route[0]["spot"][0]*INTERVAL + INTERVAL/2)+BORDER, 
+                    Math.round( route[0]["spot"][1]*INTERVAL + INTERVAL/2)+BORDER ); 
     
     for(var i=1; i<route.length; i++)
     {
-        context.lineTo(Math.round( route[i]["spot"][0]*INTERVAL + INTERVAL/2)+1, 
-                       Math.round( route[i]["spot"][1]*INTERVAL + INTERVAL/2)+1 );
+        context.lineTo(Math.round( route[i]["spot"][0]*INTERVAL + INTERVAL/2)+BORDER, 
+                       Math.round( route[i]["spot"][1]*INTERVAL + INTERVAL/2)+BORDER );
     }
 
     context.stroke();
@@ -272,10 +277,10 @@ function refreshRoute(canvas, context)
     context.beginPath(); //draw the LAST SEGMENT in a darker color.
     context.strokeStyle="#006600"; //DARK green
     
-    context.moveTo(Math.round( route[route.length - 1]["spot"][0]*INTERVAL + INTERVAL/2)+1, 
-                   Math.round( route[route.length - 1]["spot"][1]*INTERVAL + INTERVAL/2)+1 );
-    context.lineTo(Math.round( spot[0]*INTERVAL + INTERVAL/2)+1, 
-                   Math.round( spot[1]*INTERVAL + INTERVAL/2)+1 );
+    context.moveTo(Math.round( route[route.length - 1]["spot"][0]*INTERVAL + INTERVAL/2)+BORDER, 
+                   Math.round( route[route.length - 1]["spot"][1]*INTERVAL + INTERVAL/2)+BORDER );
+    context.lineTo(Math.round( spot[0]*INTERVAL + INTERVAL/2)+BORDER, 
+                   Math.round( spot[1]*INTERVAL + INTERVAL/2)+BORDER );
     
     context.stroke()
     
@@ -326,8 +331,8 @@ function refreshObstacles(canvas, context)
                     moveY = 0;
                 }
 
-                context.moveTo(x+1, y+1);  //Now move the line to the coordinate
-                context.lineTo(x + moveX+1, y + moveY+1);  //and draw the hash.
+                context.moveTo(x+BORDER, y+BORDER);  //Now move the line to the coordinate
+                context.lineTo(x + moveX+BORDER, y + moveY+BORDER);  //and draw the hash.
             }
         }
         context.stroke();
@@ -497,8 +502,8 @@ function drawObstacle(obstacle)
 
     context.beginPath();
     
-    context.moveTo(x+1, y+1);  //Move the line to the coordinate
-    context.lineTo(x + moveX+1, y + moveY+1);  //and draw the hash.
+    context.moveTo(x+BORDER, y+BORDER);  //Move the line to the coordinate
+    context.lineTo(x + moveX+BORDER, y + moveY+BORDER);  //and draw the hash.
 
     context.stroke();
 }
@@ -558,14 +563,43 @@ function isIn(list, item)
 //============================================================
 
 
+
 //checks the ARROW KEYS to tell the computer what to do at a stop.
 //function checkKey(e) {
 document.onkeydown = function(e) {
     e = e || window.event;
-    
+
+	key = e.keyCode;
+    isShift = !!e.shiftKey; // typecast to boolean
+
+	//capture SHIFT/+ sign for zoom in
+    if ( isShift ) {
+		switch (key) {
+			case 16: // ignore shift key
+				break;
+			case 187: //Chrome/Safari/Opera/MSIE
+			case 61:  //Firefox
+				zoomIn();
+			default: //do nothing
+				break;
+		}
+	} else {
+		//capture (-) sign for zoom out (NO SHIFT)
+		switch(key)
+		{
+			case 189: //Chrome/Safari/Opera/MSIE
+			case 173: //Firefox
+				zoomOut();
+			default:
+				break;
+		}
+	}
+	
+	//Now for other keys.
+	
     if(spot[3]=="startCustom")
     {
-        switch(e.keyCode)
+        switch(key)
         {
             case 37:
                 startCustom(-1,-1,"left")
@@ -584,7 +618,7 @@ document.onkeydown = function(e) {
     
     if(spot[3]!="drawing")
     {
-        if (e.keyCode == '38') {
+        if (key == '38') {
         // up arrow
             switch(turns["upkey"])
             {
@@ -602,7 +636,7 @@ document.onkeydown = function(e) {
                     break;
             }        
         }
-        else if (e.keyCode == '40') {
+        else if (key == '40') {
             // down arrow
             switch(turns["downkey"])
             {
@@ -620,7 +654,7 @@ document.onkeydown = function(e) {
                     break;
             }        
         }
-        else if (e.keyCode == '37') {
+        else if (key == '37') {
         // left arrow
             switch(turns["leftkey"])
             {
@@ -638,7 +672,7 @@ document.onkeydown = function(e) {
                     break;
             }           
         }
-        else if (e.keyCode == '39') {
+        else if (key == '39') {
         // right arrow
             switch(turns["rightkey"])
             {
@@ -791,7 +825,7 @@ function eraseMaze()
 function changeGridSize(horizontal, vertical)
 {
     if(horizontal==null)
-    {
+    {	//function calls itself recursively. First display prompt, then get value.
         tempHTML = document.getElementById("action").innerHTML
         document.getElementById("action").innerHTML = "(10 < x < 200) Horizontal Grids: <input type='text' id='horizontal' style='width:40px; margin-left: 5px; margin-right: 20px;'/> Vertical Grids: <input type='text' id='vertical' style='width:40px; margin-left: 5px;'/> <input type='submit' value='OK' onclick='changeGridSize( document.getElementById(\"horizontal\").value, document.getElementById(\"vertical\").value )'/>"
         
@@ -821,11 +855,14 @@ function changeGridSize(horizontal, vertical)
             X_GRIDS = Math.round(horizontal);
             Y_GRIDS = Math.round(vertical);
 
-            CANVAS_WIDTH = INTERVAL * X_GRIDS;
-            CANVAS_HEIGHT = INTERVAL * Y_GRIDS;
+            CANVAS_WIDTH = INTERVAL * X_GRIDS + (BORDER*2);
+            CANVAS_HEIGHT = INTERVAL * Y_GRIDS + (BORDER*2);
             
             drawGrid();
             
+			horizontal=null;
+			vertical=null;
+			
             cancel_button()
         }   
     }
@@ -913,8 +950,8 @@ function move()
         context.beginPath();   //First draw a line in GREEN
         context.strokeStyle="#007700"; //dark green
 
-        context.moveTo( Math.round(spot[0]*INTERVAL + INTERVAL/2)+1, 
-                         Math.round(spot[1]*INTERVAL + INTERVAL/2)+1 ); 
+        context.moveTo( Math.round(spot[0]*INTERVAL + INTERVAL/2)+BORDER, 
+                         Math.round(spot[1]*INTERVAL + INTERVAL/2)+BORDER ); 
 
         switch(spot[2])  //move the line in the right direction,
         {                //while keeping it in reference to the grids.
@@ -942,8 +979,8 @@ function move()
 
         
         //draw the line, ALWAYS keeping it in reference to the grids.
-        context.lineTo( Math.round(spot[0]*INTERVAL + INTERVAL/2)+1, 
-                        Math.round(spot[1]*INTERVAL + INTERVAL/2)+1 );  
+        context.lineTo( Math.round(spot[0]*INTERVAL + INTERVAL/2)+BORDER, 
+                        Math.round(spot[1]*INTERVAL + INTERVAL/2)+BORDER );  
         context.stroke();
 
         //Decrease the distance to the next obstacle
@@ -1641,6 +1678,18 @@ function backTrack()
 //==========================================================
 //These functions change background settings.
 
+
+function zoomPrompt()
+{
+    if (tempHTML == "")
+    {
+        tempHTML = document.getElementById("action").innerHTML;
+    }
+    
+    document.getElementById("action").innerHTML = "<input type='submit' value='Zoom In' onclick='zoomIn()'/> <input type='submit' value='Zoom Out' onclick='zoomOut()'/> <input type='submit' value='Done'  onclick='cancel_button()'/>&nbsp; You may also adjust with the + and - keys."
+
+}
+
 function zoomIn()
 {
     if(INTERVAL <= 35)  //limit to how much you can zoom in.
@@ -1764,8 +1813,8 @@ function processFile(contents)
 	}
 
     INTERVAL = DefaultSpacing
-    CANVAS_WIDTH = INTERVAL * X_GRIDS + 2;
-    CANVAS_HEIGHT = INTERVAL * Y_GRIDS + 2;
+    CANVAS_WIDTH = INTERVAL * X_GRIDS + (BORDER*2);
+    CANVAS_HEIGHT = INTERVAL * Y_GRIDS + (BORDER*2);
 	drawGrid()
 
 }
@@ -1845,14 +1894,57 @@ function outputFile()
 
 //================================================================
 //================================================================
-//These functions handle the Instructions window.
+//These functions handle opening new windows.
+
+function solutions(sampleNum)
+{	//opens itself recursively. 
+	//First displays the menu, then opens the window.
+	if(sampleNum==null)
+	{
+		if (tempHTML == "")
+		{
+			tempHTML = document.getElementById("action").innerHTML;
+		}
+		
+		document.getElementById("action").innerHTML = "<input type='submit' value='Sample 1' onclick='solutions(1)'/> <input type='submit' value='Sample 2' onclick='solutions(2)'/> <input type='submit' value='Sample 3' onclick='solutions(3)'/>&nbsp;&nbsp;Opens as a popup.&nbsp;<input type='submit' value='Cancel'  onclick='cancel_button()'/>"
+	}	
+	else
+	{
+		var newImg = new Image();
+
+		newImg.onload = function() {
+			var height = newImg.height;
+			var width = newImg.width;
+			//alert ('The image size is '+width+'*'+height);
+			openImage( newImg.src,width,height );
+			
+		}
+		
+		var imgSrc = "Files/Solution" + sampleNum.toString() + ".png"
+		newImg.src = imgSrc; // this must be done AFTER setting onload
+		
+		//viewwin = window.open("Files/Solution" + sampleNum.toString() + ".png",'Solution to Sample ' + sampleNum.toString(),"width="+width+", height="+height );
+
+		
+		cancel_button();
+
+	}
+}
+
+//Open the super secret solution.
+function openImage(source, width, height)
+{
+	viewwin = window.open(source,"Solution","width="+width*.67+", height="+height*.67 );
+}
+
 
 function openInstructions()
 {
     var winTop = (screen.height / 2) - (3 * screen.height / 7);
     var winLeft = (screen.width / 2) - (3 * screen.width / 7);
     var windowFeatures = "width=770,height=570,scrollbars=yes,";
-    windowFeatures = windowFeatures + "left=" + winLeft + ",";
+    //windowFeatures = "";
+	windowFeatures = windowFeatures + "left=" + winLeft + ",";
     windowFeatures = windowFeatures + "top=" + winTop;
     newWindow = window.open("instructions.html", "Instructions", windowFeatures);
 }
