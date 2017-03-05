@@ -1764,8 +1764,8 @@ function processFile(contents)
 	}
 
     INTERVAL = DefaultSpacing
-    CANVAS_WIDTH = INTERVAL * X_GRIDS;
-    CANVAS_HEIGHT = INTERVAL * Y_GRIDS;
+    CANVAS_WIDTH = INTERVAL * X_GRIDS + 5;
+    CANVAS_HEIGHT = INTERVAL * Y_GRIDS + 5;
 	drawGrid()
 
 }
