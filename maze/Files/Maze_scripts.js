@@ -258,13 +258,13 @@ function refreshRoute(canvas, context)
     context.beginPath();
     context.strokeStyle="#00FF00"; //green
 
-    context.moveTo( Math.round( route[0]["spot"][0]*INTERVAL + INTERVAL/2), 
-                    Math.round( route[0]["spot"][1]*INTERVAL + INTERVAL/2) ); 
+    context.moveTo( Math.round( route[0]["spot"][0]*INTERVAL + INTERVAL/2)+1, 
+                    Math.round( route[0]["spot"][1]*INTERVAL + INTERVAL/2)+1 ); 
     
     for(var i=1; i<route.length; i++)
     {
-        context.lineTo(Math.round( route[i]["spot"][0]*INTERVAL + INTERVAL/2), 
-                       Math.round( route[i]["spot"][1]*INTERVAL + INTERVAL/2) );
+        context.lineTo(Math.round( route[i]["spot"][0]*INTERVAL + INTERVAL/2)+1, 
+                       Math.round( route[i]["spot"][1]*INTERVAL + INTERVAL/2)+1 );
     }
 
     context.stroke();
@@ -272,10 +272,10 @@ function refreshRoute(canvas, context)
     context.beginPath(); //draw the LAST SEGMENT in a darker color.
     context.strokeStyle="#006600"; //DARK green
     
-    context.moveTo(Math.round( route[route.length - 1]["spot"][0]*INTERVAL + INTERVAL/2), 
-                   Math.round( route[route.length - 1]["spot"][1]*INTERVAL + INTERVAL/2) );
-    context.lineTo(Math.round( spot[0]*INTERVAL + INTERVAL/2), 
-                   Math.round( spot[1]*INTERVAL + INTERVAL/2) );
+    context.moveTo(Math.round( route[route.length - 1]["spot"][0]*INTERVAL + INTERVAL/2)+1, 
+                   Math.round( route[route.length - 1]["spot"][1]*INTERVAL + INTERVAL/2)+1 );
+    context.lineTo(Math.round( spot[0]*INTERVAL + INTERVAL/2)+1, 
+                   Math.round( spot[1]*INTERVAL + INTERVAL/2)+1 );
     
     context.stroke()
     
