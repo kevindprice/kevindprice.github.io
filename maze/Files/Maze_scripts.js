@@ -104,7 +104,7 @@ mazeSOLVER = "Starting location: <input type='submit' value='Beginning' style='f
 
 //<input type='submit' value='Return to Solver' onclick='solveMaze()'/> 
 
-createMAZE = "<input type='submit' value='Grid Size' onclick='changeGridSize()'/> <input type='submit' value='Erase All' onclick='eraseMaze()'/> <input type='submit' value='Save' onclick='saveMaze()'/> <input type='submit' value='SOLVE' onclick='solveMaze()' style='margin-right: 10px;'/>Draw: <input type='submit' value='Wall' onclick='drawSetting(\"wall\")'/> <input type='submit' value='Permeable' onclick='drawSetting(\"permeable\")'/> <input type='submit' value='Beginning' onclick='drawSetting(\"begin\")'/> <input type='submit' value='End' onclick='drawSetting(\"end\")'/>"
+createMAZE = "<input type='submit' value='Grid Size' onclick='changeGridSize()'/> <input type='submit' value='Erase All' onclick='eraseMaze()'/> <input type='submit' value='Save' onclick='saveMaze()'/> <!--<input type='submit' value='SOLVE' onclick='solveMaze()' style='margin-right: 10px;'/>-->Draw: <input type='submit' value='Wall' onclick='drawSetting(\"wall\")'/> <input type='submit' value='Permeable' onclick='drawSetting(\"permeable\")'/> <input type='submit' value='Beginning' onclick='drawSetting(\"begin\")'/> <input type='submit' value='End' onclick='drawSetting(\"end\")'/>"
 
 movingHTML = "Actions: <input type='submit' value='Stop the Maze' onclick='stopMaze()'/> <input type='submit' value='Speed(+)' onclick='speedUp()'/> <input type='submit' value='Speed(-)' onclick='slowDown()'/>"
 
@@ -174,8 +174,31 @@ function setPage()
     animate_string('title');
     drawGrid();
     //loadSample();
-	sampleFile(1, 20);
+	
+	sample = getQueryVariable("sample");
+	if(sample!=null)
+	{
+		sampleFile(sample,20)
+	}
+	else
+	{
+		sampleFile(1, 20);
+	}
 }
+
+
+function getQueryVariable(variable) {
+    var query = window.location.search.substring(1);
+    var vars = query.split('&');
+    for (var i = 0; i < vars.length; i++) {
+        var pair = vars[i].split('=');
+        if (decodeURIComponent(pair[0]) == variable) {
+            return decodeURIComponent(pair[1]);
+        }
+    }
+    console.log('Query variable %s not found', variable);
+}
+
 
 //animates the title
 function animate_string(id)   
@@ -1680,7 +1703,7 @@ function loadSample()
         tempHTML = document.getElementById("action").innerHTML;
     }
     
-    document.getElementById('action').innerHTML = "<input type='submit' value='Sample 1 (Easy)' onclick='sampleFile(1, 20)'/> <input type='submit' value='Sample 2 (Challenging)' onclick='sampleFile(2, 15)' />  <input type='submit' value='Cancel'  onclick='cancel_button()' style='font-weight:bold;'/> <input type='submit' value='Load from File' style='margin-left:25px;' onclick='loadMaze()' />"
+    document.getElementById('action').innerHTML = "<input type='submit' value='Sample 1 (Easy)' onclick='sampleFile(1, 20)'/> <input type='submit' value='Sample 2 (Challenging)' onclick='sampleFile(2, 15)' /> <input type='submit' value='Sample 3 (Challenging)' onclick='sampleFile(3, 20)' /> <input type='submit' value='Cancel'  onclick='cancel_button()' style='font-weight:bold;'/> <input type='submit' value='Load from File' style='margin-left:25px;' onclick='loadMaze()' />"
 }
 
 
