@@ -233,7 +233,7 @@ function drawGrid()
 
     //vertical grid marks
     for (var x=0; x<=canvas.width; x+=INTERVAL) {
-        context.moveTo(x, 2); 
+        context.moveTo(x, 3); 
         context.lineTo(x, canvas.height);
     }
 
