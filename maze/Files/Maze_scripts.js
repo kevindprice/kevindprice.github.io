@@ -232,13 +232,13 @@ function drawGrid()
     context.beginPath();
 
     //vertical grid marks
-    for (var x=0; x<=canvas.width; x+=INTERVAL) {
-        context.moveTo(x, 3); 
+    for (var x=2; x<=canvas.width; x+=INTERVAL) {
+        context.moveTo(x, 0); 
         context.lineTo(x, canvas.height);
     }
 
     //horizontal grid marks
-    for (var y=0; y<canvas.height; y+=INTERVAL) {
+    for (var y=2; y<canvas.height; y+=INTERVAL) {
         context.moveTo(0, y); 
         context.lineTo(canvas.width, y);
     }
