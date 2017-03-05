@@ -1818,7 +1818,8 @@ function outputFile()
     textString += "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n"
 	textString += "<maze>\r\n"
 	textString += "  <size><X_GRIDS>" + X_GRIDS + "</X_GRIDS>"
-	textString += "<Y_GRIDS>" + Y_GRIDS + "</Y_GRIDS></size>"
+	textString += "<Y_GRIDS>" + Y_GRIDS + "</Y_GRIDS>"
+	textString += "<DefaultSpacing>" + INTERVAL + "</DefaultSpacing></size>"
 	
     for(var i = 0; i<obstacles.length; i++)
     {
