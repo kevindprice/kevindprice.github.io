@@ -232,13 +232,13 @@ function drawGrid()
     context.beginPath();
 
     //vertical grid marks
-    for (var x=2; x<=canvas.width; x+=INTERVAL) {
+    for (var x=1; x<=canvas.width; x+=INTERVAL) {
         context.moveTo(x, 0); 
         context.lineTo(x, canvas.height);
     }
 
     //horizontal grid marks
-    for (var y=2; y<canvas.height; y+=INTERVAL) {
+    for (var y=1; y<canvas.height; y+=INTERVAL) {
         context.moveTo(0, y); 
         context.lineTo(canvas.width, y);
     }
@@ -326,8 +326,8 @@ function refreshObstacles(canvas, context)
                     moveY = 0;
                 }
 
-                context.moveTo(x, y);  //Now move the line to the coordinate
-                context.lineTo(x + moveX, y + moveY);  //and draw the hash.
+                context.moveTo(x+1, y+1);  //Now move the line to the coordinate
+                context.lineTo(x + moveX+1, y + moveY+1);  //and draw the hash.
             }
         }
         context.stroke();
@@ -1764,8 +1764,8 @@ function processFile(contents)
 	}
 
     INTERVAL = DefaultSpacing
-    CANVAS_WIDTH = INTERVAL * X_GRIDS + 5;
-    CANVAS_HEIGHT = INTERVAL * Y_GRIDS + 5;
+    CANVAS_WIDTH = INTERVAL * X_GRIDS + 2;
+    CANVAS_HEIGHT = INTERVAL * Y_GRIDS + 2;
 	drawGrid()
 
 }
