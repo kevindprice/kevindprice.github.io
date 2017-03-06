@@ -1937,16 +1937,16 @@ function openImage(source, width, height)
 	viewwin = window.open(source,"Solution","width="+width*.67+", height="+height*.67 );
 }
 
-
+//opens instructions in new tab.
 function openInstructions()
 {
     var winTop = (screen.height / 2) - (3 * screen.height / 7);
     var winLeft = (screen.width / 2) - (3 * screen.width / 7);
-    var windowFeatures = "width=770,height=570,scrollbars=yes,";
-    //windowFeatures = "";
+    //var windowFeatures = "width=770,height=570,scrollbars=yes,";
+    var windowFeatures = "";
 	windowFeatures = windowFeatures + "left=" + winLeft + ",";
     windowFeatures = windowFeatures + "top=" + winTop;
-    newWindow = window.open("instructions.html", "Instructions", windowFeatures);
+    newWindow = window.open("instructions.html", "_blank"); //, windowFeatures);
 }
 
 
