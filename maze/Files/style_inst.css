@@ -36,7 +36,7 @@ h2 {
 	font-weight:normal;
 }
 
-@media screen and (min-width: 980px) {
+@media screen {  /*and (min-width: 980px) */
     /*.article-page {
         background-image: url(../img/page_shadow_background.png);
         background-repeat: no-repeat;
