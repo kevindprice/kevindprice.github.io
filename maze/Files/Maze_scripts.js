@@ -105,7 +105,7 @@ loadHTML = "<input type='submit' value='How to Play' onclick='openInstructions()
 //All of the different possible buttons for the action bar
 startingHTML = "<input type='submit' value='Solve Maze' style='font-weight:bold;' onclick='solveMaze()'/> <input type='submit' value='Add Obstacles' onclick='createMaze()'/> <input type='submit' value='Load Maze' onclick='loadMaze()'/>"
 
-mazeSOLVER = "Starting location: <input type='submit' value='Beginning' style='font-weight:bold;' onclick='startMaze()'/> <input type='submit' value='Custom Spot' onclick='startCustom()'/> <input type='submit' value='Add Obstacles' onclick='createMaze()' style='margin-left: 20px;'/> "
+mazeSOLVER = "<input type='submit' value='Begin Maze' style='font-weight:bold;' onclick='startMaze()'/>"
 
 //<input type='submit' value='Return to Solver' onclick='solveMaze()'/> 
 
@@ -593,6 +593,14 @@ document.onkeydown = function(e) {
 			default:
 				break;
 		}
+	}
+	
+	switch(key){
+		case 8:
+			backTrack();
+			break;
+		default:
+			break;
 	}
 	
 	//Now for other keys.

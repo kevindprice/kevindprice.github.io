@@ -52,23 +52,6 @@ h2 {
 }
 
 
-@media only screen and (max-width : 800px) {
-	.WordSection1{
-		width:98%;
-		max-width:none;
-		background-color:#EAFCFF;
-		border:none;
-		border-radius:0px;
-
-	}
-	
-	#titlepic{
-		width:98%;
-		height:none;
-	}
-}
-
-
 
 .normal {
 	margin-bottom:12.0pt;
@@ -93,6 +76,23 @@ h2 {
 	margin-left:.5in;
 	margin-bottom:.0001pt;
 	font-family:"Times New Roman",serif;
+}
+
+/* If you make the screen skinny */
+@media only screen and (max-width : 800px) {
+	.WordSection1{
+		width:98%;
+		max-width:none;
+		background-color:#EAFCFF;
+		border:none;
+		border-radius:0px;
+
+	}
+	
+	#titlepic{
+		width:98%;
+		height:none;
+	}
 }
 
 
