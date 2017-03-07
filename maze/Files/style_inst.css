@@ -53,11 +53,6 @@ h2 {
 
 
 @media only screen and (max-width : 800px) {
-    .article-page {
-        padding-top: 1.25rem;
-        overflow: hidden;
-    }
-	
 	.WordSection1{
 		width:98%;
 		max-width:none;
@@ -68,7 +63,7 @@ h2 {
 	}
 	
 	#titlepic{
-		width:none;
+		width:98%;
 		height:none;
 	}
 }
@@ -100,4 +95,45 @@ h2 {
 	margin-bottom:.0001pt;
 	font-size:12.0pt;
 	font-family:"Times New Roman",serif;
+}
+
+
+/* samsung s7 portrait*/
+@media 
+    (-webkit-min-device-pixel-ratio: 3)
+    and (min-resolution: 192dpi)and max-width:640px){
+	.WordSection1{
+		width:98%;
+		max-width:none;
+		background-color:#EAFCFF;
+		border:none;
+		border-radius:0px;
+
+	}
+	
+	#titlepic{
+		width:98%;
+		height:none;
+	}
+
+
+}
+
+/* samsung s7 landscape*/
+@media 
+    (-webkit-min-device-pixel-ratio: 3) 
+    and (min-resolution: 192dpi){
+	.WordSection1{
+		width:98%;
+		max-width:none;
+		background-color:#EAFCFF;
+		border:none;
+		border-radius:0px;
+
+	}
+	
+	#titlepic{
+		width:98%;
+		height:none;
+	}
 }
