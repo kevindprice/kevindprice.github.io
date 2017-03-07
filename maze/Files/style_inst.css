@@ -36,16 +36,29 @@ h2 {
 	font-weight:normal;
 }
 
-@media screen {  /*and (min-width: 980px) */
-    /*.article-page {
-        background-image: url(../img/page_shadow_background.png);
-        background-repeat: no-repeat;
-        background-position-x: 6rem;
-        background-position-y: 0;
+.WordSection1 {
+	max-width:675px;
+	padding:15px;
+	margin-top:-1px;
+	padding-bottom:400px;
+	background-color:#EAFCFF;
+	border: 2px solid black;
+	border-radius:30px;	
+}
 
+
+@media (max-width: 900px) {
+    .article-page {
         padding-top: 1.25rem;
         overflow: hidden;
-    }*/
+    }
+	
+	.WordSection1{
+		width:100%;
+		background-color:#EAFCFF;
+
+	}
+}
 	
 	
 	body {
