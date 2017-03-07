@@ -47,7 +47,7 @@ h2 {
 }
 
 
-@media (max-width: 900px) {
+@media (max-width: 1200px) {
     .article-page {
         padding-top: 1.25rem;
         overflow: hidden;
