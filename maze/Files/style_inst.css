@@ -55,7 +55,8 @@ h2 {
 	
 	.WordSection1{
 		width:100%;
-		background-color:#EAFCFF;
+		max-width:none;
+		background-color:#EAFC34;
 
 	}
 }
