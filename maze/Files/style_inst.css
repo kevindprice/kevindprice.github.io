@@ -36,6 +36,24 @@ h2 {
 	font-weight:normal;
 }
 
+@media screen and (min-width: 980px) {
+    /*.article-page {
+        background-image: url(../img/page_shadow_background.png);
+        background-repeat: no-repeat;
+        background-position-x: 6rem;
+        background-position-y: 0;
+
+        padding-top: 1.25rem;
+        overflow: hidden;
+    }*/
+	
+	
+	body {
+		background-size: 125%
+	}
+}
+
+
 .normal {
 	margin-bottom:12.0pt;
 	font-family: "Times New Roman";
