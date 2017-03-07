@@ -46,26 +46,33 @@ h2 {
 	border-radius:30px;	
 }
 
+#titlepic{
+	width:705px; 
+	height:156px;
+}
 
-@media only screen and (min-device-width : 1000px)
+
+@media only screen and (max-width : 800px) {
     .article-page {
         padding-top: 1.25rem;
         overflow: hidden;
     }
 	
 	.WordSection1{
-		width:100%;
+		width:98%;
 		max-width:none;
-		background-color:#EAFC34;
+		background-color:#EAFCFF;
+		border:none;
+		border-radius:0px;
 
 	}
-}
 	
-	
-	body {
-		background-size: 125%
+	#titlepic{
+		width:none;
+		height:none;
 	}
 }
+
 
 
 .normal {
