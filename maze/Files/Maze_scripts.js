@@ -30,6 +30,7 @@ createMaze
 drawSetting
 eraseMaze
 changeGridSize
+displayEnds
 
 solveMaze
 stopMaze
@@ -105,7 +106,7 @@ loadHTML = "<input type='submit' value='How to Play' onclick='openInstructions()
 //All of the different possible buttons for the action bar
 startingHTML = "<input type='submit' value='Solve Maze' style='font-weight:bold;' onclick='solveMaze()'/> <input type='submit' value='Add Obstacles' onclick='createMaze()'/> <input type='submit' value='Load Maze' onclick='loadMaze()'/>"
 
-mazeSOLVER = "<input type='submit' value='Begin Maze' style='font-weight:bold;' onclick='startMaze()'/>"
+mazeSOLVER = "<input type='submit' value='Begin Maze' style='font-weight:bold;' onclick='startMaze()'/> <input type='submit' value='Identify Beginning/End' onmousedown='displayEnds()' onmouseup='drawGrid()' />"
 
 //<input type='submit' value='Return to Solver' onclick='solveMaze()'/> 
 
@@ -543,6 +544,19 @@ function findBegin()
     return -1;
 }
 
+function findEnds()
+{
+	var ends = [];
+    for (var i=0; i<obstacles.length; i++)
+    {
+        if(obstacles[i]["type"]=="end")
+        { ends.push(i); }
+    }
+    
+    return ends;
+}
+
+
 //adds compatibility for Edge Browser
 //(the .includes feature doesn't work, so I had to create my own.)
 function isIn(list, item)
@@ -876,6 +890,63 @@ function changeGridSize(horizontal, vertical)
     }
 }
 
+function displayEnds()
+{
+	var beginIndex = findBegin()
+	var endIndices = findEnds()
+	
+	//Get context
+	var canvas = document.getElementById('canvas');
+	var context = canvas.getContext('2d');
+	//var centerX = canvas.width / 2;
+	//var centerY = canvas.height / 2;
+	var radius = INTERVAL / 2 + 5;
+	
+	//Identify the beginning
+	var centerX = (obstacles[beginIndex]["x"] * INTERVAL) + INTERVAL / 2 + 1
+	var centerY = obstacles[beginIndex]["y"] * INTERVAL
+	
+		//obstacles[i]["x"] == spot[0] &&
+		//obstacles[i]["y"] == spot[1] &&
+		//obstacles[i]["orient"] == "vertical" &&
+             
+	context.beginPath();
+	context.arc(centerX, centerY, radius, 0, 2 * Math.PI, false);
+	//context.fillStyle = 'green';
+	//context.fill();
+	context.lineWidth = 3;
+	context.strokeStyle = '#FFA613';
+	context.stroke();
+	
+    for (var i=0; i<endIndices.length; i++)
+	{
+
+		if(obstacles[endIndices[i]]["orient"]=="horizontal")
+		{
+			var centerX = (obstacles[endIndices[i]]["x"] * INTERVAL) + INTERVAL / 2 + 1
+			var centerY = obstacles[endIndices[i]]["y"] * INTERVAL
+		}
+		else{
+			var centerX = obstacles[endIndices[i]]["x"] * INTERVAL
+			var centerY = (obstacles[endIndices[i]]["y"] * INTERVAL) + INTERVAL / 2 + 1
+		}
+		
+		context.beginPath();
+		context.arc(centerX, centerY, radius, 0, 2 * Math.PI, false);
+		//context.fillStyle = 'green';
+		//context.fill();
+		context.lineWidth = 3;
+		context.strokeStyle = '#FFA613';
+		context.stroke();
+
+	}
+	
+	
+	
+	
+	
+}
+
 
 //==========================================================
 //==========================================================
@@ -955,7 +1026,14 @@ function move()
 
     //move the line on an interval
     var time_interval = setInterval(function() {
-        context.beginPath();   //First draw a line in GREEN
+
+        if(spot[3] == "stopped")
+        {
+            clearInterval(time_interval);
+			return;
+        }
+
+		context.beginPath();   //First draw a line in GREEN
         context.strokeStyle="#007700"; //dark green
 
         context.moveTo( Math.round(spot[0]*INTERVAL + INTERVAL/2)+BORDER, 
@@ -1036,10 +1114,6 @@ function move()
         context.stroke();
         */
 
-        if(spot[3] == "stopped")
-        {
-            clearInterval(time_interval);        
-        }
         
         //If you hit an obstacle, clear the interval
         //and handle each obstacle differently.
