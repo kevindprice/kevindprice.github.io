@@ -112,7 +112,7 @@ mazeSOLVER = "<input type='submit' value='Begin Maze' style='font-weight:bold;' 
 
 createMAZE = "<input type='submit' value='Grid Size' onclick='changeGridSize()'/> <input type='submit' value='Erase All' onclick='eraseMaze()'/> <input type='submit' value='Save' onclick='saveMaze()'/> <!--<input type='submit' value='SOLVE' onclick='solveMaze()' style='margin-right: 10px;'/>-->Draw: <input type='submit' value='Wall' onclick='drawSetting(\"wall\")'/> <input type='submit' value='Permeable' onclick='drawSetting(\"permeable\")'/> <input type='submit' value='Beginning' onclick='drawSetting(\"begin\")'/> <input type='submit' value='End' onclick='drawSetting(\"end\")'/>"
 
-movingHTML = "Actions: <input type='submit' value='Stop the Maze' onclick='stopMaze()'/> <input type='submit' value='Speed(+)' onclick='speedUp()'/> <input type='submit' value='Speed(-)' onclick='slowDown()'/>"
+movingHTML = "Actions: <input type='submit' value='Stop the Maze' onclick='stopMaze()'/> <input type='submit' value='Backtrack' onclick='backTrack()' style='margin-right:10px'/> <input type='submit' value='Speed(+)' onclick='speedUp()'/> <input type='submit' value='Speed(-)' onclick='slowDown()'/>"
 
 pausedHTML = "<input type='submit' value='Resume Maze' onclick='resumeMaze()'/> <input type='submit' value='Backtrack' onclick='backTrack()' style='margin-right:10px'/> <input type='submit' value='Speed(+)' onclick='speedUp()'/> <input type='submit' value='Speed(-)' onclick='slowDown()' style='margin-right:10px'/> Go to:<input type='submit' value='Beginning' onclick='startMaze()'/> <input type='submit' value='Custom Spot' onclick='startCustom()'/>"
 
@@ -927,7 +927,7 @@ function displayEnds()
 			var centerY = obstacles[endIndices[i]]["y"] * INTERVAL
 		}
 		else{
-			var centerX = obstacles[endIndices[i]]["x"] * INTERVAL
+			var centerX = obstacles[endIndices[i]]["x"] * INTERVAL + 1
 			var centerY = (obstacles[endIndices[i]]["y"] * INTERVAL) + INTERVAL / 2 + 1
 		}
 		
@@ -1027,6 +1027,7 @@ function move()
     //move the line on an interval
     var time_interval = setInterval(function() {
 
+		//Do this first. Otherwise, the backtrack function will not work properly.
         if(spot[3] == "stopped")
         {
             clearInterval(time_interval);
