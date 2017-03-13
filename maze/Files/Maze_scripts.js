@@ -2018,7 +2018,9 @@ function solutions(sampleNum)
 function openImage(source, width, height)
 {
 //	viewwin = window.open(source,"Solution","width="+width*.67+", height="+height*.67 );
-	viewwin = window.open(source,"Solution","width="+width*1.5+", height="+height*1.5 );
+//	viewwin = window.open(source,"Solution","width="+width*1.5+", height="+height*1.5 );
+	viewwin = window.open(source,"Solution","width="+width+", height="+height );
+
 }
 
 //opens instructions in new tab.
