@@ -2017,7 +2017,8 @@ function solutions(sampleNum)
 //Open the super secret solution.
 function openImage(source, width, height)
 {
-	viewwin = window.open(source,"Solution","width="+width*.67+", height="+height*.67 );
+//	viewwin = window.open(source,"Solution","width="+width*.67+", height="+height*.67 );
+	viewwin = window.open(source,"Solution","width="+width+", height="+height );
 }
 
 //opens instructions in new tab.
