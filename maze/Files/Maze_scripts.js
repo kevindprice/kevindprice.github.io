@@ -2322,6 +2322,9 @@ function processFile(contents)
 
 	spot = BEGINNING
 	
+	var turns = {}; //keep track of what keys to look for when turning.
+	turns["upkey"] = "forward";
+	
 	drawCurrentPosition()
 
 }
