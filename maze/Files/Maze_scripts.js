@@ -122,9 +122,12 @@ var customSpot = []; //temporarily filled with the click location
                     
 var spot = []; //keep track of the user's location in the maze
 
+var BEGINNING = []; //beginning spot
+
 var route = []; //keep track of the route the user took
 
 var turns = {}; //keep track of what keys to look for when turning.
+turns["upkey"] = "forward";
 
 var newWindow;
 
@@ -1032,7 +1035,7 @@ function drawCurrentPosition()
 function resumeMaze()
 {
     spot[3] = "moving";
-    turns = [];
+    turns = {};
     document.getElementById("action").innerHTML = "Actions: <input type='submit' value='Stop the Maze' onclick='stopMaze()'/> <input type='submit' value='Backtrack' onclick='backTrack()' style='margin-right:10px'/> <input type='submit' value='Speed(+)' onclick='speedUp()'/> <input type='submit' value='Speed(-)' onclick='slowDown()'/>";
     move();
 }
@@ -2055,7 +2058,10 @@ function backTrack()
 
         if( tempVar["obstacle"]["type"]=="begin" )
         { 
+			spot = BEGINNING
 			turns = {};
+			route.push(tempVar);
+			turns["upkey"]="forward";
 			drawGrid();
 			drawCurrentPosition();
 			solverMode();
@@ -2298,8 +2304,10 @@ function processFile(contents)
 	//place the spot at the beginning obstacle.
 	//The auto-solver uses this. It can auto-solve from the beginning, if you're lame.
     beginObstacle = findBegin()
-    spot = [ obstacles[beginObstacle]["x"], obstacles[beginObstacle]["y"] - 1/2 , "up", "stopped"];
+    BEGINNING = [ obstacles[beginObstacle]["x"], obstacles[beginObstacle]["y"] - 1/2 , "up", "stopped"];
 
+	spot = BEGINNING
+	
 	drawCurrentPosition()
 
 }
