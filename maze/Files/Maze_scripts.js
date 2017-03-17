@@ -2033,8 +2033,8 @@ function backTrack()
 {	
 	var tempVar = route.pop();
 
-    //if you are AT an obstacle, go another obstacle previous.
-    //Otherwise, just go to the final obstacle.
+    //if you are AT an obstacle, pop the route again because the stop point has already been pushed.
+    //Otherwise, just go to the final obstacle (skip this expression).
     if( spot[0]==tempVar["spot"][0] && 
         spot[1]==tempVar["spot"][1] )
     {
@@ -2045,8 +2045,22 @@ function backTrack()
     spot[1] = tempVar["spot"][1]
     spot[2] = tempVar["spot"][2]
     
+    //Have to do this here, as well as below.
+    //The beginning obstacle could be approached differently.
+    if( tempVar["obstacle"]["type"]=="begin" )
+    { 
+	spot = BEGINNING
+	turns = {};
+	route.push(tempVar);
+	turns["upkey"]="forward";
+	drawGrid();
+	drawCurrentPosition();
+	solverMode();
+        return; 
+    }
+
     var directionsCheck = obstacleHandler( tempVar["obstacle"], 1 );
-    
+
     //if there is only one direction available,
     //keep going backward until there is a choice.
     while( directionsCheck == 1 ) 
