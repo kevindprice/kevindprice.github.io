@@ -32,11 +32,13 @@ eraseMaze
 changeGridSize
 displayEnds
 
-solveMaze
+solverMode
 stopMaze
 resumeMaze
 startMaze
 move
+
+autoSolve
 
 checkObstacles
 obstacleHandler
@@ -100,23 +102,17 @@ var obstacles = []; //contains a list of all obstacles.
                         //   "orient": <obstacle orientation>
                         //   "x":     <x-coordinate of origin>
                         //   "y":     <y-coordinate of origin> }
+var obstacle_rows = [];
 
-loadHTML = "<input type='submit' value='How to Play' onclick='openInstructions()' style='font-weight:bold;'/> <input type='submit' value='Load Sample'  style='font-weight:bold;' onclick='loadSample()' style='margin-left:20px;'/> <input type='submit' value='Create New Maze' onclick='createMaze()'> <input type='submit' value='Load from File' onclick='loadMaze()' />   "
+var obstacle_columns = [];
+
                         
-//All of the different possible buttons for the action bar
-startingHTML = "<input type='submit' value='Solve Maze' style='font-weight:bold;' onclick='solveMaze()'/> <input type='submit' value='Add Obstacles' onclick='createMaze()'/> <input type='submit' value='Load Maze' onclick='loadMaze()'/>"
+//A few of the possibilities for the action bar are accessed from multiple places.
+startingHTML = "<input type='submit' value='Solve Maze' style='font-weight:bold;' onclick='solverMode()'/> <input type='submit' value='Add Obstacles' onclick='createMaze()'/> <input type='submit' value='Load Maze' onclick='loadMaze()'/>"
 
-mazeSOLVER = "<input type='submit' value='Begin Maze' style='font-weight:bold;' onclick='startMaze()'/> <input type='submit' value='Identify Beginning/End' onmousedown='displayEnds()' onmouseup='drawGrid()' />"
+mazeSOLVER = "<input type='submit' value='Begin Maze' style='font-weight:bold;' onclick='startMaze()'/> <input type='submit' value='Identify Beginning/End' onmousedown='displayEnds()' onmouseup='drawGrid(); drawCurrentPosition();' /> <!--&nbsp;&nbsp;&nbsp;<input type='submit' value='Solve the maze for me (experimental)' onmousedown='autoSolve()' onmouseup='drawGrid()' />-->"
 
-//<input type='submit' value='Return to Solver' onclick='solveMaze()'/> 
 
-createMAZE = "<input type='submit' value='Grid Size' onclick='changeGridSize()'/> <input type='submit' value='Erase All' onclick='eraseMaze()'/> <input type='submit' value='Save' onclick='saveMaze()'/> <!--<input type='submit' value='SOLVE' onclick='solveMaze()' style='margin-right: 10px;'/>-->Draw: <input type='submit' value='Wall' onclick='drawSetting(\"wall\")'/> <input type='submit' value='Permeable' onclick='drawSetting(\"permeable\")'/> <input type='submit' value='Beginning' onclick='drawSetting(\"begin\")'/> <input type='submit' value='End' onclick='drawSetting(\"end\")'/>"
-
-movingHTML = "Actions: <input type='submit' value='Stop the Maze' onclick='stopMaze()'/> <input type='submit' value='Backtrack' onclick='backTrack()' style='margin-right:10px'/> <input type='submit' value='Speed(+)' onclick='speedUp()'/> <input type='submit' value='Speed(-)' onclick='slowDown()'/>"
-
-pausedHTML = "<input type='submit' value='Resume Maze' onclick='resumeMaze()'/> <input type='submit' value='Backtrack' onclick='backTrack()' style='margin-right:10px'/> <input type='submit' value='Speed(+)' onclick='speedUp()'/> <input type='submit' value='Speed(-)' onclick='slowDown()' style='margin-right:10px'/> Go to:<input type='submit' value='Beginning' onclick='startMaze()'/> <input type='submit' value='Custom Spot' onclick='startCustom()'/>"
-
-turningHTML = "Actions: <input type='submit' value='Backtrack' onclick='backTrack()' style='margin-right:10px'/> "
 
 var tempHTML = "";  //allows the CANCEL button to remember
                     //where to cancel back to.
@@ -129,8 +125,6 @@ var spot = []; //keep track of the user's location in the maze
 var route = []; //keep track of the route the user took
 
 var turns = {}; //keep track of what keys to look for when turning.
-
-//document.onkeydown = checkKey;
 
 var newWindow;
 
@@ -158,7 +152,7 @@ function cancel_button()  //I confess, the implementation of this
 function setPage()
 {
     //set the action bar to say "Start the Maze"
-    document.getElementById("action").innerHTML = loadHTML;
+    document.getElementById("action").innerHTML = "<input type='submit' value='How to Play' onclick='openInstructions()' style='font-weight:bold;'/> <input type='submit' value='Load Sample'  style='font-weight:bold;' onclick='loadSample()' style='margin-left:20px;'/> <input type='submit' value='Create New Maze' onclick='createMaze()'> <input type='submit' value='Load from File' onclick='loadMaze()' />";
 
     //the canvas needs to be set to the right size
     //before the spot is initialized, or it will misbehave.
@@ -175,8 +169,13 @@ function setPage()
     //This makes obstacle comparisons easier.
     //Notice, I subtract half an interval 
     //so it doesn't start off the edge.
-    spot = [ 0, canvas.height/INTERVAL - 1/2 , "up", "stopped" ];
 
+	//an arbitrary location
+    spot = [ 0, canvas.height/INTERVAL - 1/2 , "up", "stopped" ];
+	//The spot would be loaded to the beginning, but the samples are loaded asynchrounously.
+	//Thus, the beginning spot must be loaded in sampleFile()
+	
+	
     animate_string('title');
     drawGrid();
     //loadSample();
@@ -190,6 +189,7 @@ function setPage()
 	{
 		sampleFile(1);
 	}
+
 }
 
 
@@ -443,9 +443,36 @@ function setLine(x, y)
         }
     }
     else { 
-        obstacles.splice(isObstacle, 1) 
+
+		obstacles.splice(isObstacle, 1) 
+	
+		//generate an obstacle "grid". The rows contain verticals, and the columns contain horizontals.
+		if(DictItem["orient"]=="vertical")
+		{
+			obstacle_rows[DictItem["y"]][DictItem["x"]].splice(0,1)
+		}
+		else
+		{
+			obstacle_columns[DictItem["x"]][DictItem["y"]].splice(0,1)
+		}
+		
         drawGrid();    //refresh the page to erase the obstacle.
     }   
+}
+
+function addObstacleToObstacles(obstacle)
+{
+    obstacles.push(obstacle)
+
+	//generate an obstacle "grid". The rows contain verticals, and the columns contain horizontals.
+	if(obstacle["orient"]=="vertical")
+	{
+		obstacle_rows[obstacle["y"]][obstacle["x"]].push(obstacle)
+	}
+	else
+	{
+		obstacle_columns[obstacle["x"]][obstacle["y"]].push(obstacle)
+	}
 }
 
 //takes an obstacle object from DrawLine and draws it.
@@ -454,18 +481,20 @@ function drawObstacle(obstacle)
 
     if(obstacle["type"] == "begin")
     {
-        obstacle["orient"] = "horizontal";
+		obstacle["orient"] = "horizontal";
         var isObstacle = findBegin()
         
         if (isObstacle != -1) //e.g. if there IS a beginning square
-        { 
-            obstacles.splice(isObstacle, 1) 
+        {
+            obstacles.splice(isObstacle, 1)
+			obstacle_columns[obstacle["x"]][obstacle["y"]].splice(0,1)
+
             drawGrid();
         }
     }
     
-    obstacles.push(obstacle); 
-
+    addObstacleToObstacles(obstacle);
+	
     x = obstacle["x"] * INTERVAL
     y = obstacle["y"] * INTERVAL
     
@@ -814,7 +843,8 @@ function createMaze()
 {
     route = [];
     drawGrid();
-    document.getElementById("action").innerHTML = createMAZE;
+    document.getElementById("action").innerHTML = "<input type='submit' value='Grid Size' onclick='changeGridSize()'/> <input type='submit' value='Erase All' onclick='eraseMaze()'/> <input type='submit' value='Save' onclick='saveMaze()'/> <!--<input type='submit' value='SOLVE' onclick='solverMode()' style='margin-right: 10px;'/>-->Draw: <input type='submit' value='Wall' onclick='drawSetting(\"wall\")'/> <input type='submit' value='Permeable' onclick='drawSetting(\"permeable\")'/> <input type='submit' value='Beginning' onclick='drawSetting(\"begin\")'/> <input type='submit' value='End' onclick='drawSetting(\"end\")'/>";
+
     spot[3]="drawing";  //necessary so the click handler knows
                         //you're in the draw setting.
                         //Otherwise the click won't be passed to 
@@ -923,12 +953,12 @@ function displayEnds()
 
 		if(obstacles[endIndices[i]]["orient"]=="horizontal")
 		{
-			var centerX = (obstacles[endIndices[i]]["x"] * INTERVAL) + INTERVAL / 2 + 1
-			var centerY = obstacles[endIndices[i]]["y"] * INTERVAL
+			var centerX = (obstacles[endIndices[i]]["x"] * INTERVAL) + INTERVAL / 2 + BORDER
+			var centerY = obstacles[endIndices[i]]["y"] * INTERVAL + BORDER
 		}
 		else{
-			var centerX = obstacles[endIndices[i]]["x"] * INTERVAL + 1
-			var centerY = (obstacles[endIndices[i]]["y"] * INTERVAL) + INTERVAL / 2 + 1
+			var centerX = obstacles[endIndices[i]]["x"] * INTERVAL + BORDER
+			var centerY = (obstacles[endIndices[i]]["y"] * INTERVAL) + INTERVAL / 2 + BORDER
 		}
 		
 		context.beginPath();
@@ -938,7 +968,7 @@ function displayEnds()
 		context.lineWidth = 3;
 		context.strokeStyle = '#FFA613';
 		context.stroke();
-
+		
 	}
 	
 	
@@ -953,7 +983,7 @@ function displayEnds()
 //These functions power the maze solver.
 
 //enters the maze solver mode.
-function solveMaze()
+function solverMode()
 {
     document.getElementById("action").innerHTML = mazeSOLVER;
 	if(route.length > 0)
@@ -970,7 +1000,32 @@ function solveMaze()
 function stopMaze()
 {
     spot[3] = "stopped";
-    document.getElementById("action").innerHTML = pausedHTML;
+    document.getElementById("action").innerHTML = "<input type='submit' value='Resume Maze' onclick='resumeMaze()'/> <input type='submit' value='Backtrack' onclick='backTrack()' style='margin-right:10px'/> <input type='submit' value='Speed(+)' onclick='speedUp()'/> <input type='submit' value='Speed(-)' onclick='slowDown()' style='margin-right:10px'/> Go to:<input type='submit' value='Beginning' onclick='startMaze()'/> <input type='submit' value='Custom Spot' onclick='startCustom()'/>";
+
+	//drawCurrentPosition()
+}
+
+
+function drawCurrentPosition()
+{
+	var canvas = document.getElementById('canvas');
+	var context = canvas.getContext('2d');
+	//var centerX = canvas.width / 2;
+	//var centerY = canvas.height / 2;
+	var radius = INTERVAL / 4;
+	
+	//Identify the beginning
+	var centerX = (spot[0] * INTERVAL) + INTERVAL / 2 + 1
+	var centerY = spot[1] * INTERVAL + INTERVAL / 2 + 1
+	
+             
+	context.beginPath();
+	context.arc(centerX, centerY, radius, 0, 2 * Math.PI, false);
+	context.fillStyle = 'green';
+	context.fill();
+	context.lineWidth = 2;
+	context.strokeStyle = '#FFA613';
+	context.stroke();
 }
 
 //resumes the maze after pausing.
@@ -978,7 +1033,7 @@ function resumeMaze()
 {
     spot[3] = "moving";
     turns = [];
-    document.getElementById("action").innerHTML = movingHTML;
+    document.getElementById("action").innerHTML = "Actions: <input type='submit' value='Stop the Maze' onclick='stopMaze()'/> <input type='submit' value='Backtrack' onclick='backTrack()' style='margin-right:10px'/> <input type='submit' value='Speed(+)' onclick='speedUp()'/> <input type='submit' value='Speed(-)' onclick='slowDown()'/>";
     move();
 }
 
@@ -993,21 +1048,21 @@ function startMaze()
         alert("A beginning location has not been placed yet!\n\nGo to the Create Maze page (Main Menu-->Maze Creator) and place the maze beginning. The maze will start upwards from that location. Go to the Instructions page (Main Menu-->Instructions) for more information.")
     } else
     {
-        //set the action bar to say "Start the Maze"
-        document.getElementById("action").innerHTML = movingHTML;
 
         spot = [ obstacles[beginObstacle]["x"], obstacles[beginObstacle]["y"] - 1/2 , "up", "moving"];
-
+		
         var tempSpot = [];
         tempSpot[0] = spot[0];
         tempSpot[1] = spot[1];
         tempSpot[2] = spot[2];
         route.push( {"spot":tempSpot, "obstacle":obstacles[beginObstacle]} );
 
-        drawGrid(); //to erase the line that's already there. Refresh.
-        move();
-    }
+        drawGrid(); //to erase the route line that's already there (if there is one). Refresh.
+        
+		resumeMaze()
+	}
 }
+
 
 //This is the function that moves the line.
 //It sets up an interval function, which runs repeatedly
@@ -1031,6 +1086,7 @@ function move()
         if(spot[3] == "stopped")
         {
             clearInterval(time_interval);
+			drawCurrentPosition()
 			return;
         }
 
@@ -1122,10 +1178,221 @@ function move()
         {
             clearInterval(time_interval);
             obstacleHandler(stop["obstacle"]);
-        }        
+			drawCurrentPosition();
+		}        
         
     }, TIME_INTERVAL);  //how often in ms the line is moved.
 }
+
+//checks an obstacle for more directions to check.
+function autoSolveChecker(mazeLocation, checkedlist, previousIndex)
+{
+	//contains everything about one point in the maze.
+	var mazeDecision = {}
+	
+	mazeDecision["firstSpot"]=mazeLocation
+	mazeDecision["previousIndex"]==previousIndex
+	
+	mazeDecision["obstacle"]=checkObstacles(mazeLocation)["obstacle"]
+
+	
+	if(mazeDecision["obstacle"]["type"]=="edge")
+	{
+		mazeDecision["notes"]=="edge"
+		mazeDecision["possible"]==false
+		return mazeDecision
+	}
+	
+	if(mazeDecision["obstacle"]["type"]=="end")
+	{
+		mazeDecision["notes"]=="SOLUTION"
+		mazeDecision["possible"]==true
+		return mazeDecision
+	}
+	
+	
+	//create a NEW maze location at the new obstacle
+	switch(mazeLocation[2])
+	{
+		case "up":
+			mazeLocation = []
+			mazeLocation.push(mazeDecision["obstacle"]["x"])
+			mazeLocation.push(mazeDecision["obstacle"]["y"])
+			mazeLocation.push("up")
+			break;
+		case "down":
+			mazeLocation = []
+			mazeLocation.push(mazeDecision["obstacle"]["x"])
+			mazeLocation.push(mazeDecision["obstacle"]["y"]-1)
+			mazeLocation.push("down")
+			break;
+		case "right":
+			mazeLocation = []
+			mazeLocation.push(mazeDecision["obstacle"]["x"]-1)
+			mazeLocation.push(mazeDecision["obstacle"]["y"])
+			mazeLocation.push("right")
+			break;
+		case "left":
+			mazeLocation = []
+			mazeLocation.push(mazeDecision["obstacle"]["x"])
+			mazeLocation.push(mazeDecision["obstacle"]["y"])
+			mazeLocation.push("left")
+			break;
+		default:
+	}
+	
+	
+	for(i=0;i<checkedlist.length;i++)
+	{
+		if(mazeLocation==checkedlist[i]["obstacleSpot"])
+		{
+			mazeDecision["notes"]="link" //loop
+			mazeDecision["links"]=[i]   //debug this line
+			return mazeDecision
+		}
+	}
+	
+	mazeDecision["obstacleSpot"] = mazeLocation
+	mazeDecision["directions"]=obstacleHandler(mazeDecision["obstacle"],2,mazeLocation)
+
+	mazeDecision["choices"]=[];
+	for(i=0;i<mazeDecision["directions"].length;i++)
+	{
+		newLocation = [];
+		newLocation.push(mazeLocation[0])
+		newLocation.push(mazeLocation[1])
+
+		switch(mazeDecision["directions"][i])
+		{
+			case "right":
+				newLocation.push(turnRight(mazeLocation[2]))
+				break;
+			case "left":
+				newLocation.push(turnLeft(mazeLocation[2]))
+				break;
+			case "backward":
+				newLocation.push(turnBackward(mazeLocation[2]))
+				break;
+			case "forward":
+				newLocation = moveForward(mazeLocation)
+				break;
+		}
+
+		mazeDecision["choices"].push(newLocation)
+	}		
+
+	mazeDecision["links"] = []
+	
+	mazeDecision["notes"]="OK"  //until proven false.
+	
+	return mazeDecision;
+	
+}
+
+
+function autoSolve()
+{
+	
+    //route.push( {"spot":tempSpot, "obstacle":stop_obstacle} );
+	
+	mazeSpot = {};
+	mazeSpot[0] = spot[0]
+	mazeSpot[1] = spot[1]
+	mazeSpot[2] = spot[2]
+
+	checkedlist = []
+	
+	currentIndex = "BEGINNING"
+	
+	var backward = false;
+	var done=false;
+	
+	while(!done)
+	{
+		mazeDecision = autoSolveChecker(mazeSpot,checkedlist,currentIndex)
+		
+		checkedlist.push(mazeDecision)
+		
+		if(mazeDecision["notes"]=="edge")
+		{			
+			currentIndex = mazeDecision["previousIndex"]
+			while( checkedlist[currentIndex]["directions"].length==1 )
+			{
+				checkedlist[currentIndex]["possible"]==false
+				currentIndex = checkedlist[currentIndex]["previousIndex"]
+				
+				if(currentIndex=="BEGINNING")
+					{return "IMPOSSIBLE";}
+			}
+		}
+		else if(mazeDecision["notes"]=="link")
+		{
+			currentIndex = mazeDecision["previousIndex"]
+			while( checkedlist[currentIndex]["directions"].length==1 )
+			{
+				checkedlist[currentIndex]["notes"]=="link"
+				currentIndex = checkedlist[currentIndex]["previousIndex"]
+				
+				if(currentIndex=="BEGINNING")
+					{return "IMPOSSIBLE";}
+			}
+		}
+		else if(mazeDecision["notes"]=="end")
+		{
+			//do nothing
+		}
+		else
+		{
+			checkedlist[checkedlist.length-1]["links"].push(checkedlist.length)
+			currentIndex = checkedlist.length - 1
+			mazeSpot = mazeDecision["choices"][0]
+			continue;
+		}
+		
+//		if(!backward)
+//		{	//If it's already solved all of the paths in this obstacle...
+		if(checkedlist[currentIndex]["choices"].length == checkedlist[currentIndex]["directions"].length)
+		{
+			while(checkedlist[currentIndex]["choices"].length == checkedlist[currentIndex]["directions"].length && checkedlist[currentIndex]["notes"]!="BEGINNING")
+			{			
+				childNotes = []
+				for(i=0; i<mazeDecision["choices"].length; i++)
+				{
+					childNotes.push( checkedlist[checkedlist[currentIndex]["links"][i]]["notes"] )
+				}
+				
+				if(childNotes.indexOf("OK")>=0) //If one of the children still says OK, then this is the correct path!
+				{
+					currentIndex = checkedlist[currentIndex]["previousIndex"]
+				}
+				
+			}
+			
+			if(checkedlist[currentIndex]["notes"]=="BEGINNING")
+			{
+				done=true; //break!
+			}
+		}
+		
+		
+		
+	}
+	
+	/*
+	//if the maze is STOPPED or at an obstacle
+	if(route["spot"][0]==spot[0] && route["spot"][1]==spot["y"])
+	{
+		start = route[route.length]
+	}
+	else //if the maze is at the BEGINNING or MOVING
+	{
+	}*/
+
+	
+}
+
+
+
 
 //================================================
 //================================================
@@ -1133,234 +1400,226 @@ function move()
 
 //when you start moving, this finds which obstacle you're
 //going to hit next.
-function checkObstacles()
+//Either works for your current spot, or for a custom spot.
+function checkObstacles(checkSpot)
 {
+	if(checkSpot==null)
+	{
+		checkSpot = spot
+	}
+		
+	
     var stop = {};
     var inColumn = [];
     var inRow = [];
-
-    switch(spot[2])
+	var obstacle = null;
+	
+	var x = null
+	var y = null
+	
+    switch(checkSpot[2])
     {
         case "up":
-            //check for obstacles in the same COLUMN
+			x = Math.round(checkSpot[0])
+			y = Math.floor(checkSpot[1])
+
+			//check for obstacles in the same COLUMN
             //that are ABOVE your spot.
             //and are oriented HORIZONTALLY
-            for (var i=0; i<obstacles.length; i++)
+			for (var i=y; i>=0; i--)
             {
-                if(obstacles[i]["x"] == spot[0] &&
-                   obstacles[i]["y"] <= spot[1] &&
-                   obstacles[i]["orient"] == "horizontal" )
-                {
-                    inColumn.push(obstacles[i]);                
-                }
+				if(obstacle_columns[x][i].length != 0)
+				{
+					obstacle = obstacle_columns[x][i][0]
+					break;
+				}
             }
             //if NONE, then add the TOP edge of the screen.
-            if(inColumn.length == 0)
+            if(obstacle == null)
             {
                 var DictItem = {}
                 DictItem["type"]="edge"
                 DictItem["orient"]="horizontal"
-                DictItem["x"]=spot[0]
+                DictItem["x"]=checkSpot[0]
                 DictItem["y"]=0 - 0.5
-                inColumn.push(DictItem) 
-            }
+				obstacle = DictItem
+			}
+			
+			stop["obstacle"] = obstacle
+            stop["dist"] = Math.abs(stop["obstacle"]["y"] - checkSpot[1])
             break;
 
         case "down":
-            //check for obstacles in the same COLUMN
+			x = Math.round(checkSpot[0])
+			y = Math.ceil(checkSpot[1])
+
+			//check for obstacles in the same COLUMN
             //that are BELOW your spot
             //and are oriented HORIZONTALLY
-            for (var i=0; i<obstacles.length; i++)
+            for (var i=y+1; i<=Y_GRIDS; i++)
             {
-                if(obstacles[i]["x"] == spot[0] &&
-                   obstacles[i]["y"] > spot[1] + 1 &&
-                   obstacles[i]["orient"] == "horizontal" )
-                {
-                    inColumn.push(obstacles[i]);
-                }
+				if(obstacle_columns[x][i].length != 0)
+				{
+					obstacle = obstacle_columns[x][i][0]
+					break;
+				}
             }
             //if NONE, then add the BOTTOM edge of the screen.
-            if(inColumn.length == 0)
+            if(obstacle == null)
             {
                 var DictItem = {}
                 DictItem["type"]="edge"
                 DictItem["orient"]="horizontal"
-                DictItem["x"]=spot[0]
-                DictItem["y"]=document.getElementById("canvas").height/INTERVAL + 1 - 0.5 //+1 because it's going DOWN
-                inColumn.push(DictItem)
+                DictItem["x"]=checkSpot[0]
+//                DictItem["y"]=document.getElementById("canvas").height/INTERVAL + 1 - 0.5 //+1 because it's going DOWN
+                DictItem["y"]=Y_GRIDS + 0.5 //+1 because it's going DOWN
+				obstacle = DictItem
             }
+
+			stop["obstacle"] = obstacle
+            stop["dist"] = Math.abs(stop["obstacle"]["y"] - checkSpot[1]) - 1 //minus ONE grid.          
             break;
             
         case "right":
-            //check for obstacles in the same ROW
+			x = Math.ceil(checkSpot[0])
+			y = Math.round(checkSpot[1])
+
+			//check for obstacles in the same ROW
             //that are TO THE RIGHT OF your spot
             //and are oriented VERTICALLY
-            for (var i=0; i<obstacles.length; i++)
+            for (var i=x+1; i<=X_GRIDS; i++)
             {
-                if(obstacles[i]["y"] == spot[1] &&
-                   obstacles[i]["x"] > spot[0] + 1 && // >, not >=
-                   obstacles[i]["orient"] == "vertical" )
-                {
-                    inRow.push(obstacles[i]);
-                }
+                if(obstacle_rows[y][i].length != 0) // >, not >=
+                { 
+					obstacle = obstacle_rows[y][i][0]
+					break;
+				}
             }
             //if NONE, then add the RIGHT edge of the screen.
-            if(inRow.length == 0)
+            if(obstacle == null)
             {
                 var DictItem = {}
                 DictItem["type"]="edge"
                 DictItem["orient"]="vertical"
-                DictItem["x"]=document.getElementById("canvas").width/INTERVAL + 1 - 0.5  // +1 because it's moving RIGHT
-                DictItem["y"]=spot[1]
-                inRow.push(DictItem)
+//                DictItem["x"]=document.getElementById("canvas").width/INTERVAL + 1 - 0.5  // +1 because it's moving RIGHT
+                DictItem["x"]=X_GRIDS + 0.5  // +1 because it's moving RIGHT
+                DictItem["y"]=checkSpot[1]
+                obstacle = DictItem
             }
+
+			stop["obstacle"] = obstacle
+            stop["dist"] = Math.abs(stop["obstacle"]["x"] - checkSpot[0] - 1) // minus ONE grid.
             break;
         
         case "left":    
-            //check for obstacles in the same ROW
+			x = Math.floor(checkSpot[0])
+			y = Math.round(checkSpot[1])
+
+			//check for obstacles in the same ROW
             //that are TO THE LEFT OF your spot
             //and are oriented VERTICALLY
-            for (var i=0; i<obstacles.length; i++)
+            for (var i=x; i>=0; i--)
             {
-                if(obstacles[i]["y"] == spot[1] &&
-                   obstacles[i]["x"] <= spot[0] &&
-                   obstacles[i]["orient"] == "vertical" )
-                {
-                    inRow.push(obstacles[i]);
-                }
+                if(obstacle_rows[y][i].length != 0)
+                { 
+					obstacle = obstacle_rows[y][i][0]
+					break;
+				}
             }
             //if NONE, then add the LEFT edge of the screen.
-            if(inRow.length == 0)
+            if(obstacle == null)
             {
                 var DictItem = {}
                 DictItem["type"]="edge"
                 DictItem["orient"]="vertical"
                 DictItem["x"]=0 - 0.5
-                DictItem["y"]=spot[1]
-                inRow.push(DictItem) 
+                DictItem["y"]=checkSpot[1]
+                obstacle = DictItem
             }
+
+			stop["obstacle"] = obstacle
+            stop["dist"] = Math.abs(stop["obstacle"]["x"] - checkSpot[0])
             break;
     }
 
-    if(inColumn.length > 0) //if up or down
-    {   //sort obstacles based on which is CLOSEST to your spot.
-        inColumn.sort(function(a, b) {
-            var x = Math.abs(a["y"] - spot[1]); 
-            var y = Math.abs(b["y"] - spot[1]);
-            return ((x < y) ? -1 : ((x > y) ? 1 : 0));
-        } )
-
-        //now return the closest obstacle and it's distance.
-        stop["obstacle"] = inColumn[0]
-        
-        switch(spot[2])
-        {
-            case "up":
-                stop["dist"] = Math.abs(stop["obstacle"]["y"] - spot[1])
-                break;
-            case "down":
-                stop["dist"] = Math.abs(stop["obstacle"]["y"] - spot[1]) - 1 //minus ONE grid.          
-                break;
-        }
-
-
-
-    }
-    
-    if(inRow.length > 0) //if right or left
-    {   //sort obstacles based on which is CLOSEST to your spot.
-        inRow.sort(function(a, b) {
-            var x = Math.abs(a["x"] - spot[0]); 
-            var y = Math.abs(b["x"] - spot[0]);
-            return ((x < y) ? -1 : ((x > y) ? 1 : 0));
-        } )
-
-        //now return the closest obstacle and it's distance.
-        stop["obstacle"] = inRow[0]
-
-        switch(spot[2])
-        {
-            case "right":
-                stop["dist"] = Math.abs(stop["obstacle"]["x"] - spot[0] - 1) // minus ONE grid.
-                break;
-            case "left":
-                stop["dist"] = Math.abs(stop["obstacle"]["x"] - spot[0])
-                break;
-        }
-    }
-
-    if(stop["obstacle"]["type"] == "end")
-    {
-        stop["dist"] += 0.5; //so you actually hit the endpost :-).
-    }
-
-    return stop;
+	return stop
 }
 
 
 
 //this function handles what to do when you hit an obstacle.
-function obstacleHandler(stop_obstacle, checkNumber)   
+function obstacleHandler(stop_obstacle, checkNumber, checkSpot)
                            //checkNumber = flag to use this function
 {                                          //to check number of directions
-    //just in case the interval is an odd number,
-    //and you didn't land exactly on INTERVAL
-    //this will fix that problem. :-)
-    spot[0]=Math.round(spot[0]);
-    spot[1]=Math.round(spot[1]);
 
-    spot[3]="stopped";
+
+	if(checkNumber==null)
+	{
+		//just in case the interval is an odd number,
+		//and you didn't land exactly on INTERVAL
+		//this will fix that problem. :-)
+		spot[0]=Math.round(spot[0]);
+		spot[1]=Math.round(spot[1]);
+
+		spot[3]="stopped";
+		
+		//add the next stop point to the route[] list.
+        var tempSpot = [];
+        tempSpot[0] = spot[0];
+        tempSpot[1] = spot[1];
+        tempSpot[2] = spot[2];
+        route.push( {"spot":tempSpot, "obstacle":stop_obstacle} );
+	}
+
+	if(checkSpot==null)
+	{
+		checkSpot = spot
+	}
+
+	
     
     drawGrid(); //refresh the line so the corners look nice.
                 //do this BEFORE adding the last obstacle
                 //so the line refresh can make the last segment
                 //in a darker color.
 
-    if(checkNumber != 1)
-    {       //add the next stop point to the route[] list.
-        var tempSpot = [];
-        tempSpot[0] = spot[0];
-        tempSpot[1] = spot[1];
-        tempSpot[2] = spot[2];
-        route.push( {"spot":tempSpot, "obstacle":stop_obstacle} );
-
-    }    
     
     var sides = [];  //will be populated with which sides
                      //of the square have obstacles in them
 
-    for (var i=0; i<obstacles.length; i++)
-    {
-        if(  obstacles[i]["x"] == spot[0] &&
-             obstacles[i]["y"] == spot[1] &&
-             obstacles[i]["orient"] == "vertical" &&
-             obstacles[i]["type"] != "permeable" )
-            {  sides.push("left");  }
-        
-        if(  obstacles[i]["x"] == spot[0] &&
-             obstacles[i]["y"] == spot[1] &&
-             obstacles[i]["orient"] == "horizontal" &&
-             obstacles[i]["type"] != "permeable" )
+	/*for (var i=0; i<obstacle_columns[checkSpot[0]].length)
+	{
+		if( obstacles[i]["y"] == checkSpot[1] &&
+            obstacles[i]["type"] != "permeable" )
             {  sides.push("top");  }
-        
-        if(  obstacles[i]["x"] == (spot[0] + 1) &&
-             obstacles[i]["y"] == spot[1] &&
-             obstacles[i]["orient"] == "vertical" &&
-             obstacles[i]["type"] != "permeable" )
-            {  sides.push("right");  }
-                        
-        if ( obstacles[i]["x"] == spot[0] &&
-             obstacles[i]["y"] == (spot[1] + 1) &&
-             obstacles[i]["orient"] == "horizontal" &&
-             obstacles[i]["type"] != "permeable" )
-            {  sides.push("bottom");  }
-    }
 
+	}*/
+	
+    //for (var i=0; i<obstacles.length; i++)
+	if(stop_obstacle.type!="edge")
+	{
+		if(obstacle_rows[checkSpot[1]][checkSpot[0]].length!=0)
+		{ 	if(obstacle_rows[checkSpot[1]][checkSpot[0]][0].type != "permeable")
+				{ sides.push("left") }	}
+
+		if(obstacle_rows[checkSpot[1]][checkSpot[0]+1].length!=0)
+		{ 	if(obstacle_rows[checkSpot[1]][checkSpot[0]+1][0].type != "permeable")
+				{ sides.push("right") }	}
+
+		if(obstacle_columns[checkSpot[0]][checkSpot[1]].length!=0)
+		{ 	if(obstacle_columns[checkSpot[0]][checkSpot[1]][0].type != "permeable")
+				{ sides.push("top") }	}
+
+		if(obstacle_columns[checkSpot[0]][checkSpot[1]+1].length!=0)
+		{ 	if(obstacle_columns[checkSpot[0]][checkSpot[1]+1][0].type != "permeable")
+				{ sides.push("bottom") }	}
+	}
+		
     var directions = [] //will be populated with the direction 
                         // choices the user has.
 
     //now handle the directions based on where you are oriented.
-    switch(spot[2])  
+    switch(checkSpot[2])  
     {   //switch case for your direction when you stopped.
         case "up":  //we KNOW there is an obstacle on TOP.
             if( stop_obstacle["type"] == "permeable" )
@@ -1482,6 +1741,10 @@ function obstacleHandler(stop_obstacle, checkNumber)
     {                       //just to check number of directions.
         return directions.length
     }
+	else if(checkNumber == 2)   //flag to use this function
+	{							//just to return which directions were found.
+		return directions
+	}
     
     //to simplify changing the action bar
     actionBar = document.getElementById("action");
@@ -1497,7 +1760,6 @@ function obstacleHandler(stop_obstacle, checkNumber)
     else if(stop_obstacle["type"] == "end")
     {
         actionBar.innerHTML = mazeSOLVER;
-        actionBar.innerHTML = mazeSOLVER;
         spot[3] = "stopped";
         directions = [];
         alert("Goncratulations! You win!");
@@ -1512,7 +1774,7 @@ function obstacleHandler(stop_obstacle, checkNumber)
     }
     else 
     {
-        actionBar.innerHTML = turningHTML;
+        actionBar.innerHTML = "Actions: <input type='submit' value='Backtrack' onclick='backTrack()' style='margin-right:10px'/> ";
     }
 
     if(directions.length != 1)
@@ -1582,105 +1844,191 @@ function obstacleHandler(stop_obstacle, checkNumber)
 //======================================================
 //These four functions handle turns.
 
-function turnRight()
+function turnRight(currentDirection)
 {
 //    alert("I'm turning right!")
-    switch(spot[2])
-    {
-        case "up":
-            spot[2]="right"
-            break;
-        case "down":
-            spot[2]="left"
-            break;
-        case "right":
-            spot[2]="down"
-            break;
-        case "left":
-            spot[2]="up"
-            break;
-    }
-    resumeMaze()
+
+	if(currentDirection==null)
+	{
+		switch(spot[2])
+		{
+			case "up":
+				spot[2]="right"
+				break;
+			case "down":
+				spot[2]="left"
+				break;
+			case "right":
+				spot[2]="down"
+				break;
+			case "left":
+				spot[2]="up"
+				break;
+		}
+		resumeMaze()
+		return;
+	}
+	else //choose theoretically...for the auto-solver.
+	{
+		switch(currentDirection)
+		{
+			case "up":
+				return "right"
+			case "down":
+				return "left"
+			case "right":
+				return "down"
+			case "left":
+				return "up"
+		}
+	}
 }
 
-function turnLeft()
+function turnLeft(currentDirection)
 {
 //    alert("I'm turning left!")
-    switch(spot[2])
-    {
-        case "up":
-            spot[2]="left"
-            break;
-        case "down":
-            spot[2]="right"
-            break;
-        case "right":
-            spot[2]="up"
-            break;
-        case "left":
-            spot[2]="down"
-            break;
-    }
-    resumeMaze()
+
+	if(currentDirection==null)
+	{
+		switch(spot[2])
+		{
+			case "up":
+				spot[2]="left"
+				break;
+			case "down":
+				spot[2]="right"
+				break;
+			case "right":
+				spot[2]="up"
+				break;
+			case "left":
+				spot[2]="down"
+				break;
+		}
+		resumeMaze()
+	}
+	else
+	{
+		switch(currentDirection)
+		{
+			case "up":
+				return "left"
+			case "down":
+				return "right"
+			case "right":
+				return "up"
+			case "left":
+				return "down"
+		}
+	}
 }
 
-function moveForward()
+function moveForward(currentSpot)
 {
     var pixelsSpot;
     
     //move the line forward just a tad to get it past
     //its current obstacle, so it can find a new one.
     //Uses the same algorithm as above.
-    switch(spot[2])  
-    {                
-        case "up":
-            pixelsSpot = spot[1]*INTERVAL;
-            pixelsSpot -= MOVEDIST;
-            spot[1] = pixelsSpot / INTERVAL;
-            break;
-        case "down":
-            pixelsSpot = spot[1]*INTERVAL;
-            pixelsSpot += MOVEDIST;
-            spot[1] = pixelsSpot / INTERVAL;
-            break;
-        case "right":
-            pixelsSpot = spot[0]*INTERVAL;
-            pixelsSpot += MOVEDIST;
-            spot[0] = pixelsSpot / INTERVAL;
-            break;
-        case "left":
-            pixelsSpot = spot[0]*INTERVAL;
-            pixelsSpot -= MOVEDIST;
-            spot[0] = pixelsSpot / INTERVAL;
-            break;
-        }
-    resumeMaze();
+	if(currentSpot==null)
+	{
+		switch(spot[2])  
+		{                
+			case "up":
+				pixelsSpot = spot[1]*INTERVAL;
+				pixelsSpot -= MOVEDIST/2;
+				spot[1] = pixelsSpot / INTERVAL;
+				break;
+			case "down":
+				pixelsSpot = spot[1]*INTERVAL;
+				pixelsSpot += MOVEDIST/2;
+				spot[1] = pixelsSpot / INTERVAL;
+				break;
+			case "right":
+				pixelsSpot = spot[0]*INTERVAL;
+				pixelsSpot += MOVEDIST/2;
+				spot[0] = pixelsSpot / INTERVAL;
+				break;
+			case "left":
+				pixelsSpot = spot[0]*INTERVAL;
+				pixelsSpot -= MOVEDIST/2;
+				spot[0] = pixelsSpot / INTERVAL;
+				break;
+		}
+		resumeMaze();
+	}
+	else
+	{
+		switch(currentSpot[2])
+		{
+			case "up":
+				pixelsSpot = spot[1]*INTERVAL;
+				pixelsSpot -= MOVEDIST/2;
+				currentSpot[1] = pixelsSpot / INTERVAL;
+				break;
+			case "down":
+				pixelsSpot = spot[1]*INTERVAL;
+				pixelsSpot += MOVEDIST/2;
+				currentSpot[1] = pixelsSpot / INTERVAL;
+				break;
+			case "right":
+				pixelsSpot = spot[0]*INTERVAL;
+				pixelsSpot += MOVEDIST/2;
+				currentSpot[0] = pixelsSpot / INTERVAL;
+				break;
+			case "left":
+				pixelsSpot = spot[0]*INTERVAL;
+				pixelsSpot -= MOVEDIST/2;
+				currentSpot[0] = pixelsSpot / INTERVAL;
+				break;
+		}		
+		return currentSpot;
+	}
 }
 
-function turnBackward()
+function turnBackward(currentDirection)
 {
 //    alert("Reversing direction!")
-    switch(spot[2])
-    {
-        case "up":
-            spot[2]="down"
-            break;
-        case "down":
-            spot[2]="up"
-            break;
-        case "right":
-            spot[2]="left"
-            break;
-        case "left":
-            spot[2]="right"
-            break;
-    }
-    resumeMaze()
+
+	if(currentDirection==null)
+	{
+
+		switch(spot[2])
+		{
+			case "up":
+				spot[2]="down"
+				break;
+			case "down":
+				spot[2]="up"
+				break;
+			case "right":
+				spot[2]="left"
+				break;
+			case "left":
+				spot[2]="right"
+				break;
+		}
+		resumeMaze()
+	}
+	else
+	{
+		switch(currentDirection)
+		{
+			case "up":
+				return "down"
+			case "down":
+				return "up"
+			case "right":
+				return "left"
+			case "left":
+				return "right"
+		}
+	}
 }
 
 function backTrack()
-{
-    var tempVar = route.pop();
+{	
+	var tempVar = route.pop();
 
     //if you are AT an obstacle, go another obstacle previous.
     //Otherwise, just go to the final obstacle.
@@ -1707,7 +2055,10 @@ function backTrack()
 
         if( tempVar["obstacle"]["type"]=="begin" )
         { 
-            startMaze();
+			turns = {};
+			drawGrid();
+			drawCurrentPosition();
+			solverMode();
             return; 
         }
         if( tempVar["obstacle"]=="Start" )
@@ -1721,6 +2072,7 @@ function backTrack()
             tempSpot[2] = spot[2];
             route.push( {"spot":tempSpot, "obstacle":"Start"} );
             
+			drawGrid();
             resumeMaze();
             return;
         }
@@ -1752,7 +2104,7 @@ function backTrack()
     
     drawGrid();
     obstacleHandler( tempVar["obstacle"] );
-    
+    drawCurrentPosition();
 }
 
 
@@ -1872,6 +2224,35 @@ function processFile(contents)
     Y_GRIDS = parseInt(xml.getElementsByTagName('Y_GRIDS')[0].firstChild.nodeValue);
 	DefaultSpacing = parseInt(xml.getElementsByTagName('DefaultSpacing')[0].firstChild.nodeValue);
 	
+	obstacle_rows = []
+	obstacle_columns = []
+
+	var outsideBoundariesFlag = false;
+	
+	for(var i1=0; i1< X_GRIDS; i1++)
+	{
+		var column = []
+		for(var i2=0; i2<=Y_GRIDS; i2++)
+		{
+			var row = []
+			column.push(row)
+		}
+		
+		obstacle_columns.push(column)
+	}
+
+	for(var i1=0; i1< Y_GRIDS; i1++)
+	{
+		var row = []
+		for(var i2=0; i2<=X_GRIDS; i2++)
+		{
+			var column = []
+			row.push(column)
+		}		
+		
+		obstacle_rows.push(row)
+	}
+	
     //Each obstacle contains dictionaries:
     // { "type":  <obstacle type>
     //   "orient": <obstacle orientation>
@@ -1884,21 +2265,42 @@ function processFile(contents)
 	var XML_obstacles = xml.getElementsByTagName('obstacle')
 	for (var i = 0; i < XML_obstacles.length; i++) {
 
-		newObstacle = {}
+		var newObstacle = {}
 		
         newObstacle["type"]=XML_obstacles[i].getElementsByTagName("type")[0].firstChild.nodeValue
         newObstacle["orient"]=XML_obstacles[i].getElementsByTagName("orient")[0].firstChild.nodeValue
         newObstacle["x"]=parseInt(XML_obstacles[i].getElementsByTagName("x")[0].firstChild.nodeValue)
         newObstacle["y"]=parseInt(XML_obstacles[i].getElementsByTagName("y")[0].firstChild.nodeValue)
 
-        obstacles.push(newObstacle)
-	
+		if(newObstacle.x > X_GRIDS || newObstacle.y > Y_GRIDS)
+		{
+			outsideBoundariesFlag = true;
+		}
+		else
+		{
+			addObstacleToObstacles(newObstacle)
+		}
+		
 	}
-
+	
+	if(outsideBoundariesFlag==true)
+	{
+		alert("Some of your obstacles are outside the established grid for this maze. Did you reset the grid size without deleting the obstacles outside those boundaries? You may wish to re-expand the grid and delete these extra obstacles.")
+	}
+	
     INTERVAL = DefaultSpacing
     CANVAS_WIDTH = INTERVAL * X_GRIDS + (BORDER*2);
     CANVAS_HEIGHT = INTERVAL * Y_GRIDS + (BORDER*2);
+
 	drawGrid()
+	
+	
+	//place the spot at the beginning obstacle.
+	//The auto-solver uses this. It can auto-solve from the beginning, if you're lame.
+    beginObstacle = findBegin()
+    spot = [ obstacles[beginObstacle]["x"], obstacles[beginObstacle]["y"] - 1/2 , "up", "stopped"];
+
+	drawCurrentPosition()
 
 }
 
