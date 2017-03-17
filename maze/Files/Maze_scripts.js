@@ -648,7 +648,7 @@ document.onkeydown = function(e) {
 	}
 	
 	switch(key){
-		case 8:
+		case 66:  //8 for backspace. But this can be unexpected.
 			backTrack();
 			break;
 		default:
