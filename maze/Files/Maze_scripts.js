@@ -648,7 +648,8 @@ document.onkeydown = function(e) {
 	}
 	
 	switch(key){
-		case 66:  //8 for backspace. But this can be unexpected.
+		case 66:  //"b"
+		case 8:  //8 for backspace. But this can be unexpected.
 			backTrack();
 			break;
 		default:
@@ -2055,7 +2056,12 @@ function backTrack()
     //The beginning obstacle could be approached differently.
     if( tempVar["obstacle"]["type"]=="begin" )
     { 
-	spot = BEGINNING
+
+	spot[0] = BEGINNING[0]
+	spot[1] = BEGINNING[1]
+	spot[2] = BEGINNING[2]
+	spot[3] = BEGINNING[3]
+
 	turns = {};
 	route.push(tempVar);
 	turns["upkey"]="forward";
@@ -2078,7 +2084,11 @@ function backTrack()
 
         if( tempVar["obstacle"]["type"]=="begin" )
         { 
-			spot = BEGINNING
+			spot[0] = BEGINNING[0]
+			spot[1] = BEGINNING[1]
+			spot[2] = BEGINNING[2]
+			spot[3] = BEGINNING[3]
+
 			turns = {};
 			route.push(tempVar);
 			turns["upkey"]="forward";
@@ -2333,7 +2343,12 @@ function processFile(contents)
 		BEGINNING = [ obstacles[beginObstacle]["x"], obstacles[beginObstacle]["y"] - 1/2 , "up", "stopped"];
 
 		route.push( {"spot":BEGINNING, "obstacle":obstacles[beginObstacle]} );
-		spot = BEGINNING
+
+		spot[0] = BEGINNING[0]
+		spot[1] = BEGINNING[1]
+		spot[2] = BEGINNING[2]
+		spot[3] = BEGINNING[3]
+
 		turns = {}; //keep track of what keys to look for when turning.
 		turns["upkey"] = "forward";
 		drawCurrentPosition()
