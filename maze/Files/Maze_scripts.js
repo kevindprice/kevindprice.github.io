@@ -2318,14 +2318,21 @@ function processFile(contents)
 	//place the spot at the beginning obstacle.
 	//The auto-solver uses this. It can auto-solve from the beginning, if you're lame.
     beginObstacle = findBegin()
-    BEGINNING = [ obstacles[beginObstacle]["x"], obstacles[beginObstacle]["y"] - 1/2 , "up", "stopped"];
+	if(beginObstacle==-1)
+	{
+		alert("This maze does not have a beginning obstacle. You should go into the maze creator mode and add one.")
+	}
+	else
+	{
+		BEGINNING = [ obstacles[beginObstacle]["x"], obstacles[beginObstacle]["y"] - 1/2 , "up", "stopped"];
 
-	spot = BEGINNING
+		route.push( {"spot":BEGINNING, "obstacle":obstacles[beginObstacle]} );
+		spot = BEGINNING
+		turns = {}; //keep track of what keys to look for when turning.
+		turns["upkey"] = "forward";
+		drawCurrentPosition()
+	}
 	
-	var turns = {}; //keep track of what keys to look for when turning.
-	turns["upkey"] = "forward";
-	
-	drawCurrentPosition()
 
 }
 
