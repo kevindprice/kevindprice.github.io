@@ -110,7 +110,7 @@ var obstacle_columns = [];
 //A few of the possibilities for the action bar are accessed from multiple places.
 startingHTML = "<input type='submit' value='Solve Maze' style='font-weight:bold;' onclick='solverMode()'/> <input type='submit' value='Add Obstacles' onclick='createMaze()'/> <input type='submit' value='Load Maze' onclick='loadMaze()'/>"
 
-mazeSOLVER = "<input type='submit' value='Begin Maze' style='font-weight:bold;' onclick='startMaze()'/> <input type='submit' value='Identify Beginning/End' onmousedown='displayEnds()' onmouseup='drawGrid(); drawCurrentPosition();' /> <!--&nbsp;&nbsp;&nbsp;<input type='submit' value='Solve the maze for me (experimental)' onmousedown='autoSolve()' onmouseup='drawGrid()' />-->"
+mazeSOLVER = "<input type='submit' value='Begin Maze' style='font-weight:bold;' onclick='startMaze()'/> <input type='submit' value='Identify Beginning/End' onmousedown='displayEnds()' onmouseup='drawGrid(); drawCurrentPosition();' /> &nbsp;&nbsp;&nbsp;<input type='submit' value='Solve the maze for me (experimental)' onclick='autoSolve()'/>"
 
 
 
@@ -494,6 +494,9 @@ function drawObstacle(obstacle)
 			obstacle_columns[obstacle["x"]][obstacle["y"]].splice(0,1)
 
             drawGrid();
+			
+			BEGINNING = [ obstacle["x"], obstacle["y"] - 1/2 , "up", "stopped"];
+
         }
     }
     
@@ -870,6 +873,17 @@ function eraseMaze()
     
         obstacles = []
     
+		for(var i=0; i<obstacle_rows.length; i++)
+		{
+			obstacle_rows[i]=[]
+		}
+		
+		for(var i=0; i<obstacle_columns.length; i++)
+		{
+			obstacle_columns[i]=[]
+		}
+		
+		
         INTERVAL = 20;  //line spacing
 
         X_GRIDS = 28;
@@ -1204,14 +1218,14 @@ function autoSolveChecker(mazeLocation, checkedlist, previousIndex)
 	if(mazeDecision["obstacle"]["type"]=="edge")
 	{
 		mazeDecision["notes"]=="edge"
-		mazeDecision["possible"]==false
+		//mazeDecision["possible"]==false
 		return mazeDecision
 	}
 	
 	if(mazeDecision["obstacle"]["type"]=="end")
 	{
-		mazeDecision["notes"]=="SOLUTION"
-		mazeDecision["possible"]==true
+		mazeDecision["notes"]="end"
+		//mazeDecision["possible"]=true
 		return mazeDecision
 	}
 	
@@ -1307,93 +1321,73 @@ function autoSolve()
 
 	checkedlist = []
 	
-	currentIndex = "BEGINNING"
+	var previousIndex = -1;
+	var currentIndex = 0;
+	var numDirections = 0;
+	var directionNum = 0;
 	
 	var backward = false;
 	var done=false;
 	
+	loopcount = 0
+	foundendflag = false
+
 	while(!done)
 	{
-		mazeDecision = autoSolveChecker(mazeSpot,checkedlist,currentIndex)
-		
+		loopcount += 1
+		mazeDecision = autoSolveChecker(mazeSpot,checkedlist,previousIndex)
 		checkedlist.push(mazeDecision)
+		currentIndex = checkedlist.length - 1
 		
-		if(mazeDecision["notes"]=="edge")
-		{			
-			currentIndex = mazeDecision["previousIndex"]
-			while( checkedlist[currentIndex]["directions"].length==1 )
-			{
-				checkedlist[currentIndex]["possible"]==false
-				currentIndex = checkedlist[currentIndex]["previousIndex"]
-				
-				if(currentIndex=="BEGINNING")
-					{return "IMPOSSIBLE";}
-			}
-		}
-		else if(mazeDecision["notes"]=="link")
+		if(previousIndex != -1)
 		{
-			currentIndex = mazeDecision["previousIndex"]
-			while( checkedlist[currentIndex]["directions"].length==1 )
-			{
-				checkedlist[currentIndex]["notes"]=="link"
-				currentIndex = checkedlist[currentIndex]["previousIndex"]
-				
-				if(currentIndex=="BEGINNING")
-					{return "IMPOSSIBLE";}
-			}
-		}
-		else if(mazeDecision["notes"]=="end")
+			checkedlist[previousIndex].links.push[currentIndex];
+		}		
+
+		if(mazeDecision.notes=="end")
 		{
-			//do nothing
-		}
-		else
-		{
-			checkedlist[checkedlist.length-1]["links"].push(checkedlist.length)
-			currentIndex = checkedlist.length - 1
-			mazeSpot = mazeDecision["choices"][0]
-			continue;
+			foundendflag = true;
 		}
 		
-//		if(!backward)
-//		{	//If it's already solved all of the paths in this obstacle...
-		if(checkedlist[currentIndex]["choices"].length == checkedlist[currentIndex]["directions"].length)
+		alert(mazeDecision.notes)
+		
+		if(mazeDecision.notes == "end" || mazeDecision.notes == "edge" || mazeDecision.notes == "link") //backtrack
 		{
-			while(checkedlist[currentIndex]["choices"].length == checkedlist[currentIndex]["directions"].length && checkedlist[currentIndex]["notes"]!="BEGINNING")
-			{			
-				childNotes = []
-				for(i=0; i<mazeDecision["choices"].length; i++)
-				{
-					childNotes.push( checkedlist[checkedlist[currentIndex]["links"][i]]["notes"] )
-				}
-				
-				if(childNotes.indexOf("OK")>=0) //If one of the children still says OK, then this is the correct path!
-				{
-					currentIndex = checkedlist[currentIndex]["previousIndex"]
-				}
-				
+			numDirections = 0;
+			directionNum = 0;
+			
+			while( currentIndex!=-1 && directionNum == numDirections )
+			{
+				currentIndex = checkedlist[currentIndex].previousIndex
+				numDirections = checkedlist[currentIndex].choices.length
+				directionNum = checkedlist[currentIndex].links.length
 			}
 			
-			if(checkedlist[currentIndex]["notes"]=="BEGINNING")
+			if(currentIndex==-1)
+			{ done=true; }
+			else
 			{
-				done=true; //break!
+										//-1 because I'm accessing an index
+				mazeSpot = checkedlist[currentIndex].choices[directionNum-1]
+				previousIndex = currentIndex;
 			}
 		}
-		
-		
-		
+		else //e.g. if I DON'T need to backtrack...
+		{
+			checkedlist[checkedlist.length-1]["links"].push(checkedlist.length)
+			mazeSpot = mazeDecision["choices"][0]
+		}
+				
+		if(loopcount==2000)
+		{
+			break;
+		}
 	}
 	
-	/*
-	//if the maze is STOPPED or at an obstacle
-	if(route["spot"][0]==spot[0] && route["spot"][1]==spot["y"])
+	if(!foundendflag)
 	{
-		start = route[route.length]
+		alert("This maze is impossible.")
 	}
-	else //if the maze is at the BEGINNING or MOVING
-	{
-	}*/
-
-	
 }
 
 

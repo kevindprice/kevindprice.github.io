@@ -1,0 +1,9 @@
+LOGIC FOR SOLVING THE MAZE
+
+Hit an obstacle.
+Check how many directions are available at this obstacle.
+Start at the first direction and go to the next obstacle.
+If the next position has already been seen, backtrack.
+If no directions, then backtrack.
+If you backtracked, then pick the next direction.
+If you've checked all the directions, then backtrack again.
