@@ -1558,6 +1558,12 @@ function obstacleHandler(stop_obstacle, checkNumber, checkSpot)
 {                                          //to check number of directions
 
 
+    drawGrid(); //refresh the line so the corners look nice.
+                //do this BEFORE adding the last obstacle
+                //so the line refresh can make the last segment
+                //in a darker color.
+
+
 	if(checkNumber==null)
 	{
 		//just in case the interval is an odd number,
@@ -1582,12 +1588,6 @@ function obstacleHandler(stop_obstacle, checkNumber, checkSpot)
 	}
 
 	
-    
-    drawGrid(); //refresh the line so the corners look nice.
-                //do this BEFORE adding the last obstacle
-                //so the line refresh can make the last segment
-                //in a darker color.
-
     
     var sides = [];  //will be populated with which sides
                      //of the square have obstacles in them
