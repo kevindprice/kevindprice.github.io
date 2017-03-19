@@ -2110,43 +2110,37 @@ function backTrack()
         spot[1]==route[route.length-1].spot[1] &&
 		route.length != 1)
     {
-        var tempVar = route.pop();
+        route.pop();
     }
 
+	firstloop = true;
+	
     //if there is only one direction available,
     //keep going backward until there is a choice.
 	do {
-        var tempVar = route.pop();
-        spot[0] = tempVar.spot[0]
-        spot[1] = tempVar.spot[1]
-        spot[2] = tempVar.spot[2]
-
-        if( obstacles[tempVar.obstacle].type=="begin" )
+		
+		if(!firstloop) { route.pop(); }
+		
+		spot = copyArray(route[route.length-1].spot)
+		
+        if( obstacles[route[route.length-1].obstacle].type=="begin" )
         { 
-			spot = copyArray(BEGINNING)
 			turns = {};
-			route.push(tempVar);
 			turns["upkey"]="forward";
 			drawGrid();
 			drawCurrentPosition();
 			solverMode();
 			return; 
         }
-        else if( tempVar.obstacle==-1 )  //custom start
+        else if( route[route.length-1].obstacle==-1 )  //custom start
         {
-            //have to repopulate the route[] with the custom starting spot.
-            route = []
-			
-            var tempSpot = copyArray(spot);
-
-            route.push( {"spot":tempSpot, "obstacle":"Start"} );
-            
 			drawGrid();
             resumeMaze();
             return;
         }
 
-        var directions = obstacleDirections( tempVar.obstacle );
+        var directions = obstacleDirections( route[route.length-1].obstacle );
+		firstloop = false;
 	}
 	while( directions.length == 1 ) 
 
