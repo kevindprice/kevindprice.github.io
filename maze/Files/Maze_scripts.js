@@ -34,17 +34,20 @@ displayEnds
 
 solverMode
 stopMaze
+drawCurrentPosition
 resumeMaze
 startMaze
 move
 
-autoSolveSpotChecker
-autoSolve
+mapSpotChecker
+mapMaze
 arraysEqual
 findSpotInAutosolve
+autoSolve
 
 checkObstacles
-obstacleHandler
+obstacleDirections
+stopHandler
 
 turnRight
 turnLeft
@@ -75,6 +78,10 @@ window_onunload
 
 //==================================================================
 //GLOBAL Definitions
+
+//I would try to remove globals from the code,
+//but these variables need to be accessed before and after breaks in code execution.
+//How else can these variables be maintained permanently accessible in memory?
 
 var INTERVAL = 20;  //line spacing
 
@@ -182,11 +189,11 @@ function setPage()
     spot = [ 0, canvas.height/INTERVAL - 1/2 , "up", "stopped" ];
 	//The spot would be loaded to the beginning, but the samples are loaded asynchrounously.
 	//Thus, the beginning spot must be loaded in sampleFile()
+	//(it is loaded there again)
 	
 	
     animate_string('title');
     drawGrid();
-    //loadSample();
 	
 	sample = getQueryVariable("sample");
 	if(sample!=null)
@@ -1010,13 +1017,19 @@ function displayEnds()
 //These functions power the maze solver.
 
 //enters the maze solver mode.
-function solverMode()
+function solverMode(quick)
 {
     document.getElementById("action").innerHTML = mazeSOLVER;
 	if(route.length > 1)
 	{
 		document.getElementById("action").innerHTML += "<input type='submit' value='Resume Maze' onclick='resumeMaze()'/>"
 	}
+	
+	if(obstacles.length > 10 && quick != true)
+	{
+		mapMaze();
+	}
+	
     spot[3]="stopped";  //needs to be changed
 }                       //so the click handler won't send 
                         //clicks to the maze creator.
@@ -1028,13 +1041,16 @@ function stopMaze()
 {
     spot[3] = "stopped";
     document.getElementById("action").innerHTML = "<input type='submit' value='Resume Maze' onclick='resumeMaze()'/> <input type='submit' value='Backtrack' onclick='backTrack()' style='margin-right:10px'/> <input type='submit' value='Speed(+)' onclick='speedUp()'/> <input type='submit' value='Speed(-)' onclick='slowDown()' style='margin-right:10px'/> Go to:<input type='submit' value='Beginning' onclick='startMaze()'/> <input type='submit' value='Custom Spot' onclick='startCustom()'/>";
-
-	//drawCurrentPosition()
 }
 
 
-function drawCurrentPosition()
+function drawCurrentPosition(position)
 {
+	if(position==null)
+	{
+		position = copyArray(spot);
+	}
+
 	var canvas = document.getElementById('canvas');
 	var context = canvas.getContext('2d');
 	//var centerX = canvas.width / 2;
@@ -1042,8 +1058,8 @@ function drawCurrentPosition()
 	var radius = INTERVAL / 4;
 	
 	//Identify the beginning
-	var centerX = (spot[0] * INTERVAL) + INTERVAL / 2 + 1
-	var centerY = spot[1] * INTERVAL + INTERVAL / 2 + 1
+	var centerX = (position[0] * INTERVAL) + INTERVAL / 2 + BORDER
+	var centerY = position[1] * INTERVAL + INTERVAL / 2 + BORDER
 	
              
 	context.beginPath();
@@ -1177,144 +1193,20 @@ function move()
 /////////////////////////////////////////////////////////////////////////////////
 
 
+/*  LOGIC FOR SOLVING THE MAZE
 
-//checks an obstacle for more directions to check.
-function autoSolveSpotChecker(mazeLocation, checkedlist, previousIndex)
-{
-	//contains everything about one point in the maze.
-	var mazeDecision = {}
-	
-	mazeDecision["firstSpot"]=mazeLocation
-	mazeDecision["previousIndex"]=previousIndex
-	
-	mazeDecision["obstacle"]=checkObstacles(mazeLocation)["obstacle"]
+Hit an obstacle.
+Check how many directions are available at this obstacle.
+Start at the first direction and go to the next obstacle.
+If the next position has already been seen, backtrack.
+If you go off the edge, then backtrack.
+If you backtracked, then pick the next direction.
+If you've checked all the directions, then backtrack again. */
 
-	
-	if(mazeDecision.obstacle.type=="edge")
-	{
-		mazeDecision.notes=="edge"
-		return mazeDecision
-	}
-		
-	
-	//create a NEW maze location at the new obstacle
-	switch(mazeLocation[2])
-	{
-		case "up":
-			mazeLocation = []
-			mazeLocation.push(mazeDecision["obstacle"]["x"])
-			mazeLocation.push(mazeDecision["obstacle"]["y"])
-			mazeLocation.push("up")
-			break;
-		case "down":
-			mazeLocation = []
-			mazeLocation.push(mazeDecision["obstacle"]["x"])
-			mazeLocation.push(mazeDecision["obstacle"]["y"]-1)
-			mazeLocation.push("down")
-			break;
-		case "right":
-			mazeLocation = []
-			mazeLocation.push(mazeDecision["obstacle"]["x"]-1)
-			mazeLocation.push(mazeDecision["obstacle"]["y"])
-			mazeLocation.push("right")
-			break;
-		case "left":
-			mazeLocation = []
-			mazeLocation.push(mazeDecision["obstacle"]["x"])
-			mazeLocation.push(mazeDecision["obstacle"]["y"])
-			mazeLocation.push("left")
-			break;
-		default:
-	}
-	
-	if(mazeDecision.obstacle.type == "end")
-	{
-		mazeDecision["notes"]="end"
-		return mazeDecision
-	}
-
-	
-	var indexInMaze = findSpotInAutosolve(mazeLocation, checkedlist)
-
-	if(indexInMaze != -1)
-	{
-		mazeDecision["notes"]="OK" //loop
-		mazeDecision["links"]=[indexInMaze]   //debug this line
-		return mazeDecision
-	}
-	
-	mazeDecision["obstacleSpot"] = mazeLocation
-	mazeDecision["directions"]=obstacleHandler(mazeDecision["obstacle"],mazeLocation)
-
-	mazeDecision["choices"]=[];
-	for(i=0;i<mazeDecision.directions.length;i++)
-	{
-		newLocation = [];
-		newLocation.push(mazeLocation[0])
-		newLocation.push(mazeLocation[1])
-
-		switch(mazeDecision.directions[i])
-		{
-			case "right":
-				newLocation.push(turnRight(mazeLocation[2]))
-				break;
-			case "left":
-				newLocation.push(turnLeft(mazeLocation[2]))
-				break;
-			case "backward":
-				newLocation.push(turnBackward(mazeLocation[2]))
-				break;
-			case "forward":
-				newLocation = moveForward(mazeLocation)
-				break;
-		}
-
-		mazeDecision["choices"].push(newLocation)
-	}		
-
-	mazeDecision["links"] = []
-	
-	mazeDecision["notes"]="OK"  //until proven false.
-	
-	return mazeDecision;
-	
-}
-
-
-function arraysEqual(arr1, arr2) {
-    if(arr1.length !== arr2.length)
-        return false;
-    for(var i = arr1.length; i--;) {
-        if(arr1[i] !== arr2[i])
-            return false;
-    }
-
-    return true;
-}
-
-
-function findSpotInAutosolve(mazeLocation, checkedlist)
-{
-	for(var i=0;i<checkedlist.length;i++)
-	{
-		if(checkedlist[i].hasOwnProperty("obstacleSpot"))
-		{
-			if( arraysEqual(mazeLocation, checkedlist[i].obstacleSpot) )
-			{
-				return i;
-			}
-		}
-	}
-	return -1;
-}
-
-function autoSolve()
+function mapMaze()
 {	
-	mazeSpot = {};
-	mazeSpot[0] = spot[0]
-	mazeSpot[1] = spot[1]
-	mazeSpot[2] = spot[2]
-
+	var mazeSpot = copyArray(BEGINNING);
+	
 	var checkedlist = []
 	
 	var previousIndex = -1;
@@ -1328,14 +1220,25 @@ function autoSolve()
 	var done=false;
 	
 	var loopcount = 0
-	foundendflag = false
+	var foundendflag = false
 
 	while(!done)
 	{
 		loopcount += 1
-		mazeDecision = autoSolveSpotChecker(mazeSpot,checkedlist,previousIndex)
+		var mazeDecision = mapSpotChecker(mazeSpot,checkedlist,previousIndex)
 		checkedlist.push(mazeDecision)
 		currentIndex = checkedlist.length - 1
+		
+		/*
+		//for debugging. If you put a breakpoint just after this,
+		//then you can push the "continue" button repeatedly
+		//and watch the maze step through the obstacles.
+		drawGrid()
+		drawCurrentPosition( mazeSpot );
+		if(mazeDecision.hasOwnProperty("obstacleSpot"))
+		{
+			drawCurrentPosition( mazeDecision.obstacleSpot )
+		}*/
 		
 		if(previousIndex != -1)
 		{
@@ -1346,9 +1249,7 @@ function autoSolve()
 		{
 			foundendflag = true;
 		}
-		
-		//alert(mazeDecision.notes)
-		
+				
 		if(mazeDecision.notes == "end" || mazeDecision.notes == "edge" || mazeDecision.links.length == 1) //backtrack
 		{
 			numDirections = 0;
@@ -1392,20 +1293,209 @@ function autoSolve()
 		mazeMap = null;
 	} else if(!foundendflag)
 	{
-		alert("This maze is impossible.")
+		alert("This maze is impossible. You should enter the maze creator and build a solution to this maze!")
 		mazeMap = null;
 	} else
 	{
 		mazeMap = checkedlist;
+		//alert("Fully mapped in " + loopcount.toString() + " loops.")
 	}
+}
+
+
+//Studies a spot / obstacle location in the maze for all relevant info
+// (where it is, what directions and choices are available, what it links to...)
+function mapSpotChecker(mazeLocation, checkedlist, previousIndex)
+{
+	//contains everything about one point in the maze.
+	var mazeDecision = {}
+	
+	mazeDecision["firstSpot"]=mazeLocation
+	mazeDecision["previousIndex"]=previousIndex
+	
+	mazeDecision["obstacle"]=checkObstacles(mazeLocation)["obstacle"]
+
+	
+	if(mazeDecision.obstacle==-1)
+	{
+		mazeDecision.notes="edge"
+		mazeDecision.links=[]
+		return mazeDecision
+	}
+		
+	
+	//create a NEW maze location at the new obstacle
+	switch(mazeLocation[2])
+	{
+		case "up":
+			var mazeLocation = []
+			mazeLocation.push(obstacles[mazeDecision["obstacle"]].x)
+			mazeLocation.push(obstacles[mazeDecision["obstacle"]].y)
+			mazeLocation.push("up")
+			break;
+		case "down":
+			var mazeLocation = []
+			mazeLocation.push(obstacles[mazeDecision["obstacle"]].x)
+			mazeLocation.push(obstacles[mazeDecision["obstacle"]].y - 1)
+			mazeLocation.push("down")
+			break;
+		case "right":
+			var mazeLocation = []
+			mazeLocation.push(obstacles[mazeDecision["obstacle"]].x - 1)
+			mazeLocation.push(obstacles[mazeDecision["obstacle"]].y)
+			mazeLocation.push("right")
+			break;
+		case "left":
+			var mazeLocation = []
+			mazeLocation.push(obstacles[mazeDecision["obstacle"]].x)
+			mazeLocation.push(obstacles[mazeDecision["obstacle"]].y)
+			mazeLocation.push("left")
+			break;
+		default:
+	}
+	
+	if(obstacles[mazeDecision.obstacle].type == "end")
+	{
+		mazeDecision["notes"]="end"
+		return mazeDecision
+	}
+
+	
+	var indexInMaze = findSpotInAutosolve(mazeLocation, mazeDecision.obstacle, checkedlist)
+
+	if(indexInMaze != -1)
+	{
+		mazeDecision["notes"]="OK" //loop
+		mazeDecision["links"]=[indexInMaze]   //debug this line
+		return mazeDecision
+	}
+	
+	mazeDecision["obstacleSpot"] = mazeLocation
+	mazeDecision["directions"]=obstacleDirections(mazeDecision["obstacle"],mazeLocation)
+
+	mazeDecision["choices"]=[];
+	for(i=0;i<mazeDecision.directions.length;i++)
+	{
+		var newLocation = [];
+		newLocation.push(mazeLocation[0])
+		newLocation.push(mazeLocation[1])
+		//direction is generated in this switch statement
+		
+		switch(mazeDecision.directions[i])
+		{
+			case "right":
+				newLocation.push(turnRight(mazeLocation[2]))
+				break;
+			case "left":
+				newLocation.push(turnLeft(mazeLocation[2]))
+				break;
+			case "backward":
+				newLocation.push(turnBackward(mazeLocation[2]))
+				break;
+			case "forward":
+				newLocation = moveForward( copyArray(mazeLocation) )
+				break;
+		}
+
+		mazeDecision["choices"].push(newLocation)
+	}		
+
+	mazeDecision["links"] = []
+	
+	mazeDecision["notes"]="OK"  //until proven false.
+	
+	return mazeDecision;
+	
+}
+
+
+function arraysEqual(arr1, arr2) {
+	
+    if(arr1.length !== arr2.length)
+        return false;
+    for(var i = arr1.length; i--;) {
+        if(arr1[i] !== arr2[i])
+            return false;
+    }
+
+    return true;
+}
+
+
+function findSpotInAutosolve(mazeLocation, obstacleNum, checkedlist)
+{
+	for(var i=0;i<checkedlist.length;i++)
+	{
+		if(checkedlist[i].hasOwnProperty("obstacle"))
+		{
+			//Is more efficient to compare all of the obstacles by index first,
+			//to see if any other maze positions match your current obstacle.
+			//If a previous maze decision DID previously study that obstacle,
+			//THEN (if it's a match) compare what position you approached it from.
+			
+			//Simply comparing each position you've been (+direction) is more intensive,
+			//because the positions are an array.
+			if(checkedlist[i].obstacle==obstacleNum)
+			{
+				//it will pass a null reference if the checkedlist item
+				//it's comparing to is already a "link" to another spot.
+				//Can't compare a link to a link. Need to create a new link.
+				if( checkedlist[i].hasOwnProperty("obstacleSpot") )
+				{
+					if( arraysEqual(mazeLocation, checkedlist[i].obstacleSpot) )
+					{
+						return i;
+					}
+				}
+			}
+		}
+	}
+	return -1;
+}
+
+
+
+//finds the most efficient solution from the user's current position
+//must iterate up and down the mazeMap created in the function above,
+//and return the correct spot indices in order.
+function autoSolve(numTurns) //optional argument to specify number of turns to show.
+{
+	mapSpot = 0;
+
+	var loopcount = 0;
+	var LOOPCOUNT = 2000;
+	var done=false;
+	
+	while(!done)
+	{
+		loopcount+=1;
+		
+		if(loopcount==LOOPCOUNT)
+		{
+			break;
+		}
+
+	}
+	
+	if(loopcount==LOOPCOUNT)  //this case shouldn't happen. But just in case I missed something...
+	{
+		alert("The maze solver terminated early due to an infinite loop in the logic. The maze was not fully solved.")
+		mazeMap = null;
+	}
+	
 }
 
 
 
 
-//================================================
-//================================================
-//These functions handle checking for and hitting obstacles.
+//==========================================================//
+//==========================================================//
+//These functions handle checking for and hitting obstacles.//
+//==========================================================//
+//==========================================================//
+
+
+
 
 //when you start moving, this finds which obstacle you're
 //going to hit next.
@@ -1546,7 +1636,7 @@ function checkObstacles(checkSpot)
 
 
 
-//this function handles what to do when you hit an obstacle.
+//this function gets which directions are available at a given stop in the maze.
 function obstacleDirections(stop_obstacle, checkSpot)
                            //checkNumber = flag to use this function
 {                                          //to check number of directions
@@ -1591,117 +1681,92 @@ function obstacleDirections(stop_obstacle, checkSpot)
 	{   //switch case for your direction when you stopped.
 		case "up":  //we KNOW there is an obstacle on TOP.
 			if( obstacles[stop_obstacle]["type"] == "permeable" )
-			{ directions.push("forward")
-			  turns["upkey"] = "forward"  }
+			{ directions.push("forward") }
 			
 			if( isIn(sides, "left") &&
 				isIn(sides, "right") )
-			{ directions.push("backward") 
-			  turns["downkey"] = "backward" }
+			{ directions.push("backward") }
 
 			if( isIn(sides, "left") &&
 				!isIn(sides, "right") )
-			{ directions.push("right") 
-			  turns["rightkey"] = "right" }
+			{ directions.push("right") }
 			
 			if( !isIn(sides, "left") &&
 				isIn(sides, "right") )
-			{ directions.push("left")
-			  turns["leftkey"] = "left" }
+			{ directions.push("left") }
 			
 			if( !isIn(sides, "right") &&
 				!isIn(sides, "left") )
 			{ directions.push("right")
-			  directions.push("left") 
-			  turns["rightkey"] = "right"
-			  turns["leftkey"] = "left" }
-
+			  directions.push("left") }
 			break;
 
 		case "down":  //we KNOW there is an obstacle BELOW.
 			if( obstacles[stop_obstacle]["type"] == "permeable" )
-			{ directions.push("forward") 
-			  turns["downkey"] = "forward" }
+			{ directions.push("forward") }
 			
 			if( isIn(sides, "left") &&
 				isIn(sides, "right") )
-			{ directions.push("backward")
-			  turns["upkey"] = "backward" }
+			{ directions.push("backward") }
 
 			if( isIn(sides, "left") &&
 				!isIn(sides, "right") )
-			{ directions.push("left") 
-			  turns["rightkey"] = "left" }
+			{ directions.push("left") }
 										//left and right are swapped
 										//when moving down
 			if( !isIn(sides, "left") &&
 				isIn(sides, "right") )
-			{ directions.push("right") 
-			  turns["leftkey"] = "right" }
+			{ directions.push("right") }
 										//left and right are swapped
 										//when moving down
 			if( !isIn(sides, "right") &&
 				!isIn(sides, "left") )
 			{ directions.push("right")
-			  directions.push("left") 
-			  turns["leftkey"] = "right"
-			  turns["rightkey"] = "left" }
+			  directions.push("left") }
 			break;
 
 		case "right": //we KNOW there is an obstacle TO THE RIGHT.
 			if( obstacles[stop_obstacle]["type"] == "permeable" )
-			{ directions.push("forward")
-			  turns["rightkey"] = "forward" }
+			{ directions.push("forward") }
 			
 			if( isIn(sides, "top") &&
 				isIn(sides, "bottom") )
-			{ directions.push("backward") 
-			  turns["leftkey"] = "backward" }
+			{ directions.push("backward") }
 
 			if( isIn(sides, "top") &&
 				!isIn(sides, "bottom") )
-			{ directions.push("right") 
-			  turns["downkey"] = "right" }
+			{ directions.push("right") }
 
 			if( !isIn(sides, "top") &&
 				isIn(sides, "bottom") )
-			{ directions.push("left") 
-			  turns["upkey"] = "left" }
+			{ directions.push("left") }
 
 			if( !isIn(sides, "top") &&
 				!isIn(sides, "bottom") )
 			{ directions.push("right")
-			  directions.push("left") 
-			  turns["downkey"] = "right"
-			  turns["upkey"] = "left" }
+			  directions.push("left") }
 			break;
 
 		case "left": //we KNOW there is an obstacle TO THE LEFT.
 			if( obstacles[stop_obstacle]["type"] == "permeable" )
-			{ directions.push("forward")
-			  turns["leftkey"] = "forward" }
+			{ directions.push("forward") }
 			
 			if( isIn(sides, "top") &&
 				isIn(sides, "bottom") )
-			{ directions.push("backward")
-			  turns["rightkey"] = "backward" }
+			{ directions.push("backward") }
 
 			if( isIn(sides, "top") &&
 				!isIn(sides, "bottom") )
-			{ directions.push("left")
-			  turns["downkey"] = "left" }
+			{ directions.push("left") }
 
 			if( !isIn(sides, "top") &&
 				isIn(sides, "bottom") )
-			{ directions.push("right") 
-			  turns["upkey"] = "right" }
+			{ directions.push("right")  }
 
 			if( !isIn(sides, "top") &&
 				!isIn(sides, "bottom") )
 			{ directions.push("right")
-			  directions.push("left")
-			  turns["upkey"] = "right"
-			  turns["downkey"] = "left" }
+			  directions.push("left") }
 			break;
 	}
     
@@ -1731,7 +1796,7 @@ function stringInArray(string, array)
 	return false;
 }
 
-
+//handles the tedious work of what to do when you hit an obstacle and need to stop.
 function stopHandler(stop_obstacle)
 {
 	
@@ -2002,64 +2067,44 @@ function turnLeft(currentDirection)
 function moveForward(currentSpot)
 {
     var pixelsSpot;
+
+	var resumeFlag = false;
     
+	if(currentSpot==null)
+	{
+		currentSpot = spot; //do not copy arrays! Need to change the spot!
+		resumeFlag = true;
+	}
+	
     //move the line forward just a tad to get it past
     //its current obstacle, so it can find a new one.
     //Uses the same algorithm as above.
-	if(currentSpot==null)
+	switch(currentSpot[2])
 	{
-		switch(spot[2])  
-		{                
-			case "up":
-				pixelsSpot = spot[1]*INTERVAL;
-				pixelsSpot -= MOVEDIST/2;
-				spot[1] = pixelsSpot / INTERVAL;
-				break;
-			case "down":
-				pixelsSpot = spot[1]*INTERVAL;
-				pixelsSpot += MOVEDIST/2;
-				spot[1] = pixelsSpot / INTERVAL;
-				break;
-			case "right":
-				pixelsSpot = spot[0]*INTERVAL;
-				pixelsSpot += MOVEDIST/2;
-				spot[0] = pixelsSpot / INTERVAL;
-				break;
-			case "left":
-				pixelsSpot = spot[0]*INTERVAL;
-				pixelsSpot -= MOVEDIST/2;
-				spot[0] = pixelsSpot / INTERVAL;
-				break;
-		}
-		resumeMaze();
-	}
-	else
-	{
-		switch(currentSpot[2])
-		{
-			case "up":
-				pixelsSpot = spot[1]*INTERVAL;
-				pixelsSpot -= MOVEDIST/2;
-				currentSpot[1] = pixelsSpot / INTERVAL;
-				break;
-			case "down":
-				pixelsSpot = spot[1]*INTERVAL;
-				pixelsSpot += MOVEDIST/2;
-				currentSpot[1] = pixelsSpot / INTERVAL;
-				break;
-			case "right":
-				pixelsSpot = spot[0]*INTERVAL;
-				pixelsSpot += MOVEDIST/2;
-				currentSpot[0] = pixelsSpot / INTERVAL;
-				break;
-			case "left":
-				pixelsSpot = spot[0]*INTERVAL;
-				pixelsSpot -= MOVEDIST/2;
-				currentSpot[0] = pixelsSpot / INTERVAL;
-				break;
-		}		
-		return currentSpot;
-	}
+		case "up":
+			pixelsSpot = currentSpot[1]*INTERVAL;
+			pixelsSpot -= MOVEDIST/2;
+			currentSpot[1] = pixelsSpot / INTERVAL;
+			break;
+		case "down":
+			pixelsSpot = currentSpot[1]*INTERVAL;
+			pixelsSpot += MOVEDIST/2;
+			currentSpot[1] = pixelsSpot / INTERVAL;
+			break;
+		case "right":
+			pixelsSpot = currentSpot[0]*INTERVAL;
+			pixelsSpot += MOVEDIST/2;
+			currentSpot[0] = pixelsSpot / INTERVAL;
+			break;
+		case "left":
+			pixelsSpot = currentSpot[0]*INTERVAL;
+			pixelsSpot -= MOVEDIST/2;
+			currentSpot[0] = pixelsSpot / INTERVAL;
+			break;
+	}		
+
+	if(resumeFlag)	{ resumeMaze(); }
+	else { return currentSpot; }
 }
 
 function turnBackward(currentDirection)
@@ -2129,7 +2174,7 @@ function backTrack()
 			turns["upkey"]="forward";
 			drawGrid();
 			drawCurrentPosition();
-			solverMode();
+			solverMode(true);
 			return; 
         }
         else if( route[route.length-1].obstacle==-1 )  //custom start
@@ -2171,8 +2216,8 @@ function zoomIn()
     if(INTERVAL <= 35)  //limit to how much you can zoom in.
     {
         INTERVAL += 5;
-        CANVAS_WIDTH = INTERVAL * X_GRIDS;
-        CANVAS_HEIGHT = INTERVAL * Y_GRIDS;
+        CANVAS_WIDTH = INTERVAL * X_GRIDS + BORDER*2;
+        CANVAS_HEIGHT = INTERVAL * Y_GRIDS + BORDER*2;
         drawGrid();
     }
 }
@@ -2183,8 +2228,8 @@ function zoomOut()
     if(INTERVAL >= 15)  //limit to how much you can zoom out.
     {
         INTERVAL -= 5;
-        CANVAS_WIDTH = INTERVAL * X_GRIDS;
-        CANVAS_HEIGHT = INTERVAL * Y_GRIDS;
+        CANVAS_WIDTH = INTERVAL * X_GRIDS + BORDER*2;
+        CANVAS_HEIGHT = INTERVAL * Y_GRIDS + BORDER*2;
         drawGrid();
     }
 }
@@ -2325,7 +2370,7 @@ function processFile(contents)
 	
 	if(outsideBoundariesFlag==true)
 	{
-		alert("Some of your obstacles are outside the established grid for this maze. Did you reset the grid size without deleting the obstacles outside those boundaries? You may wish to re-expand the grid and delete these extra obstacles. Otherwise, you can just resave and reload the maze, and these obstacles will disappear")
+		alert("Some of your obstacles are outside the established grid for this maze. Did you reset the grid size without deleting the obstacles outside those boundaries? To remove these invisible extra obstacles, simply save this maze to your computer again and reload it.")
 	}
 	
     INTERVAL = DefaultSpacing
@@ -2357,7 +2402,7 @@ function processFile(contents)
 		turns["upkey"] = "forward";
 		drawCurrentPosition()
 		
-		//autoSolve()
+		mapMaze()
 	}
 }
 
