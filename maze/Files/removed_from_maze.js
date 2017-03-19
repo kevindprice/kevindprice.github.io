@@ -1,3 +1,16 @@
+TO FIX: backtrack function
+
+
+
+
+
+
+
+
+
+
+
+
 		if(mazeDecision["notes"]=="edge")
 		{			
 			currentIndex = mazeDecision["previousIndex"]

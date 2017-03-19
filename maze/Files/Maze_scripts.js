@@ -38,7 +38,10 @@ resumeMaze
 startMaze
 move
 
+autoSolveSpotChecker
 autoSolve
+arraysEqual
+findSpotInAutosolve
 
 checkObstacles
 obstacleHandler
@@ -125,6 +128,8 @@ var spot = []; //keep track of the user's location in the maze
 var BEGINNING = []; //beginning spot
 
 var route = []; //keep track of the route the user took
+
+var mazeMap = null; //created in the autosolver
 
 var turns = {}; //keep track of what keys to look for when turning.
 turns["upkey"] = "forward";
@@ -468,14 +473,17 @@ function addObstacleToObstacles(obstacle)
 {
     obstacles.push(obstacle)
 
-	//generate an obstacle "grid". The rows contain verticals, and the columns contain horizontals.
+	//generate an obstacle "grid". 
+	//This grid contains the index of each obstacle 
+	//mapped out in the shape of the maze.
+	//The rows contain verticals, and the columns contain horizontals.
 	if(obstacle["orient"]=="vertical")
 	{
-		obstacle_rows[obstacle["y"]][obstacle["x"]].push(obstacle)
+		obstacle_rows[obstacle["y"]][obstacle["x"]].push(obstacles.length-1)
 	}
 	else
 	{
-		obstacle_columns[obstacle["x"]][obstacle["y"]].push(obstacle)
+		obstacle_columns[obstacle["x"]][obstacle["y"]].push(obstacles.length-1)
 	}
 }
 
@@ -836,7 +844,7 @@ function startCustom(x,y,direction) //=-1, y=-1, direction = "")
         tempSpot[0] = spot[0];
         tempSpot[1] = spot[1];
         tempSpot[2] = spot[2];
-        route.push( {"spot":tempSpot, "obstacle":"Start"} );
+        route.push( {"spot":tempSpot, "obstacle":-1} );
         
         resumeMaze()
     }
@@ -1005,7 +1013,7 @@ function displayEnds()
 function solverMode()
 {
     document.getElementById("action").innerHTML = mazeSOLVER;
-	if(route.length > 0)
+	if(route.length > 1)
 	{
 		document.getElementById("action").innerHTML += "<input type='submit' value='Resume Maze' onclick='resumeMaze()'/>"
 	}
@@ -1074,7 +1082,7 @@ function startMaze()
         tempSpot[0] = spot[0];
         tempSpot[1] = spot[1];
         tempSpot[2] = spot[2];
-        route.push( {"spot":tempSpot, "obstacle":obstacles[beginObstacle]} );
+        route.push( {"spot":tempSpot, "obstacle":beginObstacle} );
 
         drawGrid(); //to erase the route line that's already there (if there is one). Refresh.
         
@@ -1146,49 +1154,9 @@ function move()
         context.stroke();
 
         //Decrease the distance to the next obstacle
-        pixelsSpot = stop["dist"]*INTERVAL;
+        pixelsSpot = stop.dist * INTERVAL;
         pixelsSpot -= MOVEDIST;
         stop["dist"] = pixelsSpot / INTERVAL;
-
-        /*
-        //Now give the line a BLACK tip AHEAD of your spot.
-        context.beginPath();   
-        context.moveTo( Math.round(spot[0]*INTERVAL + INTERVAL/2), 
-                        Math.round(spot[1]*INTERVAL + INTERVAL/2) );  
-        context.strokeStyle="#000000";
-
-        var tip = []
-        tip[0]=spot[0]
-        tip[1]=spot[1]
-        
-        switch(spot[2])  //Add a BLACK tip 
-        {                //so you can better see the END.
-            case "up":
-                pixelsSpot = tip[1]*INTERVAL;
-                pixelsSpot -= MOVEDIST;
-                tip[1] = pixelsSpot / INTERVAL;
-                break;
-            case "down":
-                pixelsSpot = tip[1]*INTERVAL;
-                pixelsSpot += MOVEDIST;
-                tip[1] = pixelsSpot / INTERVAL;
-                break;
-            case "right":
-                pixelsSpot = tip[0]*INTERVAL;
-                pixelsSpot += MOVEDIST;
-                tip[0] = pixelsSpot / INTERVAL;
-                break;
-            case "left":
-                pixelsSpot = tip[0]*INTERVAL;
-                pixelsSpot -= MOVEDIST;
-                tip[0] = pixelsSpot / INTERVAL;
-                break;
-        }
-        
-        context.lineTo( Math.round(tip[0]*INTERVAL + INTERVAL/2), 
-                        Math.round(tip[1]*INTERVAL + INTERVAL/2) );  
-        context.stroke();
-        */
 
         
         //If you hit an obstacle, clear the interval
@@ -1196,39 +1164,38 @@ function move()
         if (stop["dist"] <= 0)
         {
             clearInterval(time_interval);
-            obstacleHandler(stop["obstacle"]);
-			drawCurrentPosition();
+			stopHandler(stop.obstacle);
 		}        
         
     }, TIME_INTERVAL);  //how often in ms the line is moved.
 }
 
+
+
+/////////////////////////////////////////////////////////////////////////////////
+// The following functions are used to automatically solve the maze and suggest hints.
+/////////////////////////////////////////////////////////////////////////////////
+
+
+
 //checks an obstacle for more directions to check.
-function autoSolveChecker(mazeLocation, checkedlist, previousIndex)
+function autoSolveSpotChecker(mazeLocation, checkedlist, previousIndex)
 {
 	//contains everything about one point in the maze.
 	var mazeDecision = {}
 	
 	mazeDecision["firstSpot"]=mazeLocation
-	mazeDecision["previousIndex"]==previousIndex
+	mazeDecision["previousIndex"]=previousIndex
 	
 	mazeDecision["obstacle"]=checkObstacles(mazeLocation)["obstacle"]
 
 	
-	if(mazeDecision["obstacle"]["type"]=="edge")
+	if(mazeDecision.obstacle.type=="edge")
 	{
-		mazeDecision["notes"]=="edge"
-		//mazeDecision["possible"]==false
+		mazeDecision.notes=="edge"
 		return mazeDecision
 	}
-	
-	if(mazeDecision["obstacle"]["type"]=="end")
-	{
-		mazeDecision["notes"]="end"
-		//mazeDecision["possible"]=true
-		return mazeDecision
-	}
-	
+		
 	
 	//create a NEW maze location at the new obstacle
 	switch(mazeLocation[2])
@@ -1260,28 +1227,33 @@ function autoSolveChecker(mazeLocation, checkedlist, previousIndex)
 		default:
 	}
 	
-	
-	for(i=0;i<checkedlist.length;i++)
+	if(mazeDecision.obstacle.type == "end")
 	{
-		if(mazeLocation==checkedlist[i]["obstacleSpot"])
-		{
-			mazeDecision["notes"]="link" //loop
-			mazeDecision["links"]=[i]   //debug this line
-			return mazeDecision
-		}
+		mazeDecision["notes"]="end"
+		return mazeDecision
+	}
+
+	
+	var indexInMaze = findSpotInAutosolve(mazeLocation, checkedlist)
+
+	if(indexInMaze != -1)
+	{
+		mazeDecision["notes"]="OK" //loop
+		mazeDecision["links"]=[indexInMaze]   //debug this line
+		return mazeDecision
 	}
 	
 	mazeDecision["obstacleSpot"] = mazeLocation
-	mazeDecision["directions"]=obstacleHandler(mazeDecision["obstacle"],2,mazeLocation)
+	mazeDecision["directions"]=obstacleHandler(mazeDecision["obstacle"],mazeLocation)
 
 	mazeDecision["choices"]=[];
-	for(i=0;i<mazeDecision["directions"].length;i++)
+	for(i=0;i<mazeDecision.directions.length;i++)
 	{
 		newLocation = [];
 		newLocation.push(mazeLocation[0])
 		newLocation.push(mazeLocation[1])
 
-		switch(mazeDecision["directions"][i])
+		switch(mazeDecision.directions[i])
 		{
 			case "right":
 				newLocation.push(turnRight(mazeLocation[2]))
@@ -1309,39 +1281,65 @@ function autoSolveChecker(mazeLocation, checkedlist, previousIndex)
 }
 
 
-function autoSolve()
+function arraysEqual(arr1, arr2) {
+    if(arr1.length !== arr2.length)
+        return false;
+    for(var i = arr1.length; i--;) {
+        if(arr1[i] !== arr2[i])
+            return false;
+    }
+
+    return true;
+}
+
+
+function findSpotInAutosolve(mazeLocation, checkedlist)
 {
-	
-    //route.push( {"spot":tempSpot, "obstacle":stop_obstacle} );
-	
+	for(var i=0;i<checkedlist.length;i++)
+	{
+		if(checkedlist[i].hasOwnProperty("obstacleSpot"))
+		{
+			if( arraysEqual(mazeLocation, checkedlist[i].obstacleSpot) )
+			{
+				return i;
+			}
+		}
+	}
+	return -1;
+}
+
+function autoSolve()
+{	
 	mazeSpot = {};
 	mazeSpot[0] = spot[0]
 	mazeSpot[1] = spot[1]
 	mazeSpot[2] = spot[2]
 
-	checkedlist = []
+	var checkedlist = []
 	
 	var previousIndex = -1;
 	var currentIndex = 0;
 	var numDirections = 0;
 	var directionNum = 0;
+	var LOOPCOUNT = 2000;
 	
-	var backward = false;
+	
+	//var backward = false;
 	var done=false;
 	
-	loopcount = 0
+	var loopcount = 0
 	foundendflag = false
 
 	while(!done)
 	{
 		loopcount += 1
-		mazeDecision = autoSolveChecker(mazeSpot,checkedlist,previousIndex)
+		mazeDecision = autoSolveSpotChecker(mazeSpot,checkedlist,previousIndex)
 		checkedlist.push(mazeDecision)
 		currentIndex = checkedlist.length - 1
 		
 		if(previousIndex != -1)
 		{
-			checkedlist[previousIndex].links.push[currentIndex];
+			checkedlist[previousIndex].links.push(currentIndex);
 		}		
 
 		if(mazeDecision.notes=="end")
@@ -1349,9 +1347,9 @@ function autoSolve()
 			foundendflag = true;
 		}
 		
-		alert(mazeDecision.notes)
+		//alert(mazeDecision.notes)
 		
-		if(mazeDecision.notes == "end" || mazeDecision.notes == "edge" || mazeDecision.notes == "link") //backtrack
+		if(mazeDecision.notes == "end" || mazeDecision.notes == "edge" || mazeDecision.links.length == 1) //backtrack
 		{
 			numDirections = 0;
 			directionNum = 0;
@@ -1359,34 +1357,46 @@ function autoSolve()
 			while( currentIndex!=-1 && directionNum == numDirections )
 			{
 				currentIndex = checkedlist[currentIndex].previousIndex
-				numDirections = checkedlist[currentIndex].choices.length
-				directionNum = checkedlist[currentIndex].links.length
+				
+				if(currentIndex!=-1)
+				{
+					numDirections = checkedlist[currentIndex].choices.length
+					directionNum = checkedlist[currentIndex].links.length
+				}
 			}
 			
 			if(currentIndex==-1)
 			{ done=true; }
 			else
 			{
-										//-1 because I'm accessing an index
-				mazeSpot = checkedlist[currentIndex].choices[directionNum-1]
-				previousIndex = currentIndex;
+				//directioNum will be one greater than the number of links already seen
+				mazeSpot = checkedlist[currentIndex].choices[directionNum]
 			}
 		}
 		else //e.g. if I DON'T need to backtrack...
 		{
-			checkedlist[checkedlist.length-1]["links"].push(checkedlist.length)
 			mazeSpot = mazeDecision["choices"][0]
 		}
 				
-		if(loopcount==2000)
+		if(loopcount==LOOPCOUNT)
 		{
 			break;
 		}
+		
+		previousIndex = currentIndex;
 	}
 	
-	if(!foundendflag)
+	if(loopcount==LOOPCOUNT)  //this case shouldn't happen. But just in case I missed something...
+	{
+		alert("The maze solver terminated early due to an infinite loop in the logic. The maze was not fully solved.")
+		mazeMap = null;
+	} else if(!foundendflag)
 	{
 		alert("This maze is impossible.")
+		mazeMap = null;
+	} else
+	{
+		mazeMap = checkedlist;
 	}
 }
 
@@ -1429,23 +1439,21 @@ function checkObstacles(checkSpot)
             {
 				if(obstacle_columns[x][i].length != 0)
 				{
-					obstacle = obstacle_columns[x][i][0]
+					obstacle = obstacle_columns[x][i][0] //an INDEX
 					break;
 				}
             }
             //if NONE, then add the TOP edge of the screen.
             if(obstacle == null)
             {
-                var DictItem = {}
-                DictItem["type"]="edge"
-                DictItem["orient"]="horizontal"
-                DictItem["x"]=checkSpot[0]
-                DictItem["y"]=0 - 0.5
-				obstacle = DictItem
+                stop["obstacle"]=-1
+				stop["dist"] = Math.abs(0 - 0.5 - checkSpot[1])
 			}
-			
-			stop["obstacle"] = obstacle
-            stop["dist"] = Math.abs(stop["obstacle"]["y"] - checkSpot[1])
+			else
+			{
+				stop["obstacle"] = obstacle
+				stop["dist"] = Math.abs(obstacles[stop["obstacle"]]["y"] - checkSpot[1])				
+			}
             break;
 
         case "down":
@@ -1459,24 +1467,21 @@ function checkObstacles(checkSpot)
             {
 				if(obstacle_columns[x][i].length != 0)
 				{
-					obstacle = obstacle_columns[x][i][0]
+					obstacle = obstacle_columns[x][i][0] //an INDEX
 					break;
 				}
             }
             //if NONE, then add the BOTTOM edge of the screen.
             if(obstacle == null)
             {
-                var DictItem = {}
-                DictItem["type"]="edge"
-                DictItem["orient"]="horizontal"
-                DictItem["x"]=checkSpot[0]
-//                DictItem["y"]=document.getElementById("canvas").height/INTERVAL + 1 - 0.5 //+1 because it's going DOWN
-                DictItem["y"]=Y_GRIDS + 0.5 //+1 because it's going DOWN
-				obstacle = DictItem
-            }
-
-			stop["obstacle"] = obstacle
-            stop["dist"] = Math.abs(stop["obstacle"]["y"] - checkSpot[1]) - 1 //minus ONE grid.          
+                stop["obstacle"]=-1
+				stop["dist"] = Math.abs(Y_GRIDS + 0.5 - checkSpot[1]) - 1
+			}
+			else
+			{
+				stop["obstacle"] = obstacle
+				stop["dist"] = Math.abs(obstacles[stop["obstacle"]]["y"] - checkSpot[1]) - 1 //minus ONE
+			}
             break;
             
         case "right":
@@ -1490,24 +1495,21 @@ function checkObstacles(checkSpot)
             {
                 if(obstacle_rows[y][i].length != 0) // >, not >=
                 { 
-					obstacle = obstacle_rows[y][i][0]
+					obstacle = obstacle_rows[y][i][0] //an INDEX
 					break;
 				}
             }
             //if NONE, then add the RIGHT edge of the screen.
             if(obstacle == null)
             {
-                var DictItem = {}
-                DictItem["type"]="edge"
-                DictItem["orient"]="vertical"
-//                DictItem["x"]=document.getElementById("canvas").width/INTERVAL + 1 - 0.5  // +1 because it's moving RIGHT
-                DictItem["x"]=X_GRIDS + 0.5  // +1 because it's moving RIGHT
-                DictItem["y"]=checkSpot[1]
-                obstacle = DictItem
-            }
-
-			stop["obstacle"] = obstacle
-            stop["dist"] = Math.abs(stop["obstacle"]["x"] - checkSpot[0] - 1) // minus ONE grid.
+                stop["obstacle"]=-1
+				stop["dist"] = Math.abs(X_GRIDS + 0.5 - checkSpot[0]) - 1
+			}
+			else
+			{
+				stop["obstacle"] = obstacle
+				stop["dist"] = Math.abs(obstacles[stop["obstacle"]]["x"] - checkSpot[0]) - 1 //minus ONE
+			}
             break;
         
         case "left":    
@@ -1521,23 +1523,21 @@ function checkObstacles(checkSpot)
             {
                 if(obstacle_rows[y][i].length != 0)
                 { 
-					obstacle = obstacle_rows[y][i][0]
+					obstacle = obstacle_rows[y][i][0] //an INDEX
 					break;
 				}
             }
             //if NONE, then add the LEFT edge of the screen.
             if(obstacle == null)
             {
-                var DictItem = {}
-                DictItem["type"]="edge"
-                DictItem["orient"]="vertical"
-                DictItem["x"]=0 - 0.5
-                DictItem["y"]=checkSpot[1]
-                obstacle = DictItem
-            }
-
-			stop["obstacle"] = obstacle
-            stop["dist"] = Math.abs(stop["obstacle"]["x"] - checkSpot[0])
+                stop["obstacle"]=-1
+				stop["dist"] = Math.abs(0 - 0.5 - checkSpot[0])
+			}
+			else
+			{
+				stop["obstacle"] = obstacle
+				stop["dist"] = Math.abs(obstacles[stop["obstacle"]]["x"] - checkSpot[0])
+			}
             break;
     }
 
@@ -1547,222 +1547,238 @@ function checkObstacles(checkSpot)
 
 
 //this function handles what to do when you hit an obstacle.
-function obstacleHandler(stop_obstacle, checkNumber, checkSpot)
+function obstacleDirections(stop_obstacle, checkSpot)
                            //checkNumber = flag to use this function
 {                                          //to check number of directions
 
 
-    drawGrid(); //refresh the line so the corners look nice.
-                //do this BEFORE adding the last obstacle
-                //so the line refresh can make the last segment
-                //in a darker color.
-
-
-	if(checkNumber==null)
-	{
-		//just in case the interval is an odd number,
-		//and you didn't land exactly on INTERVAL
-		//this will fix that problem. :-)
-		spot[0]=Math.round(spot[0]);
-		spot[1]=Math.round(spot[1]);
-
-		spot[3]="stopped";
-		
-		//add the next stop point to the route[] list.
-        var tempSpot = [];
-        tempSpot[0] = spot[0];
-        tempSpot[1] = spot[1];
-        tempSpot[2] = spot[2];
-        route.push( {"spot":tempSpot, "obstacle":stop_obstacle} );
-	}
-
+	//if no virtual spot was provided (checkSpot==null), handle the maze at this obstacle.
+	//Otherwise, return the directions at this spot.
 	if(checkSpot==null)
 	{
-		checkSpot = spot
+		checkSpot = spot;
 	}
 
-	
+	if(stop_obstacle==-1)
+	{
+		return [];
+	}
     
     var sides = [];  //will be populated with which sides
                      //of the square have obstacles in them
 
-	/*for (var i=0; i<obstacle_columns[checkSpot[0]].length)
-	{
-		if( obstacles[i]["y"] == checkSpot[1] &&
-            obstacles[i]["type"] != "permeable" )
-            {  sides.push("top");  }
+	if(obstacle_rows[checkSpot[1]][checkSpot[0]].length!=0)
+	{ 	if(obstacles[obstacle_rows[checkSpot[1]][checkSpot[0]][0]].type != "permeable")
+			{ sides.push("left") }	}
 
-	}*/
-	
-    //for (var i=0; i<obstacles.length; i++)
-	if(stop_obstacle.type!="edge")
-	{
-		if(obstacle_rows[checkSpot[1]][checkSpot[0]].length!=0)
-		{ 	if(obstacle_rows[checkSpot[1]][checkSpot[0]][0].type != "permeable")
-				{ sides.push("left") }	}
+	if(obstacle_rows[checkSpot[1]][checkSpot[0]+1].length!=0)
+	{ 	if(obstacles[obstacle_rows[checkSpot[1]][checkSpot[0]+1][0]].type != "permeable")
+			{ sides.push("right") }	}
 
-		if(obstacle_rows[checkSpot[1]][checkSpot[0]+1].length!=0)
-		{ 	if(obstacle_rows[checkSpot[1]][checkSpot[0]+1][0].type != "permeable")
-				{ sides.push("right") }	}
+	if(obstacle_columns[checkSpot[0]][checkSpot[1]].length!=0)
+	{ 	if(obstacles[obstacle_columns[checkSpot[0]][checkSpot[1]][0]].type != "permeable")
+			{ sides.push("top") }	}
 
-		if(obstacle_columns[checkSpot[0]][checkSpot[1]].length!=0)
-		{ 	if(obstacle_columns[checkSpot[0]][checkSpot[1]][0].type != "permeable")
-				{ sides.push("top") }	}
+	if(obstacle_columns[checkSpot[0]][checkSpot[1]+1].length!=0)
+	{ 	if(obstacles[obstacle_columns[checkSpot[0]][checkSpot[1]+1][0]].type != "permeable")
+			{ sides.push("bottom") }	}
 
-		if(obstacle_columns[checkSpot[0]][checkSpot[1]+1].length!=0)
-		{ 	if(obstacle_columns[checkSpot[0]][checkSpot[1]+1][0].type != "permeable")
-				{ sides.push("bottom") }	}
-	}
-		
     var directions = [] //will be populated with the direction 
                         // choices the user has.
+		
+	//now handle the directions based on where you are oriented.
+	switch(checkSpot[2])  
+	{   //switch case for your direction when you stopped.
+		case "up":  //we KNOW there is an obstacle on TOP.
+			if( obstacles[stop_obstacle]["type"] == "permeable" )
+			{ directions.push("forward")
+			  turns["upkey"] = "forward"  }
+			
+			if( isIn(sides, "left") &&
+				isIn(sides, "right") )
+			{ directions.push("backward") 
+			  turns["downkey"] = "backward" }
 
-    //now handle the directions based on where you are oriented.
-    switch(checkSpot[2])  
-    {   //switch case for your direction when you stopped.
-        case "up":  //we KNOW there is an obstacle on TOP.
-            if( stop_obstacle["type"] == "permeable" )
-            { directions.push("forward")
-              turns["upkey"] = "forward"  }
-            
-            if( isIn(sides, "left") &&
-                isIn(sides, "right") )
-            { directions.push("backward") 
-              turns["downkey"] = "backward" }
+			if( isIn(sides, "left") &&
+				!isIn(sides, "right") )
+			{ directions.push("right") 
+			  turns["rightkey"] = "right" }
+			
+			if( !isIn(sides, "left") &&
+				isIn(sides, "right") )
+			{ directions.push("left")
+			  turns["leftkey"] = "left" }
+			
+			if( !isIn(sides, "right") &&
+				!isIn(sides, "left") )
+			{ directions.push("right")
+			  directions.push("left") 
+			  turns["rightkey"] = "right"
+			  turns["leftkey"] = "left" }
 
-            if( isIn(sides, "left") &&
-                !isIn(sides, "right") )
-            { directions.push("right") 
-              turns["rightkey"] = "right" }
-            
-            if( !isIn(sides, "left") &&
-                isIn(sides, "right") )
-            { directions.push("left")
-              turns["leftkey"] = "left" }
-            
-            if( !isIn(sides, "right") &&
-                !isIn(sides, "left") )
-            { directions.push("right")
-              directions.push("left") 
-              turns["rightkey"] = "right"
-              turns["leftkey"] = "left" }
+			break;
 
-            break;
+		case "down":  //we KNOW there is an obstacle BELOW.
+			if( obstacles[stop_obstacle]["type"] == "permeable" )
+			{ directions.push("forward") 
+			  turns["downkey"] = "forward" }
+			
+			if( isIn(sides, "left") &&
+				isIn(sides, "right") )
+			{ directions.push("backward")
+			  turns["upkey"] = "backward" }
 
-        case "down":  //we KNOW there is an obstacle BELOW.
-            if( stop_obstacle["type"] == "permeable" )
-            { directions.push("forward") 
-              turns["downkey"] = "forward" }
-            
-            if( isIn(sides, "left") &&
-                isIn(sides, "right") )
-            { directions.push("backward")
-              turns["upkey"] = "backward" }
+			if( isIn(sides, "left") &&
+				!isIn(sides, "right") )
+			{ directions.push("left") 
+			  turns["rightkey"] = "left" }
+										//left and right are swapped
+										//when moving down
+			if( !isIn(sides, "left") &&
+				isIn(sides, "right") )
+			{ directions.push("right") 
+			  turns["leftkey"] = "right" }
+										//left and right are swapped
+										//when moving down
+			if( !isIn(sides, "right") &&
+				!isIn(sides, "left") )
+			{ directions.push("right")
+			  directions.push("left") 
+			  turns["leftkey"] = "right"
+			  turns["rightkey"] = "left" }
+			break;
 
-            if( isIn(sides, "left") &&
-                !isIn(sides, "right") )
-            { directions.push("left") 
-              turns["rightkey"] = "left" }
-                                        //left and right are swapped
-                                        //when moving down
-            if( !isIn(sides, "left") &&
-                isIn(sides, "right") )
-            { directions.push("right") 
-              turns["leftkey"] = "right" }
-                                        //left and right are swapped
-                                        //when moving down
-            if( !isIn(sides, "right") &&
-                !isIn(sides, "left") )
-            { directions.push("right")
-              directions.push("left") 
-              turns["leftkey"] = "right"
-              turns["rightkey"] = "left" }
-            break;
+		case "right": //we KNOW there is an obstacle TO THE RIGHT.
+			if( obstacles[stop_obstacle]["type"] == "permeable" )
+			{ directions.push("forward")
+			  turns["rightkey"] = "forward" }
+			
+			if( isIn(sides, "top") &&
+				isIn(sides, "bottom") )
+			{ directions.push("backward") 
+			  turns["leftkey"] = "backward" }
 
-        case "right": //we KNOW there is an obstacle TO THE RIGHT.
-            if( stop_obstacle["type"] == "permeable" )
-            { directions.push("forward")
-              turns["rightkey"] = "forward" }
-            
-            if( isIn(sides, "top") &&
-                isIn(sides, "bottom") )
-            { directions.push("backward") 
-              turns["leftkey"] = "backward" }
+			if( isIn(sides, "top") &&
+				!isIn(sides, "bottom") )
+			{ directions.push("right") 
+			  turns["downkey"] = "right" }
 
-            if( isIn(sides, "top") &&
-                !isIn(sides, "bottom") )
-            { directions.push("right") 
-              turns["downkey"] = "right" }
+			if( !isIn(sides, "top") &&
+				isIn(sides, "bottom") )
+			{ directions.push("left") 
+			  turns["upkey"] = "left" }
 
-            if( !isIn(sides, "top") &&
-                isIn(sides, "bottom") )
-            { directions.push("left") 
-              turns["upkey"] = "left" }
+			if( !isIn(sides, "top") &&
+				!isIn(sides, "bottom") )
+			{ directions.push("right")
+			  directions.push("left") 
+			  turns["downkey"] = "right"
+			  turns["upkey"] = "left" }
+			break;
 
-            if( !isIn(sides, "top") &&
-                !isIn(sides, "bottom") )
-            { directions.push("right")
-              directions.push("left") 
-              turns["downkey"] = "right"
-              turns["upkey"] = "left" }
-            break;
+		case "left": //we KNOW there is an obstacle TO THE LEFT.
+			if( obstacles[stop_obstacle]["type"] == "permeable" )
+			{ directions.push("forward")
+			  turns["leftkey"] = "forward" }
+			
+			if( isIn(sides, "top") &&
+				isIn(sides, "bottom") )
+			{ directions.push("backward")
+			  turns["rightkey"] = "backward" }
 
-        case "left": //we KNOW there is an obstacle TO THE LEFT.
-            if( stop_obstacle["type"] == "permeable" )
-            { directions.push("forward")
-              turns["leftkey"] = "forward" }
-            
-            if( isIn(sides, "top") &&
-                isIn(sides, "bottom") )
-            { directions.push("backward")
-              turns["rightkey"] = "backward" }
+			if( isIn(sides, "top") &&
+				!isIn(sides, "bottom") )
+			{ directions.push("left")
+			  turns["downkey"] = "left" }
 
-            if( isIn(sides, "top") &&
-                !isIn(sides, "bottom") )
-            { directions.push("left")
-              turns["downkey"] = "left" }
+			if( !isIn(sides, "top") &&
+				isIn(sides, "bottom") )
+			{ directions.push("right") 
+			  turns["upkey"] = "right" }
 
-            if( !isIn(sides, "top") &&
-                isIn(sides, "bottom") )
-            { directions.push("right") 
-              turns["upkey"] = "right" }
-
-            if( !isIn(sides, "top") &&
-                !isIn(sides, "bottom") )
-            { directions.push("right")
-              directions.push("left")
-              turns["upkey"] = "right"
-              turns["downkey"] = "left" }
-            break;
-    }
-    
-    if(checkNumber == 1)    //flag to use this function
-    {                       //just to check number of directions.
-        return directions.length
-    }
-	else if(checkNumber == 2)   //flag to use this function
-	{							//just to return which directions were found.
-		return directions
+			if( !isIn(sides, "top") &&
+				!isIn(sides, "bottom") )
+			{ directions.push("right")
+			  directions.push("left")
+			  turns["upkey"] = "right"
+			  turns["downkey"] = "left" }
+			break;
 	}
     
-    //to simplify changing the action bar
-    actionBar = document.getElementById("action");
-    
-    if(stop_obstacle["type"] == "edge")
+	return directions;
+}
+
+function copyArray(array)
+{
+	var newArray = []
+	for(var i=0; i<array.length; i++)
+	{
+		newArray.push(array[i])
+	}
+	return newArray;
+}
+
+function stringInArray(string, array)
+{
+	for(var i=0; i<array.length; i++)
+	{
+		if(array[i]==string)
+		{
+			return true;
+		}
+	}
+
+	return false;
+}
+
+
+function stopHandler(stop_obstacle)
+{
+	
+	//just in case MOVEDIST is an odd number,
+	//and you didn't land exactly on INTERVAL
+	//the following functions will crash if you don't round the spot.
+
+	spot[0]=Math.round(spot[0]);
+	spot[1]=Math.round(spot[1]);
+	spot[3]="stopped";
+	
+
+	drawGrid(); //refresh the line so the corners look nice.
+			//do this BEFORE adding the last obstacle
+			//so the line refresh can make the last segment
+			//in a darker color.
+
+	
+	//add the next stop point to the route[] list.
+	var tempSpot = copyArray(spot);
+	route.push( {"spot":tempSpot, "obstacle":stop_obstacle} );
+
+	drawCurrentPosition();
+
+    if(stop_obstacle == -1)
     {
         //set the action bar to say "Start the Maze"
         actionBar.innerHTML = "<input type='submit' value='Backtrack' onclick='backTrack()'/>" + mazeSOLVER;
         spot[3] = "stopped";
-        directions = [];
         alert("You went off the edge!")
+		return;
     }
-    else if(stop_obstacle["type"] == "end")
+	else
+	{
+		directions = obstacleDirections(stop_obstacle);
+	}
+    
+    //to simplify changing the action bar
+    actionBar = document.getElementById("action");
+
+    if(obstacles[stop_obstacle].type == "end")
     {
         actionBar.innerHTML = mazeSOLVER;
         spot[3] = "stopped";
-        directions = [];
         alert("Goncratulations! You win!");
-    }
+		return;
+	}
     else if (directions.length == 1 && directions[0] != "backward")
     {
         if(directions[0] == "right")
@@ -1837,6 +1853,67 @@ function obstacleHandler(stop_obstacle, checkNumber, checkSpot)
 
     if(directions.length > 1 ) //&& !isIn(directions, "backward") )
     {actionBar.innerHTML += "<input type='submit' value='Restart' onclick='startMaze()' style='margin-left: 15px;'/> <input type='submit' value='Custom Spot' onclick='startCustom()'/>" }
+
+	//now add the global arrow key options based on where you are oriented.
+	turns = {};
+	switch(spot[2])
+	{   //switch case for your direction when you stopped.
+		case "up":  //we KNOW there is an obstacle on TOP.
+			if( stringInArray("forward",directions) )
+			{ turns["upkey"] = "forward" }
+
+			if( stringInArray("backward",directions) )
+			{ turns["downkey"] = "backward" }
+
+			if( stringInArray("right",directions) )
+			{ turns["rightkey"] = "right" }
+		
+			if( stringInArray("left",directions) )
+			{ turns["leftkey"] = "left" }
+			break;
+
+		case "down":  //we KNOW there is an obstacle BELOW.
+			if( stringInArray("forward",directions) )
+			{ turns["downkey"] = "forward" }
+
+			if( stringInArray("backward",directions) )
+			{ turns["upkey"] = "backward" }
+
+			if( stringInArray("right",directions) )
+			{ turns["leftkey"] = "right" }
+		
+			if( stringInArray("left",directions) )
+			{ turns["rightkey"] = "left" }
+			break;
+
+		case "right": //we KNOW there is an obstacle TO THE RIGHT.
+			if( stringInArray("forward",directions) )
+			{ turns["rightkey"] = "forward" }
+
+			if( stringInArray("backward",directions) )
+			{ turns["leftkey"] = "backward" }
+
+			if( stringInArray("right",directions) )
+			{ turns["downkey"] = "right" }
+		
+			if( stringInArray("left",directions) )
+			{ turns["upkey"] = "left" }
+			break;
+
+		case "left": //we KNOW there is an obstacle TO THE LEFT.
+			if( stringInArray("forward",directions) )
+			{ turns["leftkey"] = "forward" }
+
+			if( stringInArray("backward",directions) )
+			{ turns["rightkey"] = "backward" }
+
+			if( stringInArray("right",directions) )
+			{ turns["upkey"] = "right" }
+		
+			if( stringInArray("left",directions) )
+			{ turns["downkey"] = "left" }
+			break;
+	}
 }
 
 //======================================================
@@ -2027,74 +2104,41 @@ function turnBackward(currentDirection)
 
 function backTrack()
 {	
-	var tempVar = route.pop();
-
     //if you are AT an obstacle, pop the route again because the stop point has already been pushed.
     //Otherwise, just go to the final obstacle (skip this expression).
-    if( spot[0]==tempVar["spot"][0] && 
-        spot[1]==tempVar["spot"][1] )
+    if( spot[0]==route[route.length-1].spot[0] && 
+        spot[1]==route[route.length-1].spot[1] &&
+		route.length != 1)
     {
-        tempVar = route.pop();
+        var tempVar = route.pop();
     }
-
-    spot[0] = tempVar["spot"][0]
-    spot[1] = tempVar["spot"][1]
-    spot[2] = tempVar["spot"][2]
-    
-    //Have to do this here, as well as below.
-    //The beginning obstacle could be approached differently.
-    if( tempVar["obstacle"]["type"]=="begin" )
-    { 
-
-	spot[0] = BEGINNING[0]
-	spot[1] = BEGINNING[1]
-	spot[2] = BEGINNING[2]
-	spot[3] = BEGINNING[3]
-
-	turns = {};
-	route.push(tempVar);
-	turns["upkey"]="forward";
-	drawGrid();
-	drawCurrentPosition();
-	solverMode();
-        return; 
-    }
-
-    var directionsCheck = obstacleHandler( tempVar["obstacle"], 1 );
 
     //if there is only one direction available,
     //keep going backward until there is a choice.
-    while( directionsCheck == 1 ) 
-    {                                   
-        tempVar = route.pop();
-        spot[0] = tempVar["spot"][0]
-        spot[1] = tempVar["spot"][1]
-        spot[2] = tempVar["spot"][2]
+	do {
+        var tempVar = route.pop();
+        spot[0] = tempVar.spot[0]
+        spot[1] = tempVar.spot[1]
+        spot[2] = tempVar.spot[2]
 
-        if( tempVar["obstacle"]["type"]=="begin" )
+        if( obstacles[tempVar.obstacle].type=="begin" )
         { 
-			spot[0] = BEGINNING[0]
-			spot[1] = BEGINNING[1]
-			spot[2] = BEGINNING[2]
-			spot[3] = BEGINNING[3]
-
+			spot = copyArray(BEGINNING)
 			turns = {};
 			route.push(tempVar);
 			turns["upkey"]="forward";
 			drawGrid();
 			drawCurrentPosition();
 			solverMode();
-            return; 
+			return; 
         }
-        if( tempVar["obstacle"]=="Start" )
+        else if( tempVar.obstacle==-1 )  //custom start
         {
             //have to repopulate the route[] with the custom starting spot.
             route = []
-        
-            var tempSpot = [];
-            tempSpot[0] = spot[0];
-            tempSpot[1] = spot[1];
-            tempSpot[2] = spot[2];
+			
+            var tempSpot = copyArray(spot);
+
             route.push( {"spot":tempSpot, "obstacle":"Start"} );
             
 			drawGrid();
@@ -2102,33 +2146,11 @@ function backTrack()
             return;
         }
 
-        var directionsCheck = obstacleHandler( tempVar["obstacle"], 1 );
-    }
+        var directions = obstacleDirections( tempVar.obstacle );
+	}
+	while( directions.length == 1 ) 
 
-    //there are TWO ways the backtrack could approach the begin: in the above loop,
-    //or also after another obstacle. So I have to put this segment in twice.
-    if( tempVar["obstacle"]["type"]=="begin" )
-    { 
-        startMaze();
-        return; 
-    }
-    if( tempVar["obstacle"]=="Start" )
-    {
-        //have to repopulate the route[] with the custom starting spot.
-        route = []
-        
-        var tempSpot = [];
-        tempSpot[0] = spot[0];
-        tempSpot[1] = spot[1];
-        tempSpot[2] = spot[2];
-        route.push( {"spot":tempSpot, "obstacle":"Start"} );
-           
-        resumeMaze();
-        return;
-    }
-    
     drawGrid();
-    obstacleHandler( tempVar["obstacle"] );
     drawCurrentPosition();
 }
 
@@ -2305,12 +2327,11 @@ function processFile(contents)
 		{
 			addObstacleToObstacles(newObstacle)
 		}
-		
 	}
 	
 	if(outsideBoundariesFlag==true)
 	{
-		alert("Some of your obstacles are outside the established grid for this maze. Did you reset the grid size without deleting the obstacles outside those boundaries? You may wish to re-expand the grid and delete these extra obstacles.")
+		alert("Some of your obstacles are outside the established grid for this maze. Did you reset the grid size without deleting the obstacles outside those boundaries? You may wish to re-expand the grid and delete these extra obstacles. Otherwise, you can just resave and reload the maze, and these obstacles will disappear")
 	}
 	
     INTERVAL = DefaultSpacing
@@ -2331,7 +2352,7 @@ function processFile(contents)
 	{
 		BEGINNING = [ obstacles[beginObstacle]["x"], obstacles[beginObstacle]["y"] - 1/2 , "up", "stopped"];
 
-		route.push( {"spot":BEGINNING, "obstacle":obstacles[beginObstacle]} );
+		route.push( {"spot":BEGINNING, "obstacle":beginObstacle} );
 
 		spot[0] = BEGINNING[0]
 		spot[1] = BEGINNING[1]
@@ -2341,9 +2362,9 @@ function processFile(contents)
 		turns = {}; //keep track of what keys to look for when turning.
 		turns["upkey"] = "forward";
 		drawCurrentPosition()
+		
+		//autoSolve()
 	}
-	
-
 }
 
 
