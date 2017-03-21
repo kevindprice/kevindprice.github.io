@@ -1832,6 +1832,10 @@ function stopHandler(stop_obstacle)
 	else
 	{
 		directions = obstacleDirections(stop_obstacle);
+		
+		//push the arrow key options to global, 
+		//so the possible acceptable arrow keys will be defined when the user presses one.
+		pushArrowKeyOptions(directions);
 	}
     
     //to simplify changing the action bar
@@ -1919,6 +1923,12 @@ function stopHandler(stop_obstacle)
     if(directions.length > 1 ) //&& !isIn(directions, "backward") )
     {actionBar.innerHTML += "<input type='submit' value='Restart' onclick='startMaze()' style='margin-left: 15px;'/> <input type='submit' value='Custom Spot' onclick='startCustom()'/>" }
 
+}
+
+
+
+function pushArrowKeyOptions(directions)
+{
 	//now add the global arrow key options based on where you are oriented.
 	turns = {};
 	switch(spot[2])
@@ -2184,7 +2194,8 @@ function backTrack()
             return;
         }
 
-        var directions = obstacleDirections( route[route.length-1].obstacle );
+		var directions = obstacleDirections( route[route.length-1].obstacle );
+		pushArrowKeyOptions(directions);
 		firstloop = false;
 	}
 	while( directions.length == 1 ) 
