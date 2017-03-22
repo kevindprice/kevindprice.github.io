@@ -1361,7 +1361,7 @@ function mapSpotChecker(mazeLocation, checkedlist, previousIndex)
 	}
 
 	
-	var indexInMaze = findSpotInAutosolve(mazeLocation, mazeDecision.obstacle, checkedlist)
+	var indexInMaze = findSpotInAutosolve(mazeLocation, checkedlist, mazeDecision.obstacle)
 
 	if(indexInMaze != -1)
 	{
@@ -1422,36 +1422,61 @@ function arraysEqual(arr1, arr2) {
 }
 
 
-function findSpotInAutosolve(mazeLocation, obstacleNum, checkedlist)
+function findSpotInAutosolve(mazeLocation, checkedlist, obstacleNum)
 {
-	for(var i=0;i<checkedlist.length;i++)
-	{
-		if(checkedlist[i].hasOwnProperty("obstacle"))
+	if(obstacleNum==null) {   //inefficient method, without obstacleNum
+		for(var i=0;i<checkedlist.length;i++)
 		{
-			//Is more efficient to compare all of the obstacles by index first,
-			//to see if any other maze positions match your current obstacle.
-			//If a previous maze decision DID previously study that obstacle,
-			//THEN (if it's a match) compare what position you approached it from.
-			
-			//Simply comparing each position you've been (+direction) is more intensive,
-			//because the positions are an array.
-			if(checkedlist[i].obstacle==obstacleNum)
+			if( checkedlist[i].hasOwnProperty("obstacleSpot") )
 			{
-				//it will pass a null reference if the checkedlist item
-				//it's comparing to is already a "link" to another spot.
-				//Can't compare a link to a link. Need to create a new link.
-				if( checkedlist[i].hasOwnProperty("obstacleSpot") )
+				if( arraysEqual(mazeLocation, checkedlist[i].obstacleSpot) )
 				{
-					if( arraysEqual(mazeLocation, checkedlist[i].obstacleSpot) )
-					{
-						return i;
-					}
+					return i;
 				}
 			}
 		}
 	}
+	else {		//efficient method, with obstacleNum.
+		for(var i=0;i<checkedlist.length;i++)
+		{
+			if(checkedlist[i].hasOwnProperty("obstacle"))
+			{
+				//Is more efficient to compare all of the obstacles by index first,
+				//to see if any other maze positions match your current obstacle.
+				//If a previous maze decision DID previously study that obstacle,
+				//THEN (if it's a match) compare what position you approached it from.
+				
+				//Simply comparing each position you've been (+direction) is more intensive,
+				//because the positions are an array.
+				if(checkedlist[i].obstacle==obstacleNum)
+				{
+					//it will pass a null reference if the checkedlist item
+					//it's comparing to is already a "link" to another spot.
+					//Can't compare a link to a link. Need to create a new link.
+					if( checkedlist[i].hasOwnProperty("obstacleSpot") )
+					{
+						if( arraysEqual(mazeLocation, checkedlist[i].obstacleSpot) )
+						{
+							return i;
+						}
+					}
+				}
+			}
+		}		
+	}
 	return -1;
 }
+
+
+/*  LOGIC FOR SOLVING THE MAZE
+
+Hit an obstacle.
+Check how many directions are available at this obstacle.
+Start at the first direction and go to the next obstacle.
+If the next position has already been seen, backtrack.
+If you go off the edge, then backtrack.
+If you backtracked, then pick the next direction.
+If you've checked all the directions, then backtrack again. */
 
 
 
@@ -1466,9 +1491,86 @@ function autoSolve(numTurns) //optional argument to specify number of turns to s
 	var LOOPCOUNT = 2000;
 	var done=false;
 	
+	startIndex = findSpotInAutosolve( copyArray(spot), mazeMap )
+
+	if(startIndex==-1)
+	{
+		alert("How did you get here? This point is not reachable from the beginning.")
+		return
+	}
+
+	solveRoute = [ [ startIndex, 0 ] ] //each spot in the route contains
+										//the map index and the direction number.
+										//This will be constantly changing.
+
+	solutions = [ ] //will contain the finalized solution 
+					//as a list of maze map indices.
+	
+	
+	
 	while(!done)
 	{
 		loopcount+=1;
+		
+		var links = copyArray(mazeMap[solveRoute[solveRoute.length - 1][0]].links)
+		
+		////////////////////
+		while(links.length > 0)
+		{
+			solveRoute.append([ mazeMap[links[0]], 0 ])
+			links = copyArray(mazeMap[links[0]].links)
+		}
+		
+		if(mazeMap[solveRoute.length-1])
+		
+		
+		mazeMap[]
+		////////////////////////////////
+		
+		if(previousIndex != startIndex)
+		{
+			checkedlist[previousIndex].links.push(currentIndex);
+		}		
+
+		if(mazeDecision.notes=="end")
+		{
+			foundendflag = true;
+		}
+				
+		if(mazeDecision.notes == "end" || mazeDecision.notes == "edge" || mazeDecision.links.length == 1) //backtrack
+		{
+			numDirections = 0;
+			directionNum = 0;
+			
+			while( currentIndex!=-1 && directionNum == numDirections )
+			{
+				currentIndex = checkedlist[currentIndex].previousIndex
+				
+				if(currentIndex!=-1)
+				{
+					numDirections = checkedlist[currentIndex].choices.length
+					directionNum = checkedlist[currentIndex].links.length
+				}
+			}
+			
+			if(currentIndex==-1)
+			{ done=true; }
+			else
+			{
+				//directioNum will be one greater than the number of links already seen
+				mazeSpot = checkedlist[currentIndex].choices[directionNum]
+			}
+		}
+		else //e.g. if I DON'T need to backtrack...
+		{
+			mazeSpot = mazeDecision["choices"][0]
+		}
+		
+		
+		////////////////////
+		
+		
+		
 		
 		if(loopcount==LOOPCOUNT)
 		{
@@ -1482,7 +1584,13 @@ function autoSolve(numTurns) //optional argument to specify number of turns to s
 		alert("The maze solver terminated early due to an infinite loop in the logic. The maze was not fully solved.")
 		mazeMap = null;
 	}
-	
+
+	/*
+	if(solutions.length==0 && mazeMap[startIndex].notes != "end")
+	{
+		alert("The maze is unsolvable from your current position.")
+	}
+	*/
 }
 
 
