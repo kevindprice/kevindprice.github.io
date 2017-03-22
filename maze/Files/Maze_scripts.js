@@ -1524,7 +1524,7 @@ function autoSolve(numTurns) //optional argument to specify number of turns to s
 		if(mazeMap[solveRoute.length-1])
 		
 		
-		mazeMap[]
+		//mazeMap[]
 		////////////////////////////////
 		
 		if(previousIndex != startIndex)
