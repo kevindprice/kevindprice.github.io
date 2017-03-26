@@ -1529,7 +1529,7 @@ function autoSolve(numTurns) //optional argument to specify number of turns to s
 	mapSpot = 0;
 
 	var loopcount = 0;
-	var LOOPCOUNT = 3000;
+	var LOOPCOUNT = 5000;
 	var done=false;
 	
 	
@@ -1539,7 +1539,7 @@ function autoSolve(numTurns) //optional argument to specify number of turns to s
 	}
 	else
 	{
-		var startIndex = findSpotInAutosolve( copyArray(spot), mazeMap )
+		var startIndex = findSpotInAutosolve( spot.slice(0,3), copyArray(mazeMap) )
 	}
 
 	if(startIndex==-1)
@@ -1639,9 +1639,12 @@ function autoSolve(numTurns) //optional argument to specify number of turns to s
 		
 		//NOW BACKTRACK UNTIL YOU SEE A NEW CHOICE////////////////////
 			//AND PICK THE NEXT CHOICE////////////////////
-			
+
+		
 		linkIndex=0
 		var numLinks=0
+
+		
 		
 		while(linkIndex + 1 >= numLinks)
 		{
@@ -1674,6 +1677,10 @@ function autoSolve(numTurns) //optional argument to specify number of turns to s
 			}
 		}
 
+		//drawGrid()
+		//drawCurrentPosition( mazeMap[solveRoute[solveRoute.length - 1]].obstacleSpot );
+
+		
 		linkIndex += 1; //check the NEXT link next!
 		
 		if(solveRoute.length == 0)
@@ -1694,13 +1701,13 @@ function autoSolve(numTurns) //optional argument to specify number of turns to s
 	}
 	else
 	{
-		drawSolution(solutions)
+		drawSolution(solutions, numTurns)
 	}
 	
 	if(loopcount==LOOPCOUNT)  //this case shouldn't happen. But just in case I missed something...
 	{
 		alert("The maze solver terminated early due to an infinite loop in the logic. The maze was not fully solved.")
-		mazeMap = null;
+		//mazeMap = null;
 	}
 
 	/*
@@ -1711,7 +1718,7 @@ function autoSolve(numTurns) //optional argument to specify number of turns to s
 	*/
 }
 
-function drawSolution(solutions)
+function drawSolution(solutions, numTurns)
 {
     
     var canvas = document.getElementById("canvas");
@@ -1721,15 +1728,23 @@ function drawSolution(solutions)
 	{
 		context.beginPath();
 		context.strokeStyle='#FFA613'; //GOLD
-
-		context.moveTo( Math.round( route[0]["spot"][0]*INTERVAL + INTERVAL/2)+BORDER, 
-						Math.round( route[0]["spot"][1]*INTERVAL + INTERVAL/2)+BORDER ); 
+		
+		context.moveTo( Math.round( spot[0]*INTERVAL + INTERVAL/2)+BORDER, 
+						Math.round( spot[1]*INTERVAL + INTERVAL/2)+BORDER ); 
 		
 		for(var i2=0; i2<solutions[i1].length; i2++)
 		{
 			context.lineTo(Math.round( mazeMap[solutions[i1][i2]].obstacleSpot[0]*INTERVAL + INTERVAL/2)+BORDER, 
 						   Math.round( mazeMap[solutions[i1][i2]].obstacleSpot[1]*INTERVAL + INTERVAL/2)+BORDER );
-		}
+			
+			if(numTurns!=null)
+			{
+				if(i2==numTurns)
+				{
+					break;
+				}
+			}
+	   }
 
 		context.stroke();
 	}
