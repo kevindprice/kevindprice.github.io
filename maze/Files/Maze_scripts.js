@@ -1193,7 +1193,7 @@ function move()
 /////////////////////////////////////////////////////////////////////////////////
 
 
-/*  LOGIC FOR SOLVING THE MAZE
+/*  MAZE MAPPING LOGIC
 
 Hit an obstacle.
 Check how many directions are available at this obstacle.
@@ -1353,10 +1353,13 @@ function mapSpotChecker(mazeLocation, checkedlist, previousIndex)
 			break;
 		default:
 	}
+
+	mazeDecision["obstacleSpot"] = mazeLocation
 	
 	if(obstacles[mazeDecision.obstacle].type == "end")
 	{
 		mazeDecision["notes"]="end"
+		mazeDecision.links = []
 		return mazeDecision
 	}
 
@@ -1365,12 +1368,11 @@ function mapSpotChecker(mazeLocation, checkedlist, previousIndex)
 
 	if(indexInMaze != -1)
 	{
-		mazeDecision["notes"]="OK" //loop
+		mazeDecision["notes"]="link" //loop
 		mazeDecision["links"]=[indexInMaze]   //debug this line
 		return mazeDecision
 	}
 	
-	mazeDecision["obstacleSpot"] = mazeLocation
 	mazeDecision["directions"]=obstacleDirections(mazeDecision["obstacle"],mazeLocation)
 
 	mazeDecision["choices"]=[];
@@ -1468,15 +1470,54 @@ function findSpotInAutosolve(mazeLocation, checkedlist, obstacleNum)
 }
 
 
+function intInArray(integer, array)
+{
+	for(var i = 0; i<array.length; i++)
+	{
+		if(array[i]==integer)
+		{
+			return i;
+		}
+	}
+	return -1;
+}
+
+function compareSpots(spot1, spot2)
+{
+	for(var i=0; i<4; i++)
+	{
+		if(spot1[i]!=spot2[i])
+		{
+			return false;
+		}
+	}
+	return true;
+}
+
+
+
 /*  LOGIC FOR SOLVING THE MAZE
 
 Hit an obstacle.
 Check how many directions are available at this obstacle.
 Start at the first direction and go to the next obstacle.
-If the next position has already been seen, backtrack.
 If you go off the edge, then backtrack.
-If you backtracked, then pick the next direction.
-If you've checked all the directions, then backtrack again. */
+If you backtracked, then pick the next direction (if there is one).
+If you've checked all the directions, then backtrack again. 
+If you find the solution, then save this solution.
+If you already have a solution, then check: does this one get there faster?
+	--> if so, then replace the previous solution with the new one.
+If the next position you are checking has already been seen: there are two cases:
+	1. If it has been seen in the current direct path from the maze beginning, then backtrack and ignore! (useless loop!)
+	2. If it has been seen in an already solved solution, then check:
+		a. Does your new route get there in fewer steps? If so, then revise the solution!
+		b. If it gets to that spot in more steps, then backtrack and ignore it.
+		-->ONLY check the solution for this spot, if it is NOT at the same index
+			as your current route from the beginning
+			(it would be a pointless exercise if you are simply backtracking from the end
+			and find the same obstacle again in the solution at the same index)
+		
+*/
 
 
 
@@ -1488,10 +1529,18 @@ function autoSolve(numTurns) //optional argument to specify number of turns to s
 	mapSpot = 0;
 
 	var loopcount = 0;
-	var LOOPCOUNT = 2000;
+	var LOOPCOUNT = 3000;
 	var done=false;
 	
-	startIndex = findSpotInAutosolve( copyArray(spot), mazeMap )
+	
+	if(compareSpots(spot, BEGINNING))
+	{
+		var startIndex = 0
+	}
+	else
+	{
+		var startIndex = findSpotInAutosolve( copyArray(spot), mazeMap )
+	}
 
 	if(startIndex==-1)
 	{
@@ -1499,84 +1548,153 @@ function autoSolve(numTurns) //optional argument to specify number of turns to s
 		return
 	}
 
-	solveRoute = [ [ startIndex, 0 ] ] //each spot in the route contains
+	var solveRoute = [ startIndex ] //each spot in the route contains
 										//the map index and the direction number.
 										//This will be constantly changing.
 
 	solutions = [ ] //will contain the finalized solution 
 					//as a list of maze map indices.
 	
-	
+	var foundflag = false;
+	var linkIndex = 0;
 	
 	while(!done)
 	{
 		loopcount+=1;
 		
-		var links = copyArray(mazeMap[solveRoute[solveRoute.length - 1][0]].links)
+		var links = copyArray(mazeMap[solveRoute[solveRoute.length - 1]].links)
 		
-		////////////////////
+		/////MOVE FORWARD CONTINUOUSLY UNTIL AN END OR LOOP, FOR BETTER OR WORSE////
 		while(links.length > 0)
 		{
-			solveRoute.append([ mazeMap[links[0]], 0 ])
-			links = copyArray(mazeMap[links[0]].links)
-		}
-		
-		if(mazeMap[solveRoute.length-1])
-		
-		
-		//mazeMap[]
-		////////////////////////////////
-		
-		if(previousIndex != startIndex)
-		{
-			checkedlist[previousIndex].links.push(currentIndex);
-		}		
-
-		if(mazeDecision.notes=="end")
-		{
-			foundendflag = true;
-		}
-				
-		if(mazeDecision.notes == "end" || mazeDecision.notes == "edge" || mazeDecision.links.length == 1) //backtrack
-		{
-			numDirections = 0;
-			directionNum = 0;
+			var nextLink = links[linkIndex]	//reference by linkIndex,
+										//so that the backtrack functionality ahead
+										//can tell this to continue at a different link than 0.
+										//Note, add 1 so I can investigate the NEXT link.
+										
+			linkIndex = 0;
 			
-			while( currentIndex!=-1 && directionNum == numDirections )
+			//CHECK YOUR ROUTE FOR THIS MAZE SPOT (LOOP?)
+			var loop = intInArray(nextLink, solveRoute)
+			
+			if(loop != -1)
 			{
-				currentIndex = checkedlist[currentIndex].previousIndex
-				
-				if(currentIndex!=-1)
+				break;
+			}
+			
+			//CHECK SOLUTIONS FOR THIS MAZE SPOT (BETTER ROUTE or WORSE ROUTE?)
+			if(solutions.length!=0)
+			{
+				foundflag = false;
+				var foundIndices = []
+				for(var i=0; i<solutions.length; i++)
 				{
-					numDirections = checkedlist[currentIndex].choices.length
-					directionNum = checkedlist[currentIndex].links.length
+					var indexInSolution = intInArray(nextLink, solutions[i])
+					foundIndices.push( indexInSolution )
+					
+					if(indexInSolution != -1)
+					{
+						foundflag = true
+					
+						if(indexInSolution>solveRoute.length)    //It's NOT length-1.
+						//REVISE the accepted solution. THIS is shorter!
+						{											
+							var newSolution = copyArray(solveRoute)
+							for(var i2=indexInSolution; i2<solutions[i].length; i2++) //slightly confusing, but whatever.
+							{
+								newSolution.push(solutions[i][i2])
+							}
+							solutions[i]=newSolution;
+						}
+					}
+				}
+				
+				if(foundflag)
+				{
+					break;
 				}
 			}
 			
-			if(currentIndex==-1)
-			{ done=true; }
-			else
+			//If the notes say "link", don't add this spot to the maze route.
+			//It's a redundant entry that doesn't actually contain location info.
+			//But DO proceed forward. This may be a better route than the one
+			//originally found in the mapper function.
+			if( mazeMap[nextLink].notes != "link" )
 			{
-				//directioNum will be one greater than the number of links already seen
-				mazeSpot = checkedlist[currentIndex].choices[directionNum]
+				solveRoute.push( nextLink )
+				
+				//for debugging
+				//drawGrid()
+				//drawCurrentPosition( mazeMap[nextLink].obstacleSpot );
+			}
+			
+			links = copyArray(mazeMap[nextLink].links)			
+		}
+		
+		//you've found a solution, but it may not be the most efficient one, so continue.
+		if(mazeMap[nextLink].notes=="end")
+		{
+			solutions.push(copyArray(solveRoute))
+		}
+		
+		//NOW BACKTRACK UNTIL YOU SEE A NEW CHOICE////////////////////
+			//AND PICK THE NEXT CHOICE////////////////////
+			
+		linkIndex=0
+		var numLinks=0
+		
+		while(linkIndex + 1 >= numLinks)
+		{
+			currentIndex = solveRoute.pop()
+
+			//for debugging
+			//drawGrid()
+			//drawCurrentPosition( mazeMap[currentIndex].obstacleSpot );
+			
+
+			if(solveRoute.length==0)
+			{
+				break;
+			}
+			
+			links = copyArray(mazeMap[solveRoute[solveRoute.length - 1]].links)
+			linkIndex = intInArray(currentIndex, links)
+			numLinks = links.length
+			
+			if(linkIndex == -1) //will happen if the notes say "link"
+			{
+				for(var i=0; i<links.length; i++)
+				{
+					if(mazeMap[links[i]].links[0]==currentIndex)
+					{
+						linkIndex = i;
+						break;
+					}
+				}
 			}
 		}
-		else //e.g. if I DON'T need to backtrack...
+
+		linkIndex += 1; //check the NEXT link next!
+		
+		if(solveRoute.length == 0)
 		{
-			mazeSpot = mazeDecision["choices"][0]
+			break; //you've finished!
 		}
-		
-		
-		////////////////////
-		
-		
-		
 		
 		if(loopcount==LOOPCOUNT)
 		{
 			break;
 		}
 
+	}
+	
+	if(solutions.length == 0)
+	{
+		alert("The maze cannot be solved from your current position. Backtrack.")
+	}
+	else
+	{
+		drawSolution(solutions)
 	}
 	
 	if(loopcount==LOOPCOUNT)  //this case shouldn't happen. But just in case I missed something...
@@ -1593,6 +1711,29 @@ function autoSolve(numTurns) //optional argument to specify number of turns to s
 	*/
 }
 
+function drawSolution(solutions)
+{
+    
+    var canvas = document.getElementById("canvas");
+    var context = canvas.getContext("2d");
+
+	for(var i1=0; i1<solutions.length; i1++)
+	{
+		context.beginPath();
+		context.strokeStyle='#FFA613'; //GOLD
+
+		context.moveTo( Math.round( route[0]["spot"][0]*INTERVAL + INTERVAL/2)+BORDER, 
+						Math.round( route[0]["spot"][1]*INTERVAL + INTERVAL/2)+BORDER ); 
+		
+		for(var i2=0; i2<solutions[i1].length; i2++)
+		{
+			context.lineTo(Math.round( mazeMap[solutions[i1][i2]].obstacleSpot[0]*INTERVAL + INTERVAL/2)+BORDER, 
+						   Math.round( mazeMap[solutions[i1][i2]].obstacleSpot[1]*INTERVAL + INTERVAL/2)+BORDER );
+		}
+
+		context.stroke();
+	}
+}
 
 
 
