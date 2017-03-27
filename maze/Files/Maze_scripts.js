@@ -1551,7 +1551,8 @@ function autoSolve(numTurns) //optional argument to specify number of turns to s
 	var solveRoute = [ startIndex ] //each spot in the route contains
 										//the map index and the direction number.
 										//This will be constantly changing.
-
+	var seenIndices = [];
+	
 	solutions = [ ] //will contain the finalized solution 
 					//as a list of maze map indices.
 	
@@ -1574,13 +1575,14 @@ function autoSolve(numTurns) //optional argument to specify number of turns to s
 										
 			linkIndex = 0;
 			
+			/*
 			//CHECK YOUR ROUTE FOR THIS MAZE SPOT (LOOP?)
 			var loop = intInArray(nextLink, solveRoute)
 			
 			if(loop != -1)
 			{
 				break;
-			}
+			}*/
 			
 			//CHECK SOLUTIONS FOR THIS MAZE SPOT (BETTER ROUTE or WORSE ROUTE?)
 			if(solutions.length!=0)
@@ -1614,6 +1616,18 @@ function autoSolve(numTurns) //optional argument to specify number of turns to s
 					break;
 				}
 			}
+			
+			var seen = intInArray(nextLink, seenIndices)
+			
+			if(seen==-1)
+			{
+				seenIndices.push(nextLink)
+			}
+			else
+			{
+				break;
+			}
+			
 			
 			//If the notes say "link", don't add this spot to the maze route.
 			//It's a redundant entry that doesn't actually contain location info.
