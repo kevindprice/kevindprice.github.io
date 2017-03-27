@@ -1398,6 +1398,23 @@ function mapSpotChecker(mazeLocation, checkedlist, previousIndex)
 				newLocation = moveForward( copyArray(mazeLocation) )
 				break;
 		}
+		
+		//Nudge the choice spot forward a bit, just in case the wall is PERMEABLE
+		//(If you turn directly into a permeable, then the obstacle checker will
+		// simply say that is your next obstacle...instead of finding out what's beyond it,
+		// and then you will effectively turn twice instead of once.)
+		
+		switch(newLocation[2])
+		{
+			case "right":
+				newLocation[0]+=0.1
+			case "left":
+				newLocation[0]-=0.1
+			case "up":
+				newLocation[1]-=0.1
+			case "down":
+				newLocation[1]+=0.1
+		}
 
 		mazeDecision["choices"].push(newLocation)
 	}		
