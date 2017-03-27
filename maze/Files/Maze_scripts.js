@@ -1496,6 +1496,9 @@ function compareSpots(spot1, spot2)
 
 
 
+
+
+
 /*  LOGIC FOR SOLVING THE MAZE
 
 Hit an obstacle.
@@ -1655,8 +1658,13 @@ function autoSolve(numTurns) //optional argument to specify number of turns to s
 			//AND PICK THE NEXT CHOICE////////////////////
 
 		
-		linkIndex=0
-		var numLinks=0
+		links = copyArray(mazeMap[solveRoute[solveRoute.length - 1]].links)
+		numLinks = links.length
+		linkIndex = intInArray(currentIndex, links)
+		if(linkIndex==-1)
+		{
+			linkIndex=0
+		}
 
 		
 		
