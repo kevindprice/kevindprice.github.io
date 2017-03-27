@@ -1408,12 +1408,16 @@ function mapSpotChecker(mazeLocation, checkedlist, previousIndex)
 		{
 			case "right":
 				newLocation[0]+=0.1
+				break;
 			case "left":
 				newLocation[0]-=0.1
+				break;
 			case "up":
 				newLocation[1]-=0.1
+				break;
 			case "down":
 				newLocation[1]+=0.1
+				break;
 		}
 
 		mazeDecision["choices"].push(newLocation)
