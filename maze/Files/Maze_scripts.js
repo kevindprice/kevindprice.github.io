@@ -1660,10 +1660,17 @@ function autoSolve(numTurns) //optional argument to specify number of turns to s
 		
 		links = copyArray(mazeMap[solveRoute[solveRoute.length - 1]].links)
 		numLinks = links.length
-		linkIndex = intInArray(currentIndex, links)
+		linkIndex = intInArray(nextLink, links)
 		if(linkIndex==-1)
 		{
-			linkIndex=0
+			for(var i=0; i<links.length; i++)
+			{
+				if(mazeMap[links[i]].links[0]==currentIndex)
+				{
+					linkIndex = i;
+					break;
+				}
+			}
 		}
 
 		
