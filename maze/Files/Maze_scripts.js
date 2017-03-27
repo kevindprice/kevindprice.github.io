@@ -1556,7 +1556,7 @@ function autoSolve(numTurns) //optional argument to specify number of turns to s
 										//This will be constantly changing.
 	var seenIndices = [];
 	
-	solutions = [ ] //will contain the finalized solution 
+	var solutions = [ ] //will contain the finalized solution 
 					//as a list of maze map indices.
 	
 	var foundflag = false;
