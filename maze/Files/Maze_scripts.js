@@ -1229,7 +1229,7 @@ function mapMaze()
 		checkedlist.push(mazeDecision)
 		currentIndex = checkedlist.length - 1
 		
-		/*
+		///*
 		//for debugging. If you put a breakpoint just after this,
 		//then you can push the "continue" button repeatedly
 		//and watch the maze step through the obstacles.
@@ -1238,7 +1238,7 @@ function mapMaze()
 		if(mazeDecision.hasOwnProperty("obstacleSpot"))
 		{
 			drawCurrentPosition( mazeDecision.obstacleSpot )
-		}*/
+		}//*/
 		
 		if(previousIndex != -1)
 		{
@@ -1553,7 +1553,7 @@ function autoSolve(numTurns) //optional argument to specify number of turns to s
 	mapSpot = 0;
 
 	var loopcount = 0;
-	var LOOPCOUNT = 5000;
+	var LOOPCOUNT = 10000;
 	var done=false;
 	
 	
