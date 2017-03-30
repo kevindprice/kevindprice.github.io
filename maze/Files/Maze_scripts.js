@@ -1550,13 +1550,6 @@ If the next position you are checking has already been seen: there are two cases
 //and return the correct spot indices in order.
 function autoSolve(numTurns) //optional argument to specify number of turns to show.
 {
-	mapSpot = 0;
-
-	var loopcount = 0;
-	var LOOPCOUNT = 10000;
-	var done=false;
-	
-	
 	if(compareSpots(spot, BEGINNING))
 	{
 		var startIndex = 0
@@ -1572,149 +1565,123 @@ function autoSolve(numTurns) //optional argument to specify number of turns to s
 		return
 	}
 
-	var solveRoute = [ startIndex ] //each spot in the route contains
-										//the map index and the direction number.
-										//This will be constantly changing.
-	var seenIndices = [];
+
 	
-	var solutions = [ ] //will contain the finalized solution 
-					//as a list of maze map indices.
-	
-	var foundflag = false;
-	var linkIndex = 0;
-	
-	while(!done)
+	for(var loopnum=0; loopnum<3; loopnum++)
 	{
-		loopcount+=1;
+		var loopcount = 0;
+		var LOOPCOUNT = 3000;
+		var done=false;
+
+		var solveRoute = [ startIndex ] //each spot in the route contains
+											//the map index and the direction number.
+											//This will be constantly changing.
+		var seenIndices = [ startIndex ];
 		
-		var links = copyArray(mazeMap[solveRoute[solveRoute.length - 1]].links)
+		var solutions = [ ] //will contain the finalized solution 
+						//as a list of maze map indices.
 		
-		/////MOVE FORWARD CONTINUOUSLY UNTIL AN END OR LOOP, FOR BETTER OR WORSE////
-		while(links.length > 0)
+		var foundflag = false;
+		var linkIndex = 0;
+	
+		while(!done)
 		{
-			var nextLink = links[linkIndex]	//reference by linkIndex,
-										//so that the backtrack functionality ahead
-										//can tell this to continue at a different link than 0.
-										//Note, add 1 so I can investigate the NEXT link.
-										
-			linkIndex = 0;
+			loopcount+=1;
 			
-			/*
-			//CHECK YOUR ROUTE FOR THIS MAZE SPOT (LOOP?)
-			var loop = intInArray(nextLink, solveRoute)
+			var links = copyLinks(mazeMap[solveRoute[solveRoute.length - 1]].links, loopnum)
 			
-			if(loop != -1)
+			/////MOVE FORWARD CONTINUOUSLY UNTIL AN END OR LOOP, FOR BETTER OR WORSE////
+			while(links.length > 0)
 			{
-				break;
-			}*/
-			
-			//CHECK SOLUTIONS FOR THIS MAZE SPOT (BETTER ROUTE or WORSE ROUTE?)
-			if(solutions.length!=0)
-			{
-				foundflag = false;
-				var foundIndices = []
-				for(var i=0; i<solutions.length; i++)
+				var nextLink = links[linkIndex]	//reference by linkIndex,
+											//so that the backtrack functionality ahead
+											//can tell this to continue at a different link than 0.
+											//Note, add 1 so I can investigate the NEXT link.
+											
+				linkIndex = 0;
+				
+				
+				//CHECK YOUR ROUTE FOR THIS MAZE SPOT (LOOP?)
+				//var loop = intInArray(nextLink, solveRoute)
+				
+				//if(loop != -1)
+				//{ break; }
+				
+				//CHECK SOLUTIONS FOR THIS MAZE SPOT (BETTER ROUTE or WORSE ROUTE?)
+				if(solutions.length!=0)
 				{
-					var indexInSolution = intInArray(nextLink, solutions[i])
-					foundIndices.push( indexInSolution )
-					
-					if(indexInSolution != -1)
+					foundflag = false;
+					var foundIndices = []
+					for(var i=0; i<solutions.length; i++)
 					{
-						foundflag = true
-					
-						if(indexInSolution>solveRoute.length)    //It's NOT length-1.
-						//REVISE the accepted solution. THIS is shorter!
-						{											
-							var newSolution = copyArray(solveRoute)
-							for(var i2=indexInSolution; i2<solutions[i].length; i2++) //slightly confusing, but whatever.
-							{
-								newSolution.push(solutions[i][i2])
+						var indexInSolution = intInArray(nextLink, solutions[i])
+						foundIndices.push( indexInSolution )
+						
+						if(indexInSolution != -1)
+						{
+							foundflag = true
+						
+							if(indexInSolution>solveRoute.length)    //It's NOT length-1.
+							//REVISE the accepted solution. THIS is shorter!
+							{											
+								var newSolution = copyArray(solveRoute)
+								for(var i2=indexInSolution; i2<solutions[i].length; i2++) //slightly confusing, but whatever.
+								{
+									newSolution.push(solutions[i][i2])
+								}
+								solutions[i]=newSolution;
 							}
-							solutions[i]=newSolution;
 						}
+					}
+					
+					if(foundflag)
+					{
+						break;
 					}
 				}
 				
-				if(foundflag)
-				{
-					break;
-				}
-			}
-			
-			var seen = intInArray(nextLink, seenIndices)
-			
-			if(seen==-1)
-			{
-				seenIndices.push(nextLink)
-			}
-			else
-			{
-				break;
-			}
-			
-			
-			//If the notes say "link", don't add this spot to the maze route.
-			//It's a redundant entry that doesn't actually contain location info.
-			//But DO proceed forward. This may be a better route than the one
-			//originally found in the mapper function.
-			if( mazeMap[nextLink].notes != "link" )
-			{
-				solveRoute.push( nextLink )
+				var seen = intInArray(nextLink, seenIndices)
 				
-				//for debugging
-				//drawGrid()
-				//drawCurrentPosition( mazeMap[nextLink].obstacleSpot );
-			}
-			
-			links = copyArray(mazeMap[nextLink].links)			
-		}
-		
-		//you've found a solution, but it may not be the most efficient one, so continue.
-		if(mazeMap[nextLink].notes=="end")
-		{
-			solutions.push(copyArray(solveRoute))
-		}
-		
-		//NOW BACKTRACK UNTIL YOU SEE A NEW CHOICE////////////////////
-			//AND PICK THE NEXT CHOICE////////////////////
-
-		
-		links = copyArray(mazeMap[solveRoute[solveRoute.length - 1]].links)
-		numLinks = links.length
-		linkIndex = intInArray(nextLink, links)
-		if(linkIndex==-1)
-		{
-			for(var i=0; i<links.length; i++)
-			{
-				if(mazeMap[links[i]].links[0]==currentIndex)
+				if(seen==-1)
 				{
-					linkIndex = i;
+					seenIndices.push(nextLink)
+				}
+				else
+				{
 					break;
 				}
+				
+				
+				//If the notes say "link", don't add this spot to the maze route.
+				//It's a redundant entry that doesn't actually contain location info.
+				//But DO proceed forward. This may be a better route than the one
+				//originally found in the mapper function.
+				if( mazeMap[nextLink].notes != "link" )
+				{
+					solveRoute.push( nextLink )
+					
+					//for debugging
+					//drawGrid()
+					//drawCurrentPosition( mazeMap[nextLink].obstacleSpot );
+				}
+				
+				links = copyLinks(mazeMap[nextLink].links, loopnum)			
 			}
-		}
-
-		
-		
-		while(linkIndex + 1 >= numLinks)
-		{
-			currentIndex = solveRoute.pop()
-
-			//for debugging
-			//drawGrid()
-			//drawCurrentPosition( mazeMap[currentIndex].obstacleSpot );
 			
-
-			if(solveRoute.length==0)
+			//you've found a solution, but it may not be the most efficient one, so continue.
+			if(mazeMap[nextLink].notes=="end")
 			{
-				break;
+				solutions.push(copyArray(solveRoute))
 			}
 			
-			links = copyArray(mazeMap[solveRoute[solveRoute.length - 1]].links)
-			linkIndex = intInArray(currentIndex, links)
-			numLinks = links.length
+			//NOW BACKTRACK UNTIL YOU SEE A NEW CHOICE////////////////////
+				//AND PICK THE NEXT CHOICE////////////////////
+
 			
-			if(linkIndex == -1) //will happen if the notes say "link"
+			links = copyLinks(mazeMap[solveRoute[solveRoute.length - 1]].links, loopnum)
+			numLinks = links.length
+			linkIndex = intInArray(nextLink, links)
+			if(linkIndex==-1)
 			{
 				for(var i=0; i<links.length; i++)
 				{
@@ -1725,47 +1692,92 @@ function autoSolve(numTurns) //optional argument to specify number of turns to s
 					}
 				}
 			}
+			
+			while(linkIndex + 1 >= numLinks)
+			{
+				currentIndex = solveRoute.pop()
+
+				//for debugging
+				//drawGrid()
+				//drawCurrentPosition( mazeMap[currentIndex].obstacleSpot );
+				
+
+				if(solveRoute.length==0)
+				{
+					break;
+				}
+				
+				links = copyLinks(mazeMap[solveRoute[solveRoute.length - 1]].links, loopnum)
+				linkIndex = intInArray(currentIndex, links)
+				numLinks = links.length
+				
+				if(linkIndex == -1) //will happen if the notes say "link"
+				{
+					for(var i=0; i<links.length; i++)
+					{
+						if(mazeMap[links[i]].links[0]==currentIndex)
+						{
+							linkIndex = i;
+							break;
+						}
+					}
+				}
+			}
+
+			//drawGrid()
+			//drawCurrentPosition( mazeMap[solveRoute[solveRoute.length - 1]].obstacleSpot );
+
+			
+			linkIndex += 1; //check the NEXT link next!
+			
+			if(solveRoute.length == 0)
+			{
+				break; //you've finished!
+			}
+			
+			if(loopcount==LOOPCOUNT)
+			{
+				break;
+			}
+
 		}
 
-		//drawGrid()
-		//drawCurrentPosition( mazeMap[solveRoute[solveRoute.length - 1]].obstacleSpot );
-
-		
-		linkIndex += 1; //check the NEXT link next!
-		
-		if(solveRoute.length == 0)
+		if(loopcount==LOOPCOUNT)  //this case shouldn't happen. But just in case I missed something...
 		{
-			break; //you've finished!
-		}
-		
-		if(loopcount==LOOPCOUNT)
+			alert("The maze solver terminated early due to an infinite loop in the logic. The maze was not fully solved.")
+			errorflag = true
+			break;
+		}		
+		else if(solutions.length == 0)
 		{
+			alert("The maze cannot be solved from your current position. Backtrack.")
+			errorflag = true
 			break;
 		}
 
+
+		else
+		{
+			switch(loopnum)
+			{
+				case 0:
+					var solutions1=solutions
+					break;
+				case 1:
+					var solutions2=solutions
+					break;
+				case 2:
+					var solutions3=solutions
+					break;
+			}
+		}
 	}
 	
-	if(solutions.length == 0)
-	{
-		alert("The maze cannot be solved from your current position. Backtrack.")
-	}
-	else
+	if(!errorflag)
 	{
 		drawSolution(solutions, numTurns)
 	}
 	
-	if(loopcount==LOOPCOUNT)  //this case shouldn't happen. But just in case I missed something...
-	{
-		alert("The maze solver terminated early due to an infinite loop in the logic. The maze was not fully solved.")
-		//mazeMap = null;
-	}
-
-	/*
-	if(solutions.length==0 && mazeMap[startIndex].notes != "end")
-	{
-		alert("The maze is unsolvable from your current position.")
-	}
-	*/
 }
 
 function drawSolution(solutions, numTurns)
@@ -2087,6 +2099,7 @@ function obstacleDirections(stop_obstacle, checkSpot)
 	return directions;
 }
 
+
 function copyArray(array)
 {
 	var newArray = []
@@ -2096,6 +2109,40 @@ function copyArray(array)
 	}
 	return newArray;
 }
+
+function copyLinks(array, loopnum)
+{
+	var newArray = []
+
+	if(loopnum==0)
+	{
+		for(var i=0; i<array.length; i++)
+		{
+			newArray.push(array[i])
+		}
+	}
+	else if(loopnum==1 || array.length < 3)
+	{
+		for(var i=array.length-1; i>=0; i--)
+		{
+			newArray.push(array[i])
+		}
+	}
+	else if(loopnum==2 && array.length==3)
+	{
+		newArray.push[array[2]]
+		newArray.push[array[1]]
+		newArray.push[array[3]]
+	}
+	else //this condition should not happen
+	{
+		return copyArray(array)
+	}
+	
+	return newArray;
+}
+
+
 
 function stringInArray(string, array)
 {
