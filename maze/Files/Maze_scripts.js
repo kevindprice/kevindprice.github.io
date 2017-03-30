@@ -1565,6 +1565,7 @@ function autoSolve(numTurns) //optional argument to specify number of turns to s
 		return
 	}
 
+	var errorflag = false;
 
 	
 	for(var loopnum=0; loopnum<3; loopnum++)
@@ -1775,7 +1776,7 @@ function autoSolve(numTurns) //optional argument to specify number of turns to s
 	
 	if(!errorflag)
 	{
-		drawSolution(solutions, numTurns)
+		drawSolution(solutions2, numTurns)
 	}
 	
 }
@@ -2130,13 +2131,21 @@ function copyLinks(array, loopnum)
 	}
 	else if(loopnum==2 && array.length==3)
 	{
-		newArray.push[array[2]]
-		newArray.push[array[1]]
-		newArray.push[array[3]]
+		newArray.push(array[1])
+		newArray.push(array[2])
+		newArray.push(array[0])
 	}
 	else //this condition should not happen
 	{
-		return copyArray(array)
+		for(var i=0; i<array.length; i++)
+		{
+			newArray.push(array[i])
+		}
+	}
+	
+	if(newArray.length!=array.length)
+	{
+		alert("Alert!");
 	}
 	
 	return newArray;
