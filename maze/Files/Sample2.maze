@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <maze>
-  <size><X_GRIDS>32</X_GRIDS><Y_GRIDS>35</Y_GRIDS><DefaultSpacing>15</DefaultSpacing></size>
+  <size><X_GRIDS>32</X_GRIDS><Y_GRIDS>35</Y_GRIDS><DefaultSpacing>10</DefaultSpacing></size>
   <obstacle><type>wall</type><orient>vertical</orient><x>2</x><y>33</y></obstacle>
   <obstacle><type>wall</type><orient>horizontal</orient><x>1</x><y>33</y></obstacle>
   <obstacle><type>wall</type><orient>vertical</orient><x>1</x><y>32</y></obstacle>
@@ -212,4 +212,118 @@
   <obstacle><type>wall</type><orient>horizontal</orient><x>25</x><y>10</y></obstacle>
   <obstacle><type>wall</type><orient>vertical</orient><x>26</x><y>10</y></obstacle>
   <obstacle><type>end</type><orient>horizontal</orient><x>27</x><y>34</y></obstacle>
+
+  <route>
+    <spot><x>2</x><y>17</y><dir>up</dir></spot>
+    <spot><x>20</x><y>17</y><dir>right</dir></spot>
+    <spot><x>20</x><y>31</y><dir>down</dir></spot>
+    <spot><x>23</x><y>31</y><dir>right</dir></spot>
+    <spot><x>29</x><y>31</y><dir>right</dir></spot>
+    <spot><x>29</x><y>25</y><dir>up</dir></spot>
+    <spot><x>22</x><y>25</y><dir>left</dir></spot>
+    <spot><x>22</x><y>29</y><dir>down</dir></spot>
+    <spot><x>12</x><y>29</y><dir>left</dir></spot>
+    <spot><x>12</x><y>21</y><dir>up</dir></spot>
+    <spot><x>15</x><y>21</y><dir>right</dir></spot>
+    <spot><x>24</x><y>21</y><dir>right</dir></spot>
+    <spot><x>25</x><y>21</y><dir>right</dir></spot>
+    <spot><x>25</x><y>24</y><dir>down</dir></spot>
+    <spot><x>16</x><y>24</y><dir>left</dir></spot>
+    <spot><x>16</x><y>23</y><dir>up</dir></spot>
+    <spot><x>13</x><y>23</y><dir>left</dir></spot>
+    <spot><x>3</x><y>23</y><dir>left</dir></spot>
+    <spot><x>3</x><y>32</y><dir>down</dir></spot>
+    <spot><x>1</x><y>32</y><dir>left</dir></spot>
+    <spot><x>1</x><y>16</y><dir>up</dir></spot>
+    <spot><x>9</x><y>16</y><dir>right</dir></spot>
+    <spot><x>9</x><y>16</y><dir>down</dir></spot>
+    <spot><x>9</x><y>25</y><dir>down</dir></spot>
+    <spot><x>8</x><y>25</y><dir>left</dir></spot>
+    <spot><x>8</x><y>27</y><dir>down</dir></spot>
+    <spot><x>8</x><y>30</y><dir>down</dir></spot>
+    <spot><x>26</x><y>30</y><dir>right</dir></spot>
+    <spot><x>26</x><y>20</y><dir>up</dir></spot>
+    <spot><x>27</x><y>20</y><dir>right</dir></spot>
+    <spot><x>27</x><y>3</y><dir>up</dir></spot>
+    <spot><x>29</x><y>3</y><dir>right</dir></spot>
+    <spot><x>29</x><y>21</y><dir>down</dir></spot>
+    <spot><x>27</x><y>21</y><dir>left</dir></spot>
+    <spot><x>27</x><y>33</y><dir>down</dir></spot>
+  </route>
+
+  <route>
+    <spot><x>2</x><y>17</y><dir>up</dir></spot>
+    <spot><x>20</x><y>17</y><dir>right</dir></spot>
+    <spot><x>20</x><y>31</y><dir>down</dir></spot>
+    <spot><x>23</x><y>31</y><dir>right</dir></spot>
+    <spot><x>29</x><y>31</y><dir>right</dir></spot>
+    <spot><x>29</x><y>25</y><dir>up</dir></spot>
+    <spot><x>22</x><y>25</y><dir>left</dir></spot>
+    <spot><x>22</x><y>29</y><dir>down</dir></spot>
+    <spot><x>12</x><y>29</y><dir>left</dir></spot>
+    <spot><x>12</x><y>21</y><dir>up</dir></spot>
+    <spot><x>15</x><y>21</y><dir>right</dir></spot>
+    <spot><x>24</x><y>21</y><dir>right</dir></spot>
+    <spot><x>25</x><y>21</y><dir>right</dir></spot>
+    <spot><x>25</x><y>10</y><dir>up</dir></spot>
+    <spot><x>13</x><y>10</y><dir>left</dir></spot>
+    <spot><x>13</x><y>8</y><dir>up</dir></spot>
+    <spot><x>26</x><y>8</y><dir>right</dir></spot>
+    <spot><x>26</x><y>19</y><dir>down</dir></spot>
+    <spot><x>26</x><y>32</y><dir>down</dir></spot>
+    <spot><x>28</x><y>32</y><dir>right</dir></spot>
+    <spot><x>28</x><y>5</y><dir>up</dir></spot>
+    <spot><x>19</x><y>5</y><dir>left</dir></spot>
+    <spot><x>19</x><y>4</y><dir>up</dir></spot>
+    <spot><x>18</x><y>4</y><dir>left</dir></spot>
+    <spot><x>18</x><y>5</y><dir>down</dir></spot>
+    <spot><x>11</x><y>5</y><dir>left</dir></spot>
+    <spot><x>11</x><y>7</y><dir>down</dir></spot>
+    <spot><x>4</x><y>7</y><dir>left</dir></spot>
+    <spot><x>4</x><y>20</y><dir>down</dir></spot>
+    <spot><x>27</x><y>20</y><dir>right</dir></spot>
+    <spot><x>27</x><y>3</y><dir>up</dir></spot>
+    <spot><x>29</x><y>3</y><dir>right</dir></spot>
+    <spot><x>29</x><y>21</y><dir>down</dir></spot>
+    <spot><x>27</x><y>21</y><dir>left</dir></spot>
+    <spot><x>27</x><y>33</y><dir>down</dir></spot>
+  </route>
+
+  <route>
+    <spot><x>2</x><y>17</y><dir>up</dir></spot>
+    <spot><x>20</x><y>17</y><dir>right</dir></spot>
+    <spot><x>20</x><y>31</y><dir>down</dir></spot>
+    <spot><x>23</x><y>31</y><dir>right</dir></spot>
+    <spot><x>29</x><y>31</y><dir>right</dir></spot>
+    <spot><x>29</x><y>33</y><dir>down</dir></spot>
+    <spot><x>30</x><y>33</y><dir>right</dir></spot>
+    <spot><x>30</x><y>15</y><dir>up</dir></spot>
+    <spot><x>24</x><y>15</y><dir>left</dir></spot>
+    <spot><x>24</x><y>3</y><dir>up</dir></spot>
+    <spot><x>26</x><y>3</y><dir>right</dir></spot>
+    <spot><x>26</x><y>7</y><dir>down</dir></spot>
+    <spot><x>12</x><y>7</y><dir>left</dir></spot>
+    <spot><x>12</x><y>9</y><dir>down</dir></spot>
+    <spot><x>11</x><y>9</y><dir>left</dir></spot>
+    <spot><x>11</x><y>8</y><dir>up</dir></spot>
+    <spot><x>26</x><y>8</y><dir>right</dir></spot>
+    <spot><x>26</x><y>19</y><dir>down</dir></spot>
+    <spot><x>26</x><y>32</y><dir>down</dir></spot>
+    <spot><x>28</x><y>32</y><dir>right</dir></spot>
+    <spot><x>28</x><y>5</y><dir>up</dir></spot>
+    <spot><x>19</x><y>5</y><dir>left</dir></spot>
+    <spot><x>19</x><y>4</y><dir>up</dir></spot>
+    <spot><x>18</x><y>4</y><dir>left</dir></spot>
+    <spot><x>18</x><y>5</y><dir>down</dir></spot>
+    <spot><x>11</x><y>5</y><dir>left</dir></spot>
+    <spot><x>11</x><y>7</y><dir>down</dir></spot>
+    <spot><x>4</x><y>7</y><dir>left</dir></spot>
+    <spot><x>4</x><y>20</y><dir>down</dir></spot>
+    <spot><x>27</x><y>20</y><dir>right</dir></spot>
+    <spot><x>27</x><y>3</y><dir>up</dir></spot>
+    <spot><x>29</x><y>3</y><dir>right</dir></spot>
+    <spot><x>29</x><y>21</y><dir>down</dir></spot>
+    <spot><x>27</x><y>21</y><dir>left</dir></spot>
+    <spot><x>27</x><y>33</y><dir>down</dir></spot>
+  </route>
 </maze>

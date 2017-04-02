@@ -136,6 +136,10 @@ var BEGINNING = []; //beginning spot
 
 var route = []; //keep track of the route the user took
 
+var solvedRoutes = []; //a list of solved routes.
+
+var solvedRouteIndices = []; //solved routes converted to mazeMap indices.
+
 var mazeMap = null; //created in the autosolver
 
 var turns = {}; //keep track of what keys to look for when turning.
@@ -476,23 +480,77 @@ function setLine(x, y)
     }   
 }
 
-function addObstacleToObstacles(obstacle)
+function generateObstacleGrid()
 {
-    obstacles.push(obstacle)
-
 	//generate an obstacle "grid". 
 	//This grid contains the index of each obstacle 
 	//mapped out in the shape of the maze.
 	//The rows contain verticals, and the columns contain horizontals.
-	if(obstacle["orient"]=="vertical")
+
+	obstacle_rows = []
+	obstacle_columns = []
+	
+	for(var i1=0; i1< X_GRIDS; i1++)
 	{
-		obstacle_rows[obstacle["y"]][obstacle["x"]].push(obstacles.length-1)
+		var column = []
+		for(var i2=0; i2<=Y_GRIDS; i2++)
+		{
+			var row = []
+			column.push(row)
+		}
+		
+		obstacle_columns.push(column)
 	}
-	else
+
+	for(var i1=0; i1< Y_GRIDS; i1++)
 	{
-		obstacle_columns[obstacle["x"]][obstacle["y"]].push(obstacles.length-1)
+		var row = []
+		for(var i2=0; i2<=X_GRIDS; i2++)
+		{
+			var column = []
+			row.push(column)
+		}		
+		
+		obstacle_rows.push(row)
+	}
+
+	
+	for(var i=0; i<obstacles.length; i++)
+	{
+		obstacle = obstacles[i]
+
+		if(obstacle["orient"]=="vertical")
+		{
+			obstacle_rows[obstacle["y"]][obstacle["x"]].push(i)
+		}
+		else
+		{
+			obstacle_columns[obstacle["x"]][obstacle["y"]].push(i)
+		}
 	}
 }
+
+
+function addRouteToSolved()
+{
+	var solvedRoute = []
+	var solvedIndex = []
+	
+	for(var i=1; i<route.length; i++)
+	{
+		var routeSpot = route[i].spot.slice(0,3)
+		solvedRoute.push(routeSpot)
+		
+		var routeIndex = findSpotInAutosolve( routeSpot, mazeMap )
+		if(routeIndex!=-1)
+		{
+			solvedIndex.push(routeIndex)
+		}
+	}
+	solvedRoutes.push(solvedRoute)
+	solvedRouteIndices.push(solvedIndex)
+}
+		
 
 //takes an obstacle object from DrawLine and draws it.
 function drawObstacle(obstacle)
@@ -515,7 +573,7 @@ function drawObstacle(obstacle)
         }
     }
     
-    addObstacleToObstacles(obstacle);
+    obstacles.push(obstacle);
 	
     x = obstacle["x"] * INTERVAL
     y = obstacle["y"] * INTERVAL
@@ -1016,9 +1074,15 @@ function displayEnds()
 //==========================================================
 //These functions power the maze solver.
 
-//enters the maze solver mode.
+//enters the maze solver mode, and refreshes things if the maze has been *changed*.
 function solverMode(quick)
 {
+	//the maze only needs to be mapped, etc. if the maze has been *changed*.
+	if(spot[3]!="drawing")
+	{
+		quick=true;
+	}
+	
     document.getElementById("action").innerHTML = mazeSOLVER;
 	if(route.length > 1)
 	{
@@ -1027,7 +1091,10 @@ function solverMode(quick)
 	
 	if(obstacles.length > 10 && quick != true)
 	{
+		generateObstacleGrid();
 		mapMaze();
+		solvedRouteIndices = []
+		solvedRoutes = []
 	}
 	
     spot[3]="stopped";  //needs to be changed
@@ -1516,6 +1583,61 @@ function compareSpots(spot1, spot2)
 }
 
 
+//Switch up the maze-solving algorithm as much as possible,
+//to find multiple possible routes.
+function copyLinks(array, loopnum, nextLink)
+{
+	if(loopnum==3)
+	{
+		if (nextLink%2==0) { loopnum=0; }  //Even links
+			else           { loopnum=1; }   //Odd links
+	}
+
+	if(loopnum==4)
+	{
+		if (nextLink%2==0) { loopnum=1; }  //Even links
+			else           { loopnum=2; }   //Odd links
+	}
+	
+	var newArray = []
+
+	if(loopnum==0)
+	{
+		for(var i=0; i<array.length; i++)
+		{
+			newArray.push(array[i])
+		}
+	}
+	else if(loopnum==1 || array.length < 3)
+	{
+		for(var i=array.length-1; i>=0; i--)
+		{
+			newArray.push(array[i])
+		}
+	}
+	else if(loopnum==2 && array.length==3)
+	{
+		newArray.push(array[1])
+		newArray.push(array[2])
+		newArray.push(array[0])
+	}
+	else //this condition should not happen
+	{
+		for(var i=0; i<array.length; i++)
+		{
+			alert("Is line 1561 ever executed?")
+			newArray.push(array[i])
+		}
+	}
+	
+	if(newArray.length!=array.length)
+	{
+		alert("Alert!");
+	}
+	
+	return newArray;
+}
+
 
 
 
@@ -1545,6 +1667,7 @@ If the next position you are checking has already been seen: there are two cases
 
 
 
+
 //finds the most efficient solution from the user's current position
 //must iterate up and down the mazeMap created in the function above,
 //and return the correct spot indices in order.
@@ -1556,7 +1679,7 @@ function autoSolve(numTurns) //optional argument to specify number of turns to s
 	}
 	else
 	{
-		var startIndex = findSpotInAutosolve( spot.slice(0,3), copyArray(mazeMap) )
+		var startIndex = findSpotInAutosolve( spot.slice(0,3), mazeMap )
 	}
 
 	if(startIndex==-1)
@@ -1567,6 +1690,7 @@ function autoSolve(numTurns) //optional argument to specify number of turns to s
 
 	var errorflag = false;
 
+	var completedSolutions = []  //the collected solution set from each iteration.
 	
 	for(var loopnum=0; loopnum<3; loopnum++)
 	{
@@ -1581,7 +1705,7 @@ function autoSolve(numTurns) //optional argument to specify number of turns to s
 		
 		var solutions = [ ] //will contain the finalized solution 
 						//as a list of maze map indices.
-		
+				
 		var foundflag = false;
 		var linkIndex = 0;
 	
@@ -1589,7 +1713,8 @@ function autoSolve(numTurns) //optional argument to specify number of turns to s
 		{
 			loopcount+=1;
 			
-			var links = copyLinks(mazeMap[solveRoute[solveRoute.length - 1]].links, loopnum)
+			var nextLink = solveRoute[solveRoute.length - 1]
+			var links = copyLinks(mazeMap[nextLink].links, loopnum, nextLink)
 			
 			/////MOVE FORWARD CONTINUOUSLY UNTIL AN END OR LOOP, FOR BETTER OR WORSE////
 			while(links.length > 0)
@@ -1666,7 +1791,7 @@ function autoSolve(numTurns) //optional argument to specify number of turns to s
 					//drawCurrentPosition( mazeMap[nextLink].obstacleSpot );
 				}
 				
-				links = copyLinks(mazeMap[nextLink].links, loopnum)			
+				links = copyLinks(mazeMap[nextLink].links, loopnum, nextLink)
 			}
 			
 			//you've found a solution, but it may not be the most efficient one, so continue.
@@ -1678,8 +1803,8 @@ function autoSolve(numTurns) //optional argument to specify number of turns to s
 			//NOW BACKTRACK UNTIL YOU SEE A NEW CHOICE////////////////////
 				//AND PICK THE NEXT CHOICE////////////////////
 
-			
-			links = copyLinks(mazeMap[solveRoute[solveRoute.length - 1]].links, loopnum)
+			var thisLink = solveRoute[solveRoute.length - 1]
+			links = copyLinks(mazeMap[thisLink].links, loopnum, thisLink)
 			numLinks = links.length
 			linkIndex = intInArray(nextLink, links)
 			if(linkIndex==-1)
@@ -1708,7 +1833,8 @@ function autoSolve(numTurns) //optional argument to specify number of turns to s
 					break;
 				}
 				
-				links = copyLinks(mazeMap[solveRoute[solveRoute.length - 1]].links, loopnum)
+				var nextLink=solveRoute[solveRoute.length - 1]
+				links = copyLinks(mazeMap[nextLink].links, loopnum, nextLink)
 				linkIndex = intInArray(currentIndex, links)
 				numLinks = links.length
 				
@@ -1755,30 +1881,119 @@ function autoSolve(numTurns) //optional argument to specify number of turns to s
 			errorflag = true
 			break;
 		}
-
-
 		else
 		{
-			switch(loopnum)
+			completedSolutions.push(solutions)
+		}
+	}
+	
+	//sort the solution set with matching solutions put together.
+	var organizedSolutions = []
+	for(var i1=0; i1<completedSolutions.length; i1++)
+	{
+		for(var i2=0; i2<completedSolutions[i1].length; i2++)
+		{
+			var matchedflag = false;
+			for(var i3=0; i3<organizedSolutions.length; i3++)
 			{
-				case 0:
-					var solutions1=solutions
-					break;
-				case 1:
-					var solutions2=solutions
-					break;
-				case 2:
-					var solutions3=solutions
-					break;
+				//check the end piece. All solutions with the same "end" go together.
+				//Most mazes only have one end. But mazes with multiple ends ARE supported.
+				if(organizedSolutions[i3][0][organizedSolutions[i3][0].length-1]==completedSolutions[i1][i2][completedSolutions[i1][i2].length-1])
+				{
+					organizedSolutions[i3].push(completedSolutions[i1][i2]);
+					matchedflag = true;
+				}
+			}
+			if(!matchedflag)
+			{
+				var solutionSet = []
+				solutionSet.push(completedSolutions[i1][i2])
+				organizedSolutions.push(solutionSet)
 			}
 		}
 	}
 	
-	if(!errorflag)
+	var bestSolutions = []
+	
+	//iterate through each of the multiple ends.
+	//More than one different end is supported!
+	for(var i1=0; i1<organizedSolutions.length; i1++)
 	{
-		drawSolution(solutions2, numTurns)
+		//first pick the shortest solution
+		var shortest_index = 0
+		for(var i2=0; i2<organizedSolutions[i1].length; i2++)
+		{
+			if(organizedSolutions[i1][i2].length<organizedSolutions[i1][shortest_index].length)
+			{
+				shortest_index = i2;
+			}
+		}
+		
+		var newSolution = copyArray(organizedSolutions[i1][shortest_index])
+		
+		//Now optimize the shortest solution with the other solutions.
+		for(var i2=0; i2<organizedSolutions[i1].length; i2++)
+		{
+			//now iterate through all the steps in the solution.
+			for(var i3=0; i3<newSolution.length; i3++)
+			{
+				spotIndex = intInArray(newSolution[i3], organizedSolutions[i1][i2]);
+				
+				if(spotIndex!=-1)
+				{
+					if(spotIndex<i3)
+					{
+						var thirdSolution=[]
+						for(var i4=0; i4<=spotIndex; i4++)
+						{
+							thirdSolution.push(organizedSolutions[i1][i2][i4])
+						}
+						for(var i4=i3; i4<newSolution.length; i4++)
+						{
+							thirdSolution.push(newSolution[i4]);
+						}
+						newSolution=thirdSolution;
+						
+						//restart these loops, begin optimizing this one again from the top.
+						i2=0;
+						i3=0;
+						break;
+					}
+					
+					if(organizedSolutions[i1][i2].length-spotIndex < newSolution.length-i4)
+					{
+						var thirdSolution=[]
+						for(var i4=0; i4<=spotIndex; i4++)
+						{
+							thirdSolution.push(organizedSolutions[i1][i2][i4])
+						}
+						for(var i4=i3; i4<newSolution[i2].length; i4++)
+						{
+							thirdSolution.push(newSolution[i4]);
+						}
+						newSolution=thirdSolution;
+						
+						//restart these loops, begin optimizing this one again from the top.
+						i2=0;
+						i3=0;
+						break;
+					}
+				}
+			}
+		}
+		
+		bestSolutions.push(newSolution)
 	}
 	
+	
+	if(!errorflag)
+	{
+		//for(var i=0; i<completedSolutions.length; i++)
+		//{
+			drawSolution(bestSolutions, numTurns)
+			//drawGrid();
+		//}
+	}
 }
 
 function drawSolution(solutions, numTurns)
@@ -1812,6 +2027,7 @@ function drawSolution(solutions, numTurns)
 		context.stroke();
 	}
 }
+
 
 
 
@@ -2111,46 +2327,6 @@ function copyArray(array)
 	return newArray;
 }
 
-function copyLinks(array, loopnum)
-{
-	var newArray = []
-
-	if(loopnum==0)
-	{
-		for(var i=0; i<array.length; i++)
-		{
-			newArray.push(array[i])
-		}
-	}
-	else if(loopnum==1 || array.length < 3)
-	{
-		for(var i=array.length-1; i>=0; i--)
-		{
-			newArray.push(array[i])
-		}
-	}
-	else if(loopnum==2 && array.length==3)
-	{
-		newArray.push(array[1])
-		newArray.push(array[2])
-		newArray.push(array[0])
-	}
-	else //this condition should not happen
-	{
-		for(var i=0; i<array.length; i++)
-		{
-			newArray.push(array[i])
-		}
-	}
-	
-	if(newArray.length!=array.length)
-	{
-		alert("Alert!");
-	}
-	
-	return newArray;
-}
-
 
 
 function stringInArray(string, array)
@@ -2216,6 +2392,9 @@ function stopHandler(stop_obstacle)
         actionBar.innerHTML = mazeSOLVER;
         spot[3] = "stopped";
         alert("Goncratulations! You win!");
+		
+		addRouteToSolved()
+				
 		return;
 	}
     else if (directions.length == 1 && directions[0] != "backward")
@@ -2696,30 +2875,6 @@ function processFile(contents)
 
 	var outsideBoundariesFlag = false;
 	
-	for(var i1=0; i1< X_GRIDS; i1++)
-	{
-		var column = []
-		for(var i2=0; i2<=Y_GRIDS; i2++)
-		{
-			var row = []
-			column.push(row)
-		}
-		
-		obstacle_columns.push(column)
-	}
-
-	for(var i1=0; i1< Y_GRIDS; i1++)
-	{
-		var row = []
-		for(var i2=0; i2<=X_GRIDS; i2++)
-		{
-			var column = []
-			row.push(column)
-		}		
-		
-		obstacle_rows.push(row)
-	}
-	
     //Each obstacle contains dictionaries:
     // { "type":  <obstacle type>
     //   "orient": <obstacle orientation>
@@ -2745,9 +2900,10 @@ function processFile(contents)
 		}
 		else
 		{
-			addObstacleToObstacles(newObstacle)
+			obstacles.push(newObstacle);
 		}
 	}
+	generateObstacleGrid();
 	
 	if(outsideBoundariesFlag==true)
 	{
@@ -2774,16 +2930,44 @@ function processFile(contents)
 
 		route.push( {"spot":BEGINNING, "obstacle":beginObstacle} );
 
-		spot[0] = BEGINNING[0]
-		spot[1] = BEGINNING[1]
-		spot[2] = BEGINNING[2]
-		spot[3] = BEGINNING[3]
+		spot = copyArray(BEGINNING)
 
 		turns = {}; //keep track of what keys to look for when turning.
 		turns["upkey"] = "forward";
 		drawCurrentPosition()
 		
 		mapMaze()
+		
+		//Add saved routes to solvedRoutes.
+		//Must be done *after* the maze is mapped.
+		solvedRoutes = []
+		solvedRouteIndices = []
+		
+		var XML_routes = xml.getElementsByTagName('route')
+		for (var h=0; h< XML_routes.length; h++)
+		{
+			var XML_spots = XML_routes[h].getElementsByTagName('spot')
+			
+			var solvedRoute = []
+			var solvedIndex = []
+			for (var i=0; i<XML_spots.length; i++)
+			{
+				var newSpot=[]
+				newSpot.push(parseInt(XML_spots[i].getElementsByTagName("x")[0].firstChild.nodeValue) )
+				newSpot.push(parseInt(XML_spots[i].getElementsByTagName("y")[0].firstChild.nodeValue) )
+				newSpot.push(XML_spots[i].getElementsByTagName("dir")[0].firstChild.nodeValue)
+				solvedRoute.push(newSpot)
+				
+				var routeIndex = findSpotInAutosolve( newSpot, mazeMap )
+				if(routeIndex != -1)
+				{
+					solvedIndex.push(routeIndex)
+				}
+			}
+			
+			solvedRoutes.push(solvedRoute)
+			solvedRouteIndices.push(solvedIndex)
+		}
 	}
 }
 
@@ -2847,6 +3031,24 @@ function outputFile()
 		textString += "<y>" + obstacles[i]["y"] + "</y>"
 		textString += "</obstacle>"
 	}
+	
+	for(var h = 0; h<solvedRoutes.length; h++)
+	{
+		textString += "\r\n\r\n  <route>"
+		
+		for(var i=0; i<solvedRoutes[h].length; i++)
+		{
+			textString += "\r\n    <spot>"
+			textString += "<x>" + solvedRoutes[h][i][0] + "</x>"
+			textString += "<y>" + solvedRoutes[h][i][1] + "</y>"
+			textString += "<dir>" + solvedRoutes[h][i][2] + "</dir>"
+			textString += "</spot>"
+		}
+		
+		textString += "\r\n  </route>"
+	}
+	
+	
         
 	textString += "\r\n</maze>"
     var savename = document.getElementById('savefield').value + ".maze"
