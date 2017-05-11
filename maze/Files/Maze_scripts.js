@@ -120,7 +120,7 @@ var obstacle_columns = [];
 //A few of the possibilities for the action bar are accessed from multiple places.
 startingHTML = "<input type='submit' value='Solve Maze' style='font-weight:bold;' onclick='solverMode()'/> <input type='submit' value='Add Obstacles' onclick='createMaze()'/> <input type='submit' value='Load Maze' onclick='loadMaze()'/>"
 
-mazeSOLVER = "<input type='submit' value='Begin Maze' style='font-weight:bold;' onclick='startMaze()'/> <input type='submit' value='Identify Beginning/End' onmousedown='displayEnds()' onmouseup='drawGrid(); drawCurrentPosition();' /> &nbsp;&nbsp;&nbsp;<input type='submit' value='Solve the maze for me (experimental)' onclick='autoSolve()'/>"
+mazeSOLVER = "<input type='submit' value='Begin Maze' style='font-weight:bold;' onclick='startMaze()'/> <!--<input type='submit' value='Identify Beginning/End' onmousedown='displayEnds()' onmouseup='drawGrid(); drawCurrentPosition();' /> <!--&nbsp;&nbsp;&nbsp;<input type='submit' value='Solve the maze for me (experimental)' onclick='autoSolve()'/>-->"
 
 
 
@@ -152,7 +152,7 @@ var newWindow;
 //================================================================
 //================================================================
 
-function cancel_button()  //I confess, the implementation of this
+function cancel_button(string)  //I confess, the implementation of this
 {                         //is a bit sloppy.
     if(tempHTML != "")
     {
@@ -163,6 +163,11 @@ function cancel_button()  //I confess, the implementation of this
     {
         document.getElementById("action") = startingHTML;
     }
+	
+	if(string!=null)
+	{
+		spot[3]=string
+	}
 }
 
 
@@ -893,7 +898,7 @@ function startCustom(x,y,direction) //=-1, y=-1, direction = "")
         
         spot[3] = "startCustom"
         
-        document.getElementById("action").innerHTML = "Start here?  Starting direction: <input type='submit' value='Up' onclick='startCustom(-1,-1,\"up\")'/> <input type='submit' value='Down' onclick='startCustom(-1,-1,\"down\")'/> <input type='submit' value='Right' onclick='startCustom(-1,-1,\"right\")'/> <input type='submit' value='Left' onclick='startCustom(-1,-1,\"left\")'/> <input type='submit' value='Cancel' style='margin-left: 30px' onclick='cancel_button()' />"
+        document.getElementById("action").innerHTML = "Start here?  Starting direction: <input type='submit' value='Up' onclick='startCustom(-1,-1,\"up\")'/> <input type='submit' value='Down' onclick='startCustom(-1,-1,\"down\")'/> <input type='submit' value='Right' onclick='startCustom(-1,-1,\"right\")'/> <input type='submit' value='Left' onclick='startCustom(-1,-1,\"left\")'/> <input type='submit' value='Cancel' style='margin-left: 30px' onclick='cancel_button(\"stopped\")' />"
     }
     else if(direction != "")
     {
@@ -2407,7 +2412,7 @@ function stopHandler(stop_obstacle)
     }
     else 
     {
-        actionBar.innerHTML = "Actions: <input type='submit' value='Backtrack' onclick='backTrack()' style='margin-right:10px'/> ";
+        actionBar.innerHTML = "Actions: <input type='submit' value='Show Solution' onmousedown='autoSolve()' onmouseup='drawGrid(); drawCurrentPosition();'/><input type='submit' value='Backtrack' onclick='backTrack()' style='margin-right:10px'/> &nbsp;";
     }
 
     if(directions.length != 1)
