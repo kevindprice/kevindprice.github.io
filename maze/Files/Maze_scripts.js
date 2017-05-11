@@ -2412,7 +2412,7 @@ function stopHandler(stop_obstacle)
     }
     else 
     {
-        actionBar.innerHTML = "Actions: <input type='submit' value='Show Solution' onmousedown='autoSolve()' onmouseup='drawGrid(); drawCurrentPosition();'/><input type='submit' value='Backtrack' onclick='backTrack()' style='margin-right:10px'/> &nbsp;";
+        actionBar.innerHTML = "Actions: <input type='submit' value='Backtrack' onclick='backTrack()' style='margin-right:10px'/> &nbsp;";
     }
 
     if(directions.length != 1)
@@ -2475,7 +2475,7 @@ function stopHandler(stop_obstacle)
     }
 
     if(directions.length > 1 ) //&& !isIn(directions, "backward") )
-    {actionBar.innerHTML += "<input type='submit' value='Restart' onclick='startMaze()' style='margin-left: 15px;'/> <input type='submit' value='Custom Spot' onclick='startCustom()'/>" }
+    {actionBar.innerHTML += "<input type='submit' value='Restart' onclick='startMaze()' style='margin-left: 15px;'/> <input type='submit' value='Custom Spot' onclick='startCustom()'/> <input type='submit' value='Solution' onmousedown='autoSolve()' onmouseup='drawGrid(); drawCurrentPosition();'/>" }
 
 }
 
