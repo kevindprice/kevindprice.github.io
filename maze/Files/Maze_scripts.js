@@ -3037,6 +3037,7 @@ function outputFile()
 		textString += "</obstacle>"
 	}
 	
+	/*
 	for(var h = 0; h<solvedRoutes.length; h++)
 	{
 		textString += "\r\n\r\n  <route>"
@@ -3052,7 +3053,7 @@ function outputFile()
 		
 		textString += "\r\n  </route>"
 	}
-	
+	*/
 	
         
 	textString += "\r\n</maze>"
