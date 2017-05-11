@@ -205,7 +205,12 @@ function setPage()
     drawGrid();
 	
 	sample = getQueryVariable("sample");
-	if(sample!=null)
+	if(sample=="tutorial")
+	{
+		spot[3]="tutorial"
+		sampleFile(5)
+	}
+	else if(sample!=null)
 	{
 		sampleFile(sample)
 	}
@@ -451,21 +456,7 @@ function setLine(x, y)
     var isObstacle = checkForObstacle(DictItem)
     if (isObstacle == -1)
     { 
-      switch(OBSTACLE_TYPE)
-      {
-        case "wall":
-            drawObstacle(DictItem);
-            break;
-        case "permeable":
-            drawObstacle(DictItem);
-            break;
-        case "begin":
-            drawObstacle(DictItem);
-            break;
-        case "end":
-            drawObstacle(DictItem);
-            break;
-        }
+		drawObstacle(DictItem);
     }
     else { 
 
@@ -588,10 +579,14 @@ function drawObstacle(obstacle)
         case "vertical":
             var moveX = 0;
             var moveY = INTERVAL;
+			
+			obstacle_rows[obstacle["y"]][obstacle["x"]].push(obstacle);			
             break;
         case "horizontal":
             var moveX = INTERVAL;
             var moveY = 0;
+
+			obstacle_columns[obstacle["x"]][obstacle["y"]].push(obstacle);			
             break;
     }
 
@@ -950,17 +945,8 @@ function eraseMaze()
     { 
     
         obstacles = []
-    
-		for(var i=0; i<obstacle_rows.length; i++)
-		{
-			obstacle_rows[i]=[]
-		}
 		
-		for(var i=0; i<obstacle_columns.length; i++)
-		{
-			obstacle_columns[i]=[]
-		}
-		
+		generateObstacleGrid()
 		
         INTERVAL = 20;  //line spacing
 
@@ -2931,7 +2917,14 @@ function processFile(contents)
 	}
 	else
 	{
-		BEGINNING = [ obstacles[beginObstacle]["x"], obstacles[beginObstacle]["y"] - 1/2 , "up", "stopped"];
+		if(spot[3]=="tutorial")
+		{
+			BEGINNING = [ obstacles[beginObstacle]["x"], obstacles[beginObstacle]["y"] - 1/2 , "up", "tutorial"];
+		}
+		else
+		{
+			BEGINNING = [ obstacles[beginObstacle]["x"], obstacles[beginObstacle]["y"] - 1/2 , "up", "stopped"];
+		}
 
 		route.push( {"spot":BEGINNING, "obstacle":beginObstacle} );
 
