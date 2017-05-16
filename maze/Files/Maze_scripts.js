@@ -3244,7 +3244,9 @@ function outputFile()
 //================================================================
 //================================================================
 //These functions handle opening new windows.
+//No longer USED, thus this section is commented!
 
+/*
 function solutions(sampleNum)
 {	//opens itself recursively. 
 	//First displays the menu, then opens the window.
@@ -3298,12 +3300,13 @@ function openInstructions()
     newWindow = window.open("instructions.html", "_blank"); //, windowFeatures);
 }
 
-
-function window_onunload()
+function window_onunload() //no longer necessary, 
+						   //maze no longer opens any secondary windows!
 {
     if (typeof (newWindow) != "undefined" && newWindow.closed == false)
     {
         newWindow.close();
     }
 }
+*/
 
