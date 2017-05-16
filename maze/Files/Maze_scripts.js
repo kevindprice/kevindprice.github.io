@@ -1265,6 +1265,13 @@ function move()
 // The following functions handle the TUTORIAL ///////////////////////
 //////////////////////////////////////////////////////////////////////
 
+function openTutorial()
+{
+	tutorial = true
+	sampleFile(5)
+	tutorialHandler();
+}
+
 function tutorialHandler()
 {	
 	document.getElementById("tutorial").innerHTML = "<div id='text-section' style='width:400px;'><div><input type='submit' value='Skip/End Tutorial' style='font-weight:bold;' onclick='endTutorial()'/></div></div>"
@@ -1329,11 +1336,11 @@ function pageOne()
 {
 	document.getElementById("text-section").innerHTML += `<p>Welcome to the maze tutorial! I built this maze to answer the question: what would you end up with if you changed the rules for going through a maze? What if, instead of following a corridor, you continued straight until hitting something?</p>
 		
-	<p>Instead of turning continuously, you must continue straight, following the grid lines, until you hit a wall. When you hit a wall, you may turn depending on what walls are around you.</p>
+	<p>In this maze, you must continue straight, following the grid lines, until you hit a wall. When you hit a wall, you may turn depending on which walls are around you.</p>
 	
-	<p>The beginning is a dark green tile and the end is a light green tile. Click the <b>'Beginning/End'</b> button on the left to identify where the maze starts and ends.</p>
+	<p>The beginning of the maze is shown by a dark green tile, and the end is shown by a light green tile. 
 	
-	<p> Then select <b>'Begin Maze'</b> or push your <b>UP arrow</b> to start the maze!</p>`
+	<p>Click the <b>'Beginning/End'</b> button on the left to identify where the maze starts and ends. Then select <b>'Begin Maze'</b> or push the <b>UP arrow</b> to start the maze!</p>`
 }
 
 
@@ -1343,7 +1350,7 @@ function pageTwo()
 	
 	<p>Note that you can use ARROW KEYS! Instead of clicking an option in the action bar above, you can use your ARROW KEYS to make the same choice.</p>
 
-	<p>To continue, either select <b>'Go Right'</b> above or press your <b>RIGHT arrow</b> key. Note, if you select left instead, you will skip a page of this tutorial; you will miss learning about dead-ends!</p>
+	<p>To continue, either select <b>'Go Right'</b> above or press your <b>RIGHT arrow</b> key. Note that if you select left instead, you will skip a page of this tutorial; you will miss learning about dead-ends!</p>
 	`
 }
 
@@ -1359,9 +1366,9 @@ function pageFour()
 {
 	document.getElementById("text-section").innerHTML += `<img width=65 height=65 src="Files/07-forced-turn.png" align=left hspace=5 vspace=5>
 	
-	<p>You just passed through two <b>forced turns.</b> You are presented only one direction when you hit one, so the maze does not pause.</p>
+	<p>You just passed through two <b>forced turns.</b> You are presented with only one direction when you hit a forced turn, so the maze continues automatically.</p>
 	
-	<p>Now, you have arrived at a <b>permeable wall</b>. This is the same as the ordinary wall you hit earlier, except it gives you the additional option to <b>pass through it</b> ('Move Forward').</p>
+	<p>Now, you have arrived at a <b>permeable wall</b>. This is the same as the ordinary wall you hit earlier, except it gives you the additional option to <b>pass through it</b> ('Move Forward'). Permeable walls are blue instead of red.</p>
 	
 	<p>Continue by passing through the permeable wall. Click <b>'Move Forward'</b> or press your <b>RIGHT ARROW</b> key.</p>
 	`
@@ -1387,7 +1394,7 @@ function pageSeven()
 {
 	document.getElementById("text-section").innerHTML += `<p>You have completed this tutorial. Note, you may also create and download your own mazes in the <b>Maze Creator</b> mode on the left. These can be uploaded in the <b>Other Mazes</b> menu.</p>
 	
-	<p>You may also show the solution at any time from wherever you are (except at the beginning or end) by pressing the <b>Solution</b> button above. I cannot guarantee that it will be the most efficient solution, but the computer <i>will</i> solve the maze for you.</p>
+	<p>You may also show the solution at any time from wherever you are (except at the beginning or end) by pressing the <b>Solution</b> button above. I cannot guarantee that it will show the most efficient solution, but the computer <i>will</i> solve the maze for you.</p>
 	
 	<p>I suggest you end the tutorial by pressing <b>'Skip/End Tutorial'</b> above. If you opened a link to a specific maze, that maze will be opened. Otherwise, you will see the menu to select another maze if you choose, and Maze 1 will also be opened automatically.</p>
 	`
