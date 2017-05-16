@@ -116,6 +116,7 @@ var obstacle_rows = [];
 
 var obstacle_columns = [];
 
+
                         
 //A few of the possibilities for the action bar are accessed from multiple places.
 startingHTML = "<input type='submit' value='Solve Maze' style='font-weight:bold;' onclick='solverMode()'/> <input type='submit' value='Add Obstacles' onclick='createMaze()'/> <input type='submit' value='Load Maze' onclick='loadMaze()'/>"
@@ -146,6 +147,8 @@ var turns = {}; //keep track of what keys to look for when turning.
 turns["upkey"] = "forward";
 
 var newWindow;
+
+var tutorial=false;
 
 //These functions run at the beginning of the program,
 //or at regular intervals when the page is refreshed.
@@ -203,12 +206,15 @@ function setPage()
 	
     animate_string('title');
     drawGrid();
-	
+	tutorial = getQueryVariable("tutorial");
 	sample = getQueryVariable("sample");
-	if(sample=="tutorial")
+
+	if(tutorial=="true")
 	{
 		spot[3]="tutorial"
+		tutorial=true;
 		sampleFile(5)
+		tutorialHandler();
 	}
 	else if(sample!=null)
 	{
@@ -1188,6 +1194,10 @@ function move()
         {
             clearInterval(time_interval);
 			drawCurrentPosition()
+			if(tutorial==true)
+			{
+				tutorialHandler()
+			}
 			return;
         }
 
@@ -1239,12 +1249,156 @@ function move()
         {
             clearInterval(time_interval);
 			stopHandler(stop.obstacle);
+			if(tutorial==true)
+			{
+				tutorialHandler()
+			}
+			
+
 		}        
         
     }, TIME_INTERVAL);  //how often in ms the line is moved.
 }
 
 
+
+//////////////////////////////////////////////////////////////////////
+// The following functions handle the TUTORIAL ///////////////////////
+//////////////////////////////////////////////////////////////////////
+
+function tutorialHandler()
+{	
+	document.getElementById("tutorial").innerHTML = "<div id='text-section' style='width:400px;'><div><input type='submit' value='Skip/End Tutorial' style='font-weight:bold;' onclick='endTutorial()'/></div></div>"
+
+	if(spot[0]==4 && spot[1]==8.5)
+	{
+		pageOne()
+	}
+	else if(spot[0]==4 && spot[1]==1)
+	{
+		pageTwo()
+	}
+	else if(spot[0]==7 && spot[1]==1)
+	{
+		pageThree()
+	}		
+	else if(spot[0]==8 && spot[1]==6)
+	{
+		pageFour()
+	}
+	else if(spot[0]==10 && spot[1]==6)
+	{
+		pageFive()
+	}
+	else if(spot[0]==8 && spot[1]==3)
+	{
+		pageSix()
+	}
+	else if(spot[0]==8 && spot[1]==8)
+	{
+		pageSeven()
+	}
+	else if((spot[0]==8 && spot[1]==2) ||
+			(spot[0]==10 && spot[1]==2) ||
+			(spot[0]==-1 && spot[1]==2) )
+	{
+		pageBacktrack()
+	}		
+
+}
+
+function endTutorial()
+{
+	tutorial = false;
+	document.getElementById("tutorial").innerHTML = "";
+	
+	sample = getQueryVariable("sample");
+
+	if(sample!=null)
+	{
+		sampleFile(sample)
+	}
+	else
+	{
+		sampleFile(1);
+		loadSample();
+	}
+}
+
+
+function pageOne()
+{
+	document.getElementById("text-section").innerHTML += `<p>Welcome to the maze tutorial! I built this maze to answer the question: what would you end up with if you changed the rules for going through a maze? What if, instead of following a corridor, you continued straight until hitting something?</p>
+		
+	<p>Instead of turning continuously, you must continue straight, following the grid lines, until you hit a wall. When you hit a wall, you may turn depending on what walls are around you.</p>
+	
+	<p>The beginning is a dark green tile and the end is a light green tile. Begin first by clicking the <b>'Beginning/End'</b> button on the left to identify where the maze starts and ends.</p>
+	
+	<p> Then select <b>'Begin Maze'</b> or push your <b>UP arrow</b> to start the maze!</p>`
+}
+
+
+function pageTwo()
+{
+	document.getElementById("text-section").innerHTML += `<p>You have hit your first obstacle. This is an ordinary wall. When you come from below, you are forced to turn either right or left.<p>
+	
+	<p>Note that you can either turn using the instructions in the action bar above, or you can use your ARROW KEYS to make the same choice. To continue, either select <b>'Go Right'</b> above or press your <b>RIGHT arrow</b> key.</p>
+	
+	<p>Note, if you select left instead, you will skip a page of this tutorial; you will miss learning about dead-ends!</p>
+	`
+}
+
+function pageThree()
+{
+	document.getElementById("text-section").innerHTML += `<p>You have hit a dead-end!  In an open-wall maze, you reverse directions when you hit one. This can be advantageous.</p>
+	
+	<p>To continue, either press <b>'Turn Around'</b> or press your <b>LEFT ARROW</b> key.
+	`
+}
+
+function pageFour()
+{
+	document.getElementById("text-section").innerHTML += `<img width=65 height=65 src="Files/07-forced-turn.png" align=left hspace=5 vspace=5>
+	
+	<p>You just passed through two <b>forced turns.</b> You are presented only one direction when you hit one, so the maze does not pause.</p>
+	
+	<p>Now, you have arrived at a <b>permeable wall</b>. This is the same as the ordinary wall you hit earlier, except it gives you the additional option to <b>pass through it</b>.</p>
+	
+	<p>Continue by passing through the permeable wall. Click <b>'Move Forward'</b> or press your <b>RIGHT ARROW</b> key.</p>
+	`
+}
+
+function pageFive()
+{
+	document.getElementById("text-section").innerHTML += `Oops! You went off the edge. You may continue by backtracking (or by restarting the maze/tutorial). Press <b>'Backtrack'</b> or press your <b>B</b> character.
+	
+	<p>You will be returned to the previous tutorial page. When you get there, select <b>'Go Up'</b> or the <b>UP ARROW</b> to pick a new direction.</p>
+	`
+}
+
+function pageSix()
+{
+	document.getElementById("text-section").innerHTML += `<p>You have arrived at another dead-end! This time, the back of the dead-end is covered by a <b>permeable wall</b>, so you may choose whether to turn around or move forward!</p>
+	
+	<p>If you choose to continue forward, you will simply need to backtrack again. The maze cannot be solved from that position. I suggest you turn around (<b>DOWN arrow</b>).</p>
+	`
+}
+
+function pageSeven()
+{
+	document.getElementById("text-section").innerHTML += `<p>You have completed this tutorial. Note, you may also create and download your own mazes in the <b>Maze Creator</b> mode on the left. These can be uploaded in the <b>Other Mazes</b> menu.</p>
+	
+	<p>You may also show the solution at any time from wherever you are (except at the beginning or end) by pressing the <b>Solution</b> button above. I cannot guarantee that it will be the most efficient solution, but the computer <i>will</i> solve the maze for you.</p>
+	
+	<p>I suggest you end the tutorial by pressing <b>'Skip/End Tutorial'</b> above.</p>
+	`
+}
+
+function pageBacktrack()
+{
+	document.getElementById("text-section").innerHTML += `<p>The maze cannot be solved from the current position. Backtrack by pressing <b>B</b> or pressing <b>'Backtrack'</b>.</p>
+	`
+}
 
 /////////////////////////////////////////////////////////////////////////////////
 // The following functions are used to automatically solve the maze and suggest hints.
@@ -2334,9 +2488,9 @@ function stringInArray(string, array)
 }
 
 //handles the tedious work of what to do when you hit an obstacle and need to stop.
-function stopHandler(stop_obstacle)
+function stopHandler(stop_obstacle, push)
 {
-	
+
 	//just in case MOVEDIST is an odd number,
 	//and you didn't land exactly on INTERVAL
 	//the following functions will crash if you don't round the spot.
@@ -2354,8 +2508,11 @@ function stopHandler(stop_obstacle)
 	
 	//add the next stop point to the route[] list.
 	var tempSpot = copyArray(spot);
-	route.push( {"spot":tempSpot, "obstacle":stop_obstacle} );
-
+	if(push==null) //otherwise push will be false, meaning DON'T PUSH
+	{
+		route.push( {"spot":tempSpot, "obstacle":stop_obstacle} );
+	}	
+	
 	drawCurrentPosition();
 
     if(stop_obstacle == -1)
@@ -2742,6 +2899,11 @@ function backTrack()
 
     drawGrid();
     drawCurrentPosition();
+	if(tutorial=true)
+	{
+		tutorialHandler();
+	}
+	stopHandler(checkObstacles().obstacle, false)
 }
 
 
@@ -2819,6 +2981,11 @@ function loadMaze()
 
 function loadSample()
 {
+	if(tutorial=true)
+	{
+		endTutorial()
+	}
+	
     if(tempHTML == "")
     {
         tempHTML = document.getElementById("action").innerHTML;
@@ -2965,6 +3132,11 @@ function processFile(contents)
 			
 			solvedRoutes.push(solvedRoute)
 			solvedRouteIndices.push(solvedIndex)
+		}
+		
+		if(spot[3]="tutorial")
+		{
+			tutorialHandler();
 		}
 	}
 }
