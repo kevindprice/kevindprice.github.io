@@ -1338,7 +1338,7 @@ function pageOne()
 		
 	<p>In this maze, you must continue straight, following the grid lines, until you hit a wall. When you hit a wall, you may turn depending on which walls are around you.</p>
 	
-	<p>The beginning of the maze is shown by a dark green tile, and the end is shown by a light green tile. 
+	<p>The beginning of the maze is shown by a dark green tile, and the end is shown by a light green tile. There is only one beginning, but there <i>may</i> be multiple ends.</p>
 	
 	<p>Click the <b>'Beginning/End'</b> button on the left to identify where the maze starts and ends. Then select <b>'Begin Maze'</b> or push the <b>UP arrow</b> to start the maze!</p>`
 }
@@ -1371,6 +1371,8 @@ function pageFour()
 	<p>Now, you have arrived at a <b>permeable wall</b>. This is the same as the ordinary wall you hit earlier, except it gives you the additional option to <b>pass through it</b> ('Move Forward'). Permeable walls are blue instead of red.</p>
 	
 	<p>Continue by passing through the permeable wall. Click <b>'Move Forward'</b> or press your <b>RIGHT ARROW</b> key.</p>
+	
+	<p><b>If you are seeing this page for the second time,</b> press the <b>UP arrow</b> or <b>'Go Up'</b> instead.</p>
 	`
 }
 
@@ -1386,7 +1388,7 @@ function pageSix()
 {
 	document.getElementById("text-section").innerHTML += `<p>You have arrived at another dead-end! This time, the back of the dead-end is covered by a <b>permeable wall</b>, so you may choose whether to turn around or move forward!</p>
 	
-	<p>If you choose to continue forward, you will simply need to backtrack again. The maze cannot be solved from that position. I suggest you turn around (<b>DOWN arrow</b>).</p>
+	<p>If you choose to continue forward, you will simply need to backtrack. The maze cannot be solved from that position. I suggest you turn around (<b>DOWN arrow</b>).</p>
 	`
 }
 
