@@ -1341,9 +1341,9 @@ function pageTwo()
 {
 	document.getElementById("text-section").innerHTML += `<p>You have hit your first obstacle. This is an ordinary wall. When you come from below, you are forced to turn either right or left.<p>
 	
-	<p>Note that you can either turn using the instructions in the action bar above, or you can use your ARROW KEYS to make the same choice. To continue, either select <b>'Go Right'</b> above or press your <b>RIGHT arrow</b> key.</p>
-	
-	<p>Note, if you select left instead, you will skip a page of this tutorial; you will miss learning about dead-ends!</p>
+	<p>Note that you can use ARROW KEYS! Instead of clicking an option in the action bar above, you can use your ARROW KEYS to make the same choice.</p>
+
+	<p>To continue, either select <b>'Go Right'</b> above or press your <b>RIGHT arrow</b> key. Note, if you select left instead, you will skip a page of this tutorial; you will miss learning about dead-ends!</p>
 	`
 }
 
@@ -1361,7 +1361,7 @@ function pageFour()
 	
 	<p>You just passed through two <b>forced turns.</b> You are presented only one direction when you hit one, so the maze does not pause.</p>
 	
-	<p>Now, you have arrived at a <b>permeable wall</b>. This is the same as the ordinary wall you hit earlier, except it gives you the additional option to <b>pass through it</b>.</p>
+	<p>Now, you have arrived at a <b>permeable wall</b>. This is the same as the ordinary wall you hit earlier, except it gives you the additional option to <b>pass through it</b> ('Move Forward').</p>
 	
 	<p>Continue by passing through the permeable wall. Click <b>'Move Forward'</b> or press your <b>RIGHT ARROW</b> key.</p>
 	`
@@ -1369,9 +1369,9 @@ function pageFour()
 
 function pageFive()
 {
-	document.getElementById("text-section").innerHTML += `Oops! You went off the edge. You may continue by backtracking (or by restarting the maze/tutorial). Press <b>'Backtrack'</b> or press your <b>B</b> character.
+	document.getElementById("text-section").innerHTML += `Oops! You went off the edge. You may continue by backtracking (or by restarting the maze/tutorial). Press <b>'Backtrack'</b> or press the <b>B</b> character.
 	
-	<p>You will be returned to the previous tutorial page. When you get there, select <b>'Go Up'</b> or the <b>UP ARROW</b> to pick a new direction.</p>
+	<p>You will be returned to the previous tutorial page. When you get there, select <b>'Go Up'</b> or the <b>UP ARROW</b> to pick a new direction. This prompt will disappear when you get there.</p>
 	`
 }
 
@@ -1389,13 +1389,13 @@ function pageSeven()
 	
 	<p>You may also show the solution at any time from wherever you are (except at the beginning or end) by pressing the <b>Solution</b> button above. I cannot guarantee that it will be the most efficient solution, but the computer <i>will</i> solve the maze for you.</p>
 	
-	<p>I suggest you end the tutorial by pressing <b>'Skip/End Tutorial'</b> above.</p>
+	<p>I suggest you end the tutorial by pressing <b>'Skip/End Tutorial'</b> above. If you opened a link to a specific maze, that maze will be opened. Otherwise, you will see the menu to select another maze if you choose, and Maze 1 will also be opened automatically.</p>
 	`
 }
 
 function pageBacktrack()
 {
-	document.getElementById("text-section").innerHTML += `<p>The maze cannot be solved from the current position. Backtrack by pressing <b>B</b> or pressing <b>'Backtrack'</b>.</p>
+	document.getElementById("text-section").innerHTML += `<p>The maze cannot be solved from the current position. Backtrack by pressing <b>B</b> or <b>'Backtrack'</b>.</p>
 	`
 }
 
