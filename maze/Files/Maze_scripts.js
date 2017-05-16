@@ -206,12 +206,11 @@ function setPage()
 	
     animate_string('title');
     drawGrid();
-	tutorial = getQueryVariable("tutorial");
+	var tutorialquery = getQueryVariable("tutorial");
 	sample = getQueryVariable("sample");
 
-	if(tutorial=="true")
+	if(tutorialquery=="true")
 	{
-		spot[3]="tutorial"
 		tutorial=true;
 		sampleFile(5)
 		tutorialHandler();
@@ -1321,7 +1320,7 @@ function endTutorial()
 	else
 	{
 		sampleFile(1);
-		loadSample();
+		loadSample(false);
 	}
 }
 
@@ -1332,7 +1331,7 @@ function pageOne()
 		
 	<p>Instead of turning continuously, you must continue straight, following the grid lines, until you hit a wall. When you hit a wall, you may turn depending on what walls are around you.</p>
 	
-	<p>The beginning is a dark green tile and the end is a light green tile. Begin first by clicking the <b>'Beginning/End'</b> button on the left to identify where the maze starts and ends.</p>
+	<p>The beginning is a dark green tile and the end is a light green tile. Click the <b>'Beginning/End'</b> button on the left to identify where the maze starts and ends.</p>
 	
 	<p> Then select <b>'Begin Maze'</b> or push your <b>UP arrow</b> to start the maze!</p>`
 }
@@ -2979,9 +2978,9 @@ function loadMaze()
 }	//style='margin-right: -60px;'
 
 
-function loadSample()
+function loadSample(value)
 {
-	if(tutorial=true)
+	if(tutorial=true && value!=false)
 	{
 		endTutorial()
 	}
@@ -3084,7 +3083,7 @@ function processFile(contents)
 	}
 	else
 	{
-		if(spot[3]=="tutorial")
+		if(tutorial==true)
 		{
 			BEGINNING = [ obstacles[beginObstacle]["x"], obstacles[beginObstacle]["y"] - 1/2 , "up", "tutorial"];
 		}
@@ -3134,7 +3133,7 @@ function processFile(contents)
 			solvedRouteIndices.push(solvedIndex)
 		}
 		
-		if(spot[3]="tutorial")
+		if(tutorial==true)
 		{
 			tutorialHandler();
 		}
