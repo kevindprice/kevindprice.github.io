@@ -1395,7 +1395,7 @@ function pageFive()
 
 	<div style='border:2px solid blue; padding: 5px;'>
 	<h4 style='color: blue;'>Action Items</h4>
-	<p>Press <b>'Backtrack'</b> or press the <b>B</b> character. You will be returned to the previous tutorial page a second time. When you get there, select <b>'Go Up'</b> or the <b>UP ARROW</b> instead of moving forward.</p>
+	<p>Select <b>'Backtrack'</b> (above) or press the <b>B</b> character. You will be returned to the previous tutorial page a second time. When you get there, select <b>'Go Up'</b> or the <b>UP ARROW</b> instead of moving forward.</p>
 	</div>`
 }
 
@@ -1863,7 +1863,8 @@ function autoSolve(numTurns) //optional argument to specify number of turns to s
 	}
 
 	var errorflag = false;
-
+	var currentIndex = -1;
+	
 	var completedSolutions = []  //the collected solution set from each iteration.
 	
 	for(var loopnum=0; loopnum<3; loopnum++)
