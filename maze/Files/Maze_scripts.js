@@ -1338,9 +1338,15 @@ function pageOne()
 		
 	<p>In this maze, you must continue straight, following the grid lines, until you hit a wall. When you hit a wall, you may turn depending on which walls are around you.</p>
 	
+	<p>The tutorial will explain how the maze works. Avoid clicking on anything until you see specific action items at the bottom of a tutorial page.</p>
+	
 	<p>The beginning of the maze is shown by a dark green tile, and the end is shown by a light green tile. There is only one beginning, but there <i>may</i> be multiple ends.</p>
 	
-	<p>Click the <b>'Beginning/End'</b> button on the left to identify where the maze starts and ends. Then select <b>'Begin Maze'</b> or push the <b>UP arrow</b> to start the maze!</p>`
+	
+	<div style='border:2px solid blue; padding: 5px;'>
+	<h4 style='color: blue;'>Action Items</h4>
+	<p>Click the <b>'Beginning/End'</b> button on the left to identify where the maze starts and ends. Then select <b>'Begin Maze'</b> or push the <b>UP arrow</b> to start the maze!</p>
+	</div>`
 }
 
 
@@ -1350,16 +1356,20 @@ function pageTwo()
 	
 	<p>Note that you can use ARROW KEYS! Instead of clicking an option in the action bar above, you can use your ARROW KEYS to make the same choice.</p>
 
+	<div style='border:2px solid blue; padding: 5px;'>
+	<h4 style='color: blue;'>Action Items</h4>
 	<p>To continue, either select <b>'Go Right'</b> above or press your <b>RIGHT arrow</b> key. Note that if you select left instead, you will skip a page of this tutorial; you will miss learning about dead-ends!</p>
-	`
+	</div>`
 }
 
 function pageThree()
 {
 	document.getElementById("text-section").innerHTML += `<p>You have hit a dead-end!  In an open-wall maze, you reverse directions when you hit one. This can be advantageous.</p>
 	
+	<div style='border:2px solid blue; padding: 5px;'>
+	<h4 style='color: blue;'>Action Items</h4>	
 	<p>To continue, either press <b>'Turn Around'</b> or press your <b>LEFT ARROW</b> key.
-	`
+	</div>`
 }
 
 function pageFour()
@@ -1370,26 +1380,35 @@ function pageFour()
 	
 	<p>Now, you have arrived at a <b>permeable wall</b>. This is the same as the ordinary wall you hit earlier, except it gives you the additional option to <b>pass through it</b> ('Move Forward'). Permeable walls are blue instead of red.</p>
 	
+	<div style='border:2px solid blue; padding: 5px;'>
+	<h4 style='color: blue;'>Action Items</h4>
+
 	<p>Continue by passing through the permeable wall. Click <b>'Move Forward'</b> or press your <b>RIGHT ARROW</b> key.</p>
 	
-	<p><b>If you are seeing this page for the second time,</b> press the <b>UP arrow</b> or <b>'Go Up'</b> instead.</p>
-	`
+	<p style='color: red;'><b>If you are seeing this page for the second time,</b> press the <b>UP arrow</b> or <b>'Go Up'</b> instead.</p>
+	</div>`
 }
 
 function pageFive()
 {
-	document.getElementById("text-section").innerHTML += `Oops! You went off the edge. You may continue by backtracking (or by restarting the maze/tutorial). Press <b>'Backtrack'</b> or press the <b>B</b> character.
-	
-	<p>You will be returned to the previous tutorial page. When you get there, select <b>'Go Up'</b> or the <b>UP ARROW</b> to pick a new direction. This prompt will disappear when you get there.</p>
-	`
+	document.getElementById("text-section").innerHTML += `<p>Oops! You went off the edge. You may continue by backtracking (or by restarting the maze/tutorial).</p>
+
+	<div style='border:2px solid blue; padding: 5px;'>
+	<h4 style='color: blue;'>Action Items</h4>
+	<p>Press <b>'Backtrack'</b> or press the <b>B</b> character. You will be returned to the previous tutorial page a second time. When you get there, select <b>'Go Up'</b> or the <b>UP ARROW</b> instead of moving forward.</p>
+	</div>`
 }
 
 function pageSix()
 {
 	document.getElementById("text-section").innerHTML += `<p>You have arrived at another dead-end! This time, the back of the dead-end is covered by a <b>permeable wall</b>, so you may choose whether to turn around or move forward!</p>
 	
-	<p>If you choose to continue forward, you will simply need to backtrack. The maze cannot be solved from that position. I suggest you turn around (<b>DOWN arrow</b>).</p>
-	`
+	<p>If you choose to continue forward, you will simply need to backtrack. The maze cannot be solved from that position.
+	
+	<div style='border:2px solid blue; padding: 5px;'>
+	<h4 style='color: blue;'>Action Items</h4>
+	I suggest you turn around (<b>DOWN arrow</b>).</p>
+	</div>`
 }
 
 function pageSeven()
@@ -1398,8 +1417,10 @@ function pageSeven()
 	
 	<p>You may also show the solution at any time from wherever you are (except at the beginning or end) by pressing the <b>Solution</b> button above. I cannot guarantee that it will show the most efficient solution, but the computer <i>will</i> solve the maze for you.</p>
 	
+	<div style='border:2px solid blue; padding: 5px;'>
+	<h4 style='color: blue;'>Action Items</h4>
 	<p>I suggest you end the tutorial by pressing <b>'Skip/End Tutorial'</b> above. If you opened a link to a specific maze, that maze will be opened. Otherwise, you will see the menu to select another maze if you choose, and Maze 1 will also be opened automatically.</p>
-	`
+	</div>`
 }
 
 function pageBacktrack()
