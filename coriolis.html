@@ -6,7 +6,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <title>The Coriolis Pseudoforce: Why Space Life with Artificial Gravity Would Be Weird / Kevin Price</title>
+        <title>The Coriolis Effect: Why Space Life with Artificial Gravity Would Be Weird / Kevin Price</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width">
 
@@ -64,7 +64,7 @@
 <div class="article-page">
     <div class="span7 offset2">
         <header class="article">
-            <h2><a href="./coriolis.html" rel="bookmark">The Coriolis Pseudoforce: Why Space Life with Artificial Gravity Would Be Weird</a></h2>
+            <h2><a href="./coriolis.html" rel="bookmark">The Coriolis Effect: Why Space Life with Artificial Gravity Would Be Weird</a></h2>
 			<div style="display:inline-block; margin-top: 3px; font-family: Baskerville, Garamond, Palatino;">— Computer Modeling —&nbsp;&nbsp;</div>
             <time datetime="2017-02-19T00:00:00-05:00">
                 Feb 19, 2017
@@ -84,7 +84,7 @@
 
             <dt><i class="icon-tags"></i></dt>
             <dd>
-                    <a href="./tag/coriolis-force.html">coriolis force</a>
+                    <a href="./tag/coriolis-effect.html">Coriolis effect</a>
 <span class="separator">/</span>                    <a href="./tag/physics.html">physics</a>
 <span class="separator">/</span>                    <a href="./tag/computer-modeling.html">computer modeling</a>
             </dd>
@@ -98,17 +98,16 @@
     <div class="span7">
         <section>
             <article class="entry">
-    <!-- Summary: An article about the Coriolis force, containing a mathematical model. -->
+    <!-- Summary: An article about the Coriolis effect, containing a mathematical model. -->
 
-<p>Artificial gravity is as important to pop culture as it is to the future of space missions. It is an important part of nearly every space movie, and it is important to the future health of real astronauts. How would it work? How does the physics hold up in your favorite sci-fi movies?</p>
-<p>I’m not asking you to discount any of your favorite movies just because the physics principles in them might not be accurate. But really, what would artificial gravity look like? I have generated a mathematical computer model to address this very question.</p>
+<p>Artificial gravity is as important to pop culture as it is to future space missions. It is important to the future health of real astronauts, and we see it in nearly every space movie. How would man-made gravity work? How does the physics hold up in your favorite sci-fi movies?</p>
+<p>I’m not asking you to discount any of your favorite movies just because the physics principles in them might not be accurate. But really, what would artificial gravity look like in space? I have generated a mathematical computer model to provide an answer. My model shows that, thanks to the Coriolis effect, artificial gravity would be very strange.</p>
 
 
 <p><img style="float: right; margin-left:10px;" src="CoriolisFiles/RotatingStation.png" width=200 height=200/></p>
-<p>Before I show you this model, I would like you to imagine a coin toss as a thought experiment. We will throw a coin on Earth and then throw it again on a virtual space station to see how it compares. Then, you will understand the Coriolis effect!</p>
-<p>Imagine you are on Earth, and you throw a coin 3 feet up into the air. This coin will land directly beneath you. Now, let's duplicate this throw in an artificial gravity environment. How far away from your feet will the coin be when it lands on the floor? Spoiler alert: it will not land next to you.</p>
-<p>My initial assumptions are that our virtual station has a radius of 25 feet, you are 6 feet tall, and you throw from 2/3 of your body height (at 4 feet).</p>
-<p>Now look at my table! This contains my mathematical computer model in Javascript. It will tell you how far away from your feet the coin would land in artificial gravity. As you experiment with the values, you will see that the final result changes.</p>
+<p>Before I show you this model, I would like you to imagine a coin toss as a thought experiment. First, we will throw a coin on Earth, and then we will throw it again on a virtual space station that spins to produce gravity.</p>
+<p>Imagine you are on Earth, and you throw a coin perfectly straight upwards, 3 feet into the air. This coin will land directly beneath you. Now, let's duplicate this throw in an artificial gravity environment. How far away from your feet will the coin be when it lands on the floor? My mathematical table (JavaScript model) will tell you.</p>
+<p>My initial assumptions are that our virtual station has a radius of 25 feet, you are 6 feet tall, and you throw from 2/3 of your body height (at 4 feet). As you experiment with the values, you will see that the final result changes. Spoiler alert: the coin does not land at your feet!</p>
 <p><link type="text/css" rel="stylesheet" href="CoriolisFiles/style.css">
 <script type="text/javascript" src="CoriolisFiles/errormodel.js"></script></p>
 <table border="1" onmouseover="setfields()">
@@ -190,7 +189,7 @@
                     </td>
                 </tr>
                 <tr class="t_row">  
-                    <td style="text-align:right;">Rotational &nbsp;&nbsp;<div></div> velocity of station:&nbsp;</td>
+                    <td style="text-align:right;">Rotational rate:&nbsp;&nbsp;</td>
                     <td id="rotationalvelocity" class="output"></td>
                     <td id="rotationalvelocityunits"></td>
                 </tr>
@@ -219,7 +218,8 @@
             </tr>
             <tr>
                 <td style="text-align:right;"><div>Distance "away"&nbsp;&nbsp;&nbsp;<div></div> at landing:&nbsp;&nbsp;</td>
-                <td id="expecteddist">0</td><td></td>
+                <td id="expecteddist">0</td>
+                <td id="expecteddistunits">ft</td>
             </tr>
             </table>
         </td>
@@ -253,18 +253,16 @@
 </table>
 
 <p><br/></p>
-<p>A coin thrown straight upwards would land about as far over as you threw it upwards! This is because of the Coriolis pseudoforce. If you scroll to the next section, you can see what this would look like in action.</p>
-<p>The Coriolis pseudoforce—pseudo, because it’s not technically a force—is an artifact of artificial gravity that causes objects to move in unexpected directions. The Coriolis pseudoforce is not a force, because forces only exist from a point of view that is not rotating. From this point forward, I'll call it the Coriolis force.</p>
-<p>Artificial gravity would be generated by rotation, in the same way that you feel a push from your car when you make a sharp turn. If you keep on turning forever around a curve, then you have gravity. Unfortunately, we do not currently have a space station with artificial gravity, so the concepts in this article are essentially discussing future tech; but the physics behind artificial gravity is real and could be put into practice in space.</p>
-<p>The more I’ve read and seen about the Coriolis force, the more I’m convinced that life with artificial gravity would be very difficult to get used to. In artificial gravity, twitchy effects would surround you, constantly taking you where you don’t expect. Furthermore, the Coriolis force could cause nausea; it is unclear how well our bodies would adapt to perpetual rotation.</p>
-<p>In this article, I’ll show you what the Coriolis force would look like. Next, I will discuss the importance of artificial gravity. I’ll discuss the physics of how artificial gravity works, and then I’ll use that to dive into the physics of everyone’s favorite sci-fi movies. Finally, I’ll finish with the boring part—the math I used to generate the model. I would love you to read the math and prove me wrong. I dare you.
-<br/></p>
-<h3>Visualizing the Coriolis Force</h3>
-<p>What would the Coriolis force look like?</p>
-<p>As I was planning this article, I wanted to produce a visual model that shows you what this throw would look like.</p>
-<p><a href="http://andygiger.com/science/e-coriolis/">This computer model</a> basically accomplishes my task for me! Andy Giger, on <a href="http://andygiger.com/science/e-coriolis/">this</a> website, posed a similar question. What would it look like if you had a spinning water fountain, with water jets pointing inward? I simply copied his code and modified the starting parameters.</p>
-<p>Imagine each dot on his coin model as if it were the coin from my thought experiment. My math table calculates where the coin would land; his model shows you what that would look like. The only difference is that his water jets start from the ground.</p>
-<p>(You can make my coin toss start from the ground, too, by setting the person height equal to zero.)</p>
+<p>The coin would land about as far over as you threw it upwards! What causes this weirdness? The Coriolis effect! If you scroll to the next section, you can see what this would look like. The Coriolis effect is an artifact of artificial gravity that causes objects to move in unexpected directions.</p>
+<p>The more I’ve read and seen about the Coriolis effect, the more I’m convinced that life with artificial gravity would be very difficult to get used to. It would feel like an ever-present force countering everything you do. Furthermore, the Coriolis effect could cause nausea!</p>
+<p>Artificial gravity would be generated by rotation, in the same way that you feel a push from your car when you make a sharp turn. If you keep on turning forever around a curve, then you have gravity. It is unclear how well our bodies would adapt to perpetual rotation. Fortunately, it may be possible to reduce these nausea-inducing effects.</p>
+<p>Unfortunately, we do not currently have a space station with artificial gravity, so the concepts in this article are essentially discussing future tech; but the physics behind artificial gravity is real and could be put into practice in space. It will be essential for future space travel.</p>
+<p>In this article, I’ll show you what the Coriolis effect would look like. Next, I will discuss the importance of artificial gravity. I’ll discuss the physics of how artificial gravity works, and then I’ll use that to dive into the physics of everyone’s favorite sci-fi movies. Finally, I’ll finish with the boring part—the math I used to generate the model. I would love you to read the math and prove me wrong. I dare you.</p>
+<p><br/></p>
+<h3>Visualizing the Coriolis Effect</h3>
+<p>What would the Coriolis effect look like?</p>
+<p>As I was planning this article, I wanted to produce a visual model that shows you what a coin toss would look like on a space station. <a href="http://andygiger.com/science/e-coriolis/">This website</a> basically accomplishes my task for me! Here, Andy Giger poses a similar question. What would it look like if you had a spinning water fountain with water jets pointing inward? I simply copied his code and modified a few parameters.</p>
+<p>Imagine each dot on his coin model as if it were the coin from my thought experiment. My math table (above) calculates where the coin would land; his model shows you what that would look like. The only difference is that his water jets start from the ground. (You can make my coin toss start from the ground, too, by setting the person height equal to zero.)</p>
 <script type="text/javascript" src="CoriolisFiles/processing.js"></script>
 
 <table>
@@ -304,7 +302,7 @@
 <p>As you can see in his model, the coin veers forward, into the direction of rotation. This is because the water is rotating with the station when it starts; it has a horizontal velocity! If you look carefully, you will see that every dot follows a perfectly straight line. If you don't believe me, his graphic has a tracking feature you can activate by pressing "t". Together, the dots look like they are forming a curve. This curve is what the coin’s path would look like in a space station.</p>
 <p><br/></p>
 <h3>The problem of weightlessness</h3>
-<p>What’s the point of going to space, if you’re just going to produce artificial gravity anyway? Why produce artificial gravity if it is so difficult? Weightlessness is toxic to our health! If humanity wishes to expand its presence in space, we will need to produce artificial gravity.</p>
+<p>Why produce artificial gravity if it is so difficult? Weightlessness is toxic to our health! If humanity wishes to expand its presence in space, we will need to produce artificial gravity.</p>
 <p>Astronaut Scott Kelley just completed an important mission on the International Space Station: he stayed in space for an entire year while his identical twin brother lived on earth. This allowed scientists to study the molecular changes that occurred in Scott’s body, so NASA can better prepare for a mission to Mars. <a href="https://www.nasa.gov/feature/how-stressful-will-a-trip-to-mars-be-on-the-human-body-we-now-have-a-peek-into-what-the-nasa">Here</a> is an article that discusses some of the findings. Let me summarize it so you don’t have to read it: in Scott’s body, scientists discovered inflammation, premature aging, bone loss, and (small) decreases in cognitive ability. If our country is planning long-distance missions to Mars, then artificial gravity will (or should be) important! </p>
 <p>It is effectively impossible for astronauts to exercise enough to counteract the effects of zero gravity. If we do not develop artificial gravity, astronauts will suffer from brittle bones, weak muscles, low immunity, and poor health. Life in space will not be sustainable without it.</p>
 <p><br/></p>
@@ -312,11 +310,11 @@
 <p>What would artificial gravity feel like?</p>
 <p>To help you understand the answer to this question, I need to help you understand a bit of physics.</p>
 <p><img style="float: right; margin-left:10px;" src="CoriolisFiles/CentripetalForce.png" width=200 height=200/></p>
-<p>Artificial gravity works by fighting your inertia. As your body attempts to move in a straight line, the station pushes you constantly upwards. In other words, instead of "pulling you down," the floor constantly pushes up against you.</p>
-<p>On a space station with artificial gravity, you would be intuitively and constantly aware which direction the space station is spinning. Simply by moving your body, the Coriolis force would indicate to you which direction you are going; there would be different forces in every direction.</p>
+<p>Artificial gravity works by fighting your inertia. As your body attempts to move in a straight line, the station pushes you upwards. In other words, instead of "pulling you down," the floor constantly pushes up against you.</p>
+<p>There would be different forces in every direction. You would be intuitively and constantly aware which direction the space station is spinning. Simply by moving your body, the Coriolis effect would indicate to you which direction you are going.</p>
 <p>If you were to move in the direction of rotation ("forward"), you would be effectively increasing your rotation rate, and you would increase the downward "force" felt. Objects moving in this relative direction would seem to move down more quickly.</p>
 <p>If you were to move opposite the direction of rotation, you would feel lighter; you would be decreasing your rotation. Objects moving in this direction would move up (relative to what you expect).</p>
-<p>As you can see in Andy Geiger's model, "upward" motion would cause a "force" toward the direction of rotation; "downward" motion would cause a "force" away from the direction of rotation.</p>
+<p>As you can see in the spinning model, "upward" motion would cause a "force" toward the direction of rotation; "downward" motion would cause a "force" away from the direction of rotation.</p>
 <p>I have summarized these forces in a graphic for you. Remember, these forces are only apparent to someone who is rotating with the station.</p>
 <div style="text-align:center;"><img style="margin: -10px 10px 10px 10px;" src="CoriolisFiles/CoriolisDirection.png" width=450 height=450/></div>
 
@@ -326,20 +324,19 @@
 <p>Maintaining a rotating environment would only require a small amount of energy. The station will essentially spin perpetually. The objects in the station are moving at a constant velocity, thus they are not consuming energy. The station's rotational momentum is constant, or "conserved". This is why rotation is so attractive as an artificial gravity source.</p>
 <p><br/></p>
 <h3>Artificial gravity in science fiction</h3>
-<p>Artificial gravity has never been used in space, so our current perspective comes from science fiction. I would like to discuss the physics of sci-fi movies so that you can better understand how artificial gravity works. This way, you can be able to interpret what is "real" and "not real" in our universe.</p>
+<p>Artificial gravity has never been used in space, so quite a bit of our current perspective comes from science fiction. I would like to discuss the physics of sci-fi movies so that you can better understand how artificial gravity works. This way, you can be able to interpret what is "real" and "not real" in our universe.</p>
 <p>Sci-fi movies are entertaining, but they do not give you a realistic picture of artificial gravity. I’m not suggesting that science fiction should change; the screenwriters need to tell a compelling story. A “real” picture of artificial gravity would not be cinematic!</p>
 <p>One of my BYU physics professors once summed up the fiction of sci-fi very well. He said, “When I watch a sci-fi movie, I allow one, or maybe two, impossible technologies. After that, I consider it fantasy.” Sci-fi movies are entertaining, but they <em>are</em> fantasy, not science.</p>
-<p>From what I have seen, different sci-fi movies contain different levels of fantasy. Some movies have taken a more "realistic" approach, painstakingly following the laws of physics as we understand them. On the other hand, some movies are entirely fantastical; these also provide a good story, but they are not scientific. These two categories are difficult to separate; a film that is accurate in one point may be entirely fantastical when it describes something else. Given that my purpose is to discuss the Coriolis force, I will separate these movies based on whether or not they use rotation in their space stations. Let me discuss how artificial gravity fits into these universes.</p>
+<p>From what I have seen, different sci-fi movies contain different levels of fantasy. Some movies have taken a more "realistic" approach, painstakingly following the laws of physics as we understand them. On the other hand, some movies are entirely fantastical; these also provide a good story, but they are not scientific. These two categories are difficult to separate; a film that is accurate in one point may be entirely fantastical when it describes something else. Given that my purpose is to discuss the Coriolis effect, I will separate these movies based on whether or not they use rotation in their space stations. Let me discuss how artificial gravity fits into these universes.</p>
 <h5>“Real” Sci-fi</h5>
 <p>Recently, some movies have attempted to accurately portray science in fiction. There are some reasonably accurate sci-fi stories out there. In these movies, artificial gravity is correctly generated by rotation.</p>
-<p>None of these films mention the Coriolis force, despite the massive effect it will inevitably have on future astronauts. This omission is to be expected, though; we’ve never even built such a station before, so how could we depict it? If we someday build a massive space infrastructure capable of supporting artificial-gravity environments, the Coriolis force will be the least of our troubles. Several films worth mentioning here are <em>The Martian</em>, <em>Interstellar</em>, <em>Gravity</em>, and <em>Ender's Game</em>.</p>
-<p><img style="float: right; margin-left:10px; margin-top: -30px;" src="CoriolisFiles/TheMartian.jpg" width=220 height=220/></p>
-<p><em>The Martian</em> focuses on an astronaut stranded on Mars. His journey is very interesting, though the relevant part here is rocket that took him to Mars. In the movie, the "Hermes" spacecraft shuttles astronauts back and forth to Mars in a rotating spacecraft.</p>
-<p><em>Interstellar</em> received more attention because of the realistic depictions of <em>real</em> gravity, though it does contain a rotating spacecraft. I am impressed by the accurate discussion of relativity (gravity wells); however, this movie is fantasy in many ways. The film discusses traveling into a black hole to gather data, allowing scientists to use an "equation" to loft a massive spacerocket into orbit. This is absurd.</p>
-<p>The movie, <em>Gravity</em>, takes place in the near future. This movie is notable because the entire story takes place <em>without</em> gravity, in orbit! This reminds us that artificial gravity has not yet been attempted in space and would be difficult to produce.</p>
+<p>None of these films mention the Coriolis effect, despite the massive presence it would have in future space missions. This omission is to be expected, though; we’ve never even built such a station before, so how could we depict it? If we someday build a massive space infrastructure capable of supporting artificial-gravity environments, the Coriolis effect will be the least of our troubles.</p>
+<p><img style="float: right; margin-left:10px; " src="CoriolisFiles/TheMartian.jpg" width=220 height=220/></p>
+<p>Several films worth mentioning in this category are <em>The Martian</em>, <em>Interstellar</em>, <em>Gravity</em>, and <em>Ender's Game</em>. Each of these films (except <em>Gravity</em>) features a spacecraft that generates gravity through rotation. In <em>The Martian</em>, the "Hermes" spacecraft rotates as it shuttles astronauts back and forth to Mars. In <em>Interstellar</em>, the rotating "Endurance" spacecraft transports astronauts past a fictional wormhole.</p>
+<p>The movie <em>Gravity</em> does <em>not</em> contain a rotating spacecraft, but it is still worth mentioning here.  This movie is notable because the entire story takes place <em>without</em> gravity, in orbit! This film, set in the near future, reminds us that artificial gravity has not yet been attempted in space and would be difficult to produce.</p>
 <p><img style="float: left; margin-right:10px;" src="CoriolisFiles/EnderGame.jpg" width=250 height=250/></p>
-<p>Finally, <em>Ender’s Game</em> is a fantasy story, but the story centers around realistic artificial gravity. Orson Scott Card can be lauded for the extensive effort he makes to depict artificial gravity correctly. This film is about a boy in a space army who is trained to fight battles in zero gravity, in a "battle room." Orson Scott Card is mostly correct in his description of how artificial gravity works. Ender (the main character) finds that there is less gravity closer to the center of the station. When he enters the battle room, there is no gravity at all.</p>
-<p>This particular story could benefit if it addressed the Coriolis force; this plot is <em>about</em> how artificial gravity works! Even in such a massive space station where Ender lives, the Coriolis force could not be avoided. It would be very real to these child-soldiers. Ender would need additional training to get accustomed to fighting in artificial gravity! If the story were to contain an <em>artificial-gravity battle room</em>, every action would depend on the direction one faces, just like the zero-gravity battle room.</p>
+<p>Finally, <em>Ender’s Game</em> is a fantasy story, but the story centers around realistic artificial gravity. Orson Scott Card can be lauded for the extensive effort he makes to depict artificial gravity correctly. This film is about Ender, a boy in a space army who is trained to fight battles in zero gravity. Gravity would decrease as you approach the center of the station, the zero-gravity "battle room."</p>
+<p>This particular story could benefit if it addressed the Coriolis effect; this plot is <em>about</em> how artificial gravity works! Even in such a massive space station where Ender lives, the Coriolis effect could not be avoided. It would be very real to Ender. He would need additional training to get accustomed to fighting in artificial gravity! If the story were to contain an <em>artificial-gravity battle room</em>, every action would depend on the direction one faces, just like the zero-gravity battle room.</p>
 <h5>Fantasy Sci-fi</h5>
 <p><img style="float: right; margin-left:10px;" src="CoriolisFiles/StarTrek.jpg" width=200 height=200/></p>
 <p>What you see in most sci-fi movies is an artificial gravity “generator” underneath the station that uses an energy source to produce pure gravity. This is the view in the Star Wars and Star Trek universes. This is how I choose to define "fantasy" in this article. A “pure” gravity source would not be possible! Even if, in the far-distant future, a method were found to convert energy into pure gravity, it would take such an unimaginably huge energy source that it will never <em>ever</em> be practical.</p>
@@ -348,20 +345,20 @@
 <p>Even if we did figure out how to produce real gravity from energy, it would create a very real gravity well, and it would cause the earth to orbit the space station! The force of this gravity would dissipate through space the same way the earth's gravity does, following the equation, <span class="math">\(F = (Gm_1m_2)/r^2\)</span>.</p>
 <p>After Star Wars and Star Trek, there is one other story worth mentioning in this category: the video game, <em>Halo: Combat Evolved</em>. This story centers around the discovery of a massive ring world created by advanced humans from the distant past. This ring world does <em>not</em> generate its gravity through rotation. (See <a href="https://en.wikipedia.org/wiki/Artificial_gravity_(fiction)">this link</a>: Halo “also uses some form of field or other artificially generated gravity as it is stated in <em>Halo: The Flood</em>, the ring world does not spin nearly fast enough to create the amount of gravity it possesses.”) The spacecraft owned by Earth's military do not appear to rotate either.</p>
 <p><img style="float: right; margin-left:10px;" src="CoriolisFiles/Halo.jpg" width=250 height=250/></p>
-<p>Let’s pretend for a moment that the ring world does correctly generate artificial gravity. This would be interesting because the Coriolis force decreases as the size of a station increases. Would the Coriolis effect still be noticeable? What would be the size of the Coriolis effect on such a large station?</p>
+<p>Let’s pretend for a moment that the ring world does correctly generate artificial gravity. This would be interesting because the Coriolis effect decreases as the size of a station increases. Would the Coriolis effect still be noticeable? What would be the size of the Coriolis effect on such a large station?</p>
 <p>According to <a href="https://en.wikipedia.org/wiki/Artificial_gravity_(fiction)">the same Wikipedia article I cited above,</a> the ring in <em>Halo: Combat Evolved</em> has a radius of 5,000 miles or 8,000 km (26,400,000 feet or 8,000,000 meters). If you insert these numbers into my model, you see that our coin toss would land about a millimeter away.</p>
 <p>A millimeter seems small, but the Master Chief is famous for shooting guns over large distances. The error would accumulate over these distances to make his target practice quite difficult. Furthermore, this error would be different depending on the direction he is facing, the velocity of the projectile, and the radius of the station (e.g. <em>which</em> station he is standing on). He would need some sort of “smart ballistics” capable of calculating the constantly changing error.</p>
 <p>Even if a station such as the one in <em>Halo</em> did exist, it would not be able to retain an atmosphere. According to the story, the station contains retaining walls to contain the air. There are several reasons why this would not work. First, the station would need to <em>pull the air along with it</em> to achieve artificial gravity on the air. In other words, the air is pulled by <em>friction</em>, which would not be sufficient. The second problem with retaining walls is that there <em>is no boundary</em> to Earth's atmosphere. It extends perpetually into space, gradually thinning into eternity. This means that, even with a retaining wall, the atmosphere would leak out.</p>
 <p><br/></p>
-<h3>Designing a real space station that minimizes the Coriolis force</h3>
-<p>How would you minimize the Coriolis force?</p>
-<p>As you increase the radius of an artificial-gravity space station, the Coriolis force decreases. In order to minimize the Coriolis force, you must either build a larger station, or you must produce less gravity.</p>
+<h3>Designing a real space station that minimizes the Coriolis effect</h3>
+<p>How would you minimize the Coriolis effect?</p>
+<p>As you increase the radius of an artificial-gravity space station, the Coriolis effect decreases. In order to minimize the Coriolis effect, you must either build a larger station, or you must produce less gravity.</p>
 <p>As you saw in my model, the coin landed about as far over as you threw it upwards. This was in a station with a 25-foot radius. Now try increasing the station's radius to see what happens. As the station gets larger, the artificial gravity approaches real gravity! The larger the space station, the less nauseating and less disorienting it would be. </p>
 <p>It surprises me how slowly this happens. To achieve earth-“normalness” (close to zero distance from expected), you would need a massively huge station!</p>
 <p>It is unclear how large the station would need to be to prevent nausea. <a href="https://en.wikipedia.org/wiki/Artificial_gravity">This</a> Wikipedia page discusses the issue, suggesting that no effects would be felt with a rotation rate of less than 2 rpm, however this has not been researched extensively. If this is true, a rotation rate of 2 rpm would require a radius of 800 ft (250 m) with full gravity. The International Space Station is 356 feet wide, less than a quarter the size.</p>
 <p><img style="float: right; margin: -10px 0px 0px 10px;" src="CoriolisFiles/dream-space-colony.jpg" width=260 height=250/></p>
 <p>Interestingly, NASA once proposed and designed a massive ring station as a thought experiment in 1975, calling it a "Stanford torus." This NASA thought experiment was not meant to be practical (or to be built), but simply to serve as an example of a theoretical self-sustaining massive space station. The picture on the right is an artist's rendering of it. <a href="http://www.ibtimes.co.uk/nasas-beautiful-dreams-self-sufficient-space-colony-revealed-1631672">Here</a> is an interesting news story about it.</p>
-<p>If it requires such a large radius to minimize the Coriolis force, then how can a decent space station ever be constructed? The station does not necessarily <em>need</em> to be circular. What if, instead of a large ring, we created two smaller stations connected by a tether? These two sections could spin around each other and produce gravity.</p>
+<p>If it requires such a large radius to minimize the Coriolis effect, then how can a decent space station ever be constructed? The station does not necessarily <em>need</em> to be circular. What if, instead of a large ring, we created two smaller stations connected by a tether? These two sections could spin around each other and produce gravity.</p>
 <div style="text-align:center;"><img style="margin: -10px 10px 10px 10px;" src="CoriolisFiles/TwoCapsules.png" width=300 height=300/></div>
 
 <p>A space station like this could have an arbitrarily large radius, defined only by the strength of the tether holding it. This might be possible today.</p>
@@ -371,7 +368,7 @@
 <p><br/><br/></p>
 <h3>The Math</h3>
 <p>As you look at the math I used to solve this problem, you will see the math is quite thorny. Nonetheless, the events that would take place still follow the rules of basic physics.</p>
-<p>To understand the events that take place in our coin toss, we must look at these events from a perspective that is not rotating. The Coriolis force is not a force, but is simply described by the difference between rotation and real gravity.</p>
+<p>To understand the events that take place in our coin toss, we must look at these events from a perspective that is not rotating. The Coriolis effect is not a force, but is simply described by the difference between rotation and real gravity.</p>
 <p>I assumed that the station is rotating clockwise. The station is a virtual coordinate system, where (0,0) is the exact center of the station. For our convenience, the moment of the throw takes place at the instant the person is standing at the bottom of the curve. The person throws the coin with the force that would have been needed to get it 3 feet up in the air on Earth.</p>
 <div style="text-align:center;"><img style="margin: -10px 10px 10px 10px;" src="CoriolisFiles/CoordinateSystem.png" width=300 height=300/></div>
 
@@ -557,7 +554,7 @@ By solving, we get:
 <p><br/></p>
 <h3>Final Notes</h3>
 <p>I would quickly like to note my experience with physics. I do not have a physics degree, but I have studied physics-mechanics three times. I originally took physics as a high school student, and I was fascinated by it! I decided to take it again as an AP course, and I earned a 4/5 on the final AP exam. In college, I ended up retaking this course, even though I already had credit for it. I wanted to prepare for medical school; medical schools do not accept AP credit. The equivalent course at BYU was Principles of Physics I, for Scientists and Engineers. This was a repeat of my course in high school, so it was easy for me; I earned an A (BYU does not administer A+ grades). I then continued this advanced physics track through Principles of Physics II and III.</p>
-<p>In none of these classes was the Coriolis force ever mentioned. I was never given a physics problem similar to this one. It seems it would be far too complicated for an exam. I cannot remember where I originally read about the Coriolis force. This subject is something that has fascinated me ever since I took AP physics in high school.</p>
+<p>In none of these classes was the Coriolis effect ever mentioned. I was never given a physics problem similar to this one. It seems it would be far too complicated for an exam. I cannot remember where I originally read about the Coriolis effect. This subject is something that has fascinated me ever since I took AP physics in high school.</p>
 <script type="text/javascript">if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
     var align = "center",
         indent = "0em",

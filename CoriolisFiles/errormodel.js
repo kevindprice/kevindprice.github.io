@@ -11,6 +11,7 @@ function setunits(setting) {
 	document.getElementById("heightpersonunits").innerHTML = setting;
     document.getElementById("radiusunits").innerHTML = setting;
     document.getElementById("heightthrownunits").innerHTML = setting;
+	document.getElementById("expecteddistunits").innerHTML = setting;
 }
 
 
