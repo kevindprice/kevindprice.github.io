@@ -6,7 +6,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <title>Kevin Price</title>
+        <title>Coriolis Table/Model / Kevin Price</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width">
 
@@ -61,188 +61,202 @@
 
                     <div class="row"> <!-- content -->
                         <div class="content">
-    <div id="index">
 <div class="article-page">
     <div class="span7 offset2">
         <header class="article">
-            <h2><a href="./resume-model.html" rel="bookmark">How Computers Think: A Resume Job Field Classification Model in Python</a></h2>
-			<div style="display:inline-block; margin-top: 3px; font-family: Baskerville, Garamond, Palatino;">— Computer Modeling —&nbsp;&nbsp;</div>
-            <time datetime="2017-05-13T00:00:00-04:00">
-                May 13, 2017
+            <h2><a href="./coriolis-tablemodel.html" rel="bookmark">Coriolis Table/Model</a></h2>
+			<div style="display:inline-block; margin-top: 3px; font-family: Baskerville, Garamond, Palatino;">— misc —&nbsp;&nbsp;</div>
+            <time datetime="2017-08-02T19:43:56.790668-04:00">
+                Aug 02, 2017
             </time>
         </header>
     </div>
 
     <div class="span2">
+    <div class="article-meta article-meta-border">
+        <dl class="dl-horizontal">
+            <dt><i class="icon-file"></i></dt>
+            <dd>
+                <a href="./category/misc.html">
+                    misc
+                </a>
+            </dd>
+
+        </dl>
+
+        <b class="border-notch notch"></b>
+        <b class="notch"></b>
+    </div>
     </div>
 
     <div class="span7">
         <section>
             <article class="entry">
-    <div id="first-article">
-        <!-- Summary: A Python model to classify resumes based on their job type. -->
-
-<p>Can a computer correctly classify your resume into its correct job field? I recently built a classification model for my work, Mosaic Data Science, that answers this question. Depending on how you look at it, this model is either 89% or 82% accurate.</p>
-<p>My boss granted me permission to post an article about this project to my website. I have decided to use this project to teach you how a computer “thinks.” I will attempt to explain myself as clearly as possible so that many readers can understand the data science concepts I have been working with. I hope that this article may enlighten you about how machine learning works.</p>
-
-		
-		<!--A clever test to see if the article is summarized, or if it's just short.-->
-		<a href='" + resume-model.html +"'><div style='font:normal normal 400 1rem/1.125rem Georgia, serif; margin-left:.3in;'>— continued —</div></a>
-		
-		<!--721 19013-->
-		
-    </div>
- 
-             </article>
-        </section>
-    </div> <!-- span -->
-</div>
-<div class="article-page">
-    <div class="span7 offset2">
-        <header class="article">
-            <h2><a href="./my-super-post.html" rel="bookmark">About this site</a></h2>
-			<div style="display:inline-block; margin-top: 3px; font-family: Baskerville, Garamond, Palatino;">— About this site —&nbsp;&nbsp;</div>
-            <time datetime="2017-02-21T00:00:00-05:00">
-                Feb 21, 2017
-            </time>
-        </header>
-    </div>
-
-    <div class="span2">
-    </div>
-
-    <div class="span7">
-        <section>
-            <article class="entry">
-    <div class="article-summary">
-        <!-- show summary on index page, not full content -->
+    
 	
-		<!-- :modified: -->
-<!-- :summary: Background about this website -->
-<p>Welcome to my website! I built this site using a site generator in Python called Pelican. I write all of my articles using reStructuredText and Markdown, and they are automatically converted by Python into this wonderful webpage.</p>
-<p>I have modified the Pelican theme, Lannisport. My modified version of the theme can be found <a class="reference external" href="https://github.com/Priceisright204/lannisport">on GitHub</a>.</p>
-<p>I will post my coding projects and ideas on this page. There is more to come.</p>
+<table border="1" onmouseover="setfields()">
+	<tr>
+		<!--section titles-->
+		<td style="width:285px;"><h4 class="title" style="color:#CE0D45;">Input Values</h4></td>
+		<td style="width:280px;"><h4 class="title" style="color:#CE0D45;">Output</h4></td>
+	</tr>
+	<tr id="calculations">
+		<td style="padding:10px;">
+			<!--input fields-->
+			<form action="" style="margin-bottom:5px;">
+			  <input type="radio" name="units" id="imperial" value="ft" onclick="convertunits(this.value)" /> Imperial (feet)&nbsp;&nbsp;
+			  <input type="radio" name="units" id="metric" checked="checked" value="m" onclick="convertunits(this.value)" /> Metric (meters)
+			</form>
+			<div class="smallbreak"></div> <!--smaller text break-->
+			<table>
+				<tr>
+					<td id="textright">Height of person</td>
+					<td id="fieldleft"><input type="number" step="any" class="inputfield" id="heightperson" onchange="changeit()" />&nbsp;
+						<div class="units" id="heightpersonunits"></div> 
+						</td>
+					<td id="heightpersonconversion"></td>
+				</tr>
+				<tr>
+					<td id="textright">Radius</td>
+					<td id="fieldleft"><input type="number" step="any" class="inputfield" id="radius" onchange="changeit()" />&nbsp;
+						<div class="units" id="radiusunits"></div></td>
+					<td id="radiusconversion"></td>
+				</tr>
+				<tr>
+					<td id="textright">Percent Gravity</td>
+					<td id="fieldleft"><input type="number" step="any" class="inputfield" id="percentgravity" onchange="outputgs(this.value); changeit();" style="width:40px" />%
+						<div id="gravitygs" style="display:inline-block;"></div></td>
+					<td id="gravityconversion"></td>
+				</tr>
+				<tr>
+					<td id="textright">Height thrown<div></div>"up" on Earth</td>
+					<td id="fieldleft"><input type="number" step="any" class="inputfield" id="heightthrown" onchange="changeit()" />&nbsp;
+						<div class="units" id="heightthrownunits"></div></td>
+					<td id="heightthrownconversion"></td>
+				</tr>
+			</table><br />
+			<table>
+				<tr class="t_row">
+					<td style="text-align:right;">Vertical &nbsp;&nbsp;<div></div>throw velocity:&nbsp;</td>
+					<td>
+						<div id="verticalvelocity" class="output"></div>
+						<div id="verticalvelocity2" class="output"></div>
+					</td>
+					<td>
+						<div id="verticalvelocityunits"></div>
+						<div id="verticalvelocityunits2"></div>
+					</td>
+				</tr>
+			</table>
+			
+			<div class="smallbreak"></div> <!--smaller text break-->
 
-
-		<!--A clever test to see if the article is summarized, or if it's just short.-->
+			<!--<div style="text-align:center;"><input type="submit" value="Submit Values" onclick="submit()"></div>-->
+		</td>
+		<td style="padding:10px;">
+			<!--Additional variable facts, also errors and warnings-->
+			<table style="border-collapse:separate; border-spacing:0 5px;">
+				<tr class="t_row">	
+					<td style="text-align:right;">Centripetal&nbsp;&nbsp;<div></div> acceleration at floor:&nbsp;</td>
+					<td id="centripaccel" class="output"></td>
+					<td id="centripaccelunits"></td>
+				</tr>
+				<tr class="t_row">
+					<td style="text-align:right;">Standing &nbsp;&nbsp;<div></div> velocity of person:&nbsp;</td>
+					<td>
+						<div id="standingvelocity" class="output"></div>
+						<div id="standingvelocity2" class="output"></div>
+					</td>
+					<td>
+						<div id="standingvelocityunits"></div>
+						<div id="standingvelocityunits2"></div>
+					</td>
+				</tr>
+				<tr class="t_row">	
+					<td style="text-align:right;">Rotational rate:&nbsp;&nbsp;</td>
+					<td id="rotationalvelocity" class="output"></td>
+					<td id="rotationalvelocityunits"></td>
+				</tr>
+			</table>
+			
+			<div class="smallbreak"></div>
+			<div id="error" style="color:red; font-weight:bold; text-align:center;"></div>
+		</td>
+	</tr>
+	<tr>
+		<td><div style="color:#CE0D45; text-align:center;">Expected values on Earth</div></td>
+		<td><div style="color:#CE0D45; text-align:center;">Results on station</div></td>
+	</tr>
+	<tr>
+		<td style="padding:5px">
+			<table style="border-collapse:separate; border-spacing:0 5px;">
+			<tr>
+				<td style="text-align:right;"><div>Time in the air:&nbsp;&nbsp;</td>
+				<td id="expectedtime"></td>
+				<td id="expectedtimeunits"></td>
+			</tr>
+			<tr>
+				<td style="text-align:right;"><div>Max height:&nbsp;&nbsp;<div></div></td>
+				<td id="expectedheight" class="output"></td>
+				<td id="expectedheightunits"></td>
+			</tr>
+			<tr>
+				<td style="text-align:right;"><div>Distance "away"&nbsp;&nbsp;&nbsp;<div></div> at landing:&nbsp;&nbsp;</td>
+				<td id="expecteddist" class="output">0&nbsp;</td>
+				<td id="expecteddistunits">ft</td>
+			</tr>
+			</table>
+		</td>
 		
-    </div>
- 
-             </article>
+		<td style="padding:5px">
+			<table style="border-collapse:separate; border-spacing:0 5px;">
+				<tr class="t_row">
+					<td style="text-align:right;">Time in the air:&nbsp;</td>
+					<td id="timeinair" class="output"></td>
+					<td id="timeinairunits"></td>
+				</tr>
+				<tr class="t_row">
+					<td style="text-align:right;">Max height achieved:&nbsp;</td>
+					<td id="maxheightachieved" class="output"></td>
+					<td id="maxheightachievedunits"></td>
+				</tr>
+				<tr class="t_row">
+					<td style="text-align:right;"><b><div style="color:#CE0D45;">Distance "away"&nbsp;&nbsp;<div></div> at landing:</b>&nbsp;</td>
+					<td>
+						<div id="finalseparation" class="output"></div>
+						<div id="finalseparation2" class="output"></div>
+					</td>
+					<td>
+						<div id="finalseparationunits"></div>
+						<div id="finalseparationunits2"></div>
+					</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+</table>
+<br />
+
+
+
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'priceisright204'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+		(function() { // DON'T EDIT BELOW THIS LINE
+			var d = document, s = d.createElement('script');
+			s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+			s.setAttribute('data-timestamp', +new Date());
+			(d.head || d.body).appendChild(s);
+		})();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+            </article>
         </section>
     </div> <!-- span -->
-</div>
-<div class="article-page">
-    <div class="span7 offset2">
-        <header class="article">
-            <h2><a href="./coriolis.html" rel="bookmark">The Coriolis Effect: Why Space Life with Artificial Gravity Would Be Weird</a></h2>
-			<div style="display:inline-block; margin-top: 3px; font-family: Baskerville, Garamond, Palatino;">— Computer Modeling —&nbsp;&nbsp;</div>
-            <time datetime="2017-02-19T00:00:00-05:00">
-                Feb 19, 2017
-            </time>
-        </header>
-    </div>
-
-    <div class="span2">
-    </div>
-
-    <div class="span7">
-        <section>
-            <article class="entry">
-    <div class="article-summary">
-        <!-- show summary on index page, not full content -->
-	
-		<!-- Summary: An article about the Coriolis effect, containing a mathematical model. -->
-
-<p>Artificial gravity is as important to pop culture as it is to future space missions. It is important to the future health of real astronauts, and we see it in nearly every space movie. How would man-made gravity work? How does the physics hold up in your favorite sci-fi movies?</p>
-<p>I’m not asking you to discount any of your favorite movies just because the physics principles in them might not be accurate. But really, what would artificial gravity look like in space? I have generated a mathematical computer model to provide an answer. My model shows that, thanks to the Coriolis effect, artificial gravity would be very strange.</p>
-
-
-		<!--A clever test to see if the article is summarized, or if it's just short.-->
-		<a href='" + coriolis.html +"'><div style='font:normal normal 400 1rem/1.125rem Georgia, serif; margin-left:.3in;'>— continued —</div></a>
-		
-		<!--734 31429-->
-		
-    </div>
- 
-             </article>
-        </section>
-    </div> <!-- span -->
-</div>
-<div class="article-page">
-    <div class="span7 offset2">
-        <header class="article">
-            <h2><a href="./coriolisMath.html" rel="bookmark">The Math Behind The Coriolis Effect</a></h2>
-			<div style="display:inline-block; margin-top: 3px; font-family: Baskerville, Garamond, Palatino;">— Computer Modeling —&nbsp;&nbsp;</div>
-            <time datetime="2017-02-18T00:00:00-05:00">
-                Feb 18, 2017
-            </time>
-        </header>
-    </div>
-
-    <div class="span2">
-    </div>
-
-    <div class="span7">
-        <section>
-            <article class="entry">
-    <div class="article-summary">
-        <!-- show summary on index page, not full content -->
-	
-		<p>Here, I have written out the math I employed in my Coriolis article.</p>
-
-		<!--A clever test to see if the article is summarized, or if it's just short.-->
-		<a href='" + coriolisMath.html +"'><div style='font:normal normal 400 1rem/1.125rem Georgia, serif; margin-left:.3in;'>— continued —</div></a>
-		
-		<!--75 20160-->
-		
-    </div>
- 
-             </article>
-        </section>
-    </div> <!-- span -->
-</div>
-<div class="article-page">
-    <div class="span7 offset2">
-        <header class="article">
-            <h2><a href="./maze-intro.html" rel="bookmark">Open-Wall Maze</a></h2>
-			<div style="display:inline-block; margin-top: 3px; font-family: Baskerville, Garamond, Palatino;">— Games —&nbsp;&nbsp;</div>
-            <time datetime="2017-02-11T00:00:00-05:00">
-                Feb 11, 2017
-            </time>
-        </header>
-    </div>
-
-    <div class="span2">
-    </div>
-
-    <div class="span7">
-        <section>
-            <article class="entry">
-    <div class="article-summary">
-        <!-- show summary on index page, not full content -->
-	
-		<!-- :summary: Background about this website -->
-<p>Did you notice, my website has a maze! (did you notice the link on the right?) Of course this site would have a maze. Why wouldn't it!?</p>
-<p>I wrote this maze with different rules, thus this maze requires a different strategy to solve. This maze is unlike any maze you've ever seen (unless you've visited it before...).</p>
-<p><a class="reference external" href="https://priceisright204.github.io/maze/maze.html#&amp;tutorial=true">This</a> is the link to the maze.</p>
-
-
-		<!--A clever test to see if the article is summarized, or if it's just short.-->
-		
-    </div>
- 
-             </article>
-        </section>
-    </div> <!-- span -->
-</div>
-<div class="span7 offset2">
-    <p class="paginator">
-        Page 1 / 1
-    </p>
-</div>
-    </div>
-                        </div>
+</div>                        </div>
                     </div> <!-- content row -->
 
                     <div class="row"> <!-- footer -->
@@ -326,6 +340,9 @@ Our family blog, written by my wife Erin
 					</li>
 					</br><li>
 						<a href="./category/games.html">Games</a>
+					</li>
+					</br><li>
+						<a href="./category/misc.html">misc</a>
 					</li>
 			</ul>
 		</li>

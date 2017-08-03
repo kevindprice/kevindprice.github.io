@@ -108,13 +108,16 @@
 <p>Before I show you this model, I would like you to imagine a coin toss as a thought experiment. First, we will throw a coin on Earth, and then we will throw it again on a virtual space station that spins to produce gravity.</p>
 <p>Imagine you are on Earth, and you throw a coin perfectly straight upwards, 3 feet into the air. This coin will land directly beneath you. Now, let's duplicate this throw in an artificial gravity environment. How far away from your feet will the coin be when it lands on the floor? My mathematical table (JavaScript model) will tell you.</p>
 <p>My initial assumptions are that our virtual station has a radius of 25 feet, you are 6 feet tall, and you throw from 2/3 of your body height (at 4 feet). As you experiment with the values, you will see that the final result changes. Spoiler alert: the coin does not land at your feet!</p>
-<p><link type="text/css" rel="stylesheet" href="CoriolisFiles/style.css">
-<script type="text/javascript" src="CoriolisFiles/errormodel.js"></script></p>
-<table border="1" onmouseover="setfields()">
+<!-- This is the table model script -->
+
+<p><link type="text/css" rel="stylesheet" href="CoriolisFiles/style.css"></p>
+<!--onmouseover="setfields()"-->
+
+<table border="1">
     <tr>
         <!--section titles-->
-        <td style="width:285px;"><h4 class="title" style="color:#CE0D45;">Input Values</h4></td>
-        <td style="width:280px;"><h4 class="title" style="color:#CE0D45;">Output</h4></td>
+        <td style="width:285px;"><h3 style="color:#CE0D45; text-align:center;">Input Values</h3></td>
+        <td style="width:280px;"><div style="color:#CE0D45; text-align:center;">Misc Information</div></td>
     </tr>
     <tr id="calculations">
         <td style="padding:10px;">
@@ -151,7 +154,19 @@
                     <td id="heightthrownconversion"></td>
                 </tr>
             </table><br/>
-            <table>
+
+            <div class="smallbreak"></div> <!--smaller text break-->
+
+            <!--<div style="text-align:center;"><input type="submit" value="Submit Values" onclick="submit()"></div>-->
+        </td>
+        <td style="padding:10px;">
+            <!--Additional variable facts, also errors and warnings-->
+            <table style="border-collapse:separate; border-spacing:0 5px;">
+                <tr class="t_row">  
+                    <td style="text-align:right;">Rotational rate:&nbsp;&nbsp;</td>
+                    <td id="rotationalvelocity" class="output"></td>
+                    <td id="rotationalvelocityunits"></td>
+                </tr>
                 <tr class="t_row">
                     <td style="text-align:right;">Vertical &nbsp;&nbsp;<div></div>throw velocity:&nbsp;</td>
                     <td>
@@ -163,15 +178,6 @@
                         <div id="verticalvelocityunits2"></div>
                     </td>
                 </tr>
-            </table>
-
-            <div class="smallbreak"></div> <!--smaller text break-->
-
-            <!--<div style="text-align:center;"><input type="submit" value="Submit Values" onclick="submit()"></div>-->
-        </td>
-        <td style="padding:10px;">
-            <!--Additional variable facts, also errors and warnings-->
-            <table style="border-collapse:separate; border-spacing:0 5px;">
                 <tr class="t_row">  
                     <td style="text-align:right;">Centripetal&nbsp;&nbsp;<div></div> acceleration at floor:&nbsp;</td>
                     <td id="centripaccel" class="output"></td>
@@ -188,20 +194,12 @@
                         <div id="standingvelocityunits2"></div>
                     </td>
                 </tr>
-                <tr class="t_row">  
-                    <td style="text-align:right;">Rotational rate:&nbsp;&nbsp;</td>
-                    <td id="rotationalvelocity" class="output"></td>
-                    <td id="rotationalvelocityunits"></td>
-                </tr>
             </table>
-
-            <div class="smallbreak"></div>
-            <div id="error" style="color:red; font-weight:bold; text-align:center;"></div>
         </td>
     </tr>
     <tr>
         <td><div style="color:#CE0D45; text-align:center;">Expected values on Earth</div></td>
-        <td><div style="color:#CE0D45; text-align:center;">Results on station</div></td>
+        <td><h3 style="color:#CE0D45; text-align:center;">Results on station</h3></td>
     </tr>
     <tr>
         <td style="padding:5px">
@@ -236,8 +234,8 @@
                     <td id="maxheightachieved" class="output"></td>
                     <td id="maxheightachievedunits"></td>
                 </tr>
-                <tr class="t_row">
-                    <td style="text-align:right;"><b><div style="color:#CE0D45;">Distance "away"&nbsp;&nbsp;<div></div> at landing:</b>&nbsp;</td>
+                <tr class="t_row" style="font-weight:bold;">
+                    <td style="text-align:right;"><div style="color:#CE0D45;"><div>Distance "away"&nbsp;&nbsp;</div> at landing:&nbsp;</div>&nbsp;&nbsp;</td>
                     <td>
                         <div id="finalseparation" class="output"></div>
                         <div id="finalseparation2" class="output"></div>
@@ -252,7 +250,11 @@
     </tr>
 </table>
 
+<div id="error" style="color:red; font-weight:bold; text-align:center;"></div>
+
 <p><br/></p>
+<script onload="setfields()" type="text/javascript" src="CoriolisFiles/errormodel.js"></script>
+
 <p>The coin would land about as far over as you threw it upwards! What causes this weirdness? The Coriolis effect!</p>
 <p>If you scroll to the next section, you can see what this effect would look like. If you would like to see the math I used to create my table, follow <a href="./CoriolisMath.html">this link</a>.</p>
 <p>The Coriolis effect is an artifact of artificial gravity that causes objects to move in unexpected directions. The more I’ve read and seen about the Coriolis effect, the more I’m convinced that life with artificial gravity would be very difficult to get used to. You would feel an ever-present "force" countering everything you do. Furthermore, the Coriolis effect could cause nausea!</p>
@@ -365,13 +367,7 @@
 <p>A space station like this could have an arbitrarily large radius, defined only by the strength of the tether holding it. This might be possible in the near future.</p>
 <p><br/></p>
 <h3>Conclusion</h3>
-<p>We have a long way to go before we'll be producing artificial gravity environments in space. As you can see, it would be very difficult to accomplish. We would feel strange effects aboard an artificial gravity space station, and the environment may be nauseating. Nonetheless, it gives us something to think about. Now we know how it would work.</p>
-<p><br/></p>
-<h4>Final Notes</h4>
-<p>I would quickly like to note my experience with physics. I do not have a physics degree, but I have studied physics-mechanics three times in school. I was successful each time.</p>
-<p>I originally studied physics as a high school student, and I was fascinated by it! I decided to take it again in high school as an AP course; I earned a 4/5 on the final AP exam.</p>
-<p>In college, I ended up taking this course a third time, even though I already had college credit for it. This class was a prerequisite for medical school, and medical schools do not accept AP credit. The equivalent course at BYU was "Principles of Physics I, for Scientists and Engineers." I earned an A.</p>
-<p>In none of these classes was the Coriolis effect ever mentioned. I was never given a physics problem similar to this one. It seems it would be far too complicated for an exam. I cannot remember where I originally read about the Coriolis effect. This subject is something that has fascinated me for years.</p>
+<p>We have a long way to go before we'll be producing artificial gravity environments in space. It would be difficult to accomplish well, though it will also be essential to space travel. If we were to move around in a spinning space station, we would feel unexpected "forces" acting on us, and the environment may be nauseating. Nonetheless, the Coriolis effect gives us something to think about. Now we know how it would work.</p>
 <script type="text/javascript">if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
     var align = "center",
         indent = "0em",
