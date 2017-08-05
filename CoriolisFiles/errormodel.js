@@ -9,7 +9,7 @@ var allatonce = false; //used so that some functions can change all the values, 
 
 function setunits(setting) {
 	document.getElementById("heightpersonunits").innerHTML = setting;
-    document.getElementById("radiusunits").innerHTML = setting;
+    document.getElementById("diameterunits").innerHTML = setting;
     document.getElementById("heightthrownunits").innerHTML = setting;
 	document.getElementById("expecteddistunits").innerHTML = setting;
 }
@@ -22,12 +22,12 @@ function convertunits(setting) {
 	if(units=="ft" && setting=="m")
 	{
 		document.getElementById("heightperson").value = round(to_meters(document.getElementById("heightperson").value) )
-		document.getElementById("radius").value = round(to_meters(document.getElementById("radius").value) )
+		document.getElementById("diameter").value = round(to_meters(document.getElementById("diameter").value) )
 		document.getElementById("heightthrown").value = round(to_meters(document.getElementById("heightthrown").value) )
 	} else if(units=="m" && setting=="ft")
 	{
 		document.getElementById("heightperson").value = round(to_feet(document.getElementById("heightperson").value) )
-		document.getElementById("radius").value = round(to_feet(document.getElementById("radius").value) )
+		document.getElementById("diameter").value = round(to_feet(document.getElementById("diameter").value) )
 		document.getElementById("heightthrown").value = round(to_feet(document.getElementById("heightthrown").value) )
 	}	
 	units = setting;
@@ -83,7 +83,7 @@ function setfields() {
 		mouseover=true;
 
 		document.getElementById("heightperson").value = height_person
-		document.getElementById("radius").value = radius
+		document.getElementById("diameter").value = radius*2
 		document.getElementById("heightthrown").value = heightthrown
 		document.getElementById("percentgravity").value = gs * 100
 		
@@ -105,11 +105,12 @@ function setfields() {
 function submit() {
 	//Get variables
     height_person = Number(document.getElementById("heightperson").value);
-    radius = Number(document.getElementById("radius").value);
+    var diameter = Number(document.getElementById("diameter").value);
 	gs = Number(document.getElementById("percentgravity").value) / 100;
     heightthrown = Number(document.getElementById("heightthrown").value);
     //angle = Number(document.getElementById("anglethrown").value);
 
+	radius = diameter/2
 	//clear the output fields.
 	//////////////////////////
 	document.getElementById("centripaccel").innerHTML = ""

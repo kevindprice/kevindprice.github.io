@@ -107,7 +107,7 @@
 <p><img style="float: right; margin-left:10px;" src="CoriolisFiles/RotatingStation.png" width=200 height=200/></p>
 <p>Before I show you this model, I would like you to imagine a coin toss as a thought experiment. First, we will throw a coin on Earth, and then we will throw it again on a virtual space station that spins to produce gravity.</p>
 <p>Imagine you are on Earth, and you throw a coin perfectly straight upwards, 3 feet into the air. This coin will land directly beneath you. Now, let's duplicate this throw in an artificial gravity environment. How far away from your feet will the coin be when it lands on the floor? My mathematical table (JavaScript model) will tell you.</p>
-<p>My initial assumptions are that our virtual station has a radius of 25 feet, you are 6 feet tall, and you throw from 2/3 of your body height (at 4 feet). As you experiment with the values, you will see that the final result changes. Spoiler alert: the coin does not land at your feet!</p>
+<p>My initial assumptions are that our virtual station has a diameter of 50 feet, you are 6 feet tall, and you throw from 2/3 of your body height (at 4 feet). As you experiment with the values, you will see that the final result changes. Spoiler alert: the coin does not land at your feet!</p>
 <!-- This is the table model script -->
 
 <p><link type="text/css" rel="stylesheet" href="CoriolisFiles/style.css"></p>
@@ -129,20 +129,20 @@
             <div class="smallbreak"></div> <!--smaller text break-->
             <table>
                 <tr>
-                    <td id="textright">Height of person</td>
+                    <td id="textright">Person height</td>
                     <td id="fieldleft"><input type='number' step="any" class="inputfield" id="heightperson" onchange="changeit()"/>&nbsp;
                         <div class="units" id="heightpersonunits"></div> 
                         </td>
                     <td id="heightpersonconversion"></td>
                 </tr>
                 <tr>
-                    <td id="textright">Radius</td>
-                    <td id="fieldleft"><input type='number' step="any" class="inputfield" id="radius" onchange="changeit()"/>&nbsp;
-                        <div class="units" id="radiusunits"></div></td>
+                    <td id="textright">Station diameter</td>
+                    <td id="fieldleft"><input type='number' step="any" class="inputfield" id="diameter" onchange="changeit()"/>&nbsp;
+                        <div class="units" id="diameterunits"></div></td>
                     <td id="radiusconversion"></td>
                 </tr>
                 <tr>
-                    <td id="textright">Percent Gravity</td>
+                    <td id="textright">Percent gravity</td>
                     <td id="fieldleft"><input type='number' step="any" class="inputfield" id="percentgravity" onchange="outputgs(this.value); changeit();" style="width:40px"/>%
                         <div id="gravitygs" style="display:inline-block;"></div></td>
                     <td id="gravityconversion"></td>
@@ -163,12 +163,12 @@
             <!--Additional variable facts, also errors and warnings-->
             <table style="border-collapse:separate; border-spacing:0 5px;">
                 <tr class="t_row">  
-                    <td style="text-align:right;">Rotational rate:&nbsp;&nbsp;</td>
+                    <td style="text-align:right;">Rotation rate:&nbsp;&nbsp;</td>
                     <td id="rotationalvelocity" class="output"></td>
                     <td id="rotationalvelocityunits"></td>
                 </tr>
                 <tr class="t_row">
-                    <td style="text-align:right;">Vertical &nbsp;&nbsp;<div></div>throw velocity:&nbsp;</td>
+                    <td style="text-align:right;">Vertical &nbsp;&nbsp;<div></div>throw speed:&nbsp;</td>
                     <td>
                         <div id="verticalvelocity" class="output"></div>
                         <div id="verticalvelocity2" class="output"></div>
@@ -184,7 +184,7 @@
                     <td id="centripaccelunits"></td>
                 </tr>
                 <tr class="t_row">
-                    <td style="text-align:right;">Standing &nbsp;&nbsp;<div></div> velocity of person:&nbsp;</td>
+                    <td style="text-align:right;">Standing &nbsp;&nbsp;<div></div> speed of person:&nbsp;</td>
                     <td>
                         <div id="standingvelocity" class="output"></div>
                         <div id="standingvelocity2" class="output"></div>
@@ -349,7 +349,7 @@
 <p>This ring world does <em>not</em> generate its gravity through rotation, even though it could easily do so. (See <a href="https://en.wikipedia.org/wiki/Artificial_gravity_(fiction)">this link</a>: Halo “also uses some form of field or other artificially generated gravity as it is stated in <em>Halo: The Flood</em>, the ring world does not spin nearly fast enough to create the amount of gravity it possesses.”)</p>
 <p><img style="float: right; margin-left:10px;" src="CoriolisFiles/Halo.jpg" width=250 height=250/></p>
 <p>Let’s pretend for a moment that the ring world does correctly generate artificial gravity. This would be interesting because the Coriolis effect decreases as the size of a station increases. Would the effect still be noticeable? How noticeable would it be?</p>
-<p>According to <a href="https://en.wikipedia.org/wiki/Artificial_gravity_(fiction)">the same Wikipedia article I cited above,</a> the ring in <em>Halo: Combat Evolved</em> has a radius of 5,000 miles or 8,000 km (26,400,000 feet or 8,000,000 meters). If you insert these numbers into my model, you see that our coin toss would land about a millimeter away.</p>
+<p>According to <a href="https://en.wikipedia.org/wiki/Artificial_gravity_(fiction)">the same Wikipedia article I cited above,</a> the ring in <em>Halo: Combat Evolved</em> is approximately 10,000 km in diameter (6,200 miles, 10,000,000 meters, or 33,000,000 ft). If you insert these numbers into my model, you see that our coin toss would land about a millimeter away.</p>
 <p>A millimeter of error seems small, but the Master Chief is famous for shooting guns over large distances. The error would accumulate over these distances to make his target practice quite difficult. Furthermore, this error would be different depending on the direction he is facing, the velocity of the projectile, and the radius of the station (e.g. <em>which</em> station he is standing on). He would need some sort of “smart ballistics” capable of calculating the constantly changing error.</p>
 <p>Even if a station such as the one in <em>Halo</em> did exist, it would require a glass ceiling to retain an atmosphere.</p>
 <p><br/></p>
