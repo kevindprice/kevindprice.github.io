@@ -107,17 +107,19 @@
 <p><img style="float: right; margin-left:10px;" src="CoriolisFiles/RotatingStation.png" width=200 height=200/></p>
 <p>Before I show you this model, I would like you to imagine a coin toss as a thought experiment. First, we will throw a coin on Earth, and then we will throw it again on a virtual space station that spins to produce gravity.</p>
 <p>Imagine you are on Earth, and you throw a coin perfectly straight upwards, 3 feet into the air. This coin will land directly beneath you. Now, let's duplicate this throw in an artificial gravity environment. How far away from your feet will the coin be when it lands on the floor? My mathematical table (JavaScript model) will tell you.</p>
-<p>My initial assumptions are that our virtual station has a diameter of 50 feet, you are 6 feet tall, and you throw from 2/3 of your body height (at 4 feet). As you experiment with the values, you will see that the final result changes. Spoiler alert: the coin does not land at your feet!</p>
+<p>My initial assumptions are that our virtual station has a diameter of 50 feet and you throw from a standing position at 4 feet off the ground. As you experiment with the values, you will see that the final result changes. Spoiler alert: the coin does not land at your feet!</p>
 <!-- This is the table model script -->
 
 <p><link type="text/css" rel="stylesheet" href="CoriolisFiles/style.css"></p>
+<h5 style="text-align:center;">A Coin Toss on a Virtual Space Station</h5>
+
 <!--onmouseover="setfields()"-->
 
-<table border="1">
+<table border="1" class="model">
     <tr>
         <!--section titles-->
-        <td style="width:270px;"><h3 style="color:#CE0D45; text-align:center;">Input Values</h3></td>
-        <td style="width:270px;"><div style="color:#CE0D45; text-align:center;">Misc Information</div></td>
+        <td style="width:270px;"><h3 style="color:#CE0D45; text-align:center; ">Input Values</h3></td>
+        <td style="width:270px;"><div style="color:#2F329F; text-align:center;">Misc Information</div></td>
     </tr>
     <tr id="calculations">
         <td style="padding:15px 13px 0px 20px;">
@@ -129,7 +131,7 @@
             <div class="smallbreak"></div> <!--smaller text break-->
             <table>
                 <tr>
-                    <td id="textright">Person height</td>
+                    <td id="textright">Starting height</td>
                     <td id="fieldleft"><input type='number' step="any" class="inputfield" id="heightperson" onchange="changeit()"/>&nbsp;
                         <div class="units" id="heightpersonunits"></div> 
                         </td>
@@ -155,13 +157,13 @@
 
             <!--<div style="text-align:center;"><input type="submit" value="Submit Values" onclick="submit()"></div>-->
         </td>
-        <td style="padding:10px 10px 8px 18px;">
+        <td style="padding:0px 10px 8px 18px;">
             <!--Additional variable facts, also errors and warnings-->
-            <table style="border-collapse:separate; border-spacing:0 5px;">
+            <table style="border-collapse:separate; border-spacing:0 10px;">
                 <tr class="t_row">  
-                    <td style="text-align:right;">Rotation rate:&nbsp;&nbsp;</td>
+                    <td style="text-align:right;">Rotation rate &nbsp;&nbsp;<div></div>(station):&nbsp;</td>
                     <td id="rotationalvelocity" class="output"></td>
-                    <td id="rotationalvelocityunits"></td>
+                    <td id="rotationalvelocityunits" style="vertical-align:bottom;"></td>
                 </tr>
                 <tr class="t_row">
                     <td style="text-align:right;">Vertical &nbsp;&nbsp;<div></div>throw speed:&nbsp;</td>
@@ -177,7 +179,7 @@
                 <tr class="t_row">  
                     <td style="text-align:right;">Centripetal&nbsp;&nbsp;<div></div> acceleration at floor:&nbsp;</td>
                     <td id="centripaccel" class="output"></td>
-                    <td id="centripaccelunits"></td>
+                    <td id="centripaccelunits" style="vertical-align:bottom;"></td>
                 </tr>
                 <tr class="t_row">
                     <td style="text-align:right;">Standing &nbsp;&nbsp;<div></div> speed of person:&nbsp;</td>
@@ -195,7 +197,7 @@
     </tr>
     <tr>
         <td><h3 style="color:#CE0D45; text-align:center;">Results on station</h3></td>
-        <td><div style="color:#CE0D45; text-align:center;">Expected values on Earth</div></td>
+        <td><div style="color:#2F329F; text-align:center;">Expected values on Earth</div></td>
     </tr>
     <tr>
         <td style="padding:10px 5px 5px 20px;">
@@ -224,7 +226,7 @@
             </table>
         </td>   
 
-        <td style="padding:10px 5px 5px 30px;">
+        <td style="padding:10px 5px 5px 35px;">
             <table style="border-collapse:separate; border-spacing:0 5px; margin-top:-18px;">
             <tr>
                 <td style="text-align:right;"><div>Time in the air:&nbsp;&nbsp;</td>

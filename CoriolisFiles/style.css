@@ -6,6 +6,11 @@ p {
 	text-align:right;
 }
 
+table.model {
+	margin-left:auto; 
+	margin-right:auto;
+}
+
 .units {
 	display:inline-block;		
 }
@@ -25,4 +30,5 @@ p {
 
 .output {
 	text-align:right;
+	vertical-align:bottom;
 }

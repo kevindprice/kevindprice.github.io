@@ -1,10 +1,10 @@
 
 var units = "ft";
-var height_person = 6;
+var height_start = 4;
 var radius = 25;
 var gs = 1;
-var heightthrown = 3;
-var mouseover = false; //input values on first mouseover. Only first.
+var height_thrown = 3;
+//var mouseover = false; //input values on first mouseover. Only first.
 var allatonce = false; //used so that some functions can change all the values, and submit only once.
 
 function setunits(setting) {
@@ -76,15 +76,15 @@ function changeit()
 }
 	
 function setfields() {
-	if(mouseover==false) //only set the fields when you first move the mouse over.
-	{	
+	//if(mouseover==false) //only set the fields when you first move the mouse over.
+	//{	
 		allatonce=true;
 		
-		mouseover=true;
+		//mouseover=true;
 
-		document.getElementById("heightperson").value = height_person
+		document.getElementById("heightperson").value = height_start
 		document.getElementById("diameter").value = radius*2
-		document.getElementById("heightthrown").value = heightthrown
+		document.getElementById("heightthrown").value = height_thrown
 		document.getElementById("percentgravity").value = gs * 100
 		
 		outputgs(gs * 100)
@@ -92,22 +92,23 @@ function setfields() {
 		document.getElementById('imperial').checked = true;
 		units="ft"
 		setunits(units);
+
+		allatonce=false;
 		
 		submit()
 		
 		
-		allatonce=false;		
-	}
+	//}
 	//otherwise do nothing
 }
 
 //What happens after the person pushes the submit button...
 function submit() {
 	//Get variables
-    height_person = Number(document.getElementById("heightperson").value);
+    height_start = Number(document.getElementById("heightperson").value);
     var diameter = Number(document.getElementById("diameter").value);
 	gs = Number(document.getElementById("percentgravity").value) / 100;
-    heightthrown = Number(document.getElementById("heightthrown").value);
+    height_thrown = Number(document.getElementById("heightthrown").value);
     //angle = Number(document.getElementById("anglethrown").value);
 
 	radius = diameter/2
@@ -151,9 +152,9 @@ function submit() {
 	//a = omega^2 * r  eqn with rotational velocity
 	var omega = Math.sqrt( g_accel / radius );
 
-	var hstart = height_person * (2/3);
+	//var height_start = height_person * (2/3);
 	
-	var r_onball = radius - hstart;
+	var r_onball = radius - height_start;
 
 	var g_onball = omega*omega*r_onball;
 	
@@ -161,12 +162,12 @@ function submit() {
 	
 	
 	//Now get the starting velocities.
-	var start_v_y = Math.sqrt( 2 * accel_earth * heightthrown ) //calculated comparing to Earth's gravity
+	var start_v_y = Math.sqrt( 2 * accel_earth * height_thrown ) //calculated comparing to Earth's gravity
 	var start_v_x = -1 * Math.sqrt( g_onball * r_onball ) //-1 b/c station is rotating clockwise
 
 
 	//expected values
-	var expectedheight = hstart + heightthrown
+	var expectedheight = height_start + height_thrown
 	document.getElementById("expectedheight").innerHTML = round( expectedheight )
 	document.getElementById("expectedheightunits").innerHTML = 	"&nbsp;" + units
 	document.getElementById("expectedtime").innerHTML = round( Math.sqrt( 2 * expectedheight / accel_earth ) + (start_v_y / accel_earth)  )
@@ -233,7 +234,7 @@ function submit() {
 	//Starting values
 	var test_x = start_vtotal*(time/10) //Starting test increment
 	var direction = -1  //iterate leftwards to start.
-	var maxvalue = hstart
+	var maxvalue = height_start
 
 	var current_x = 0    //ball goes left. Negative.
 	var current_y = 0
@@ -372,12 +373,12 @@ function submit() {
 	}*/
 
 
-	if(height_person > radius )
+	if(height_start > radius )
 	{
-		errortext += "Error: The person is larger than the radius of the station.<br/>";
+		errortext += "Warning: The starting height is greater than the radius of the station (expect the unexpected).<br/>";
 	}
 	
-	if(heightthrown > (2 * radius) )
+	if(height_thrown > (2 * radius) )
 	{
 		errortext += "Warning: the throwing height is larger than the station (the ball will just hit the ceiling).<br/>";
 	}
