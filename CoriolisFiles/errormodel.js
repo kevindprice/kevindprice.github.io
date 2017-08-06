@@ -8,10 +8,15 @@ var height_thrown = 3;
 var allatonce = false; //used so that some functions can change all the values, and submit only once.
 
 function setunits(setting) {
-	document.getElementById("heightpersonunits").innerHTML = setting;
-    document.getElementById("diameterunits").innerHTML = setting;
-    document.getElementById("heightthrownunits").innerHTML = setting;
-	document.getElementById("expecteddistunits").innerHTML = setting;
+	if(setting=="m")
+	{ var changeto="metric" }
+	else if(setting=="ft")
+	{ var changeto="imperial" }
+
+	document.getElementById("heightpersonunits").className = changeto;
+    document.getElementById("diameterunits").className = changeto;
+    document.getElementById("heightthrownunits").className = changeto;
+	document.getElementById("expecteddistunits").className = changeto;
 }
 
 

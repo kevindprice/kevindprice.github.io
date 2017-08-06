@@ -122,7 +122,7 @@
         <td style="width:270px;"><div style="color:#2F329F; text-align:center;">Misc Information</div></td>
     </tr>
     <tr id="calculations">
-        <td style="padding:15px 13px 0px 20px;">
+        <td style="padding:15px 8px 0px 20px;">
             <!--input fields-->
             <form action="" style="margin-bottom:5px;">
               <input type="radio" name="units" id="imperial" value="ft" onClick="convertunits(this.value)"/> Imperial (feet)&nbsp;&nbsp;
@@ -132,25 +132,28 @@
             <table>
                 <tr>
                     <td id="textright">Starting height</td>
-                    <td id="fieldleft"><input type='number' step="any" class="inputfield" id="heightperson" onchange="changeit()"/>&nbsp;
-                        <div class="units" id="heightpersonunits"></div> 
+                    <td id="fieldleft"><div id="heightpersonunits"><input type='number' step="any" class="inputfield" id="heightperson" onchange="changeit()"/></div>
+
+                    &nbsp;
+                        <!--<div class="units" id="heightpersonunits"></div>-->
                         </td>
                 </tr>
                 <tr>
                     <td id="textright">Station diameter</td>
-                    <td id="fieldleft"><input type='number' step="any" class="inputfield" id="diameter" onchange="changeit()"/>&nbsp;
-                        <div class="units" id="diameterunits"></div></td>
-                </tr>
-                <tr>
-                    <td id="textright">Percent gravity</td>
-                    <td id="fieldleft"><input type='number' step="any" class="inputfield" id="percentgravity" onchange="outputgs(this.value); changeit();" style="width:40px"/>%
-                        <div id="gravitygs" style="display:inline-block;"></div></td>
+                    <td id="fieldleft"><div id="diameterunits"><input type='number' step="any" class="inputfield" id="diameter" onchange="changeit()"/></div>&nbsp;
+                        </td>
                 </tr>
                 <tr>
                     <td id="textright">Height thrown<div></div>"up" on Earth</td>
-                    <td id="fieldleft"><input type='number' step="any" class="inputfield" id="heightthrown" onchange="changeit()"/>&nbsp;
-                        <div class="units" id="heightthrownunits"></div></td>
+                    <td id="fieldleft"><div id="heightthrownunits"><input type='number' step="any" class="inputfield" id="heightthrown" onchange="changeit()"/></div>&nbsp;
+                        </td>
                 </tr>
+                <tr>
+                    <td id="textright">Percent gravity</td>
+                    <td id="fieldleft"><div class="percentsign"><input type='number' step="any" class="inputfield" id="percentgravity" onchange="outputgs(this.value); changeit();" style="width:63px"/></div>
+                        <div id="gravitygs" style="display:inline-block;"></div></td>
+                </tr>
+
             </table><br/>
 
             <div class="smallbreak"></div> <!--smaller text break-->
@@ -161,7 +164,7 @@
             <!--Additional variable facts, also errors and warnings-->
             <table style="border-collapse:separate; border-spacing:0 10px;">
                 <tr class="t_row">  
-                    <td style="text-align:right;">Rotation rate &nbsp;&nbsp;<div></div>(station):&nbsp;</td>
+                    <td style="text-align:right;">Rotation rate&nbsp;&nbsp;<div></div>(station):&nbsp;</td>
                     <td id="rotationalvelocity" class="output"></td>
                     <td id="rotationalvelocityunits" style="vertical-align:bottom;"></td>
                 </tr>
@@ -241,7 +244,7 @@
             <tr>
                 <td style="text-align:right;"><div>Distance "away"&nbsp;&nbsp;&nbsp;<div></div> at landing:&nbsp;&nbsp;</td>
                 <td id="expecteddist" class="output">0&nbsp;</td>
-                <td id="expecteddistunits">ft</td>
+                <td id="expecteddistunits" style="vertical-align:bottom;">ft</td>
             </tr>
             </table>
         </td>
