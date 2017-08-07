@@ -107,11 +107,34 @@ function setfields() {
 	//otherwise do nothing
 }
 
-function calc_error(diameter, height_start, gs, height_thrown) {
-	
+//What happens after the person pushes the submit button...
+function submit() {
+	//Get variables
+    height_start = Number(document.getElementById("heightperson").value);
+    var diameter = Number(document.getElementById("diameter").value);
+	gs = Number(document.getElementById("percentgravity").value) / 100;
+    height_thrown = Number(document.getElementById("heightthrown").value);
+    //angle = Number(document.getElementById("anglethrown").value);
+
 	radius = diameter/2
-	
-		var accel_earth
+	//clear the output fields.
+	//////////////////////////
+	document.getElementById("centripaccel").innerHTML = ""
+	document.getElementById("standingvelocity").innerHTML = ""
+	document.getElementById("standingvelocity2").innerHTML = ""
+	document.getElementById("standingvelocityunits2").innerHTML = ""
+	document.getElementById("rotationalvelocity").innerHTML = ""
+	document.getElementById("finalseparation").innerHTML = ""
+	document.getElementById("finalseparation2").innerHTML = ""
+	document.getElementById("finalseparationunits2").innerHTML = ""
+	document.getElementById("verticalvelocity").innerHTML = "";
+	document.getElementById("verticalvelocity2").innerHTML = "";
+	document.getElementById("verticalvelocityunits").innerHTML = "";
+	document.getElementById("verticalvelocityunits2").innerHTML = "";
+	document.getElementById("timeinair").innerHTML = "";
+	document.getElementById("timeinairunits").innerHTML = "";
+
+	var accel_earth
 	
 	//Get acceleration at floor.
 	if(units=="ft")
@@ -126,8 +149,6 @@ function calc_error(diameter, height_start, gs, height_thrown) {
 	
 	//CALCULATE!!! /////////////////////////////////////////
 	////////////////////////////////////////////////////////
-	
-	var standingvelocity = Math.sqrt( g_accel * radius )
 	
 	//Get variables and perform calculations here.
 	//Accurate up to about 15 decimals (17?)
@@ -149,7 +170,23 @@ function calc_error(diameter, height_start, gs, height_thrown) {
 	var start_v_y = Math.sqrt( 2 * accel_earth * height_thrown ) //calculated comparing to Earth's gravity
 	var start_v_x = -1 * Math.sqrt( g_onball * r_onball ) //-1 b/c station is rotating clockwise
 
-		//Now find intersection with the circle.
+
+	//expected values
+	var expectedheight = height_start + height_thrown
+	document.getElementById("expectedheight").innerHTML = round( expectedheight )
+	document.getElementById("expectedheightunits").innerHTML = 	"&nbsp;" + units
+	document.getElementById("expectedtime").innerHTML = round( Math.sqrt( 2 * expectedheight / accel_earth ) + (start_v_y / accel_earth)  )
+	document.getElementById("expectedtimeunits").innerHTML = "&nbsp;s"
+	
+
+
+
+
+
+
+
+	
+	//Now find intersection with the circle.
 	var slope_ball = start_v_y / start_v_x
 	
 	var sqroot1 = Math.sqrt( Math.pow(slope_ball,2) * Math.pow(r_onball,2) - ((1 + Math.pow(slope_ball,2)) * ( Math.pow(r_onball,2) - Math.pow(radius,2)  )) )
@@ -190,8 +227,6 @@ function calc_error(diameter, height_start, gs, height_thrown) {
 	var y_difference = yf_person - y_2
 	
 	var total_difference = Math.sqrt( Math.pow(x_difference,2) + Math.pow(y_difference,2) )
-
-	
 	
 	
 	
@@ -248,70 +283,17 @@ function calc_error(diameter, height_start, gs, height_thrown) {
 		lastvalue = current_value;
 	}
 	
-	
-	var answers = {
-		maxvalue: maxvalue,
-		g_accel: g_accel,
-		radius: radius,
-		standingvelocity: standingvelocity,
-		start_v_y:start_v_y,
-		omega: omega,
-		total_difference: total_difference,
-		time: time,
-		accel_earth: accel_earth
-	}
-	
-	return answers	
-}
-
-
-
-//What happens after the person pushes the submit button...
-function submit() {
-	//Get variables
-    height_start = Number(document.getElementById("heightperson").value);
-    var diameter = Number(document.getElementById("diameter").value);
-	gs = Number(document.getElementById("percentgravity").value) / 100;
-    height_thrown = Number(document.getElementById("heightthrown").value);
-    //angle = Number(document.getElementById("anglethrown").value);
-
-	//clear the output fields.
-	//////////////////////////
-	document.getElementById("centripaccel").innerHTML = ""
-	document.getElementById("standingvelocity").innerHTML = ""
-	document.getElementById("standingvelocity2").innerHTML = ""
-	document.getElementById("standingvelocityunits2").innerHTML = ""
-	document.getElementById("rotationalvelocity").innerHTML = ""
-	document.getElementById("finalseparation").innerHTML = ""
-	document.getElementById("finalseparation2").innerHTML = ""
-	document.getElementById("finalseparationunits2").innerHTML = ""
-	document.getElementById("verticalvelocity").innerHTML = "";
-	document.getElementById("verticalvelocity2").innerHTML = "";
-	document.getElementById("verticalvelocityunits").innerHTML = "";
-	document.getElementById("verticalvelocityunits2").innerHTML = "";
-	document.getElementById("timeinair").innerHTML = "";
-	document.getElementById("timeinairunits").innerHTML = "";
-
-	answers = calc_error( diameter, height_start, gs, height_thrown )
-
-	//expected values
-	var expectedheight = height_start + height_thrown
-	document.getElementById("expectedheight").innerHTML = round( expectedheight )
-	document.getElementById("expectedheightunits").innerHTML = 	"&nbsp;" + units
-	document.getElementById("expectedtime").innerHTML = round( Math.sqrt( 2 * expectedheight / answers.accel_earth ) + (answers.start_v_y / answers.accel_earth)  )
-	document.getElementById("expectedtimeunits").innerHTML = "&nbsp;s"
-
-	
-	document.getElementById("maxheightachieved").innerHTML = round(answers.maxvalue);
+	document.getElementById("maxheightachieved").innerHTML = round(maxvalue);
 	document.getElementById("maxheightachievedunits").innerHTML = units;
 	
 	//produce output.//////////////////////////////////////
 	///////////////////////////////////////////////////////
 	
-	document.getElementById("centripaccel").innerHTML = round(answers.g_accel).toString()
+	document.getElementById("centripaccel").innerHTML = round(g_accel).toString()
 	
-	document.getElementById("standingvelocity").innerHTML = round(answers.standingvelocity).toString()
-	document.getElementById("verticalvelocity").innerHTML = round(answers.start_v_y).toString()
+	var standingvelocity = Math.sqrt( g_accel * radius )
+	document.getElementById("standingvelocity").innerHTML = round(standingvelocity).toString()
+	document.getElementById("verticalvelocity").innerHTML = round(start_v_y).toString()
 
 	
 	//Show velocity values.
@@ -322,8 +304,8 @@ function submit() {
 		document.getElementById("verticalvelocityunits").innerHTML = "&nbsp;ft/s"
 		
 		
-		var standingvelocity2 = answers.standingvelocity * 0.681818
-		var verticalvelocity2 = answers.start_v_y * 0.681818
+		var standingvelocity2 = standingvelocity * 0.681818
+		var verticalvelocity2 = start_v_y * 0.681818
 		document.getElementById("standingvelocity2").innerHTML = "(" + round(standingvelocity2).toString();
 		document.getElementById("standingvelocityunits2").innerHTML = "&nbsp;mph)";		
 		document.getElementById("verticalvelocity2").innerHTML = "(" + round(verticalvelocity2).toString();
@@ -335,16 +317,16 @@ function submit() {
 		document.getElementById("standingvelocityunits").innerHTML = "m/s";
 		document.getElementById("verticalvelocityunits").innerHTML = "m/s";
 		
-		var standingvelocity2 = answers.standingvelocity * 3.6;
-		var verticalvelocity2 = answers.start_v_y * 3.6;
+		var standingvelocity2 = standingvelocity * 3.6;
+		var verticalvelocity2 = start_v_y * 3.6;
 		document.getElementById("standingvelocity2").innerHTML = "(" + round(standingvelocity2).toString();
 		document.getElementById("standingvelocityunits2").innerHTML = "km/h)";
 		document.getElementById("verticalvelocity2").innerHTML = "(" + round(verticalvelocity2).toString();
 		document.getElementById("verticalvelocityunits2").innerHTML = "km/h)";
 	}
 	
-	var rotational_units = "rev/s" //not likely. But I validate below.
-	var rotation = answers.omega / (2 * Math.PI);
+	rotational_units = "rev/s" //not likely. But I validate below.
+	var rotation = omega / (2 * Math.PI);
 	if(rotation < 1)
 	{
 		rotational_units = "&nbsp;rpm"
@@ -359,35 +341,28 @@ function submit() {
 	document.getElementById("rotationalvelocity").innerHTML = round(rotation).toString()
 	document.getElementById("rotationalvelocityunits").innerHTML = rotational_units
 	
-	document.getElementById("finalseparation").innerHTML = round(answers.total_difference).toString()
+	document.getElementById("finalseparation").innerHTML = round(total_difference).toString()
 	document.getElementById("finalseparationunits").innerHTML = units
 	
-	document.getElementById("timeinair").innerHTML = round(answers.time).toString()
+	document.getElementById("timeinair").innerHTML = round(time).toString()
 	document.getElementById("timeinairunits").innerHTML = "s"
 	
 	
-	if(answers.total_difference < 1.0)
+	if(total_difference < 1.0)
 	{	
-		//aligns text to center
-		document.getElementById("finalseparation2").className="answer";
-		document.getElementById("finalseparationunits2").className="answer"; 
-		
 		if(units=="ft")
 		{
-			var finalseparation2 = answers.total_difference * 12
+			var finalseparation2 = total_difference * 12
 			document.getElementById("finalseparation2").innerHTML = "(" + round(finalseparation2).toString();
 			document.getElementById("finalseparationunits2").innerHTML = "in)";
 		}
 		
 		if(units=="m")
 		{
-			var finalseparation2 = answers.total_difference * 100
+			var finalseparation2 = total_difference * 100
 			document.getElementById("finalseparation2").innerHTML = "(" + round(finalseparation2).toString();
 			document.getElementById("finalseparationunits2").innerHTML = "cm)";
 		}
-	} else {  //aligns text to bottom
-		document.getElementById("finalseparation2").className=""; 
-		document.getElementById("finalseparationunits2").className="";
 	}
 	
 
@@ -403,12 +378,12 @@ function submit() {
 	}*/
 
 
-	if(height_start > answers.radius )
+	if(height_start > radius )
 	{
 		errortext += "Warning: The starting height is greater than the radius of the station (expect the unexpected).<br/>";
 	}
 	
-	if(height_thrown > (2 * answers.radius) )
+	if(height_thrown > (2 * radius) )
 	{
 		errortext += "Warning: the throwing height is larger than the station (the ball will just hit the ceiling).<br/>";
 	}
@@ -420,14 +395,14 @@ function submit() {
 
 	if(units=="ft")
 	{
-		var throw_vel = round( answers.start_v_y * 0.681818 );
+		throw_vel = round( start_v_y * 0.681818 );
 		if(throw_vel > 100)
 		{
 			errortext += "Warning: the throwing height requires a throwing velocity of " + throw_vel + " mph. This is unrealistic even for a pro-baseball pitcher.<br/>";
 		}
 	} else if(units=="m")
 	{
-		var throw_vel_mph = round( answers.start_v_y * 2.23694 );
+		throw_vel_mph = round( start_v_y * 2.23694 );
 		if(throw_vel_mph > 100)
 		{
 			errortext += errortext, "Warning: the throwing height requires a throwing velocity of " + start_v_y + " m/s. This is unrealistic even for a pro-baseball pitcher.<br/>";

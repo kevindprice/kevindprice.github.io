@@ -33,6 +33,7 @@ table.model {
 .output {
 	text-align:right;
 	vertical-align:bottom;
+	margin-bottom:0px;
 }
 
 div.imperial, div.metric, div.percentsign{
@@ -65,4 +66,8 @@ div.metric::after{
 #gravitygs {
 	position:relative;
 	bottom:4px;
+}
+
+.answer {
+	margin-bottom:20px;	
 }
