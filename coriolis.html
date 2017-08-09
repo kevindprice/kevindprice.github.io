@@ -140,12 +140,12 @@
                 </tr>
                 <tr>
                     <td id="textright">Station diameter</td>
-                    <td id="fieldleft"><div id="diameterunits"><input type='number' step="any" class="inputfield" id="diameter" onchange="changeit()"/></div>&nbsp;
+                    <td id="fieldleft"><div id="diameterunits"><input type='number' step="any" class="inputfield" min="0" max="1000000000000" id="diameter" onchange="changeit()"/></div>&nbsp;
                         </td>
                 </tr>
                 <tr>
                     <td id="textright">Height thrown<div></div>"up" on Earth</td>
-                    <td id="fieldleft"><div id="heightthrownunits"><input type='number' step="any" class="inputfield" id="heightthrown" onchange="changeit()"/></div>&nbsp;
+                    <td id="fieldleft"><div id="heightthrownunits"><input type='number' min="0" step="any" class="inputfield" id="heightthrown" onchange="changeit()"/></div>&nbsp;
                         </td>
                 </tr>
                 <tr>
@@ -254,6 +254,12 @@
 <div id="error" style="color:red; font-weight:bold; text-align:center;"></div>
 
 <p><br/></p>
+<h5 style="text-align:center;">What This Throw Would Look Like</h5>
+
+<div style="text-align:center;">
+<canvas id="demo"></canvas>
+</div>
+
 <script type="text/javascript" src="CoriolisFiles/decimal.js"></script>
 
 <script onload="setfields()" type="text/javascript" src="CoriolisFiles/errormodel.js"></script>

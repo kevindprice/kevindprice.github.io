@@ -262,8 +262,6 @@ function drawGrid()
     var canvas = document.getElementById("canvas");
     canvas.height = CANVAS_HEIGHT;
     canvas.width = CANVAS_WIDTH;
-    
-    var canvas = document.getElementById("canvas");
     var context = canvas.getContext("2d");
 
     //refresh the page
