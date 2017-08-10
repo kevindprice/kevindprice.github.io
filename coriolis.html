@@ -110,159 +110,9 @@
 <p>My initial assumptions are that our virtual station has a diameter of 50 feet and you throw from a standing position at 4 feet off the ground. As you experiment with the values, you will see that the final result changes. Spoiler alert: the coin does not land at your feet!</p>
 <!-- This is the table model script -->
 
-<p><link type="text/css" rel="stylesheet" href="CoriolisFiles/style.css"></p>
-<h5 style="text-align:center;">A Coin Toss on a Virtual Space Station</h5>
+<div id="inserthere"></div>
 
-<!--onmouseover="setfields()"-->
-
-<table border="1" class="model">
-    <tr>
-        <!--section titles-->
-        <td style="width:270px;"><h3 style="color:#CE0D45; text-align:center; ">Input Values</h3></td>
-        <td style="width:270px;"><div style="color:#2F329F; text-align:center;">Misc Information</div></td>
-    </tr>
-    <tr id="calculations">
-        <td style="padding:15px 8px 0px 20px;">
-            <!--input fields-->
-            <form action="" style="margin-bottom:5px;">
-              <input type="radio" name="units" id="imperial" value="ft" onClick="convertunits(this.value)"/> Imperial (feet)&nbsp;&nbsp;
-              <input type="radio" name="units" id="metric" checked="checked" value="m" onClick="convertunits(this.value)"/> Metric (meters)
-            </form>
-            <div class="smallbreak"></div> <!--smaller text break-->
-            <table>
-                <tr>
-                    <td id="textright">Starting height</td>
-                    <td id="fieldleft"><div id="heightpersonunits"><input type='number' step="any" min="0" class="inputfield" id="heightperson" onchange="changeit()"/></div>
-
-                    &nbsp;
-                        <!--<div class="units" id="heightpersonunits"></div>-->
-                        </td>
-                </tr>
-                <tr>
-                    <td id="textright">Station diameter</td>
-                    <td id="fieldleft"><div id="diameterunits"><input type='number' step="any" class="inputfield" min="0" max="1000000000000" id="diameter" onchange="changeit()"/></div>&nbsp;
-                        </td>
-                </tr>
-                <tr>
-                    <td id="textright">Height thrown<div></div>"up" on Earth</td>
-                    <td id="fieldleft"><div id="heightthrownunits"><input type='number' min="0" step="any" class="inputfield" id="heightthrown" onchange="changeit()"/></div>&nbsp;
-                        </td>
-                </tr>
-                <tr>
-                    <td id="textright">Percent gravity</td>
-                    <td id="fieldleft"><div class="percentsign"><input type='number' step="any" class="inputfield" id="percentgravity" onchange="outputgs(this.value); changeit();" style="width:63px"/></div>
-                        <div id="gravitygs" style="display:inline-block;"></div></td>
-                </tr>
-
-            </table><br/>
-
-            <div class="smallbreak"></div> <!--smaller text break-->
-
-            <!--<div style="text-align:center;"><input type="submit" value="Submit Values" onclick="submit()"></div>-->
-        </td>
-        <td style="padding:0px 10px 8px 18px;">
-            <!--Additional variable facts, also errors and warnings-->
-            <table style="border-collapse:separate; border-spacing:0 10px;">
-                <tr class="t_row">  
-                    <td style="text-align:right;">Rotation rate&nbsp;&nbsp;<div></div>(station):&nbsp;</td>
-                    <td id="rotationalvelocity" class="output"></td>
-                    <td id="rotationalvelocityunits" style="vertical-align:bottom;"></td>
-                </tr>
-                <tr class="t_row">
-                    <td style="text-align:right;">Vertical &nbsp;&nbsp;<div></div>throw speed:&nbsp;</td>
-                    <td>
-                        <div id="verticalvelocity" class="output"></div>
-                        <div id="verticalvelocity2" class="output"></div>
-                    </td>
-                    <td>
-                        <div id="verticalvelocityunits"></div>
-                        <div id="verticalvelocityunits2"></div>
-                    </td>
-                </tr>
-                <tr class="t_row">  
-                    <td style="text-align:right;">Centripetal&nbsp;&nbsp;<div></div> acceleration at floor:&nbsp;</td>
-                    <td id="centripaccel" class="output"></td>
-                    <td id="centripaccelunits" style="vertical-align:bottom;"></td>
-                </tr>
-                <tr class="t_row">
-                    <td style="text-align:right;">Standing &nbsp;&nbsp;<div></div> speed of person:&nbsp;</td>
-                    <td>
-                        <div id="standingvelocity" class="output"></div>
-                        <div id="standingvelocity2" class="output"></div>
-                    </td>
-                    <td>
-                        <div id="standingvelocityunits"></div>
-                        <div id="standingvelocityunits2"></div>
-                    </td>
-                </tr>
-            </table>
-        </td>
-    </tr>
-    <tr>
-        <td><h3 style="color:#CE0D45; text-align:center;">Results on station</h3></td>
-        <td><div style="color:#2F329F; text-align:center;">Expected values on Earth</div></td>
-    </tr>
-    <tr>
-        <td style="padding:10px 5px 5px 20px;">
-            <table style="border-collapse:separate; border-spacing:0 5px;">
-                <tr class="t_row">
-                    <td style="text-align:right;">Time in the air:&nbsp;</td>
-                    <td id="timeinair" class="output"></td>
-                    <td id="timeinairunits"></td>
-                </tr>
-                <tr class="t_row">
-                    <td style="text-align:right;">Max height achieved:&nbsp;</td>
-                    <td id="maxheightachieved" class="output"></td>
-                    <td id="maxheightachievedunits"></td>
-                </tr>
-                <tr class="t_row" style="font-weight:bold;">
-                    <td style="text-align:right;"><div style="color:#CE0D45;"><div>Distance "away"&nbsp;&nbsp;</div> at landing:&nbsp;</div>&nbsp;&nbsp;</td>
-                    <td>
-                        <div id="finalseparation"></div>
-                        <div id="finalseparation2"></div>
-                    </td>
-                    <td>
-                        <div id="finalseparationunits"></div>
-                        <div id="finalseparationunits2"></div>
-                    </td>
-                </tr>
-            </table>
-        </td>   
-
-        <td style="padding:10px 5px 5px 35px;">
-            <table style="border-collapse:separate; border-spacing:0 5px; margin-top:-18px;">
-            <tr>
-                <td style="text-align:right;"><div>Time in the air:&nbsp;&nbsp;</td>
-                <td id="expectedtime"></td>
-                <td id="expectedtimeunits"></td>
-            </tr>
-            <tr>
-                <td style="text-align:right;"><div>Max height:&nbsp;&nbsp;<div></div></td>
-                <td id="expectedheight" class="output"></td>
-                <td id="expectedheightunits"></td>
-            </tr>
-            <tr>
-                <td style="text-align:right;"><div>Distance "away"&nbsp;&nbsp;&nbsp;<div></div> at landing:&nbsp;&nbsp;</td>
-                <td id="expecteddist" class="output">0&nbsp;</td>
-                <td id="expecteddistunits" style="vertical-align:bottom;">ft</td>
-            </tr>
-            </table>
-        </td>
-    </tr>
-</table>
-
-<div id="error" style="color:red; font-weight:bold; text-align:center;"></div>
-
-<p><br/></p>
-<h5 style="text-align:center;">What This Throw Would Look Like</h5>
-
-<div style="text-align:center;">
-<canvas id="demo"></canvas>
-</div>
-
-<script type="text/javascript" src="CoriolisFiles/decimal.js"></script>
-
-<script onload="setfields()" type="text/javascript" src="CoriolisFiles/errormodel.js"></script>
+<script type="text/javascript" src="CoriolisFiles/insertelement.js" onload="insertHTML('insertHTML', 'CoriolisModel.html')"></script>
 
 <p>The coin would land about as far over as you threw it upwards! What causes this weirdness? The Coriolis effect!</p>
 <p>If you would like to see the math I used to create my model, follow <a href="./coriolis-math.html">this link</a>.</p>
@@ -322,16 +172,17 @@
 <p><br/></p>
 <h3>Designing a real space station that minimizes the Coriolis effect</h3>
 <p>As you increase the size of an artificial-gravity space station, the Coriolis effect decreases! You can see this result in the graph below, where I have modeled our coin toss.</p>
-<p><img style="margin: 5px 0px 5px 0px;" src="CoriolisFiles/CoriolisGraph.png" width=525 height=525/></p>
+<p><img style="margin: 5px 0px 5px 0px;" src="CoriolisFiles/CoriolisGraph.png" width=525 height=525/>
+<p style="margin-top:-15px;"><sup>This uses the same assumptions as stated in the introduction: the coin is thrown starting from four feet, then three feet up into the air. My Python code to generate this can be found <a href="CoriolisFiles/CoriolisTable.py">here</a>.</sup></p></p>
 <p>The larger the space station, the less nauseating and less disorienting it would be. It surprises me how slowly this happens. To achieve earth-“normalness” (close to zero distance from expected), you would need a massively huge station!</p>
 <p>It is unclear how large the station would need to be to prevent nausea. <a href="https://en.wikipedia.org/wiki/Artificial_gravity">This</a> Wikipedia page discusses the issue, suggesting that no effects would be felt with a rotation rate of less than 2 rpm, however this has not been researched extensively. If this is true, a rotation rate of 2 rpm would require a diameter of 1600 ft (500 m) with full gravity. The International Space Station is 356 feet wide, less than a quarter the size.</p>
 <p><img style="float: right; margin: 5px 0px 5px 10px;" src="CoriolisFiles/dream-space-colony.jpg" width=260 height=250/></p>
 <p>Interestingly, NASA once proposed and designed a massive ring station as a thought experiment in 1975, calling it a "Stanford torus." This is the sort of environment that would minimize the Coriolis effect. It has a proposed diameter of 1800 meters (1.1 miles); the coin toss would produce an error of 8 cm (3 in).</p>
 <p>This NASA thought experiment was not meant to be practical (or to be built), but simply to serve as an example of a theoretical self-sustaining massive space station. The picture above is an artist's rendering of it. <a href="http://www.ibtimes.co.uk/nasas-beautiful-dreams-self-sufficient-space-colony-revealed-1631672">Here</a> is an interesting news story about it.</p>
-<p>If it requires such a large diameter to minimize the Coriolis effect, then how can a decent space station ever be constructed? The station does not necessarily <em>need</em> to be circular. What if, instead of a large ring, we created two smaller stations connected by a tether? These two sections could spin around each other and produce gravity.</p>
+<p>If it requires such a large diameter to minimize the Coriolis effect, then how can a decent space station ever be constructed? The station does not necessarily <em>need</em> to be circular. What if, instead of building a large ring, we created two smaller stations connected by a tether? These two sections could spin around each other and produce gravity.</p>
 <div style="text-align:center;"><img style="margin: -10px 10px 10px 10px;" src="CoriolisFiles/TwoCapsules.png" width=300 height=300/></div>
 
-<p>A space station like this could have an arbitrarily large diameter, defined only by the strength of the tether holding it. This might be possible in the near future.</p>
+<p>A space station like this could have an arbitrarily large diameter, defined only by the strength of the tether holding the capsules together. This might be possible in the near future.</p>
 <p><br/></p>
 <h3>Conclusion</h3>
 <p>We have a long way to go before we'll be producing artificial gravity environments in space. It would be difficult to accomplish well, though it will also be essential to space travel. If we were to move around in a spinning space station, we would feel unexpected "forces" acting on us, and the environment may be nauseating. Nonetheless, the Coriolis effect gives us something to think about. Now we know how it would work.</p>
