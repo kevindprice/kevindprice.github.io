@@ -68,6 +68,12 @@ div.metric::after{
 	bottom:4px;
 }
 
+.geigercontrols {
+	text-align:right;
+	color:#CE0D45;
+	font-weight:bold;
+}
+
 .answer {
 	margin-bottom:20px;	
 }

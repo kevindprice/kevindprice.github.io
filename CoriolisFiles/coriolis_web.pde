@@ -20,6 +20,7 @@ int fra = 30;              // frame rate
 Pts[] pt = new Pts[npts*nsou];
 Pts[] tr = new Pts[npts*nsou];
 int next = 0, trnext = 0;
+boolean active = false;
 
 //Starting values
 float ang = 0, //current angle of the circle (from what reference?)
@@ -32,6 +33,22 @@ void setup() {
   strokeCap(SQUARE); noStroke(); fill(60, 45, 100); 
   for(int i=0; i<npts*nsou; i++) { pt[i] = new Pts( wid, hig, 0.0, 0.0); }
   font = loadFont("Verdana-14.vlw");  textFont(font);
+  
+  noLoop();   //pause the script until user clickes on it
+			//(Is a bit computationally expensive)
+}
+
+void mousePressed() {
+  if(active)
+  {
+	active=false;
+	noLoop();
+  }
+  else
+  {
+	active=true;
+	loop();
+  }
 }
 
 void draw() {
@@ -98,16 +115,16 @@ void draw() {
 
 void keyPressed() {
 if (key == 'a') {            // speed up rotation
-    dang -= 0.001;  rot = 2*PI/dang;  //clockwise
+    dang -= 0.005;  rot = 2*PI/dang;  //clockwise
   }
   if (key == 'z') {            // slow down rotation
-    dang += 0.001;  rot = 2*PI/dang;  //clockwise
+    dang += 0.005;  rot = 2*PI/dang;  //clockwise
   }
   if (key == 's') {            // increase water pressure
-    prs += 1;  
+    prs += 3;  
   }
   if (key == 'x') {            // decrease water pressure
-    if(prs>0) { prs -= 1; }  
+    if(prs>0) { prs -= 3; }  
   }
   if (key == 'd') {            // increase frame rate
     fra += 1;  
