@@ -1,36 +1,45 @@
 
-var units = "ft";
-//var height_start = 4;
-//var radius = 25;
-//var gs = 1;
-//var height_thrown = 3;
-//var mouseover = false; //input values on first mouseover. Only first.
-var allatonce = false; //used so that some functions can change all the values, and submit only once.
+var units = "ft";  //declares the unit type the page is using, either "ft" or "m".
+var allatonce = false; //used so that some functions can change all the values
+					   //and submit only once.
 
 CANVAS_WIDTH = 300
 CANVAS_HEIGHT = CANVAS_WIDTH
 BUFFER = CANVAS_WIDTH/15
 
-Decimal.set({ precision: 30 })
+Decimal.set({ precision: 30 })  //accuracy of 30 decimals for the initial calculation
 
-var PI = Decimal.acos(-1)
+var PI = Decimal.acos(-1)  //more accurate than Math.PI
 
+//Set the fields after initially loading the page.
+function setfields() {
+	allatonce=true;
+	
+	//mouseover=true;
+	var percentgravity = 100;
+	
+	document.getElementById("heightperson").value = 4
+	document.getElementById("diameter").value = 50
+	document.getElementById("heightthrown").value = 3
+	document.getElementById("percentgravity").value = percentgravity
+	
+	outputgs(percentgravity)
+	
+	document.getElementById('imperial').checked = true;
+	units="ft"
+	setunits(units);
 
-function setunits(setting) {
-	if(setting=="m")
-	{ var changeto="metric" }
-	else if(setting=="ft")
-	{ var changeto="imperial" }
-
-	document.getElementById("heightpersonunits").className = changeto;
-    document.getElementById("diameterunits").className = changeto;
-    document.getElementById("heightthrownunits").className = changeto;
-	document.getElementById("expecteddistunits").className = changeto;
+	allatonce=false;
+	
+	submit_values()
 }
 
 
+
+//Activated by radiobutton, user changes the unit setting.
 function convertunits(setting) {
-    allatonce=true;
+    allatonce=true; //this changes ALL of the unit fields. 
+					//boolean to prevent submission until the end of the function.
 	setunits(setting)
 	
 	if(units=="ft" && setting=="m")
@@ -46,8 +55,22 @@ function convertunits(setting) {
 	}	
 	units = setting;
 	allatonce=false;
-	submit()
+	submit_values()
 }
+
+//change the units displayed in the table, after changing the unit setting
+function setunits(setting) {
+	if(setting=="m")
+	{ var changeto="metric" }
+	else if(setting=="ft")
+	{ var changeto="imperial" }
+
+	document.getElementById("heightpersonunits").className = changeto;
+    document.getElementById("diameterunits").className = changeto;
+    document.getElementById("heightthrownunits").className = changeto;
+	document.getElementById("expecteddistunits").className = changeto;
+}
+
 
 //round to the nearest thousandth.
 function round(num) {   //, places) {
@@ -85,42 +108,14 @@ function changeit()
 {
 	if(allatonce == false)
 	{
-		submit()
+		submit_values()
 	}
 }
 	
-function setfields() {
-	//if(mouseover==false) //only set the fields when you first move the mouse over.
-	//{	
-		allatonce=true;
-		
-		//mouseover=true;
-		var percentgravity = 100;
-		
-		document.getElementById("heightperson").value = 4
-		document.getElementById("diameter").value = 50
-		document.getElementById("heightthrown").value = 3
-		document.getElementById("percentgravity").value = percentgravity
-		
-		outputgs(percentgravity)
-		
-		document.getElementById('imperial').checked = true;
-		units="ft"
-		setunits(units);
 
-		allatonce=false;
-		
-		submit()
-		
-		
-	//}
-	//otherwise do nothing
-}
-
-
-
-function RelativePoint ( time, radius, omega, slope, height_start, start_v_x ) {
-	//solve for person's location
+function AbsolutePoints( time, radius, omega, slope, height_start, start_v_x)
+{
+	//solve for the location of the person and the coin.
 
 	var theta_op = (3*PI / 2) - (omega * time) //person's angle, from origin to person
 	
@@ -130,34 +125,42 @@ function RelativePoint ( time, radius, omega, slope, height_start, start_v_x ) {
 	var x_coin = start_v_x * time
 	var y_coin = (slope * x_coin) - (radius - height_start)
 	
-	var x_diff = x_coin - x_person
-	var y_diff = y_coin - y_person
+	this.time = time
+	this.x_person = x_person
+	this.y_person = y_person
+	this.x_coin = x_coin
+	this.y_coin = y_coin
+}
 
+
+function RelativePoint( points )
+{
+	var x_diff = points.x_coin - points.x_person
+	var y_diff = points.y_coin - points.y_person
 	var dist = Math.sqrt( Math.pow( (y_diff), 2) + Math.pow( (x_diff), 2) )
 
-	var theta_po = Math.atan(y_person/x_person) //person-origin
+	//horizontal-person-origin
+	var theta_po = Math.atan(points.y_person/points.x_person) 
 	
 	if(y_diff>0)
 	{
-		if(x_diff>0)   //person-coin
-		{
-			var theta_pc = (Math.PI /2) - Math.atan(x_diff / y_diff)
-		}
-		else
-		{
-			var theta_pc = Math.atan(-1*x_diff/ y_diff) + (Math.PI /2)
-		}
-		var theta_rel = (theta_pc - theta_po) // + Math.PI/2
-
+		var theta_pc = (Math.PI /2) - Math.atan(x_diff / y_diff)
+		var theta_rel = (theta_pc - theta_po)
 		var x_rel = -1 * dist * Math.sin(theta_rel)
 	}
 	else{
-		//x_diff WILL be >0 in this case.  I think. Until then... :-)
 		
-		var theta_pc = -1 * Math.atan(y_diff / x_diff)
+		if(x_diff>0)
+		{
+			//horizontal-person-coin
+			var theta_pc = -1 * Math.atan(y_diff / x_diff)
+		}
+		else
+		{
+			var theta_pc = Math.atan(x_diff / y_diff) + (Math.PI / 2)
+		}
 		
-		theta_rel = (theta_pc + theta_po)
-
+		theta_rel = (theta_pc + theta_po) //orign-person-coin
 		var x_rel = dist * Math.sin(theta_rel)
 
 	}
@@ -165,37 +168,27 @@ function RelativePoint ( time, radius, omega, slope, height_start, start_v_x ) {
 	var y_rel = dist * Math.cos(theta_rel)
 	
 	
-	this.time = time
 	this.dist = dist
 	this.x = x_rel
 	this.y = y_rel
-	this.x_person = x_person
-	this.y_person = y_person
-	this.x_coin = x_coin
-	this.y_coin = y_coin
-	this.x_diff = x_diff
-	this.y_diff = y_diff
-	this.theta_pc = theta_pc
-	this.theta_po = theta_po
-	this.theta_rel = theta_rel
-	
-	
-	this.canvasX = null;
-	this.canvasY = null;
-	
-	this.canvasPoint = function(minmaxes, canvasWidth, canvasHeight) {
-		values = canvasPoint(minmaxes, this.x, this.y, canvasWidth, canvasHeight)
-		this.canvasX = values.x
-		this.canvasY = values.y
-	}
+	//this.x_diff = x_diff
+	//this.y_diff = y_diff
+	//this.theta_pc = theta_pc
+	//this.theta_po = theta_po
+	//this.theta_rel = theta_rel
 }
 
 
-function canvasPoint(minmaxes, x, y, canvasWidth, canvasHeight) {
+function CanvasPoint(minmaxes, canvasWidth, canvasHeight, x, y) {
+	//canvasPoint can accept either X and Y coordinates or a RelativePoint.
+	if(!(typeof x=="number"))
+	{ y = x.y; x=x.x; }
+
 	var canvasX = ((x - minmaxes.minX) / minmaxes.range) * canvasWidth
 	var canvasY = canvasHeight - (( y / minmaxes.range ) * canvasHeight)
 	
-	return { x : canvasX, y : canvasY }
+	this.x = canvasX;
+	this.y = canvasY;
 }
 
 
@@ -356,7 +349,8 @@ function calc_error(diameter, height_start, gs, height_thrown) {
 	var time_increment = Number(time.div(101))
 	for(var t=0; t<=Number(time); t+=time_increment)
 	{
-		hundred.push( new RelativePoint( t, Number(radius), Number(omega), Number(slope), Number(height_start), Number(start_v_x) ) )
+		var absolutepoints = new AbsolutePoints( t, Number(radius), Number(omega), Number(slope), Number(height_start), Number(start_v_x) )
+		hundred.push( new RelativePoint( absolutepoints ) )
 	}   //*/
 
 	//do it once more at t = time.
@@ -417,8 +411,8 @@ function minmax(pointlist) {
 		{ maxY = pointlist[i].y }
 	}
 	
-	var rangeX = (maxX - minX)
-	var rangeY = (maxY - minY)
+	var rangeX = Math.abs(maxX - minX)
+	var rangeY = Math.abs(maxY - minY)
 	if(rangeX > rangeY)
 	{ var range = rangeX }
 	else
@@ -435,14 +429,15 @@ function minmax(pointlist) {
 }
 
 
-function draw_curve(pointlist, radius) {
+function draw_curve(relativepoints, radius) {
 
-	minmaxes = minmax(pointlist)
+	var minmaxes = minmax(relativepoints)
 	
+	var canvaspoints = []
 	//generate HTML canvas coordinates.
-	for(var i=0; i<pointlist.length; i++)
+	for(var i=0; i<relativepoints.length; i++)
 	{
-		pointlist[i].canvasPoint(minmaxes, CANVAS_WIDTH-2*BUFFER, CANVAS_HEIGHT-2*BUFFER)
+		canvaspoints.push(new CanvasPoint(minmaxes, CANVAS_WIDTH-2*BUFFER, CANVAS_HEIGHT-2*BUFFER, relativepoints[i]))
 	}
 
 	var canvas = document.getElementById("demo");
@@ -450,27 +445,33 @@ function draw_curve(pointlist, radius) {
     canvas.width = CANVAS_WIDTH;    
     var context = canvas.getContext("2d");
 	
-	context.moveTo(pointlist[0].canvasX+BUFFER, pointlist[0].canvasY+BUFFER); 
+	context.moveTo(canvaspoints[0].x+BUFFER, canvaspoints[0].y+BUFFER);
 	
-	for(var i=1; i<pointlist.length; i++)
+	for(var i=1; i<canvaspoints.length; i++)
 	{		
-		context.lineTo(pointlist[i].canvasX+BUFFER, pointlist[i].canvasY+BUFFER)
+		context.lineTo(canvaspoints[i].x+BUFFER, canvaspoints[i].y+BUFFER)
 		context.stroke();
-		context.moveTo(pointlist[i].canvasX+BUFFER, pointlist[i].canvasY+BUFFER)
+		context.moveTo(canvaspoints[i].x+BUFFER, canvaspoints[i].y+BUFFER)
 	}
 	
     context.stroke();
+	draw_floor(context, radius, minmaxes);
+}
 
-	//now generate the floor.
+
+//Custom circle-drawing function to render the station floor.
+
+//depending on the parameters, the station could be HUGE, or very small.
+	//If it's huge, I don't want to render the entire floor. Too big!
+	//If it's small, I DO want to render the entire floor.
+
+function draw_floor(context, radius, minmaxes)
+{
 	
 	radius = Number(radius)
 	var toconvert = 2 * minmaxes.range / radius
 	
-	
-	//depending on the parameters, the station could be HUGE, or very small.
-	//If it's huge, I don't want to render the entire floor. Too big!
-	//If it's small, I DO want to render the entire floor.
-	//However, I DO want valid values for the arc-cosine.
+	//Double-check I'm using valid values for the arc-cosine.
 	if(toconvert < 1)
 	{
 		var floor_start = Math.acos( toconvert )
@@ -481,19 +482,26 @@ function draw_curve(pointlist, radius) {
 		var floor_end = Math.PI
 	}
 	
+	
 	var arc = floor_end - floor_start
-
 
 	var bottomcurve = []
 	for(var i=floor_start; i<floor_end; i+=arc/100)
 	{	
 		var x = radius * Math.cos(i)
 		var y = -1 * radius * Math.sin(i) + radius //-1, bottom arc!
-		var values = canvasPoint(minmaxes, x, y, CANVAS_WIDTH-2*BUFFER, CANVAS_HEIGHT-2*BUFFER)
+		var values = new CanvasPoint(minmaxes, CANVAS_WIDTH-2*BUFFER, CANVAS_HEIGHT-2*BUFFER, x, y)
 		bottomcurve.push(values)
 	}
 
-	context.moveTo(bottomcurve[0].x+BUFFER, bottomcurve[1].y+BUFFER)
+	//once more AT floor_end, so there won't be a break if I render the top.
+	var x = radius * Math.cos(floor_end)
+	var y = -1 * radius * Math.sin(floor_end) + radius //-1, bottom arc!
+	var values = new CanvasPoint(minmaxes, CANVAS_WIDTH-2*BUFFER, CANVAS_HEIGHT-2*BUFFER, x, y)
+	bottomcurve.push(values)
+
+	
+	context.moveTo(bottomcurve[0].x+BUFFER, bottomcurve[0].y+BUFFER)
 	
 	for(var i=1; i<bottomcurve.length; i+=1)
 	{
@@ -505,7 +513,7 @@ function draw_curve(pointlist, radius) {
 	//if the top of the station is close to actually appearing, then render it.
 	var x=radius*Math.cos(0)
 	var y=radius*Math.sin(0) + radius
-	var values = canvasPoint(minmaxes, x, y, CANVAS_WIDTH-2*BUFFER, CANVAS_HEIGHT-2*BUFFER)
+	var values = new CanvasPoint(minmaxes, CANVAS_WIDTH-2*BUFFER, CANVAS_HEIGHT-2*BUFFER, x, y)
 	if(values.y>-50) 
 	{
 		var topcurve = []
@@ -513,11 +521,16 @@ function draw_curve(pointlist, radius) {
 		{	
 			var x = radius * Math.cos(i)
 			var y = 1 * radius * Math.sin(i) + radius //+1, top arc!
-			var values = canvasPoint(minmaxes, x, y, CANVAS_WIDTH-2*BUFFER, CANVAS_HEIGHT-2*BUFFER)
+			var values = new CanvasPoint(minmaxes, CANVAS_WIDTH-2*BUFFER, CANVAS_HEIGHT-2*BUFFER, x, y)
 			topcurve.push(values)
 		}
 
-		context.moveTo(topcurve[0].x+BUFFER, topcurve[1].y+BUFFER)
+		var x = radius * Math.cos(floor_end)
+		var y = 1 * radius * Math.sin(floor_end) + radius //+1, top arc!
+		var values = new CanvasPoint(minmaxes, CANVAS_WIDTH-2*BUFFER, CANVAS_HEIGHT-2*BUFFER, x, y)
+		topcurve.push(values)
+
+		context.moveTo(topcurve[0].x+BUFFER, topcurve[0].y+BUFFER)
 		
 		for(var i=1; i<topcurve.length; i+=1)
 		{
@@ -525,14 +538,12 @@ function draw_curve(pointlist, radius) {
 		}
 		context.stroke()
 	}
-	
-	
 }
 
 
 
 //What happens after the person pushes the submit button...
-function submit() {
+function submit_values() {
 	//Get variables
     var height_start = Number(document.getElementById("heightperson").value);
     var diameter = Number(document.getElementById("diameter").value);

@@ -1,4 +1,6 @@
-function insertHTML(divId, fileName, onload)
+
+//asynchronously loads an HTML file body into a given <div> element.
+function insertPage(divId, fileName, onload)
 {
 	var xmlhttp = new XMLHttpRequest();
 
@@ -22,9 +24,9 @@ function insertHTML(divId, fileName, onload)
 }
 
 
-function afterLoad(divname, filetext, onload)
+function afterLoad(divId, filetext, onload)
 {
-	var insertdiv = document.getElementById("inserthere")
+	var insertdiv = document.getElementById(divId)
 	var sliced = filetext.slice( filetext.search("<body>") + 6, filetext.search("</body>") )
 
 	insertdiv.innerHTML = sliced
@@ -38,7 +40,7 @@ function afterLoad(divname, filetext, onload)
 function loadScripts(filetext, onload)
 {
 	if(filetext.search("<script")==-1)
-	{return; eval(onload); }
+	{eval(onload); return;}
 
 	var head = document.getElementsByTagName("head")[0];
 

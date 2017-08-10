@@ -1,10 +1,11 @@
 <html>
 <head>
 	<meta charset="utf-8"></meta>
+	<link type="text/css" rel="stylesheet" href="CoriolisFiles/otherstyle.css"/>
 </head>
 <body>
 
-<link type="text/css" rel="stylesheet" href="CoriolisFiles/style.css">
+<link type="text/css" rel="stylesheet" href="CoriolisFiles/style.css"/>
 
 <h5 style="text-align:center;">A Coin Toss on a Virtual Space Station</h5>
 
@@ -19,7 +20,7 @@
 		<td style="padding:15px 8px 0px 20px;">
 			<!--input fields-->
 			<form action="" style="margin-bottom:5px;">
-			  <input type="radio" name="units" id="imperial" value="ft" onClick="convertunits(this.value)"/> Imperial (feet)&nbsp;&nbsp;
+			  <input type="radio" name="units" id="imperial" value="ft" onClick="convertunits(this.value)"/> Imperial (feet)&#160;&#160;
 			  <input type="radio" name="units" id="metric" checked="checked" value="m" onClick="convertunits(this.value)"/> Metric (meters)
 			</form>
 			<div class="smallbreak"></div> <!--smaller text break-->
@@ -28,23 +29,23 @@
 					<td id="textright">Starting height</td>
 					<td id="fieldleft"><div id="heightpersonunits"><input type='number' step="any" min="0" class="inputfield" id="heightperson" onchange="changeit()"/></div>
 					
-					&nbsp;
+					&#160;
 						<!--<div class="units" id="heightpersonunits"></div>-->
 						</td>
 				</tr>
 				<tr>
 					<td id="textright">Station diameter</td>
-					<td id="fieldleft"><div id="diameterunits"><input type='number' step="any" class="inputfield" min="0" max="1000000000000" id="diameter" onchange="changeit()"/></div>&nbsp;
+					<td id="fieldleft"><div id="diameterunits"><input type='number' step="any" class="inputfield" min="0" max="1000000000000" id="diameter" onchange="changeit()"/></div>&#160;
 						</td>
 				</tr>
 				<tr>
 					<td id="textright">Height thrown<div></div>"up" on Earth</td>
-					<td id="fieldleft"><div id="heightthrownunits"><input type='number' min="0" step="any" class="inputfield" id="heightthrown" onchange="changeit()"/></div>&nbsp;
+					<td id="fieldleft"><div id="heightthrownunits"><input type='number' min="0" step="any" class="inputfield" id="heightthrown" onchange="changeit()"/></div>&#160;
 						</td>
 				</tr>
 				<tr>
 					<td id="textright">Percent gravity</td>
-					<td id="fieldleft"><div class="percentsign"><input type='number' step="any" class="inputfield" id="percentgravity" onchange="outputgs(this.value); changeit();" style="width:63px"/></div>
+					<td id="fieldleft"><div class="percentsign"><input type='number' step="any" min="0" class="inputfield" id="percentgravity" onchange="outputgs(this.value); changeit();" style="width:63px"/></div>
 						<div id="gravitygs" style="display:inline-block;"></div></td>
 				</tr>
 
@@ -58,12 +59,12 @@
 			<!--Additional variable facts, also errors and warnings-->
 			<table style="border-collapse:separate; border-spacing:0 10px;">
 				<tr class="t_row">	
-					<td style="text-align:right;">Rotation rate&nbsp;&nbsp;<div></div>(station):&nbsp;</td>
+					<td style="text-align:right;">Rotation rate&#160;&#160;<div></div>(station):&#160;</td>
 					<td id="rotationalvelocity" class="output"></td>
 					<td id="rotationalvelocityunits" style="vertical-align:bottom;"></td>
 				</tr>
 				<tr class="t_row">
-					<td style="text-align:right;">Vertical &nbsp;&nbsp;<div></div>throw speed:&nbsp;</td>
+					<td style="text-align:right;">Vertical &#160;&#160;<div></div>throw speed:&#160;</td>
 					<td>
 						<div id="verticalvelocity" class="output"></div>
 						<div id="verticalvelocity2" class="output"></div>
@@ -74,12 +75,12 @@
 					</td>
 				</tr>
 				<tr class="t_row">	
-					<td style="text-align:right;">Centripetal&nbsp;&nbsp;<div></div> acceleration at floor:&nbsp;</td>
+					<td style="text-align:right;">Centripetal&#160;&#160;<div></div> acceleration at floor:&#160;</td>
 					<td id="centripaccel" class="output"></td>
 					<td id="centripaccelunits" style="vertical-align:bottom;"></td>
 				</tr>
 				<tr class="t_row">
-					<td style="text-align:right;">Standing &nbsp;&nbsp;<div></div> speed of person:&nbsp;</td>
+					<td style="text-align:right;">Standing &#160;&#160;<div></div> speed of person:&#160;</td>
 					<td>
 						<div id="standingvelocity" class="output"></div>
 						<div id="standingvelocity2" class="output"></div>
@@ -100,17 +101,17 @@
 		<td style="padding:10px 5px 5px 20px;">
 			<table style="border-collapse:separate; border-spacing:0 5px;">
 				<tr class="t_row">
-					<td style="text-align:right;">Time in the air:&nbsp;</td>
+					<td style="text-align:right;">Time in the air:&#160;</td>
 					<td id="timeinair" class="output"></td>
 					<td id="timeinairunits"></td>
 				</tr>
 				<tr class="t_row">
-					<td style="text-align:right;">Max height achieved:&nbsp;</td>
+					<td style="text-align:right;">Max height achieved:&#160;</td>
 					<td id="maxheightachieved" class="output"></td>
 					<td id="maxheightachievedunits"></td>
 				</tr>
 				<tr class="t_row" style="font-weight:bold;">
-					<td style="text-align:right;"><div style="color:#CE0D45;"><div>Distance "away"&nbsp;&nbsp;</div> at landing:&nbsp;</div>&nbsp;&nbsp;</td>
+					<td style="text-align:right;"><div style="color:#CE0D45;"><div>Distance "away"&#160;&#160;</div> at landing:&#160;</div>&#160;&#160;</td>
 					<td>
 						<div id="finalseparation"></div>
 						<div id="finalseparation2"></div>
@@ -126,18 +127,18 @@
 		<td style="padding:10px 5px 5px 35px;">
 			<table style="border-collapse:separate; border-spacing:0 5px; margin-top:-18px;">
 			<tr>
-				<td style="text-align:right;"><div>Time in the air:&nbsp;&nbsp;</td>
+				<td style="text-align:right;">Time in the air:&#160;&#160;</td>
 				<td id="expectedtime"></td>
 				<td id="expectedtimeunits"></td>
 			</tr>
 			<tr>
-				<td style="text-align:right;"><div>Max height:&nbsp;&nbsp;<div></div></td>
+				<td style="text-align:right;">Max height:&#160;&#160;</td>
 				<td id="expectedheight" class="output"></td>
 				<td id="expectedheightunits"></td>
 			</tr>
 			<tr>
-				<td style="text-align:right;"><div>Distance "away"&nbsp;&nbsp;&nbsp;<div></div> at landing:&nbsp;&nbsp;</td>
-				<td id="expecteddist" class="output">0&nbsp;</td>
+				<td style="text-align:right;">Distance "away"&#160;&#160;&#160;<div></div> at landing:&#160;&#160;</td>
+				<td id="expecteddist" class="output">0&#160;</td>
 				<td id="expecteddistunits" style="vertical-align:bottom;">ft</td>
 			</tr>
 			</table>
@@ -156,3 +157,4 @@
 <script onload="setfields()" type="text/javascript" src="CoriolisFiles/errormodel.js"></script>
 
 </body>
+</html>

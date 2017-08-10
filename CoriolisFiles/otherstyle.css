@@ -1,0 +1,11 @@
+/*stylistic elements that only load if the Coriolis model is
+loaded OUTSIDE of the article.*/
+
+
+td div.imperial::after, td div.metric::after, td div.percentsign::after{
+	position:initial;
+}
+
+table.model{
+	border-spacing:0;
+}

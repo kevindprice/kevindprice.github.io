@@ -112,7 +112,7 @@
 
 <div id="inserthere"></div>
 
-<script type="text/javascript" src="CoriolisFiles/insertelement.js" onload="insertHTML('insertHTML', 'CoriolisModel.html')"></script>
+<script type="text/javascript" src="CoriolisFiles/insertelement.js" onload="insertPage('inserthere', 'CoriolisModel.html')"></script>
 
 <p>The coin would land about as far over as you threw it upwards! What causes this weirdness? The Coriolis effect!</p>
 <p>If you would like to see the math I used to create my model, follow <a href="./coriolis-math.html">this link</a>.</p>
@@ -173,7 +173,7 @@
 <h3>Designing a real space station that minimizes the Coriolis effect</h3>
 <p>As you increase the size of an artificial-gravity space station, the Coriolis effect decreases! You can see this result in the graph below, where I have modeled our coin toss.</p>
 <p><img style="margin: 5px 0px 5px 0px;" src="CoriolisFiles/CoriolisGraph.png" width=525 height=525/>
-<p style="margin-top:-15px;"><sup>This uses the same assumptions as stated in the introduction: the coin is thrown starting from four feet, then three feet up into the air. My Python code to generate this can be found <a href="CoriolisFiles/CoriolisTable.py">here</a>.</sup></p></p>
+<p style="margin-top:-15px;"><sup>This uses the same assumptions as stated in the introduction: the throw starts from four feet and goes three feet up in the air. The Python code I used to generate this can be found <a href="CoriolisFiles/CoriolisTable.py">here</a>.</sup></p></p>
 <p>The larger the space station, the less nauseating and less disorienting it would be. It surprises me how slowly this happens. To achieve earth-“normalness” (close to zero distance from expected), you would need a massively huge station!</p>
 <p>It is unclear how large the station would need to be to prevent nausea. <a href="https://en.wikipedia.org/wiki/Artificial_gravity">This</a> Wikipedia page discusses the issue, suggesting that no effects would be felt with a rotation rate of less than 2 rpm, however this has not been researched extensively. If this is true, a rotation rate of 2 rpm would require a diameter of 1600 ft (500 m) with full gravity. The International Space Station is 356 feet wide, less than a quarter the size.</p>
 <p><img style="float: right; margin: 5px 0px 5px 10px;" src="CoriolisFiles/dream-space-colony.jpg" width=260 height=250/></p>
