@@ -40,7 +40,7 @@ hr {
     text-align: center;
     margin: 0 auto;
     padding-top: 1rem;
-    width: 135px;
+    max-width: 140px;
 }
 #logo img{
 	border-radius:17px;
