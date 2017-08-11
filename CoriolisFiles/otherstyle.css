@@ -3,7 +3,7 @@ loaded OUTSIDE of the article.*/
 
 
 td div.imperial::after, td div.metric::after, td div.percentsign::after{
-	position:initial;
+	bottom:-10px;
 }
 
 table.model{
@@ -14,3 +14,8 @@ table.model{
 	margin-bottom:0px;
 	bottom:0px;
 }
+
+#gravitygs{
+	bottom:0px !important;
+}
+

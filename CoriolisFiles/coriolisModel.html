@@ -1,7 +1,19 @@
 <html>
 <head>
+	<!--The head contains elements that modify the page if it is loaded as standalone.
+		The full markdown document only loads the body.                          -->
+		
 	<meta charset="utf-8"></meta>
-	<link type="text/css" rel="stylesheet" href="CoriolisFiles/otherstyle.css"/>
+	<script type="text/javascript">
+		//example
+		//document.write("<base href='http://" + document.location.host + "' />");
+		
+		//my version
+		document.write("<base href='../' />"); //the page thinks it is one directory up.
+		var standalone=true; //so my scripts know this was loaded as a standalone page
+	</script>
+	<link type="text/css" rel="stylesheet" href="CoriolisFiles/otherstyle.css"/>	
+
 </head>
 <body>
 
