@@ -7,9 +7,12 @@ CANVAS_WIDTH = 300
 CANVAS_HEIGHT = CANVAS_WIDTH
 BUFFER = CANVAS_WIDTH/15
 
-Decimal.set({ precision: 30 })  //accuracy of 30 decimals for the initial calculation
+Decimal.set({ precision: 30 });  //accuracy of 30 decimals for the initial calculation
 
-var PI = Decimal.acos(-1)  //more accurate than Math.PI
+var PI = Decimal.acos(-1);  //more accurate than Math.PI
+var percenttime = 100;
+var repeattimeout = null;
+var moveinterval = null;
 
 //Set the fields after initially loading the page.
 function setfields() {
@@ -32,9 +35,65 @@ function setfields() {
 	allatonce=false;
 	
 	submit_values()
+	
+	var checkboxtime = document.getElementsByTagName('checktime');
+	checkboxtime.checked=false;
 }
 
 
+function changecheck(checkboxElem) {
+  if (checkboxElem.checked) {
+	  set_time_interval();
+  } else {
+	  stop_time_interval();
+  }
+}
+
+function set_time_interval()
+{
+	if(moveinterval!=null)
+	{ clearInterval(moveinterval); moveinterval=null;	}
+
+	var time = Number(answers.time);
+
+	//intervals were being too buggy for this one.
+	//An interval created by an interval== not a good idea.
+	(function repeatdraw() {
+    
+			canvasthings = prep_canvas(answers.hundred) //answers is created globally.
+			draw_curve_active(canvasthings.canvaspoints)
+			draw_floor(Number(answers.radius), canvasthings.minmaxes)
+	
+		window.repeattimeout = setTimeout(repeatdraw, ((time * (100/percenttime)) + 3) * 1000);
+	})();
+	
+	document.getElementById("percenttimediv").innerHTML="Speed&#160;<input type='number' step='1' min='0' max='500' style='width:63px' id='percenttime' value='100' onchange='changepercenttime(this.value)'/>";
+	percenttime=100;
+	
+	document.getElementById("percenttimediv").className = "percentsign";
+	document.getElementById("outertime").style.marginTop="-29px";
+    
+}
+
+function stop_time_interval()
+{
+	clearTimeout(repeattimeout);
+	clearInterval(moveinterval);
+	repeattimeout=null;
+	moveinterval=null;
+	document.getElementById("percenttimediv").innerHTML=""
+	document.getElementById("percenttimediv").className = "";
+	document.getElementById("outertime").style.marginTop="0px";
+	
+	canvasthings = prep_canvas(answers.hundred) //answers is created globally.
+	draw_curve_static(canvasthings.canvaspoints)
+	draw_floor(Number(answers.radius), canvasthings.minmaxes)
+}
+
+function changepercenttime(value)
+{
+	percenttime = value;
+}
 
 //Activated by radiobutton, user changes the unit setting.
 function convertunits(setting) {
@@ -171,6 +230,7 @@ function RelativePoint( points )
 	this.dist = dist
 	this.x = x_rel
 	this.y = y_rel
+	this.time = points.time
 	//this.x_diff = x_diff
 	//this.y_diff = y_diff
 	//this.theta_pc = theta_pc
@@ -354,7 +414,8 @@ function calc_error(diameter, height_start, gs, height_thrown) {
 	}   //*/
 
 	//do it once more at t = time.
-	hundred.push( new RelativePoint( Number(time), Number(radius), Number(omega), Number(slope), Number(height_start), Number(start_v_x) ) )
+	var absolutepoints = new AbsolutePoints( Number(time), Number(radius), Number(omega), Number(slope), Number(height_start), Number(start_v_x) );
+	hundred.push( new RelativePoint( absolutepoints ) );
 	
 	//point = new RelativePoint( Number(time), Number(radius), Number(omega), Number(slope), Number(height_start), Number(start_v_x) )
 	
@@ -429,7 +490,11 @@ function minmax(pointlist) {
 }
 
 
-function draw_curve(relativepoints, radius) {
+function prep_canvas(relativepoints) {
+
+	var canvas = document.getElementById("demo");
+    canvas.height = CANVAS_HEIGHT;
+    canvas.width = CANVAS_WIDTH;    
 
 	var minmaxes = minmax(relativepoints)
 	
@@ -440,23 +505,49 @@ function draw_curve(relativepoints, radius) {
 		canvaspoints.push(new CanvasPoint(minmaxes, CANVAS_WIDTH-2*BUFFER, CANVAS_HEIGHT-2*BUFFER, relativepoints[i]))
 	}
 
+	return { canvaspoints: canvaspoints,
+			 minmaxes: minmaxes	}
+}
+
+function draw_curve_static(canvaspoints)
+{
 	var canvas = document.getElementById("demo");
-    canvas.height = CANVAS_HEIGHT;
-    canvas.width = CANVAS_WIDTH;    
     var context = canvas.getContext("2d");
-	
+
 	context.moveTo(canvaspoints[0].x+BUFFER, canvaspoints[0].y+BUFFER);
 	
 	for(var i=1; i<canvaspoints.length; i++)
 	{		
 		context.lineTo(canvaspoints[i].x+BUFFER, canvaspoints[i].y+BUFFER)
-		context.stroke();
-		context.moveTo(canvaspoints[i].x+BUFFER, canvaspoints[i].y+BUFFER)
 	}
 	
     context.stroke();
-	draw_floor(context, radius, minmaxes);
 }
+
+
+
+function draw_curve_active(canvaspoints)
+{
+	var canvas = document.getElementById("demo");
+    var context = canvas.getContext("2d");
+
+	var time = Number(answers.time)
+	var i=1;
+	window.moveinterval = setInterval(function() {
+		
+		if(i>=canvaspoints.length)
+		{  i=1; clearInterval(moveinterval); moveinterval=null; return; }
+
+		context.moveTo(canvaspoints[i-1].x+BUFFER, canvaspoints[i-1].y+BUFFER);
+		context.lineTo(canvaspoints[i].x+BUFFER, canvaspoints[i].y+BUFFER)
+		context.stroke();
+		
+		i+=1
+			
+	}, ( (time * (1/(percenttime/100)))*1000 / canvaspoints.length) );
+	
+}
+
 
 
 //Custom circle-drawing function to render the station floor.
@@ -465,8 +556,11 @@ function draw_curve(relativepoints, radius) {
 	//If it's huge, I don't want to render the entire floor. Too big!
 	//If it's small, I DO want to render the entire floor.
 
-function draw_floor(context, radius, minmaxes)
-{
+function draw_floor(radius, minmaxes)
+{	
+	var canvas = document.getElementById("demo");
+    var context = canvas.getContext("2d");
+
 	
 	radius = Number(radius)
 	var toconvert = 2 * minmaxes.range / radius
@@ -551,6 +645,10 @@ function submit_values() {
     var height_thrown = Number(document.getElementById("heightthrown").value);
     //angle = Number(document.getElementById("anglethrown").value);
 
+	if(!(moveinterval==null))
+	{ clearInterval(moveinterval); 
+		moveinterval=null; }
+
 	//clear the output fields.
 	//////////////////////////
 	document.getElementById("centripaccel").innerHTML = ""
@@ -568,9 +666,12 @@ function submit_values() {
 	document.getElementById("timeinair").innerHTML = "";
 	document.getElementById("timeinairunits").innerHTML = "";
 
-	answers = calc_error( diameter, height_start, gs, height_thrown )
+	answers = calc_error( diameter, height_start, gs, height_thrown ) //is global
 
-	draw_curve(answers.hundred, answers.radius)
+	
+	canvasthings = prep_canvas(answers.hundred)
+	draw_curve_static(canvasthings.canvaspoints)
+	draw_floor(Number(answers.radius), canvasthings.minmaxes)
 	
 	//expected values
 	var expectedheight = height_start + height_thrown

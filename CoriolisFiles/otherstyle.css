@@ -9,3 +9,8 @@ td div.imperial::after, td div.metric::after, td div.percentsign::after{
 table.model{
 	border-spacing:0;
 }
+
+#percenttimediv::after{
+	margin-bottom:0px;
+	bottom:0px;
+}
