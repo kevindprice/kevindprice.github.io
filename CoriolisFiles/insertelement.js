@@ -4,6 +4,8 @@ function insertPage(divId, fileName, onload)
 {
 	var xmlhttp = new XMLHttpRequest();
 
+	//document.write("<base href='./' />");
+
 	xmlhttp.onreadystatechange = function() {
         if (xmlhttp.readyState == XMLHttpRequest.DONE ) {
            if (xmlhttp.status == 200) {
@@ -31,8 +33,7 @@ function afterLoad(divId, filetext, onload)
 
 	insertdiv.innerHTML = sliced
 	
-	
-	loadScripts(filetext, onload)
+	loadScripts(sliced, onload)
 }
 
 //recursive function. Waits for each script to be loaded before loading the next one.
@@ -54,10 +55,31 @@ function loadScripts(filetext, onload)
 	var script_type = XML_script.getAttribute("type")
 	var script_onload = XML_script.getAttribute("onload")
 	var script_src = XML_script.getAttribute("src")
-
+	
 	var newScript = document.createElement("script");
-	newScript.src = script_src;
-	newScript.type=script_type;
+	if(script_src!=null){ newScript.src = script_src; }
+	if(script_type!=null){ newScript.type=script_type; }
+	newScript.onload = function() { eval(script_onload); eval(scriptInner); loadScripts(filetext, onload); }
 	head.appendChild(newScript);
-	newScript.onload = function() { eval(script_onload); loadScripts(filetext, onload) }
+}
+
+
+//was completely unnecessary and not fully debugged. (not used)
+function adjustWorkingDir(script_src)
+{
+	if(script_src=="" || script_src==null)
+	{ return ""; }
+
+	if(script_src.startsWith("http") || script_src.startsWith("ftp"))
+	{
+		return script_src;
+	}
+	else if(script_src[0]=="/")
+	{
+		return ".." + script_src;
+	}
+	else
+	{
+		return "../" + script_src;
+	}
 }

@@ -3,6 +3,11 @@ var units = "ft";  //declares the unit type the page is using, either "ft" or "m
 var allatonce = false; //used so that some functions can change all the values
 					   //and submit only once.
 
+if(typeof standalone === 'undefined')
+{
+	var standalone = false;
+}
+					   
 CANVAS_WIDTH = 300
 CANVAS_HEIGHT = CANVAS_WIDTH
 BUFFER = CANVAS_WIDTH/15
@@ -54,6 +59,8 @@ function set_time_interval()
 	if(moveinterval!=null)
 	{ clearInterval(moveinterval); moveinterval=null;	}
 
+	if(repeattimeout!=null)
+	{ clearTimeout(repeattimeout); repeattimeout=null; }
 	var time = Number(answers.time);
 
 	//intervals were being too buggy for this one.
@@ -71,7 +78,15 @@ function set_time_interval()
 	percenttime=100;
 	
 	document.getElementById("percenttimediv").className = "percentsign";
-	document.getElementById("outertime").style.marginTop="-29px";
+	
+	if(standalone!=true)
+	{
+		document.getElementById("outertime").style.marginTop="-29px";
+	}
+	else
+	{
+		document.getElementById("outertime").style.marginTop="-19px";
+	}
     
 }
 
@@ -81,6 +96,7 @@ function stop_time_interval()
 	clearInterval(moveinterval);
 	repeattimeout=null;
 	moveinterval=null;
+	
 	document.getElementById("percenttimediv").innerHTML=""
 	document.getElementById("percenttimediv").className = "";
 	document.getElementById("outertime").style.marginTop="0px";
@@ -531,12 +547,15 @@ function draw_curve_active(canvaspoints)
 	var canvas = document.getElementById("demo");
     var context = canvas.getContext("2d");
 
+	if(!(moveinterval==null))
+	{	clearInterval(moveinterval); moveinterval=null; }
+	
 	var time = Number(answers.time)
 	var i=1;
 	window.moveinterval = setInterval(function() {
 		
 		if(i>=canvaspoints.length)
-		{  i=1; clearInterval(moveinterval); moveinterval=null; return; }
+		{  clearInterval(moveinterval); moveinterval=null; return; }
 
 		context.moveTo(canvaspoints[i-1].x+BUFFER, canvaspoints[i-1].y+BUFFER);
 		context.lineTo(canvaspoints[i].x+BUFFER, canvaspoints[i].y+BUFFER)
