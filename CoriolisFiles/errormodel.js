@@ -11,6 +11,7 @@ if(typeof standalone === 'undefined')
 CANVAS_WIDTH = 300
 CANVAS_HEIGHT = CANVAS_WIDTH
 BUFFER = CANVAS_WIDTH/15
+DELAY_BETWEEN_DRAWS = 2.5 //seconds to wait until next draw, when looping.
 
 Decimal.set({ precision: 30 });  //accuracy of 30 decimals for the initial calculation
 
@@ -70,8 +71,11 @@ function set_time_interval()
 			canvasthings = prep_canvas(answers.hundred) //answers is created globally.
 			draw_curve_active(canvasthings.canvaspoints)
 			draw_floor(Number(answers.radius), canvasthings.minmaxes)
+			
+			//get time variable again, in case the user adjusts settings in the middle of a run.
+			time = Number(answers.time);
 	
-		window.repeattimeout = setTimeout(repeatdraw, ((time * (100/percenttime)) + 3) * 1000);
+		window.repeattimeout = setTimeout(repeatdraw, ((time * (100/percenttime)) + DELAY_BETWEEN_DRAWS) * 1000);
 	})();
 	
 	document.getElementById("percenttimediv").innerHTML="Speed&#160;<input type='number' step='1' min='0' max='500' style='width:63px' id='percenttime' value='100' onchange='changepercenttime(this.value)'/>";
@@ -421,13 +425,13 @@ function calc_error(diameter, height_start, gs, height_thrown) {
 
 	var hundred = []
 	
-	///*
-	var time_increment = Number(time.div(101))
+	//add in time=0 and time=100, and it works out to 100 increments.
+	var time_increment = Number(time.div(98))
 	for(var t=0; t<=Number(time); t+=time_increment)
 	{
 		var absolutepoints = new AbsolutePoints( t, Number(radius), Number(omega), Number(slope), Number(height_start), Number(start_v_x) )
 		hundred.push( new RelativePoint( absolutepoints ) )
-	}   //*/
+	}
 
 	//do it once more at t = time.
 	var absolutepoints = new AbsolutePoints( Number(time), Number(radius), Number(omega), Number(slope), Number(height_start), Number(start_v_x) );
@@ -563,7 +567,7 @@ function draw_curve_active(canvaspoints)
 		
 		i+=1
 			
-	}, ( (time * (1/(percenttime/100)))*1000 / canvaspoints.length) );
+	}, ( (time * (100/percenttime))*1000 / canvaspoints.length) );
 	
 }
 
@@ -801,7 +805,7 @@ function submit_values() {
 	}*/
 
 
-	if(height_start > answers.radius )
+	/*if(height_start > answers.radius )
 	{
 		errortext += "Warning: The starting height is greater than the radius of the station (expect the unexpected).<br/>";
 	}
@@ -830,7 +834,7 @@ function submit_values() {
 		{
 			errortext += errortext, "Warning: the throwing height requires a throwing velocity of " + start_v_y + " m/s. This is unrealistic even for a pro-baseball pitcher.<br/>";
 		}
-	}
+	}*/
 	
 	document.getElementById("error").innerHTML = errortext
 }
