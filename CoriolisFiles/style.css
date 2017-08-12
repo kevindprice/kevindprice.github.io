@@ -2,10 +2,15 @@ p {
 	/*display:inline-block;*/
 }
 
-#textright {
+.textright {
 	text-align:right;
 	position:relative;
 	bottom:-5px;
+}
+
+.fieldleft {
+	/*I have a class with no style definitions!
+	This does absolutely nothing...*/
 }
 
 table.model {

@@ -38,26 +38,26 @@
 			<div class="smallbreak"></div> <!--smaller text break-->
 			<table>
 				<tr>
-					<td id="textright">Starting height</td>
-					<td id="fieldleft"><div id="heightpersonunits"><input type='number' step="any" min="0" class="inputfield" id="heightperson" onchange="changeit()"/></div>
+					<td class="textright">Starting height</td>
+					<td class="fieldleft"><div id="heightpersonunits"><input type='number' step="any" min="0" class="inputfield" id="heightperson" onchange="changeit()"/></div>
 					
 					&#160;
 						<!--<div class="units" id="heightpersonunits"></div>-->
 						</td>
 				</tr>
 				<tr>
-					<td id="textright">Station diameter</td>
-					<td id="fieldleft"><div id="diameterunits"><input type='number' step="any" class="inputfield" min="0" max="1000000000000" id="diameter" onchange="changeit()"/></div>&#160;
+					<td class="textright">Station diameter</td>
+					<td class="fieldleft"><div id="diameterunits"><input type='number' step="any" class="inputfield" min="0" max="1000000000000" id="diameter" onchange="changeDiameter(this.value)"/></div>&#160;
 						</td>
 				</tr>
 				<tr>
-					<td id="textright">Height thrown<div></div>"up" on Earth</td>
-					<td id="fieldleft"><div id="heightthrownunits"><input type='number' min="0" step="any" class="inputfield" id="heightthrown" onchange="changeit()"/></div>&#160;
+					<td class="textright">Height thrown<div></div>"up" on Earth</td>
+					<td class="fieldleft"><div id="heightthrownunits"><input type='number' min="0" step="any" class="inputfield" id="heightthrown" onchange="changeit()"/></div>&#160;
 						</td>
 				</tr>
 				<tr>
-					<td id="textright">Percent gravity</td>
-					<td id="fieldleft"><div class="percentsign"><input type='number' step="any" min="0" class="inputfield" id="percentgravity" onchange="outputgs(this.value); changeit();" style="width:63px"/></div>
+					<td class="textright">Percent gravity</td>
+					<td class="fieldleft"><div class="percentsign"><input type='number' step="any" min="0" class="inputfield" id="percentgravity" onchange="outputgs(this.value); changeit();" style="width:63px"/></div>
 						<div id="gravitygs" style="display:inline-block;"></div></td>
 				</tr>
 
@@ -165,8 +165,12 @@
 <canvas id="demo"></canvas>
 </div>
 
-<div id="outertime" style="text-align:center;"><input type="checkbox" style="display:inline-block;margin-bottom:7px;" id="checktime" autocomplete="off" onchange="changecheck(this);"/>&#160;&#160;Show in real time<div id="percenttimediv" style="display:inline-block; margin-left:30px;"></div></div>
-
+<div id="outertime" style="text-align:center;">
+	<input type="checkbox" style="display:inline-block;margin-bottom:7px;" id="checktime" autocomplete="off" onchange="changecheck(this);"/>&#160;&#160;Show in real time
+	<div id="percenttimediv" style="display:inline-block;"></div>
+	<div class="smallbreak"></div>
+	<input type="checkbox" style="display:inline-block;margin:0 0 7 -30;" id="checkscale" autocomplete="off" onchange="changescale(this);"/>&#160;&#160;Display scale
+</div>
 
 <script type="text/javascript" src="CoriolisFiles/decimal.js"></script>
 <script onload="setfields()" type="text/javascript" src="CoriolisFiles/errormodel.js"></script>

@@ -7,18 +7,30 @@ if(typeof standalone === 'undefined')
 {
 	var standalone = false;
 }
-					   
-CANVAS_WIDTH = 300
-CANVAS_HEIGHT = CANVAS_WIDTH
-BUFFER = CANVAS_WIDTH/15
+
+CANVAS_WIDTH = 400
+CANVAS_HEIGHT = 300
+X_BUFFER = CANVAS_WIDTH/10
+Y_BUFFER = CANVAS_HEIGHT/15
+DRAWING_WIDTH = CANVAS_WIDTH - 2 * X_BUFFER
+DRAWING_HEIGHT = CANVAS_HEIGHT - 2 * Y_BUFFER
+
+EXTRA_X_BUFFER = 0;
+
 DELAY_BETWEEN_DRAWS = 2.5 //seconds to wait until next draw, when looping.
 
 Decimal.set({ precision: 30 });  //accuracy of 30 decimals for the initial calculation
 
-var PI = Decimal.acos(-1);  //more accurate than Math.PI
-var percenttime = 100;
-var repeattimeout = null;
-var moveinterval = null;
+//namespace
+var MyLib = {}
+MyLib.PI = Decimal.acos(-1);  //more accurate than Math.PI
+MyLib.percenttime = 100;
+MyLib.scale=false;
+MyLib.relativepoints = []
+MyLib.globaltime = null;
+MyLib.repeattimeout = null;
+MyLib.moveinterval = null;
+
 
 //Set the fields after initially loading the page.
 function setfields() {
@@ -46,6 +58,26 @@ function setfields() {
 	checkboxtime.checked=false;
 }
 
+//the starting height cannot be greater than the diameter of the station.
+function changeDiameter(value) {
+	document.getElementById("heightperson").setAttribute("max",value);
+	changeit();
+}
+
+function changescale(checkboxElem) {
+  if (checkboxElem.checked) {
+	  MyLib.scale=true;
+	  //EXTRA_X_BUFFER=25;  //It was a good idea. But no.
+  } else {
+	  MyLib.scale=false;
+	  //EXTRA_X_BUFFER=0;
+  }
+  if(MyLib.repeattimeout==null)
+  {
+	canvasthings = prep_canvas(MyLib.relativepoints) //answers is created globally.
+	draw_curve_static(canvasthings.canvaspoints)
+  }
+}
 
 function changecheck(checkboxElem) {
   if (checkboxElem.checked) {
@@ -57,29 +89,28 @@ function changecheck(checkboxElem) {
 
 function set_time_interval()
 {
-	if(moveinterval!=null)
-	{ clearInterval(moveinterval); moveinterval=null;	}
+	if(MyLib.moveinterval!=null)
+	{ clearInterval(MyLib.moveinterval); MyLib.moveinterval=null;	}
 
-	if(repeattimeout!=null)
-	{ clearTimeout(repeattimeout); repeattimeout=null; }
-	var time = Number(answers.time);
+	if(MyLib.repeattimeout!=null)
+	{ clearTimeout(MyLib.repeattimeout); MyLib.repeattimeout=null; }
+	var time = MyLib.globaltime;
 
 	//intervals were being too buggy for this one.
 	//An interval created by an interval== not a good idea.
 	(function repeatdraw() {
     
-			canvasthings = prep_canvas(answers.hundred) //answers is created globally.
+			canvasthings = prep_canvas(MyLib.relativepoints) //answers is created globally.
 			draw_curve_active(canvasthings.canvaspoints)
-			draw_floor(Number(answers.radius), canvasthings.minmaxes)
 			
 			//get time variable again, in case the user adjusts settings in the middle of a run.
-			time = Number(answers.time);
+			time = MyLib.globaltime;
 	
-		window.repeattimeout = setTimeout(repeatdraw, ((time * (100/percenttime)) + DELAY_BETWEEN_DRAWS) * 1000);
+		MyLib.repeattimeout = setTimeout(repeatdraw, ((time * (100/MyLib.percenttime)) + DELAY_BETWEEN_DRAWS) * 1000);
 	})();
 	
-	document.getElementById("percenttimediv").innerHTML="Speed&#160;<input type='number' step='1' min='0' max='500' style='width:63px' id='percenttime' value='100' onchange='changepercenttime(this.value)'/>";
-	percenttime=100;
+	document.getElementById("percenttimediv").innerHTML="&#8195;&#8194;Speed&#160;<input type='number' step='1' min='0' max='500' style='width:63px' id='percenttime' value='100' onchange='changepercenttime(this.value)'/>";
+	MyLib.percenttime=100;
 	
 	document.getElementById("percenttimediv").className = "percentsign";
 	
@@ -96,23 +127,22 @@ function set_time_interval()
 
 function stop_time_interval()
 {
-	clearTimeout(repeattimeout);
-	clearInterval(moveinterval);
-	repeattimeout=null;
-	moveinterval=null;
+	clearTimeout(MyLib.repeattimeout);
+	clearInterval(MyLib.moveinterval);
+	MyLib.repeattimeout=null;
+	MyLib.moveinterval=null;
 	
 	document.getElementById("percenttimediv").innerHTML=""
 	document.getElementById("percenttimediv").className = "";
 	document.getElementById("outertime").style.marginTop="0px";
 	
-	canvasthings = prep_canvas(answers.hundred) //answers is created globally.
+	canvasthings = prep_canvas(MyLib.relativepoints) //answers is created globally.
 	draw_curve_static(canvasthings.canvaspoints)
-	draw_floor(Number(answers.radius), canvasthings.minmaxes)
 }
 
 function changepercenttime(value)
 {
-	percenttime = value;
+	MyLib.percenttime = value;
 }
 
 //Activated by radiobutton, user changes the unit setting.
@@ -196,7 +226,7 @@ function AbsolutePoints( time, radius, omega, slope, height_start, start_v_x)
 {
 	//solve for the location of the person and the coin.
 
-	var theta_op = (3*PI / 2) - (omega * time) //person's angle, from origin to person
+	var theta_op = (3*MyLib.PI / 2) - (omega * time) //person's angle, from origin to person
 	
 	var x_person = radius * Math.cos(theta_op)
 	var y_person = radius * Math.sin(theta_op)
@@ -210,6 +240,24 @@ function AbsolutePoints( time, radius, omega, slope, height_start, start_v_x)
 	this.x_coin = x_coin
 	this.y_coin = y_coin
 }
+
+function AbsolutePointsVertical( time, radius, omega, slope, height_start, start_v_y)
+{
+	var theta_op = (3*MyLib.PI / 2) - (omega * time) //person's angle, from origin to person
+	
+	var x_person = radius * Math.cos(theta_op)
+	var y_person = radius * Math.sin(theta_op)
+	
+	var x_coin = 0;
+	var y_coin = (height_start-radius) + start_v_y * time
+
+	this.time = time
+	this.x_person = x_person
+	this.y_person = y_person
+	this.x_coin = x_coin
+	this.y_coin = y_coin	
+}
+
 
 
 function RelativePoint( points )
@@ -246,37 +294,361 @@ function RelativePoint( points )
 	
 	var y_rel = dist * Math.cos(theta_rel)
 	
-	
+	//rare case if the person traverses an entire half-arc
+	//you have to be really playing with the model to get this
+	if(points.x_person>0)
+	{
+		x_rel = x_rel*-1
+		y_rel = y_rel*-1
+	}
+		
 	this.dist = dist
 	this.x = x_rel
 	this.y = y_rel
 	this.time = points.time
 	//this.x_diff = x_diff
 	//this.y_diff = y_diff
-	//this.theta_pc = theta_pc
+	this.theta_pc = theta_pc
 	//this.theta_po = theta_po
 	//this.theta_rel = theta_rel
 }
 
 
-function CanvasPoint(minmaxes, canvasWidth, canvasHeight, x, y) {
+function CanvasPoint(minmaxes, x, y) {
 	//canvasPoint can accept either X and Y coordinates or a RelativePoint.
 	if(!(typeof x=="number"))
 	{ y = x.y; x=x.x; }
-
-	var canvasX = ((x - minmaxes.minX) / minmaxes.range) * canvasWidth
-	var canvasY = canvasHeight - (( y / minmaxes.range ) * canvasHeight)
+	
+	var canvasX = ((x - minmaxes.minX) / minmaxes.range) * minmaxes.canvasSize
+	var canvasY = DRAWING_HEIGHT - (( y / minmaxes.range ) * minmaxes.canvasSize )
 	
 	this.x = canvasX;
 	this.y = canvasY;
 }
 
 
-function calc_error(diameter, height_start, gs, height_thrown) {
+function minmax(pointlist) {
+	var minX=pointlist[0].x
+	var maxX=pointlist[0].x
+	var minY=0 //definitely need to show the original floor.
 	
+	//the coin toss assumes a 6-ft person :-)
+	//I'd ideally like to put that person into the window.
+	if(units=="ft")
+	{
+		var maxY=6 
+	}
+	else
+	{
+		var maxY = 1.829 //meters
+	}
+	//var maxY=pointlist[0].y
+
+	
+	for(var i=0; i<pointlist.length; i++)
+	{
+		if(pointlist[i].x < minX)
+		{ minX = pointlist[i].x }
+
+		if(pointlist[i].x > maxX)
+		{ maxX = pointlist[i].x }
+
+		if(pointlist[i].y < minY)
+		{ minY = pointlist[i].y }
+
+		if(pointlist[i].y > maxY)
+		{ maxY = pointlist[i].y }
+	}
+	
+	var rangeX = Math.abs(maxX - minX)
+	var rangeY = Math.abs(maxY - minY)
+	if(rangeX > rangeY)
+	{ var range = rangeX }
+	else
+	{ var range = rangeY }
+	
+	//Ensures the scale stays proportional if height/width are adjusted differently.
+	if(DRAWING_WIDTH/DRAWING_HEIGHT < rangeX/rangeY)
+	{ canvasSize = DRAWING_WIDTH }
+	else
+	{ canvasSize = DRAWING_HEIGHT }
+	
+	
+	minmaxes = { minX: minX,
+				 maxX: maxX,
+				 minY: minY,
+				 maxY: maxY,
+				 //rangeX: (maxX - minX),
+				 //rangeY: (maxY - minY),
+				 range: range,
+				 canvasSize: canvasSize }
+	return minmaxes
+}
+
+
+function prep_canvas(relativepoints) {
+
+	var canvas = document.getElementById("demo");
+    canvas.height = CANVAS_HEIGHT;
+    canvas.width = CANVAS_WIDTH;    
+
+	var minmaxes = minmax(relativepoints)
+	
+	var canvaspoints = []
+	//generate HTML canvas coordinates.
+	for(var i=0; i<relativepoints.length; i++)
+	{
+		canvaspoints.push(new CanvasPoint(minmaxes, relativepoints[i]))
+	}
+
+	draw_floor(Number(answers.radius), minmaxes)
+	
+	if(MyLib.scale==true)
+	{
+		draw_scale(Number(answers.radius), minmaxes, relativepoints);
+	}
+	
+	return { canvaspoints: canvaspoints,
+			 minmaxes: minmaxes	}
+}
+
+function draw_curve_static(canvaspoints)
+{
+	var canvas = document.getElementById("demo");
+    var ctx = canvas.getContext("2d");
+
+	ctx.moveTo(canvaspoints[0].x+X_BUFFER+EXTRA_X_BUFFER, canvaspoints[0].y+Y_BUFFER);
+	
+	for(var i=1; i<canvaspoints.length; i++)
+	{		
+		ctx.lineTo(canvaspoints[i].x+X_BUFFER+EXTRA_X_BUFFER, canvaspoints[i].y+Y_BUFFER)
+	}
+	
+    ctx.stroke();
+}
+
+
+
+function draw_curve_active(canvaspoints)
+{
+	var canvas = document.getElementById("demo");
+    var ctx = canvas.getContext("2d");
+	
+	if(!(MyLib.moveinterval==null))
+	{	clearInterval(MyLib.moveinterval); MyLib.moveinterval=null; }
+	
+	var time = MyLib.globaltime
+	var i=1;
+	
+	window.MyLib.moveinterval = setInterval(function() {
+		
+		if(i>=canvaspoints.length)
+		{  clearInterval(MyLib.moveinterval); MyLib.moveinterval=null; return; }
+		//move to starting point. Maybe it will save processing 
+		//if I don't have to move every increment?
+		//it must happen within the interval function, or the context gets confused.
+			
+		if(i==1)
+		{
+			ctx.moveTo(canvaspoints[i-1].x+X_BUFFER+EXTRA_X_BUFFER, canvaspoints[i-1].y+Y_BUFFER);
+		}
+		
+		ctx.lineTo(canvaspoints[i].x+X_BUFFER+EXTRA_X_BUFFER, canvaspoints[i].y+Y_BUFFER)
+		ctx.stroke();
+		
+		i+=1
+			
+	}, ( (time * (100/MyLib.percenttime))*1000 / canvaspoints.length) );
+	
+}
+
+
+
+//Custom circle-drawing function to render the station floor.
+
+//depending on the parameters, the station could be HUGE, or very small.
+	//If it's huge, I don't want to render the entire floor. Too big!
+	//If it's small, I DO want to render the entire floor.
+
+function draw_floor(radius, minmaxes)
+{	
+	var canvas = document.getElementById("demo");
+    var ctx = canvas.getContext("2d");
+
+	
+	radius = Number(radius)
+	var toconvert = 2 * minmaxes.range / radius
+	
+	//Double-check I'm using valid values for the arc-cosine.
+	if(toconvert < 1)
+	{
+		var floor_start = Math.acos( toconvert )
+		var floor_end = Math.acos( -1 * toconvert )
+	}
+	else{
+		var floor_start = 0
+		var floor_end = Math.PI
+	}
+	
+	
+	var arc = floor_end - floor_start
+
+	var bottomcurve = []
+	for(var i=floor_start; i<floor_end; i+=arc/100)
+	{	
+		var x = radius * Math.cos(i)
+		var y = -1 * radius * Math.sin(i) + radius //-1, bottom arc!
+		var values = new CanvasPoint(minmaxes, x, y)
+		bottomcurve.push(values)
+	}
+
+	//once more AT floor_end, so there won't be a break if I render the top.
+	var x = radius * Math.cos(floor_end)
+	var y = -1 * radius * Math.sin(floor_end) + radius //-1, bottom arc!
+	var values = new CanvasPoint(minmaxes, x, y)
+	bottomcurve.push(values)
+
+	
+	ctx.moveTo(bottomcurve[0].x+X_BUFFER+EXTRA_X_BUFFER, bottomcurve[0].y+Y_BUFFER)
+	
+	for(var i=1; i<bottomcurve.length; i+=1)
+	{
+		ctx.lineTo(bottomcurve[i].x+X_BUFFER+EXTRA_X_BUFFER, bottomcurve[i].y+Y_BUFFER)
+	}
+	ctx.stroke()
+
+	
+	//if the top of the station is close to actually appearing, then render it.
+	var x=radius*Math.cos(0)
+	var y=radius*Math.sin(0) + radius
+	var values = new CanvasPoint(minmaxes, x, y)
+	if(values.y>-50) 
+	{
+		var topcurve = []
+		for(var i=floor_start; i<floor_end; i+=arc/100)
+		{	
+			var x = radius * Math.cos(i)
+			var y = 1 * radius * Math.sin(i) + radius //+1, top arc!
+			var values = new CanvasPoint(minmaxes, x, y)
+			topcurve.push(values)
+		}
+
+		var x = radius * Math.cos(floor_end)
+		var y = 1 * radius * Math.sin(floor_end) + radius //+1, top arc!
+		var values = new CanvasPoint(minmaxes, x, y)
+		topcurve.push(values)
+
+		ctx.moveTo(topcurve[0].x+X_BUFFER+EXTRA_X_BUFFER, topcurve[0].y+Y_BUFFER)
+		
+		for(var i=1; i<topcurve.length; i+=1)
+		{
+			ctx.lineTo(topcurve[i].x+X_BUFFER+EXTRA_X_BUFFER, topcurve[i].y+Y_BUFFER)
+		}
+		ctx.stroke()
+	}
+}
+
+
+function scalemark(radius, angle, minmaxes, pxperfoot, value)
+{
+	//mark size 10px, means 5px above and below station curve
+	//subtract the proper number of feet-per-pixel from the radius to achieve.
+	var x1 = (radius - (5 / pxperfoot)) * Math.cos(angle)
+	var x2 = (radius + (5 / pxperfoot)) * Math.cos(angle)
+	//var x3 = (radius + (30 / pxperfoot)) * Math.cos(angle)
+	
+	var y1 = (radius - (5 / pxperfoot)) * Math.sin(angle) + radius
+	var y2 = (radius + (5 / pxperfoot)) * Math.sin(angle) + radius
+	//var y3 = (radius + (20 / pxperfoot)) * Math.sin(angle) + radius
+	
+	this.start = new CanvasPoint(minmaxes, x1, y1)
+	this.end = new CanvasPoint(minmaxes, x2, y2)
+	
+	var length = value.toString().length;
+	var canvasX3 = this.end.x - length*3 + length*3*Math.cos(angle) + 10*Math.cos(angle)
+	var canvasY3 = this.end.y - 15*Math.sin(angle) + 3*(Math.sin(angle)+1)
+				//the draw coord starts from the bottom. adjust for that.
+				//the more "up" on the circle, the more it matters.
+				
+	this.numberspot = {x : canvasX3, y : canvasY3}
+	//this.numberoffsetX = value.toString().length*5
+	//this.numberoffsetY = -5 * Math.cos(angle)
+	this.value = value
+}
+
+//scale the scale nicely from units of 1,2,4,5,10,20,40,50,100,...
+//more intuitive for the user.
+function scale_increment() {
+	this.series = -1;
+		
+	this.run = function(value) {
+		this.series+=1;
+		if(this.series==4)
+		{
+			this.series=0;
+		}
+		
+		if(this.series!=2)
+		{
+			return value*=2
+		}
+		else
+		{
+			return value+=value/4
+		}
+	}
+}
+function draw_scale(radius, minmaxes, relativepoints)
+{
+	var lastpoint = relativepoints[relativepoints.length-1]
+	var start = 3*Math.PI/2
+	
+	//not sure why that didn't work
+	var chord_angle = 2 * Math.asin(lastpoint.dist/(2*radius))
+	//var chord_angle = lastpoint.theta_pc
+	var end = start - chord_angle
+	
+	var curve_dist = radius * chord_angle
+	
+	var pxperfoot = minmaxes.canvasSize / minmaxes.range
+	
+	var arc_per_foot = 1 / radius
+	
+	var increment=1;
+
+	var series = [2,2]
+	increaseval = new scale_increment()
+	while(pxperfoot*increment<20)
+	{
+		increment = increaseval.run(increment);
+	}
+	
+	var scalemarks = []
+	var i=0;	//draw tic marcks, up to one past the end spot
+	for(var a=start; a>end-(arc_per_foot*increment); a-=(arc_per_foot*increment))
+	{
+		scalemarks.push(new scalemark(radius, a, minmaxes, pxperfoot, i) )
+		i+=increment;
+	}
+	
+	var canvas = document.getElementById("demo");
+    var ctx = canvas.getContext("2d");
+	ctx.font = "10px Arial";
+
+	for(var i=0; i<scalemarks.length; i++)
+	{
+		var mark = scalemarks[i]
+		ctx.moveTo(mark.start.x+X_BUFFER+EXTRA_X_BUFFER, mark.start.y+Y_BUFFER)
+		ctx.lineTo(mark.end.x+X_BUFFER+EXTRA_X_BUFFER, mark.end.y+Y_BUFFER)
+		ctx.fillText(mark.value.toString(), mark.numberspot.x+X_BUFFER+EXTRA_X_BUFFER, mark.numberspot.y+Y_BUFFER);
+	}
+}
+
+
+function calc_error(diameter, height_start, gs, height_thrown) {
 	var radius = Decimal(diameter/2)
 	
-		var accel_earth
+	var accel_earth
 	
 	//Get acceleration at floor.
 	if(units=="ft")
@@ -289,7 +661,7 @@ function calc_error(diameter, height_start, gs, height_thrown) {
 	
 	var g_accel = accel_earth * gs;
 	
-	//CALCULATE!!! /////////////////////////////////////////
+		//CALCULATE!!! /////////////////////////////////////////
 	////////////////////////////////////////////////////////
 	
 	var standingvelocity = Decimal.sqrt( g_accel * radius )
@@ -307,16 +679,112 @@ function calc_error(diameter, height_start, gs, height_thrown) {
 
 	var g_onball = omega*omega*r_onball;
 	
-	
-	
-	
 	//Now get the starting velocities.
 	var start_v_y = Decimal.sqrt( 2 * accel_earth * height_thrown ) //calculated comparing to Earth's gravity
 	var start_v_x = Decimal(-1).mul( Decimal.sqrt( g_onball * r_onball ) ) //-1 b/c station is rotating clockwise
-
-		//Now find intersection with the circle.
+	
 	var slope = start_v_y.div( start_v_x )
 	
+	//if you start AT the center of the station
+	if ( !slope.isFinite() && start_v_y != 0 )
+	{
+		var time = ((Decimal(2).mul(radius)).sub(height_start)).div(start_v_y)
+		var x_f = Decimal(0)
+		var y_f = radius
+		var maxheight = radius
+	}
+	else
+	{
+		variables = crunch_numbers( radius, g_accel, omega, start_v_y, start_v_x, slope, r_onball )
+		var time = variables.time
+		var x_f = variables.x_f
+		var y_f = variables.y_f
+		var maxheight = variables.maxheight		
+	}
+	
+	//radial angle swept by the person
+	var theta_traversed_person = omega.mul( time )
+	var initial_angle_person = (Decimal(3).mul(MyLib.PI)).div(2)
+	var final_angle_person = initial_angle_person.sub(theta_traversed_person) //minus b/c clockwise rotation
+	
+	//final position of person
+	//fortunately Javascript uses radians, not degrees
+	var xf_person = radius.mul(Decimal.cos(final_angle_person) )
+	var yf_person = radius.mul(Decimal.sin(final_angle_person) )
+	
+	var x_difference = xf_person.sub( x_f )
+	var y_difference = yf_person.sub( y_f )
+	
+	var total_difference = Decimal.sqrt( Decimal.pow(x_difference,2).add(Decimal.pow(y_difference,2) ) )
+	
+	
+	/////SOLVE FOR A LIST OF ABSOLUTE POINTS ALONG PATH/////////////
+	////////////////////////////////////////////////////////////////
+
+	
+	var absolutepoints = []
+	
+
+	if(slope.isFinite())
+	{
+		//add in time=0 and time=100, and it works out to 150 increments (usually).
+		var time_increment = Number(time.div(148))
+		for(var t=0; t<=Number(time); t+=time_increment)
+		{
+			var absolutePoints = new AbsolutePoints( t, Number(radius), Number(omega), Number(slope), Number(height_start), Number(start_v_x) )
+			absolutepoints.push(absolutePoints)
+		}
+		
+		//do it once more at t = time.
+		var absolutePoints = new AbsolutePoints( Number(time), Number(radius), Number(omega), Number(slope), Number(height_start), Number(start_v_x) );
+		absolutepoints.push( absolutePoints );			
+	}
+	else
+	{
+		//add in time=0 and time=100, and it works out to 150 increments (usually).
+		var time_increment = Number(time.div(148))
+		for(var t=0; t<=Number(time); t+=time_increment)
+		{
+			var absolutePoints = new AbsolutePointsVertical( t, Number(radius), Number(omega), Number(slope), Number(height_start), Number(start_v_y) )
+			absolutepoints.push(absolutePoints)
+		}
+		
+		//do it once more at t = time.
+		var absolutePoints = new AbsolutePointsVertical( Number(time), Number(radius), Number(omega), Number(slope), Number(height_start), Number(start_v_y) );
+		absolutepoints.push( absolutePoints );
+	}
+	
+	//point = new RelativePoint( Number(time), Number(radius), Number(omega), Number(slope), Number(height_start), Number(start_v_x) )
+	
+	//point = new RelativePoint( 0.25, Number(radius), Number(omega), Number(slope), Number(height_start), Number(start_v_x) )
+	
+	
+	var answers = {
+		maxheight: maxheight,
+		g_accel: g_accel,
+		radius: radius,
+		standingvelocity: standingvelocity,
+		start_v_y:start_v_y,
+		omega: omega,
+		total_difference: total_difference,
+		time: time,
+		accel_earth: accel_earth,
+		absolutepoints: absolutepoints
+	}
+	
+	
+	return answers
+
+	
+	
+}
+
+
+
+function crunch_numbers( radius, g_accel, omega, start_v_y, start_v_x, slope, r_onball )
+{
+	var slope = start_v_y.div( start_v_x )
+		
 	var sqroot1 = Decimal.sqrt( Decimal.pow(slope,2).mul(Decimal.pow(r_onball,2)).sub((Decimal(1).add(Decimal.pow(slope,2))).mul( Decimal.pow(r_onball,2).sub(Decimal.pow(radius,2)  )) ) )
 	
 	//var x_1 = ( (slope * r_onball) + sqroot1 ) / ( 1 + Math.pow(slope,2)) // +
@@ -347,36 +815,17 @@ function calc_error(diameter, height_start, gs, height_thrown) {
 	//Get the time.
 	var time = Decimal.sqrt( Decimal.pow(x_2,2).add(( y_2.add(r_onball )).pow(2) )).div( start_vtotal )
 	
-	//radial angle swept by the person
-	var theta_traversed_person = omega.mul( time )
-	var initial_angle_person = (Decimal(3).mul(PI)).div(2)
-	var final_angle_person = initial_angle_person.sub(theta_traversed_person) //minus b/c clockwise rotation
-	
-	//final position of person
-	//fortunately Javascript uses radians, not degrees
-	var xf_person = radius.mul(Decimal.cos(final_angle_person) )
-	var yf_person = radius.mul(Decimal.sin(final_angle_person) )
-	
-	var x_difference = xf_person.sub( x_2 )
-	var y_difference = yf_person.sub( y_2 )
-	
-	var total_difference = Decimal.sqrt( Decimal.pow(x_difference,2).add(Decimal.pow(y_difference,2) ) )
-
-	
-	
-	
-	
-	
 	///MAX HEIGHT/////////////////////////////////////
 	//////////////////////////////////////////////////
 
 	//a maximization function.
+	//This would have made more sense if I did it in reference to time instead.
+	//Oh well.
 
 	//Starting values
 	var test_x = start_vtotal*(time/10) //Starting test increment
 	var direction = -1  //iterate leftwards to start.
-	var maxvalue = height_start
-
+	var maxvalue = radius.sub(r_onball)  //start with initial height
 	var current_x = 0    //ball goes left. Negative.
 	var current_y = 0
 	var current_value = 0
@@ -419,241 +868,11 @@ function calc_error(diameter, height_start, gs, height_thrown) {
 		lastvalue = current_value;
 	}
 	
-
-	/////SOLVE FOR 100 RELATIVE POINTS ALONG PATH/////////////
-	///////////////////////////////////////////////////////////
-
-	var hundred = []
-	
-	//add in time=0 and time=100, and it works out to 100 increments.
-	var time_increment = Number(time.div(98))
-	for(var t=0; t<=Number(time); t+=time_increment)
-	{
-		var absolutepoints = new AbsolutePoints( t, Number(radius), Number(omega), Number(slope), Number(height_start), Number(start_v_x) )
-		hundred.push( new RelativePoint( absolutepoints ) )
-	}
-
-	//do it once more at t = time.
-	var absolutepoints = new AbsolutePoints( Number(time), Number(radius), Number(omega), Number(slope), Number(height_start), Number(start_v_x) );
-	hundred.push( new RelativePoint( absolutepoints ) );
-	
-	//point = new RelativePoint( Number(time), Number(radius), Number(omega), Number(slope), Number(height_start), Number(start_v_x) )
-	
-	//point = new RelativePoint( 0.25, Number(radius), Number(omega), Number(slope), Number(height_start), Number(start_v_x) )
-	
-	
-	var answers = {
-		maxvalue: maxvalue,
-		g_accel: g_accel,
-		radius: radius,
-		standingvelocity: standingvelocity,
-		start_v_y:start_v_y,
-		omega: omega,
-		total_difference: total_difference,
-		time: time,
-		accel_earth: accel_earth,
-		hundred: hundred
-	}
-	
-	
-	return answers	
-}
-
-function minmax(pointlist) {
-	var minX=pointlist[0].x
-	var maxX=pointlist[0].x
-	var minY=0 //definitely need to show the original floor.
-	
-	//the coin toss assumes a 6-ft person :-)
-	//I'd ideally like to put that person into the window.
-	if(units=="ft")
-	{
-		var maxY=6 
-	}
-	else
-	{
-		var maxY = 1.829 //meters
-	}
-	//var maxY=pointlist[0].y
-
-	
-	for(var i=0; i<pointlist.length; i++)
-	{
-		if(pointlist[i].x < minX)
-		{ minX = pointlist[i].x }
-
-		if(pointlist[i].x > maxX)
-		{ maxX = pointlist[i].x }
-
-		if(pointlist[i].y < minY)
-		{ minY = pointlist[i].y }
-
-		if(pointlist[i].y > maxY)
-		{ maxY = pointlist[i].y }
-	}
-	
-	var rangeX = Math.abs(maxX - minX)
-	var rangeY = Math.abs(maxY - minY)
-	if(rangeX > rangeY)
-	{ var range = rangeX }
-	else
-	{ var range = rangeY }
-	
-	minmaxes = { minX: minX,
-				 maxX: maxX,
-				 minY: minY,
-				 maxY: maxY,
-				 //rangeX: (maxX - minX),
-				 //rangeY: (maxY - minY),
-				 range: range }
-	return minmaxes
-}
-
-
-function prep_canvas(relativepoints) {
-
-	var canvas = document.getElementById("demo");
-    canvas.height = CANVAS_HEIGHT;
-    canvas.width = CANVAS_WIDTH;    
-
-	var minmaxes = minmax(relativepoints)
-	
-	var canvaspoints = []
-	//generate HTML canvas coordinates.
-	for(var i=0; i<relativepoints.length; i++)
-	{
-		canvaspoints.push(new CanvasPoint(minmaxes, CANVAS_WIDTH-2*BUFFER, CANVAS_HEIGHT-2*BUFFER, relativepoints[i]))
-	}
-
-	return { canvaspoints: canvaspoints,
-			 minmaxes: minmaxes	}
-}
-
-function draw_curve_static(canvaspoints)
-{
-	var canvas = document.getElementById("demo");
-    var context = canvas.getContext("2d");
-
-	context.moveTo(canvaspoints[0].x+BUFFER, canvaspoints[0].y+BUFFER);
-	
-	for(var i=1; i<canvaspoints.length; i++)
-	{		
-		context.lineTo(canvaspoints[i].x+BUFFER, canvaspoints[i].y+BUFFER)
-	}
-	
-    context.stroke();
-}
-
-
-
-function draw_curve_active(canvaspoints)
-{
-	var canvas = document.getElementById("demo");
-    var context = canvas.getContext("2d");
-
-	if(!(moveinterval==null))
-	{	clearInterval(moveinterval); moveinterval=null; }
-	
-	var time = Number(answers.time)
-	var i=1;
-	window.moveinterval = setInterval(function() {
-		
-		if(i>=canvaspoints.length)
-		{  clearInterval(moveinterval); moveinterval=null; return; }
-
-		context.moveTo(canvaspoints[i-1].x+BUFFER, canvaspoints[i-1].y+BUFFER);
-		context.lineTo(canvaspoints[i].x+BUFFER, canvaspoints[i].y+BUFFER)
-		context.stroke();
-		
-		i+=1
-			
-	}, ( (time * (100/percenttime))*1000 / canvaspoints.length) );
-	
-}
-
-
-
-//Custom circle-drawing function to render the station floor.
-
-//depending on the parameters, the station could be HUGE, or very small.
-	//If it's huge, I don't want to render the entire floor. Too big!
-	//If it's small, I DO want to render the entire floor.
-
-function draw_floor(radius, minmaxes)
-{	
-	var canvas = document.getElementById("demo");
-    var context = canvas.getContext("2d");
-
-	
-	radius = Number(radius)
-	var toconvert = 2 * minmaxes.range / radius
-	
-	//Double-check I'm using valid values for the arc-cosine.
-	if(toconvert < 1)
-	{
-		var floor_start = Math.acos( toconvert )
-		var floor_end = Math.acos( -1 * toconvert )
-	}
-	else{
-		var floor_start = 0
-		var floor_end = Math.PI
-	}
-	
-	
-	var arc = floor_end - floor_start
-
-	var bottomcurve = []
-	for(var i=floor_start; i<floor_end; i+=arc/100)
-	{	
-		var x = radius * Math.cos(i)
-		var y = -1 * radius * Math.sin(i) + radius //-1, bottom arc!
-		var values = new CanvasPoint(minmaxes, CANVAS_WIDTH-2*BUFFER, CANVAS_HEIGHT-2*BUFFER, x, y)
-		bottomcurve.push(values)
-	}
-
-	//once more AT floor_end, so there won't be a break if I render the top.
-	var x = radius * Math.cos(floor_end)
-	var y = -1 * radius * Math.sin(floor_end) + radius //-1, bottom arc!
-	var values = new CanvasPoint(minmaxes, CANVAS_WIDTH-2*BUFFER, CANVAS_HEIGHT-2*BUFFER, x, y)
-	bottomcurve.push(values)
-
-	
-	context.moveTo(bottomcurve[0].x+BUFFER, bottomcurve[0].y+BUFFER)
-	
-	for(var i=1; i<bottomcurve.length; i+=1)
-	{
-		context.lineTo(bottomcurve[i].x+BUFFER, bottomcurve[i].y+BUFFER)
-	}
-	context.stroke()
-
-	
-	//if the top of the station is close to actually appearing, then render it.
-	var x=radius*Math.cos(0)
-	var y=radius*Math.sin(0) + radius
-	var values = new CanvasPoint(minmaxes, CANVAS_WIDTH-2*BUFFER, CANVAS_HEIGHT-2*BUFFER, x, y)
-	if(values.y>-50) 
-	{
-		var topcurve = []
-		for(var i=floor_start; i<floor_end; i+=arc/100)
-		{	
-			var x = radius * Math.cos(i)
-			var y = 1 * radius * Math.sin(i) + radius //+1, top arc!
-			var values = new CanvasPoint(minmaxes, CANVAS_WIDTH-2*BUFFER, CANVAS_HEIGHT-2*BUFFER, x, y)
-			topcurve.push(values)
-		}
-
-		var x = radius * Math.cos(floor_end)
-		var y = 1 * radius * Math.sin(floor_end) + radius //+1, top arc!
-		var values = new CanvasPoint(minmaxes, CANVAS_WIDTH-2*BUFFER, CANVAS_HEIGHT-2*BUFFER, x, y)
-		topcurve.push(values)
-
-		context.moveTo(topcurve[0].x+BUFFER, topcurve[0].y+BUFFER)
-		
-		for(var i=1; i<topcurve.length; i+=1)
-		{
-			context.lineTo(topcurve[i].x+BUFFER, topcurve[i].y+BUFFER)
-		}
-		context.stroke()
+	return {
+		maxheight:maxvalue,
+		x_f : x_2,
+		y_f : y_2,
+		time: time
 	}
 }
 
@@ -668,9 +887,9 @@ function submit_values() {
     var height_thrown = Number(document.getElementById("heightthrown").value);
     //angle = Number(document.getElementById("anglethrown").value);
 
-	if(!(moveinterval==null))
-	{ clearInterval(moveinterval); 
-		moveinterval=null; }
+	if(!(MyLib.moveinterval==null))
+	{ clearInterval(MyLib.moveinterval); 
+		MyLib.moveinterval=null; }
 
 	//clear the output fields.
 	//////////////////////////
@@ -690,11 +909,20 @@ function submit_values() {
 	document.getElementById("timeinairunits").innerHTML = "";
 
 	answers = calc_error( diameter, height_start, gs, height_thrown ) //is global
+	
+	MyLib.globaltime = Number(answers.time)
+	MyLib.relativepoints = []
+	
+	for(var i=0; i<answers.absolutepoints.length; i++)
+	{
+		MyLib.relativepoints.push( new RelativePoint( answers.absolutepoints[i] ) )
+	}
 
 	
-	canvasthings = prep_canvas(answers.hundred)
+	
+	
+	canvasthings = prep_canvas(MyLib.relativepoints)
 	draw_curve_static(canvasthings.canvaspoints)
-	draw_floor(Number(answers.radius), canvasthings.minmaxes)
 	
 	//expected values
 	var expectedheight = height_start + height_thrown
@@ -704,7 +932,7 @@ function submit_values() {
 	document.getElementById("expectedtimeunits").innerHTML = "&nbsp;s"
 
 	
-	document.getElementById("maxheightachieved").innerHTML = round(answers.maxvalue);
+	document.getElementById("maxheightachieved").innerHTML = round(answers.maxheight);
 	document.getElementById("maxheightachievedunits").innerHTML = units;
 	
 	//produce output.//////////////////////////////////////
