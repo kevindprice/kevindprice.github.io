@@ -8,28 +8,72 @@ if(typeof standalone === 'undefined')
 	var standalone = false;
 }
 
-CANVAS_WIDTH = 400
-CANVAS_HEIGHT = 300
-X_BUFFER = CANVAS_WIDTH/10
-Y_BUFFER = CANVAS_HEIGHT/15
-DRAWING_WIDTH = CANVAS_WIDTH - 2 * X_BUFFER
-DRAWING_HEIGHT = CANVAS_HEIGHT - 2 * Y_BUFFER
-
-EXTRA_X_BUFFER = 0;
-
-DELAY_BETWEEN_DRAWS = 2.5 //seconds to wait until next draw, when looping.
-
-Decimal.set({ precision: 30 });  //accuracy of 30 decimals for the initial calculation
+var cnv = {}; //Canvas variable namespace
 
 //namespace
 var MyLib = {}
 MyLib.PI = Decimal.acos(-1);  //more accurate than Math.PI
 MyLib.percenttime = 100;
 MyLib.scale=false;
-MyLib.relativepoints = []
+MyLib.points = []
 MyLib.globaltime = null;
 MyLib.repeattimeout = null;
 MyLib.moveinterval = null;
+
+
+(function() {
+	var
+	// Obtain a reference to the canvas element using its id.
+	htmlCanvas = document.getElementById('demo'),
+	// Obtain a graphics context on the canvas element for drawing.
+	context = htmlCanvas.getContext('2d');
+
+   // Start listening to resize events and draw canvas.
+   initialize();
+
+   function initialize() {
+	   // Register an event listener to call the resizeCanvas() function 
+	   // each time the window is resized.
+	   window.addEventListener('resize', resizeCanvas, false);
+	   // Draw canvas border for the first time.
+	   resizeCanvas();
+	}
+
+	// Display custom canvas. In this case it's a blue, 5 pixel 
+	// border that resizes along with the browser window.
+	function redraw() {  //not being used
+	   context.strokeStyle = 'blue';
+	   context.lineWidth = '5';
+	   context.strokeRect(0, 0, window.innerWidth, window.innerHeight);
+	}
+
+	// Runs each time the DOM window resize event fires.
+	// Resets the canvas dimensions to match window,
+	// then draws the new borders accordingly.
+	function resizeCanvas() {
+		cnv.CANVAS_WIDTH = htmlCanvas.parentElement.clientWidth;
+
+		//htmlCanvas.width = htmlCanvas.parentElement.clientWidth;
+		//htmlCanvas.height = window.innerHeight;
+		//redraw();
+		cnv.CANVAS_HEIGHT = 300
+		cnv.X_BUFFER = cnv.CANVAS_WIDTH/10
+		cnv.Y_BUFFER = cnv.CANVAS_HEIGHT/15
+		cnv.DRAWING_WIDTH = cnv.CANVAS_WIDTH - 2 * cnv.X_BUFFER
+		cnv.DRAWING_HEIGHT = cnv.CANVAS_HEIGHT - 2 * cnv.Y_BUFFER
+		if(MyLib.points.length!=0 && MyLib.repeattimeout==null)
+		{
+			canvasthings = prep_canvas();
+			draw_curve_static(canvasthings.canvaspoints)
+		}
+	}
+})();
+
+
+DELAY_BETWEEN_DRAWS = 2.5 //seconds to wait until next draw, when looping.
+
+Decimal.set({ precision: 30 });  //accuracy of 30 decimals for the initial calculation
+
 
 
 //Set the fields after initially loading the page.
@@ -74,18 +118,42 @@ function changescale(checkboxElem) {
   }
   if(MyLib.repeattimeout==null)
   {
-	canvasthings = prep_canvas(MyLib.relativepoints) //answers is created globally.
+	canvasthings = prep_canvas()
 	draw_curve_static(canvasthings.canvaspoints)
   }
 }
 
 function changecheck(checkboxElem) {
-  if (checkboxElem.checked) {
-	  set_time_interval();
+  if (checkboxElem.checked) 
+  {
+		set_time_interval();
+		var timediv = document.getElementById("percenttimediv")
+		
+		timediv.innerHTML="&#8195;&#8194;Speed&#160;<input type='number' step='1' min='0' max='500' style='width:63px' id='percenttime' value='100' onchange='changepercenttime(this.value)'/>";
+		MyLib.percenttime=100;
+		
+		timediv.className = "percentsign";
+		
+		timeinput = document.getElementById("percenttime")
+		if(MyLib.globaltime>1)
+		{ timeinput.setAttribute("max", Math.floor(MyLib.globaltime)*100 );	}
+		else
+		{ timeinput.setAttribute("max", 100 );	}
+		
+		if(standalone!=true)
+		{
+			document.getElementById("outertime").style.marginTop="-29px";
+		}
+		else
+		{
+			document.getElementById("outertime").style.marginTop="-19px";
+		}
+
   } else {
 	  stop_time_interval();
   }
 }
+
 
 function set_time_interval()
 {
@@ -98,31 +166,12 @@ function set_time_interval()
 
 	//intervals were being too buggy for this one.
 	//An interval created by an interval== not a good idea.
-	(function repeatdraw() {
-    
-			canvasthings = prep_canvas(MyLib.relativepoints) //answers is created globally.
-			draw_curve_active(canvasthings.canvaspoints)
-			
-			//get time variable again, in case the user adjusts settings in the middle of a run.
-			time = MyLib.globaltime;
-	
-		MyLib.repeattimeout = setTimeout(repeatdraw, ((time * (100/MyLib.percenttime)) + DELAY_BETWEEN_DRAWS) * 1000);
+	(function repeatdraw() {    
+		canvasthings = prep_canvas()
+		draw_curve_active(canvasthings.canvaspoints)
+		
+		MyLib.repeattimeout = setTimeout(repeatdraw, ((MyLib.globaltime * (100/MyLib.percenttime)) + DELAY_BETWEEN_DRAWS) * 1000);
 	})();
-	
-	document.getElementById("percenttimediv").innerHTML="&#8195;&#8194;Speed&#160;<input type='number' step='1' min='0' max='500' style='width:63px' id='percenttime' value='100' onchange='changepercenttime(this.value)'/>";
-	MyLib.percenttime=100;
-	
-	document.getElementById("percenttimediv").className = "percentsign";
-	
-	if(standalone!=true)
-	{
-		document.getElementById("outertime").style.marginTop="-29px";
-	}
-	else
-	{
-		document.getElementById("outertime").style.marginTop="-19px";
-	}
-    
 }
 
 function stop_time_interval()
@@ -136,13 +185,16 @@ function stop_time_interval()
 	document.getElementById("percenttimediv").className = "";
 	document.getElementById("outertime").style.marginTop="0px";
 	
-	canvasthings = prep_canvas(MyLib.relativepoints) //answers is created globally.
+	canvasthings = prep_canvas()
 	draw_curve_static(canvasthings.canvaspoints)
 }
 
 function changepercenttime(value)
 {
 	MyLib.percenttime = value;
+	clearTimeout(MyLib.repeattimeout);
+	clearInterval(MyLib.moveinterval);
+	set_time_interval()
 }
 
 //Activated by radiobutton, user changes the unit setting.
@@ -320,7 +372,7 @@ function CanvasPoint(minmaxes, x, y) {
 	{ y = x.y; x=x.x; }
 	
 	var canvasX = ((x - minmaxes.minX) / minmaxes.range) * minmaxes.canvasSize
-	var canvasY = DRAWING_HEIGHT - (( y / minmaxes.range ) * minmaxes.canvasSize )
+	var canvasY = cnv.DRAWING_HEIGHT - (( y / minmaxes.range ) * minmaxes.canvasSize )
 	
 	this.x = canvasX;
 	this.y = canvasY;
@@ -368,10 +420,10 @@ function minmax(pointlist) {
 	{ var range = rangeY }
 	
 	//Ensures the scale stays proportional if height/width are adjusted differently.
-	if(DRAWING_WIDTH/DRAWING_HEIGHT < rangeX/rangeY)
-	{ canvasSize = DRAWING_WIDTH }
+	if(cnv.DRAWING_WIDTH/cnv.DRAWING_HEIGHT < rangeX/rangeY)
+	{ canvasSize = cnv.DRAWING_WIDTH }
 	else
-	{ canvasSize = DRAWING_HEIGHT }
+	{ canvasSize = cnv.DRAWING_HEIGHT }
 	
 	
 	minmaxes = { minX: minX,
@@ -386,12 +438,23 @@ function minmax(pointlist) {
 }
 
 
-function prep_canvas(relativepoints) {
+function prep_canvas() {
+
+	timeinput = document.getElementById("percenttime")
+	if(timeinput!=null)
+	{
+		if(MyLib.globaltime>1)
+		{ timeinput.setAttribute("max", Math.floor(MyLib.globaltime)*100 );	}
+		else
+		{ timeinput.setAttribute("max", 100);	}
+	}
 
 	var canvas = document.getElementById("demo");
-    canvas.height = CANVAS_HEIGHT;
-    canvas.width = CANVAS_WIDTH;    
+	
+    canvas.height = cnv.CANVAS_HEIGHT;
+    canvas.width = cnv.CANVAS_WIDTH;    
 
+	var relativepoints = MyLib.points
 	var minmaxes = minmax(relativepoints)
 	
 	var canvaspoints = []
@@ -417,11 +480,11 @@ function draw_curve_static(canvaspoints)
 	var canvas = document.getElementById("demo");
     var ctx = canvas.getContext("2d");
 
-	ctx.moveTo(canvaspoints[0].x+X_BUFFER+EXTRA_X_BUFFER, canvaspoints[0].y+Y_BUFFER);
+	ctx.moveTo(canvaspoints[0].x+cnv.X_BUFFER, canvaspoints[0].y+cnv.Y_BUFFER);
 	
 	for(var i=1; i<canvaspoints.length; i++)
 	{		
-		ctx.lineTo(canvaspoints[i].x+X_BUFFER+EXTRA_X_BUFFER, canvaspoints[i].y+Y_BUFFER)
+		ctx.lineTo(canvaspoints[i].x+cnv.X_BUFFER, canvaspoints[i].y+cnv.Y_BUFFER)
 	}
 	
     ctx.stroke();
@@ -450,10 +513,10 @@ function draw_curve_active(canvaspoints)
 			
 		if(i==1)
 		{
-			ctx.moveTo(canvaspoints[i-1].x+X_BUFFER+EXTRA_X_BUFFER, canvaspoints[i-1].y+Y_BUFFER);
+			ctx.moveTo(canvaspoints[i-1].x+cnv.X_BUFFER, canvaspoints[i-1].y+cnv.Y_BUFFER);
 		}
 		
-		ctx.lineTo(canvaspoints[i].x+X_BUFFER+EXTRA_X_BUFFER, canvaspoints[i].y+Y_BUFFER)
+		ctx.lineTo(canvaspoints[i].x+cnv.X_BUFFER, canvaspoints[i].y+cnv.Y_BUFFER)
 		ctx.stroke();
 		
 		i+=1
@@ -509,11 +572,11 @@ function draw_floor(radius, minmaxes)
 	bottomcurve.push(values)
 
 	
-	ctx.moveTo(bottomcurve[0].x+X_BUFFER+EXTRA_X_BUFFER, bottomcurve[0].y+Y_BUFFER)
+	ctx.moveTo(bottomcurve[0].x+cnv.X_BUFFER, bottomcurve[0].y+cnv.Y_BUFFER)
 	
 	for(var i=1; i<bottomcurve.length; i+=1)
 	{
-		ctx.lineTo(bottomcurve[i].x+X_BUFFER+EXTRA_X_BUFFER, bottomcurve[i].y+Y_BUFFER)
+		ctx.lineTo(bottomcurve[i].x+cnv.X_BUFFER, bottomcurve[i].y+cnv.Y_BUFFER)
 	}
 	ctx.stroke()
 
@@ -538,11 +601,11 @@ function draw_floor(radius, minmaxes)
 		var values = new CanvasPoint(minmaxes, x, y)
 		topcurve.push(values)
 
-		ctx.moveTo(topcurve[0].x+X_BUFFER+EXTRA_X_BUFFER, topcurve[0].y+Y_BUFFER)
+		ctx.moveTo(topcurve[0].x+cnv.X_BUFFER, topcurve[0].y+cnv.Y_BUFFER)
 		
 		for(var i=1; i<topcurve.length; i+=1)
 		{
-			ctx.lineTo(topcurve[i].x+X_BUFFER+EXTRA_X_BUFFER, topcurve[i].y+Y_BUFFER)
+			ctx.lineTo(topcurve[i].x+cnv.X_BUFFER, topcurve[i].y+cnv.Y_BUFFER)
 		}
 		ctx.stroke()
 	}
@@ -603,10 +666,20 @@ function draw_scale(radius, minmaxes, relativepoints)
 	var lastpoint = relativepoints[relativepoints.length-1]
 	var start = 3*Math.PI/2
 	
+
 	//not sure why that didn't work
 	var chord_angle = 2 * Math.asin(lastpoint.dist/(2*radius))
 	//var chord_angle = lastpoint.theta_pc
-	var end = start - chord_angle
+
+	if(lastpoint.x < 0)
+	{
+		var end = start - chord_angle
+	}
+	else
+	{
+		var end = start + chord_angle		
+	}
+
 	
 	var curve_dist = radius * chord_angle
 	
@@ -625,10 +698,22 @@ function draw_scale(radius, minmaxes, relativepoints)
 	
 	var scalemarks = []
 	var i=0;	//draw tic marcks, up to one past the end spot
-	for(var a=start; a>end-(arc_per_foot*increment); a-=(arc_per_foot*increment))
+
+	if(lastpoint.x < 0)
 	{
-		scalemarks.push(new scalemark(radius, a, minmaxes, pxperfoot, i) )
-		i+=increment;
+		for(var a=start; a>end-(arc_per_foot*increment); a-=(arc_per_foot*increment))
+		{
+			scalemarks.push(new scalemark(radius, a, minmaxes, pxperfoot, i) )
+			i+=increment;
+		}		
+	}
+	else
+	{
+		for(var a=start; a<end+(arc_per_foot*increment); a+=(arc_per_foot*increment))
+		{
+			scalemarks.push(new scalemark(radius, a, minmaxes, pxperfoot, i) )
+			i+=increment;
+		}		
 	}
 	
 	var canvas = document.getElementById("demo");
@@ -638,9 +723,9 @@ function draw_scale(radius, minmaxes, relativepoints)
 	for(var i=0; i<scalemarks.length; i++)
 	{
 		var mark = scalemarks[i]
-		ctx.moveTo(mark.start.x+X_BUFFER+EXTRA_X_BUFFER, mark.start.y+Y_BUFFER)
-		ctx.lineTo(mark.end.x+X_BUFFER+EXTRA_X_BUFFER, mark.end.y+Y_BUFFER)
-		ctx.fillText(mark.value.toString(), mark.numberspot.x+X_BUFFER+EXTRA_X_BUFFER, mark.numberspot.y+Y_BUFFER);
+		ctx.moveTo(mark.start.x+cnv.X_BUFFER, mark.start.y+cnv.Y_BUFFER)
+		ctx.lineTo(mark.end.x+cnv.X_BUFFER, mark.end.y+cnv.Y_BUFFER)
+		ctx.fillText(mark.value.toString(), mark.numberspot.x+cnv.X_BUFFER, mark.numberspot.y+cnv.Y_BUFFER);
 	}
 }
 
@@ -728,7 +813,7 @@ function calc_error(diameter, height_start, gs, height_thrown) {
 	if(slope.isFinite())
 	{
 		//add in time=0 and time=100, and it works out to 150 increments (usually).
-		var time_increment = Number(time.div(148))
+		var time_increment = Number(time.div(150))
 		for(var t=0; t<=Number(time); t+=time_increment)
 		{
 			var absolutePoints = new AbsolutePoints( t, Number(radius), Number(omega), Number(slope), Number(height_start), Number(start_v_x) )
@@ -742,7 +827,7 @@ function calc_error(diameter, height_start, gs, height_thrown) {
 	else
 	{
 		//add in time=0 and time=100, and it works out to 150 increments (usually).
-		var time_increment = Number(time.div(148))
+		var time_increment = Number(time.div(150))
 		for(var t=0; t<=Number(time); t+=time_increment)
 		{
 			var absolutePoints = new AbsolutePointsVertical( t, Number(radius), Number(omega), Number(slope), Number(height_start), Number(start_v_y) )
@@ -758,6 +843,13 @@ function calc_error(diameter, height_start, gs, height_thrown) {
 	
 	//point = new RelativePoint( 0.25, Number(radius), Number(omega), Number(slope), Number(height_start), Number(start_v_x) )
 	
+	var relativepoints = []
+	for(var i=0; i<absolutepoints.length; i++)
+	{
+		relativepoints.push( new RelativePoint( absolutepoints[i] ) )
+	}
+
+	MyLib.points = relativepoints
 	
 	var answers = {
 		maxheight: maxheight,
@@ -769,7 +861,6 @@ function calc_error(diameter, height_start, gs, height_thrown) {
 		total_difference: total_difference,
 		time: time,
 		accel_earth: accel_earth,
-		absolutepoints: absolutepoints
 	}
 	
 	
@@ -911,17 +1002,9 @@ function submit_values() {
 	answers = calc_error( diameter, height_start, gs, height_thrown ) //is global
 	
 	MyLib.globaltime = Number(answers.time)
-	MyLib.relativepoints = []
-	
-	for(var i=0; i<answers.absolutepoints.length; i++)
-	{
-		MyLib.relativepoints.push( new RelativePoint( answers.absolutepoints[i] ) )
-	}
-
 	
 	
-	
-	canvasthings = prep_canvas(MyLib.relativepoints)
+	canvasthings = prep_canvas()
 	draw_curve_static(canvasthings.canvaspoints)
 	
 	//expected values

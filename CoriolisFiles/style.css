@@ -82,3 +82,10 @@ div.metric::after{
 .answer {
 	margin-bottom:20px;	
 }
+
+#canvascontainer {
+	max-width:450px;
+	width:inherit;
+	overflow: hidden;
+	margin:auto;
+}
