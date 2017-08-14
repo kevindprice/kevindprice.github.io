@@ -17,7 +17,7 @@ MyLib.allatonce = false; //used so that some functions can change all the values
 MyLib.PI = Decimal.acos(-1);  //more accurate than Math.PI
 MyLib.percenttime = 100;
 MyLib.scale=false;
-MyLib.points = []
+MyLib.relativepoints = []
 MyLib.globaltime = null;
 MyLib.repeattimeout = null;
 MyLib.moveinterval = null;
@@ -26,7 +26,7 @@ MyLib.moveinterval = null;
 //(instead of waiting)
 MyLib.radius = null;
 MyLib.minmaxes = null;
-
+MyLib.canvaspoints = null;
 
 
 
@@ -70,10 +70,10 @@ MyLib.minmaxes = null;
 		cnv.Y_BUFFER = cnv.CANVAS_HEIGHT/15
 		cnv.DRAWING_WIDTH = cnv.CANVAS_WIDTH - 2 * cnv.X_BUFFER
 		cnv.DRAWING_HEIGHT = cnv.CANVAS_HEIGHT - 2 * cnv.Y_BUFFER
-		if(MyLib.points.length!=0 && MyLib.repeattimeout==null)
+		if(MyLib.relativepoints.length!=0 && MyLib.repeattimeout==null)
 		{
-			canvasthings = prep_canvas();
-			draw_curve_static(canvasthings.canvaspoints)
+			reset_canvas();
+			draw_curve_static()
 		}
 	}
 })();
@@ -138,8 +138,8 @@ function changescale(checkboxElem) {
 	  
 	  if(MyLib.repeattimeout==null) //if the scale is static, it won't erase otherwise.
 	  {
-		canvasthings = prep_canvas()
-		draw_curve_static(canvasthings.canvaspoints)
+		reset_canvas()
+		draw_curve_static()
 	  }
   }
 }
@@ -189,8 +189,8 @@ function set_time_interval()
 	//intervals were being too buggy for this one.
 	//An interval created by an interval== not a good idea.
 	(function repeatdraw() {    
-		canvasthings = prep_canvas()
-		draw_curve_active(canvasthings.canvaspoints)
+		canvasthings = reset_canvas()
+		draw_curve_active()
 		
 		MyLib.repeattimeout = setTimeout(repeatdraw, ((MyLib.globaltime * (100/MyLib.percenttime)) + DELAY_BETWEEN_DRAWS) * 1000);
 	})();
@@ -207,8 +207,8 @@ function stop_time_interval()
 	document.getElementById("percenttimediv").className = "";
 	document.getElementById("outertime").style.marginTop="0px";
 	
-	canvasthings = prep_canvas()
-	draw_curve_static(canvasthings.canvaspoints)
+	reset_canvas()
+	draw_curve_static()
 }
 
 function changepercenttime(value)
@@ -216,6 +216,7 @@ function changepercenttime(value)
 	MyLib.percenttime = value;
 	clearTimeout(MyLib.repeattimeout);
 	clearInterval(MyLib.moveinterval);
+	prep_canvas()
 	set_time_interval()
 }
 
@@ -459,14 +460,9 @@ function minmax(pointlist) {
 	return minmaxes
 }
 
-
+//only runs when the canvaspoints need to be *changed*.
 function prep_canvas() {
-
-	var canvas = document.getElementById("demo");		
-    canvas.height = cnv.CANVAS_HEIGHT;
-    canvas.width = cnv.CANVAS_WIDTH;    
-
-	var relativepoints = MyLib.points
+	var relativepoints = MyLib.relativepoints
 	var minmaxes = minmax(relativepoints)
 	MyLib.minmaxes = minmaxes
 	
@@ -474,20 +470,23 @@ function prep_canvas() {
 	if(timeinput!=null)
 	{
 		if(MyLib.globaltime>1)
-		{ timeinput.setAttribute("max", Math.floor(MyLib.globaltime)*100 );	}
+		{ timeinput.setAttribute("max", Math.ceil(MyLib.globaltime)*100 );	}
 		else
 		{ timeinput.setAttribute("max", 100);	}
-	
-		//more points for smaller percent time, to smooth it out.
-		var numpoints = Math.floor(55 * MyLib.globaltime / (percenttime.value / 100))
-	
-		if(numpoints>relativepoints.length)
-		{numpoints = relativepoints.length}
-		if(numpoints<90)
-		{numpoints = 90}
 	}
-	else
-	{ numpoints = 120 }
+
+	//more points for smaller percent time, to smooth it out.
+	//55 points per second, min 80.
+	var numpoints = Math.floor(55 * MyLib.globaltime / (MyLib.percenttime / 100))
+
+	if(numpoints>relativepoints.length)
+	{numpoints = relativepoints.length}
+	if(numpoints<80)
+	{numpoints = 80}
+
+	//}
+	//else
+	//{ numpoints = 120 }
 
 
 		
@@ -514,19 +513,28 @@ function prep_canvas() {
 		canvaspoints.push(new CanvasPoint(minmaxes, relativepoints[relativepoints.length-1]))
 	}
 
+	MyLib.canvaspoints = canvaspoints
+}
+
+function reset_canvas() {
+
+	var canvas = document.getElementById("demo");		
+    canvas.height = cnv.CANVAS_HEIGHT;
+    canvas.width = cnv.CANVAS_WIDTH;    
+
 	draw_floor(Number(answers.radius), minmaxes)
 	
 	if(MyLib.scale==true)
 	{
 		draw_scale();
 	}
-	
-	return { canvaspoints: canvaspoints,
-			 minmaxes: minmaxes	}
+	//return { canvaspoints: canvaspoints,
+	//		 minmaxes: minmaxes	}
 }
 
-function draw_curve_static(canvaspoints)
+function draw_curve_static()
 {
+	var canvaspoints = MyLib.canvaspoints
 	var canvas = document.getElementById("demo");
     var ctx = canvas.getContext("2d");
 
@@ -542,8 +550,9 @@ function draw_curve_static(canvaspoints)
 
 
 
-function draw_curve_active(canvaspoints)
+function draw_curve_active()
 {
+	var canvaspoints = MyLib.canvaspoints
 	var canvas = document.getElementById("demo");
     var ctx = canvas.getContext("2d");
 	
@@ -716,7 +725,7 @@ function draw_scale()
 	var radius = MyLib.radius;
 	var minmaxes = MyLib.minmaxes;
 	
-	var lastpoint = MyLib.points[MyLib.points.length-1];
+	var lastpoint = MyLib.relativepoints[MyLib.relativepoints.length-1];
 
 	//not sure why that didn't work
 	var chord_angle = 2 * Math.asin(lastpoint.dist/(2*radius))
@@ -907,7 +916,7 @@ function calc_error(diameter, height_start, gs, height_thrown) {
 		relativepoints.push( new RelativePoint( absolutepoints[i] ) )
 	}
 
-	MyLib.points = relativepoints
+	MyLib.relativepoints = relativepoints
 	MyLib.radius = Number(radius)
 	
 	var answers = {
@@ -1063,8 +1072,9 @@ function submit_values() {
 	MyLib.globaltime = Number(answers.time)
 	
 	
-	canvasthings = prep_canvas()
-	draw_curve_static(canvasthings.canvaspoints)
+	prep_canvas();
+	reset_canvas();
+	draw_curve_static();
 	
 	//expected values
 	var expectedheight = height_start + height_thrown
