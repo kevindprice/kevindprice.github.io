@@ -1,7 +1,4 @@
 
-var units = "ft";  //declares the unit type the page is using, either "ft" or "m".
-var allatonce = false; //used so that some functions can change all the values
-					   //and submit only once.
 
 if(typeof standalone === 'undefined')
 {
@@ -12,6 +9,11 @@ var cnv = {}; //Canvas variable namespace
 
 //namespace
 var MyLib = {}
+
+MyLib.units = "ft";  //declares the unit type the page is using, either "ft" or "m".
+MyLib.allatonce = false; //used so that some functions can change all the values
+					   //and submit only once.
+
 MyLib.PI = Decimal.acos(-1);  //more accurate than Math.PI
 MyLib.percenttime = 100;
 MyLib.scale=false;
@@ -24,6 +26,9 @@ MyLib.moveinterval = null;
 //(instead of waiting)
 MyLib.radius = null;
 MyLib.minmaxes = null;
+
+
+
 
 (function() {
 	var
@@ -82,23 +87,25 @@ Decimal.set({ precision: 30 });  //accuracy of 30 decimals for the initial calcu
 
 //Set the fields after initially loading the page.
 function setfields() {
-	allatonce=true;
+	MyLib.allatonce=true;
 	
 	//mouseover=true;
 	var percentgravity = 100;
 	
-	document.getElementById("heightperson").value = 4
+	document.getElementById("heightstart").value = 4
 	document.getElementById("diameter").value = 50
+	document.getElementById("heightstart").setAttribute("max",50);
 	document.getElementById("heightthrown").value = 3
 	document.getElementById("percentgravity").value = percentgravity
 	
 	outputgs(percentgravity)
 	
 	document.getElementById('imperial').checked = true;
-	units="ft"
-	setunits(units);
 
-	allatonce=false;
+	MyLib.units="ft"
+	setunits(MyLib.units);
+
+	MyLib.allatonce=false;
 	
 	submit_values()
 	
@@ -108,7 +115,15 @@ function setfields() {
 
 //the starting height cannot be greater than the diameter of the station.
 function changeDiameter(value) {
-	document.getElementById("heightperson").setAttribute("max",value);
+	MyLib.allatonce=true;
+	var startfield = document.getElementById("heightstart");
+	startfield.setAttribute("max",value);
+	if(startfield.value > value)
+	{
+		startfield.value = value;
+	}
+	MyLib.allatonce=false;
+
 	changeit();
 }
 
@@ -205,23 +220,23 @@ function changepercenttime(value)
 
 //Activated by radiobutton, user changes the unit setting.
 function convertunits(setting) {
-    allatonce=true; //this changes ALL of the unit fields. 
+    MyLib.allatonce=true; //this changes ALL of the unit fields. 
 					//boolean to prevent submission until the end of the function.
 	setunits(setting)
 	
-	if(units=="ft" && setting=="m")
+	if(MyLib.units=="ft" && setting=="m")
 	{
-		document.getElementById("heightperson").value = round(to_meters(document.getElementById("heightperson").value) )
+		document.getElementById("heightstart").value = round(to_meters(document.getElementById("heightstart").value) )
 		document.getElementById("diameter").value = round(to_meters(document.getElementById("diameter").value) )
 		document.getElementById("heightthrown").value = round(to_meters(document.getElementById("heightthrown").value) )
-	} else if(units=="m" && setting=="ft")
+	} else if(MyLib.units=="m" && setting=="ft")
 	{
-		document.getElementById("heightperson").value = round(to_feet(document.getElementById("heightperson").value) )
+		document.getElementById("heightstart").value = round(to_feet(document.getElementById("heightstart").value) )
 		document.getElementById("diameter").value = round(to_feet(document.getElementById("diameter").value) )
 		document.getElementById("heightthrown").value = round(to_feet(document.getElementById("heightthrown").value) )
 	}	
-	units = setting;
-	allatonce=false;
+	MyLib.units = setting;
+	MyLib.allatonce=false;
 	submit_values()
 }
 
@@ -232,7 +247,7 @@ function setunits(setting) {
 	else if(setting=="ft")
 	{ var changeto="imperial" }
 
-	document.getElementById("heightpersonunits").className = changeto;
+	document.getElementById("heightstartunits").className = changeto;
     document.getElementById("diameterunits").className = changeto;
     document.getElementById("heightthrownunits").className = changeto;
 	document.getElementById("expecteddistunits").className = changeto;
@@ -258,7 +273,7 @@ function outputgs(percentgravity)
 	gs = percentgravity / 100
 	//Tell the user what the gravity is.
 	if(gs!=1) {
-		document.getElementById("gravitygs").innerHTML = gs.toString() + " g's"; //, g_accel.toString(), " ", units, "/s/s");
+		document.getElementById("gravitygs").innerHTML = gs.toString() + " g's"; //, g_accel.toString(), " ", MyLib.units, "/s/s");
 	} else {
 		document.getElementById("gravitygs").innerHTML = "1 g";
 	}
@@ -273,7 +288,7 @@ function to_feet(meters)
 	
 function changeit()
 {
-	if(allatonce == false)
+	if(MyLib.allatonce == false)
 	{
 		submit_values()
 	}
@@ -392,7 +407,7 @@ function minmax(pointlist) {
 	
 	//the coin toss assumes a 6-ft person :-)
 	//I'd ideally like to put that person into the window.
-	if(units=="ft")
+	if(MyLib.units=="ft")
 	{
 		var maxY=6 
 	}
@@ -463,7 +478,7 @@ function prep_canvas() {
 		{ timeinput.setAttribute("max", 100);	}
 	
 		//more points for smaller percent time, to smooth it out.
-		var numpoints = 55 * MyLib.globaltime / (percenttime.value / 100)
+		var numpoints = Math.floor(55 * MyLib.globaltime / (percenttime.value / 100))
 	
 		if(numpoints>relativepoints.length)
 		{numpoints = relativepoints.length}
@@ -495,7 +510,7 @@ function prep_canvas() {
 	//ensure the very last canvaspoint gets pushed, to make it seamless.
 	if(i!=relativepoints.length-1)
 	{
-		canvaspoints.push(new CanvasPoint(minmaxes, ))
+		canvaspoints.push(new CanvasPoint(minmaxes, relativepoints[relativepoints.length-1]))
 	}
 
 	draw_floor(Number(answers.radius), minmaxes)
@@ -541,12 +556,9 @@ function draw_curve_active(canvaspoints)
 		
 		if(i>=canvaspoints.length)
 		{  clearInterval(MyLib.moveinterval); MyLib.moveinterval=null; return; }
-		//move to starting point. Maybe it will save processing 
-		//if I don't have to move every increment?
-		//it must happen within the interval function, or the context gets confused.
-			
-		//if(i==1)  //necessary to comment out if I allow
-		//{			//drawing the scale in realtime
+
+		//if(i==1)  //necessary to move to the necessary spot every time,
+		//{			//If I want to draw anything else *while* it's drawing the active curve.
 			ctx.moveTo(canvaspoints[i-1].x+cnv.X_BUFFER, canvaspoints[i-1].y+cnv.Y_BUFFER);
 		//}
 		
@@ -775,7 +787,7 @@ function calc_error(diameter, height_start, gs, height_thrown) {
 	var accel_earth
 	
 	//Get acceleration at floor.
-	if(units=="ft")
+	if(MyLib.units=="ft")
 	{	
 		accel_earth = 32.174; // ft/s/s
 	} else
@@ -848,13 +860,14 @@ function calc_error(diameter, height_start, gs, height_thrown) {
 	
 	var absolutepoints = []
 	
-	//get ~100 increments per second, but min 100 increments, max 3000 increments.		
+	//get ~240 increments per second, but min 240 increments, max 3000 increments.
+	//It won't SHOW that many, but if the user shows at 50% speed, then I'll want them.
 	if(Number(time)<1.2)
-	{ var time_increment = Number(time.div(120)) }
+	{ var time_increment = Number(time.div(240)) }
 	else if(Number(time)>30)
 	{ var time_increment = Number(time.div(3000)) }
 	else
-	{ var time_increment = .0088; }
+	{ var time_increment = .0044; }
 	
 	//var time_increment = Number(time.div(150))
 
@@ -1017,7 +1030,7 @@ function crunch_numbers( radius, g_accel, omega, start_v_y, start_v_x, slope, r_
 //What happens after the person pushes the submit button...
 function submit_values() {
 	//Get variables
-    var height_start = Number(document.getElementById("heightperson").value);
+    var height_start = Number(document.getElementById("heightstart").value);
     var diameter = Number(document.getElementById("diameter").value);
 	var gs = Number(document.getElementById("percentgravity").value) / 100;
     var height_thrown = Number(document.getElementById("heightthrown").value);
@@ -1055,13 +1068,13 @@ function submit_values() {
 	//expected values
 	var expectedheight = height_start + height_thrown
 	document.getElementById("expectedheight").innerHTML = round( expectedheight )
-	document.getElementById("expectedheightunits").innerHTML = 	"&nbsp;" + units
+	document.getElementById("expectedheightunits").innerHTML = 	"&nbsp;" + MyLib.units
 	document.getElementById("expectedtime").innerHTML = round( Decimal.sqrt( 2 * expectedheight / answers.accel_earth ).add(answers.start_v_y / answers.accel_earth)  )
 	document.getElementById("expectedtimeunits").innerHTML = "&nbsp;s"
 
 	
 	document.getElementById("maxheightachieved").innerHTML = round(answers.maxheight);
-	document.getElementById("maxheightachievedunits").innerHTML = units;
+	document.getElementById("maxheightachievedunits").innerHTML = MyLib.units;
 	
 	//produce output.//////////////////////////////////////
 	///////////////////////////////////////////////////////
@@ -1073,7 +1086,7 @@ function submit_values() {
 
 	
 	//Show velocity values.
-	if(units=="ft")
+	if(MyLib.units=="ft")
 	{
 		document.getElementById("centripaccelunits").innerHTML = "&nbsp;ft/s/s"
 		document.getElementById("standingvelocityunits").innerHTML = "&nbsp;ft/s"
@@ -1087,7 +1100,7 @@ function submit_values() {
 		document.getElementById("verticalvelocity2").innerHTML = "(" + round(verticalvelocity2).toString();
 		document.getElementById("verticalvelocityunits2").innerHTML = "&nbsp;mph)";
 		
-	} else if(units=="m")
+	} else if(MyLib.units=="m")
 	{
 		document.getElementById("centripaccelunits").innerHTML = "m/s/s"
 		document.getElementById("standingvelocityunits").innerHTML = "m/s";
@@ -1118,7 +1131,7 @@ function submit_values() {
 	document.getElementById("rotationalvelocityunits").innerHTML = rotational_units
 	
 	document.getElementById("finalseparation").innerHTML = round(answers.total_difference).toString()
-	document.getElementById("finalseparationunits").innerHTML = units
+	document.getElementById("finalseparationunits").innerHTML = MyLib.units
 	
 	document.getElementById("timeinair").innerHTML = round(answers.time).toString()
 	document.getElementById("timeinairunits").innerHTML = "s"
@@ -1130,14 +1143,14 @@ function submit_values() {
 		document.getElementById("finalseparation2").className="answer";
 		document.getElementById("finalseparationunits2").className="answer"; 
 		
-		if(units=="ft")
+		if(MyLib.units=="ft")
 		{
 			var finalseparation2 = answers.total_difference * 12
 			document.getElementById("finalseparation2").innerHTML = "(" + round(finalseparation2).toString();
 			document.getElementById("finalseparationunits2").innerHTML = "in)";
 		}
 		
-		if(units=="m")
+		if(MyLib.units=="m")
 		{
 			var finalseparation2 = answers.total_difference * 100
 			document.getElementById("finalseparation2").innerHTML = "(" + round(finalseparation2).toString();
