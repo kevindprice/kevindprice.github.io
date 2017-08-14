@@ -540,7 +540,7 @@ function draw_curve_active(canvaspoints)
 	window.MyLib.moveinterval = setInterval(function() {
 		
 		if(i>=canvaspoints.length)
-		{  clearInterval(MyLib.moveinterval); MyLib.moveinterval=null; return; }
+		{  clearInterval(MyLib.moveinterval); MyLib.moveinterval=null; ctx=null; return; }
 		//move to starting point. Maybe it will save processing 
 		//if I don't have to move every increment?
 		//it must happen within the interval function, or the context gets confused.
@@ -765,7 +765,6 @@ function draw_scale()
 		ctx.lineTo(mark.end.x+cnv.X_BUFFER, mark.end.y+cnv.Y_BUFFER)
 		ctx.fillText(mark.value.toString(), mark.numberspot.x+cnv.X_BUFFER, mark.numberspot.y+cnv.Y_BUFFER);
 	}
-	ctx.stroke()
 }
 
 

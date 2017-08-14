@@ -20,10 +20,6 @@ MyLib.globaltime = null;
 MyLib.repeattimeout = null;
 MyLib.moveinterval = null;
 
-//these are so the scale can be drawn in real-time mode, right when it's selected
-//(instead of waiting)
-MyLib.radius = null;
-MyLib.minmaxes = null;
 
 (function() {
 	var
@@ -115,7 +111,6 @@ function changeDiameter(value) {
 function changescale(checkboxElem) {
   if (checkboxElem.checked) {
 	  MyLib.scale=true;
-	  draw_scale();
 	  //EXTRA_X_BUFFER=25;  //It was a good idea. But no.
   } else {
 	  MyLib.scale=false;
@@ -452,7 +447,6 @@ function prep_canvas() {
 
 	var relativepoints = MyLib.points
 	var minmaxes = minmax(relativepoints)
-	MyLib.minmaxes = minmaxes
 	
 	var timeinput = document.getElementById("percenttime");
 	if(timeinput!=null)
@@ -491,18 +485,18 @@ function prep_canvas() {
 		
 		canvaspoints.push(new CanvasPoint(minmaxes, relativepoints[i]))
 	}
-		
+	
 	//ensure the very last canvaspoint gets pushed, to make it seamless.
 	if(i!=relativepoints.length-1)
 	{
-		canvaspoints.push(new CanvasPoint(minmaxes, ))
+		canvaspoints.push(new CanvasPoint(minmaxes, relativepoints[relativepoints.length-1]))
 	}
 
 	draw_floor(Number(answers.radius), minmaxes)
 	
 	if(MyLib.scale==true)
 	{
-		draw_scale();
+		draw_scale(Number(answers.radius), minmaxes, relativepoints);
 	}
 	
 	return { canvaspoints: canvaspoints,
@@ -545,10 +539,10 @@ function draw_curve_active(canvaspoints)
 		//if I don't have to move every increment?
 		//it must happen within the interval function, or the context gets confused.
 			
-		//if(i==1)  //necessary to comment out if I allow
-		//{			//drawing the scale in realtime
+		if(i==1)
+		{
 			ctx.moveTo(canvaspoints[i-1].x+cnv.X_BUFFER, canvaspoints[i-1].y+cnv.Y_BUFFER);
-		//}
+		}
 		
 		ctx.lineTo(canvaspoints[i].x+cnv.X_BUFFER, canvaspoints[i].y+cnv.Y_BUFFER)
 		ctx.stroke();
@@ -695,15 +689,11 @@ function scale_increment() {
 		}
 	}
 }
-function draw_scale()
+function draw_scale(radius, minmaxes, relativepoints)
 {
-	//var lastpoint = relativepoints[relativepoints.length-1]
+	var lastpoint = relativepoints[relativepoints.length-1]
 	var start = 3*Math.PI/2
-
-	var radius = MyLib.radius;
-	var minmaxes = MyLib.minmaxes;
 	
-	var lastpoint = MyLib.points[MyLib.points.length-1];
 
 	//not sure why that didn't work
 	var chord_angle = 2 * Math.asin(lastpoint.dist/(2*radius))
@@ -728,7 +718,7 @@ function draw_scale()
 	var increment=1;
 
 	var series = [2,2]
-	var increaseval = new scale_increment()
+	increaseval = new scale_increment()
 	while(pxperfoot*increment<20)
 	{
 		increment = increaseval.run(increment);
@@ -765,7 +755,6 @@ function draw_scale()
 		ctx.lineTo(mark.end.x+cnv.X_BUFFER, mark.end.y+cnv.Y_BUFFER)
 		ctx.fillText(mark.value.toString(), mark.numberspot.x+cnv.X_BUFFER, mark.numberspot.y+cnv.Y_BUFFER);
 	}
-	ctx.stroke()
 }
 
 
@@ -894,7 +883,6 @@ function calc_error(diameter, height_start, gs, height_thrown) {
 	}
 
 	MyLib.points = relativepoints
-	MyLib.radius = Number(radius)
 	
 	var answers = {
 		maxheight: maxheight,
