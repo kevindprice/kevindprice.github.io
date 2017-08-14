@@ -135,11 +135,12 @@ function changescale(checkboxElem) {
   } else {
 	  MyLib.scale=false;
 	  //EXTRA_X_BUFFER=0;
-  }
-  if(MyLib.repeattimeout==null)
-  {
-	canvasthings = prep_canvas()
-	draw_curve_static(canvasthings.canvaspoints)
+	  
+	  if(MyLib.repeattimeout==null) //if the scale is static, it won't erase otherwise.
+	  {
+		canvasthings = prep_canvas()
+		draw_curve_static(canvasthings.canvaspoints)
+	  }
   }
 }
 
