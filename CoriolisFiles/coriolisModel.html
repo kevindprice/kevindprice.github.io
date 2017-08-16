@@ -19,153 +19,106 @@
 
 <link type="text/css" rel="stylesheet" href="CoriolisFiles/style.css"/>
 
-<h5 style="text-align:center;">A Coin Toss on a Virtual Space Station</h5>
 
 <!--onmouseover="setfields()"-->
 <table border="1" class="model">
-	<tr>
-		<!--section titles-->
-		<td style="width:270px;"><h3 style="color:#CE0D45; text-align:center; ">Input Values</h3></td>
-		<td style="width:270px;"><div style="color:#2F329F; text-align:center;">Misc Information</div></td>
-	</tr>
-	<tr id="calculations">
-		<td style="padding:15px 8px 0px 20px;">
-			<!--input fields-->
-			<form action="" style="margin-bottom:5px;">
-			  <input type="radio" name="units" id="imperial" value="ft" onClick="convertunits(this.value)"/> Imperial (feet)&#160;&#160;
-			  <input type="radio" name="units" id="metric" checked="checked" value="m" onClick="convertunits(this.value)"/> Metric (meters)
-			</form>
-			<div class="smallbreak"></div> <!--smaller text break-->
-			<table>
-				<tr>
-					<td class="textright">Starting height</td>
-					<td class="fieldleft"><div id="heightstartunits"><input type='number' step="any" min="0" class="inputfield" id="heightstart" onchange="changeit()"/></div>
-					
-					&#160;
-						<!--<div class="units" id="heightstartunits"></div>-->
-						</td>
-				</tr>
-				<tr>
-					<td class="textright">Station diameter</td>
-					<td class="fieldleft"><div id="diameterunits"><input type='number' step="any" class="inputfield" min="0" max="1000000000000" id="diameter" onchange="changeDiameter(this.value)"/></div>&#160;
-						</td>
-				</tr>
-				<tr>
-					<td class="textright">Height thrown<div></div>"up" on Earth</td>
-					<td class="fieldleft"><div id="heightthrownunits"><input type='number' min="0" step="any" class="inputfield" id="heightthrown" onchange="changeit()"/></div>&#160;
-						</td>
-				</tr>
-				<tr>
-					<td class="textright">Percent gravity</td>
-					<td class="fieldleft"><div class="percentsign"><input type='number' step="any" min="0" class="inputfield" id="percentgravity" onchange="outputgs(this.value); changeit();" style="width:63px"/></div>
-						<div id="gravitygs" style="display:inline-block;"></div></td>
-				</tr>
+	<tr><td style="padding:0px 10px 0px 10px;"><h5 style="color:#CE0D45; text-align:center;">A Coin Toss on a Virtual Space Station</h5></td></tr>
+	
+	<tr><td><div style="text-align:center; padding:12px;">
+	<div class="rotatetitle"><h5>Miscellaneous</h5></div>
+	<div>
+		<table class="inputsquare"><tr>
+			<td class="rightbold">Centripetal acceleration (at floor):</td>
+			<td id="centripaccel" class="output2"></td>
+			<td id="centripaccelunits" style="vertical-align:bottom;"></td>
+		</tr></table><br/>
+		<table class="inputsquare"><tr>
+			<td class="rightbold">Vertical throw speed:</td>
+			<td>
+				<div id="verticalvelocity" class="output2"></div>
+				<div id="verticalvelocity2" class="output2"></div>
+			</td>
+			<td>
+				<div id="verticalvelocityunits"></div>
+				<div id="verticalvelocityunits2"></div>
+			</td>
+		</tr></table><br/>
+		<table class="inputsquare"><tr>
+			<td class="rightbold">Standing speed (of person):</td>
+			<td>
+				<div id="standingvelocity" class="output2"></div>
+				<div id="standingvelocity2" class="output2"></div>
+			</td>
+			<td>
+				<div id="standingvelocityunits"></div>
+				<div id="standingvelocityunits2"></div>
+			</td>
+		</tr></table><br/>
+		<table class="inputsquare"><tr>
+			<td class="rightbold">Rotation rate (station):</td>
+			<td id="rotationalvelocity" class="output2"></td>
+			<td id="rotationalvelocityunits" style="vertical-align:bottom;"></td>
+		</tr></table>
+</div>
+</div>
+</div>
+	
+	
+	</td></tr>
+	
+	
+	
+	
+	
+	
+	
+	<tr id="calculations"><td style="padding:15px 0px 0px 20px;">
+	
+	<div class="rotatetitle" style="width:70px; margin:55px 0px -89px -27px;"
+><h5>Input</h5></div>
 
-			</table><br/>
+		<!--input fields-->
+		<form action="" style="margin-bottom:5px; text-align:center;">
+		  <input type="radio" name="units" id="imperial" value="ft" onClick="convertunits(this.value)"/> Imperial (feet)&#160;&#160;
+		  <input type="radio" name="units" id="metric" checked="checked" value="m" onClick="convertunits(this.value)"/> Metric (meters)
+		</form>
+		<!--<div class="smallbreak"></div> smaller text break-->
+
+		<table class="inputsquare"><tr>
+				<td class="textright">Starting height</td>
+				<td><div id="heightstartunits"><input type='number' step="any" min="0" class="inputfield" id="heightstart" onchange="changeit()"/></div></td>
+		</tr></table>
+		
+		
+		<table class="inputsquare"><tr>
+				<td class="textright">Station diameter</td>
+				<td><div id="diameterunits"><input type='number' step="any" class="inputfield" min="0" max="1000000000000" id="diameter" onchange="changeDiameter(this.value)"/></div>
+					</td>
+		</tr></table>
+		
+		<table class="inputsquare"><tr>
+				<td class="textright">Height thrown<div></div>"up" on Earth</td>
+				<td><div id="heightthrownunits"><input type='number' min="0" step="any" class="inputfield" id="heightthrown" onchange="changeit()"/></div>&#160;
+					</td>
+		</tr></table>
+		
+		
+		<table class="inputsquare"><tr>
+				<td class="textright">Percent gravity</td>
+				<td><div class="percentsign"><input type='number' step="any" min="0" class="inputfield" id="percentgravity" onchange="outputgs(this.value); changeit();" style="width:63px"/></div>
+					<div id="gravitygs" style="display:inline-block;"></div></td>
+		</tr></table>
+	<div class="smallbreak"></div>
+	</td></tr></table>
 			
-			<div class="smallbreak"></div> <!--smaller text break-->
+			
+			
 
 			<!--<div style="text-align:center;"><input type="submit" value="Submit Values" onclick="submit()"></div>-->
-		</td>
-		<td style="padding:0px 10px 8px 18px;">
-			<!--Additional variable facts, also errors and warnings-->
-			<table style="border-collapse:separate; border-spacing:0 10px;">
-				<tr class="t_row">	
-					<td style="text-align:right;">Rotation rate&#160;&#160;<div></div>(station):&#160;</td>
-					<td id="rotationalvelocity" class="output"></td>
-					<td id="rotationalvelocityunits" style="vertical-align:bottom;"></td>
-				</tr>
-				<tr class="t_row">
-					<td style="text-align:right;">Vertical &#160;&#160;<div></div>throw speed:&#160;</td>
-					<td>
-						<div id="verticalvelocity" class="output"></div>
-						<div id="verticalvelocity2" class="output"></div>
-					</td>
-					<td>
-						<div id="verticalvelocityunits"></div>
-						<div id="verticalvelocityunits2"></div>
-					</td>
-				</tr>
-				<tr class="t_row">	
-					<td style="text-align:right;">Centripetal&#160;&#160;<div></div> acceleration at floor:&#160;</td>
-					<td id="centripaccel" class="output"></td>
-					<td id="centripaccelunits" style="vertical-align:bottom;"></td>
-				</tr>
-				<tr class="t_row">
-					<td style="text-align:right;">Standing &#160;&#160;<div></div> speed of person:&#160;</td>
-					<td>
-						<div id="standingvelocity" class="output"></div>
-						<div id="standingvelocity2" class="output"></div>
-					</td>
-					<td>
-						<div id="standingvelocityunits"></div>
-						<div id="standingvelocityunits2"></div>
-					</td>
-				</tr>
-			</table>
-		</td>
-	</tr>
-	<tr>
-		<td><h3 style="color:#CE0D45; text-align:center;">Results on station</h3></td>
-		<td><div style="color:#2F329F; text-align:center;">Expected values on Earth</div></td>
-	</tr>
-	<tr>
-		<td style="padding:10px 5px 5px 20px;">
-			<table style="border-collapse:separate; border-spacing:0 5px;">
-				<tr class="t_row">
-					<td style="text-align:right;">Time in the air:&#160;</td>
-					<td id="timeinair" class="output"></td>
-					<td id="timeinairunits"></td>
-				</tr>
-				<tr class="t_row">
-					<td style="text-align:right;">Max height achieved:&#160;</td>
-					<td id="maxheightachieved" class="output"></td>
-					<td id="maxheightachievedunits"></td>
-				</tr>
-				<tr class="t_row" style="font-weight:bold;">
-					<td style="text-align:right;"><div style="color:#CE0D45;"><div>Distance "away"&#160;&#160;</div> at landing:&#160;</div>&#160;&#160;</td>
-					<td>
-						<div id="finalseparation"></div>
-						<div id="finalseparation2"></div>
-					</td>
-					<td>
-						<div id="finalseparationunits"></div>
-						<div id="finalseparationunits2"></div>
-					</td>
-				</tr>
-			</table>
-		</td>	
-		
-		<td style="padding:10px 5px 5px 35px;">
-			<table style="border-collapse:separate; border-spacing:0 5px; margin-top:-18px;">
-			<tr>
-				<td style="text-align:right;">Time in the air:&#160;&#160;</td>
-				<td id="expectedtime"></td>
-				<td id="expectedtimeunits"></td>
-			</tr>
-			<tr>
-				<td style="text-align:right;">Max height:&#160;&#160;</td>
-				<td id="expectedheight" class="output"></td>
-				<td id="expectedheightunits"></td>
-			</tr>
-			<tr>
-				<td style="text-align:right;">Distance "away"&#160;&#160;&#160;<div></div> at landing:&#160;&#160;</td>
-				<td id="expecteddist" class="output">0&#160;</td>
-				<td id="expecteddistunits" style="vertical-align:bottom;">ft</td>
-			</tr>
-			</table>
-		</td>
-	</tr>
-</table>
+
 <div id="error" style="color:red; font-weight:bold; text-align:center;"></div>
-<br/>
-
-<h5 style="text-align:center;">What This Throw Would Look Like</h5>
-<div style="text-align:center;">
-
+<!--<br/><h5 style="text-align:center;">What This Throw Would Look Like</h5>-->
 <div id="canvascontainer"><canvas id="demo"></canvas></div>
-
-</div>
 
 <div id="outertime" style="text-align:center;">
 	<input type="checkbox" style="display:inline-block;margin-bottom:7px;" id="checktime" autocomplete="off" onchange="changecheck(this);"/>&#160;&#160;Show in real time
@@ -173,6 +126,48 @@
 	<div class="smallbreak"></div>
 	<input type="checkbox" style="display:inline-block;margin:0 0 7 -30;" id="checkscale" autocomplete="off" onchange="changescale(this);"/>&#160;&#160;Display scale
 </div>
+
+
+
+<!--SECOND TABLE========================-->
+
+<!--wanted to create a table border with a div. This div must be inline-block or it will expand to the full width. A div cannot be both inline-block and text-align:center (or margin 0 auto;). Thus I need an outer div.-->
+<div style="text-align:center;"><div style="border:1px solid #000; margin:15px; display:inline-block; text-align:center;"><table style="border-collapse:separate; border-spacing:10px 0px;">
+	<tr class="border_bottom"><td><h3 style="text-align:center;" >Results</h3></td>
+		<td style="color:#CE0D45;">On station</td>
+		<td style="color:#2F329F; text-align:center;">On Earth</td>
+	</tr>
+		<tr>
+			<td class="borderright">Time in the air</td>
+			<td><div id="timeinair" class="output1"></div>
+				<div id="timeinairunits" class="output1"></div></td>
+			<td><div id="expectedtime" class="output1"></div>
+				<div id="expectedtimeunits" class="output1"></div></td>
+		</tr>
+		<tr>
+			<td class="borderright">Max height achieved</td>
+			<td><div id="maxheightachieved" class="output1"></div>
+				<div id="maxheightachievedunits" class="output1"></div></td>
+			<td><div id="expectedheight" class="output1"></div>
+				<div id="expectedheightunits" class="output1"></div></td>
+		</tr>
+		<tr style="font-weight:bold;">
+			<td class="borderright"><div style="color:#CE0D45;"><div>Distance "away"</div> at landing</div></td>
+			<td>
+				<div id="finalseparation" class="output1"></div>
+					<div id="finalseparationunits" class="output1"></div>
+				<div id="finalseparation2" class="output1"></div>
+					<div id="finalseparationunits2" class="output1"></div>
+				</td>
+			<td>
+				<div id="expecteddist" class="output1"></div>
+					<div id="expecteddistunits" class="output1"></div>
+				<div id="" class="output1"></div>
+					<div id="" class="output1"></div>
+				</td>
+		</tr>
+</table></div></div>
+
 
 <script type="text/javascript" src="CoriolisFiles/decimal.js"></script>
 <script onload="setfields()" type="text/javascript" src="CoriolisFiles/errormodel.js"></script>

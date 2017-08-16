@@ -252,7 +252,7 @@ function setunits(setting) {
 	document.getElementById("heightstartunits").className = changeto;
     document.getElementById("diameterunits").className = changeto;
     document.getElementById("heightthrownunits").className = changeto;
-	document.getElementById("expecteddistunits").className = changeto;
+	//document.getElementById("expecteddistunits").className = changeto;
 }
 
 

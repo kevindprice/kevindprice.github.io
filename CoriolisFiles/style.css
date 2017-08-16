@@ -8,9 +8,47 @@ p {
 	bottom:-5px;
 }
 
-.fieldleft {
-	/*I have a class with no style definitions!
-	This does absolutely nothing...*/
+.rightbold {
+	text-align:right;
+	font-weight:bold;
+	color:#2F329F;
+	padding-right:10px;
+}
+
+.rotatetitle {
+	 color:#2F329F; 
+	 justify-content:center; 
+	 display:flex; 
+	 align-items: center; 
+	 width:150px; 
+	 height:30px; 
+	 border:1px solid #000; 
+	 border-radius:5px; 
+	 /*margin-bottom:5px;*/
+	 transform: rotate(-90deg);
+	 margin:55px 0px -89px -60px;
+}
+
+@media (max-width: 989px) and (min-width: 768px)
+{  .rotatetitle{
+		display:none }
+}
+
+@media (max-width: 550px)
+{  .rotatetitle{
+		display:none }
+}
+
+.border_bottom td {
+	border-bottom:1px solid #000;
+}
+.borderright {
+	text-align:right;
+	border-right: 1px solid #000;
+	vertical-align:middle;
+	padding-top:7px;
+	padding-bottom:7px;
+	padding-right:10px;
 }
 
 table.model {
@@ -22,8 +60,13 @@ table.model {
 	display:inline-block;		
 }
 
+.inputsquare {
+	display:inline-block;
+	margin-right:5px;
+}
+
 .inputfield {
-	width:80px;
+	width:70px;
 	margin-left: 5px;
 }
 
@@ -35,10 +78,18 @@ table.model {
 	height:8px;
 }
 
-.output {
-	text-align:right;
+.output1 {
+	/*text-align:right;*/
 	vertical-align:bottom;
 	margin-bottom:0px;
+	display:inline-block;
+}
+
+.output2 {
+	/*text-align:right;*/
+	vertical-align:bottom;
+	margin-bottom:0px;
+	/*display:inline-block;*/
 }
 
 div.imperial, div.metric, div.percentsign{
@@ -71,6 +122,10 @@ div.metric::after{
 #gravitygs {
 	position:relative;
 	bottom:4px;
+}
+
+#calculations{
+	text-align:center;
 }
 
 .geigercontrols {
