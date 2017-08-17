@@ -20,13 +20,21 @@ MyLib.scale=false;
 MyLib.relativepoints = []
 MyLib.globaltime = null;
 MyLib.repeattimeout = null;
-MyLib.moveinterval = null;
+MyLib.movetimeout = null;
 
 //these are so the scale can be drawn in real-time mode, right when it's selected
 //(instead of waiting)
 MyLib.radius = null;
 MyLib.minmaxes = null;
 MyLib.canvaspoints = null;
+MyLib.clientWidth = null;
+MyLib.start_v_y = null;
+
+MyLib.canvasmaxString = getComputedStyle(document.getElementById("canvascontainer")).maxWidth
+MyLib.canvasMax = parseInt( MyLib.canvasmaxString.substring(0, MyLib.canvasmaxString.length-2));
+
+MyLib.DELAY_BETWEEN_DRAWS = 2.5 //seconds to wait until next draw, when looping.
+Decimal.set({ precision: 30 });  //accuracy of 30 decimals for the initial calculation
 
 
 
@@ -60,28 +68,42 @@ MyLib.canvaspoints = null;
 	// Resets the canvas dimensions to match window,
 	// then draws the new borders accordingly.
 	function resizeCanvas() {
-		cnv.CANVAS_WIDTH = htmlCanvas.parentElement.clientWidth;
+		var clientWidth = htmlCanvas.parentElement.clientWidth;
 
-		//htmlCanvas.width = htmlCanvas.parentElement.clientWidth;
-		//htmlCanvas.height = window.innerHeight;
-		//redraw();
-		cnv.CANVAS_HEIGHT = 300
-		cnv.X_BUFFER = cnv.CANVAS_WIDTH/10
-		cnv.Y_BUFFER = cnv.CANVAS_HEIGHT/15
-		cnv.DRAWING_WIDTH = cnv.CANVAS_WIDTH - 2 * cnv.X_BUFFER
-		cnv.DRAWING_HEIGHT = cnv.CANVAS_HEIGHT - 2 * cnv.Y_BUFFER
-		if(MyLib.relativepoints.length!=0 && MyLib.repeattimeout==null)
+		//only resize if the parent's width has actually changed, and if this width is actually less than the max.
+		if(clientWidth != MyLib.clientWidth && (clientWidth < MyLib.canvasMax || MyLib.clientWidth < MyLib.canvasMax) )
 		{
-			reset_canvas();
-			draw_curve_static()
+			MyLib.clientWidth = clientWidth;
+			cnv.CANVAS_WIDTH = htmlCanvas.parentElement.clientWidth;
+
+			//htmlCanvas.width = htmlCanvas.parentElement.clientWidth;
+			//htmlCanvas.height = window.innerHeight;
+			//redraw();
+			cnv.CANVAS_HEIGHT = 300
+			cnv.X_BUFFER = cnv.CANVAS_WIDTH/10
+			cnv.Y_BUFFER = cnv.CANVAS_HEIGHT/15
+			cnv.DRAWING_WIDTH = cnv.CANVAS_WIDTH - 2 * cnv.X_BUFFER
+			cnv.DRAWING_HEIGHT = cnv.CANVAS_HEIGHT - 2 * cnv.Y_BUFFER
+			if(MyLib.relativepoints.length!=0 && MyLib.repeattimeout==null)
+			{
+				reset_canvas();
+				draw_curve_static()
+			}
+			else if(MyLib.relativepoints.length!=0)
+			{
+				clearTimeout(MyLib.repeattimeout);
+				clearTimeout(MyLib.movetimeout);
+				MyLib.repeattimeout=null;
+				MyLib.movetimeout=null;
+
+				reset_canvas();
+				set_time_interval();				
+			}
 		}
 	}
 })();
 
 
-DELAY_BETWEEN_DRAWS = 2.5 //seconds to wait until next draw, when looping.
-
-Decimal.set({ precision: 30 });  //accuracy of 30 decimals for the initial calculation
 
 
 
@@ -101,8 +123,10 @@ function setfields() {
 	outputgs(percentgravity)
 	
 	document.getElementById('imperial').checked = true;
+	document.getElementById('up').checked = true;
+	changeparams("up")
 
-	MyLib.units="ft"
+	MyLib.units="ft";
 	setunits(MyLib.units);
 
 	MyLib.allatonce=false;
@@ -179,8 +203,8 @@ function changecheck(checkboxElem) {
 
 function set_time_interval()
 {
-	if(MyLib.moveinterval!=null)
-	{ clearInterval(MyLib.moveinterval); MyLib.moveinterval=null;	}
+	if(MyLib.movetimeout!=null)
+	{ clearTimeout(MyLib.movetimeout); MyLib.movetimeout=null;	}
 
 	if(MyLib.repeattimeout!=null)
 	{ clearTimeout(MyLib.repeattimeout); MyLib.repeattimeout=null; }
@@ -192,16 +216,16 @@ function set_time_interval()
 		canvasthings = reset_canvas()
 		draw_curve_active()
 		
-		MyLib.repeattimeout = setTimeout(repeatdraw, ((MyLib.globaltime * (100/MyLib.percenttime)) + DELAY_BETWEEN_DRAWS) * 1000);
+		MyLib.repeattimeout = setTimeout(repeatdraw, ((MyLib.globaltime * (100/MyLib.percenttime)) + MyLib.DELAY_BETWEEN_DRAWS) * 1000);
 	})();
 }
 
 function stop_time_interval()
 {
 	clearTimeout(MyLib.repeattimeout);
-	clearInterval(MyLib.moveinterval);
+	clearTimeout(MyLib.movetimeout);
 	MyLib.repeattimeout=null;
-	MyLib.moveinterval=null;
+	MyLib.movetimeout=null;
 	
 	document.getElementById("percenttimediv").innerHTML=""
 	document.getElementById("percenttimediv").className = "";
@@ -214,10 +238,10 @@ function stop_time_interval()
 function changepercenttime(value)
 {
 	MyLib.percenttime = value;
-	clearTimeout(MyLib.repeattimeout);
-	clearInterval(MyLib.moveinterval);
-	prep_canvas()
-	set_time_interval()
+	//clearTimeout(MyLib.repeattimeout);
+	//clearTimeout(MyLib.movetimeout);
+	//prep_canvas()
+	//set_time_interval()
 }
 
 //Activated by radiobutton, user changes the unit setting.
@@ -230,29 +254,81 @@ function convertunits(setting) {
 	{
 		document.getElementById("heightstart").value = round(to_meters(document.getElementById("heightstart").value) )
 		document.getElementById("diameter").value = round(to_meters(document.getElementById("diameter").value) )
-		document.getElementById("heightthrown").value = round(to_meters(document.getElementById("heightthrown").value) )
+
+		if(document.getElementById('up').checked)
+		{
+			document.getElementById("heightthrown").value = round(to_meters(document.getElementById("heightthrown").value) )
+		}
+		else{
+			document.getElementById("velocity").value = round(to_meters(document.getElementById("velocity").value) )
+		}
+
 	} else if(MyLib.units=="m" && setting=="ft")
 	{
 		document.getElementById("heightstart").value = round(to_feet(document.getElementById("heightstart").value) )
 		document.getElementById("diameter").value = round(to_feet(document.getElementById("diameter").value) )
 		document.getElementById("heightthrown").value = round(to_feet(document.getElementById("heightthrown").value) )
+		
+		if(document.getElementById('up').checked)
+		{
+			document.getElementById("heightthrown").value = round(to_feet(document.getElementById("heightthrown").value) )
+		}
+		else{
+			document.getElementById("velocity").value = round(to_feet(document.getElementById("velocity").value) )
+		}
 	}	
 	MyLib.units = setting;
 	MyLib.allatonce=false;
 	submit_values()
 }
 
+function changeparams(setting) {
+	if(setting=="anglevel")
+	{
+		//the ~ operator in css refused to work for me
+		document.getElementById("ang").className = "inputsquare"
+		document.getElementById("vel").className = "inputsquare"
+		document.getElementById("throwup").className = "hide"
+		
+		document.getElementById("angle").value = 0;
+		document.getElementById("velocity").value = MyLib.start_v_y;
+		changeangle(0);
+		
+		if(MyLib.units=="m")
+		{ document.getElementById("veloc").className = "metricvel"; }
+		else
+		{ document.getElementById("veloc").className = "imperialvel"; }
+	}
+	
+	if(setting=="up")
+	{
+		document.getElementById("ang").className = "hide"
+		document.getElementById("vel").className = "hide"
+		document.getElementById("throwup").className = "inputsquare"
+	}
+}
+
+
 //change the units displayed in the table, after changing the unit setting
 function setunits(setting) {
 	if(setting=="m")
-	{ var changeto="metric" }
+	{ var changeto="metric"; var changeto2 = "metricvel"; }
 	else if(setting=="ft")
-	{ var changeto="imperial" }
+	{ var changeto="imperial"; var changeto2 = "imperialvel"; }
 
 	document.getElementById("heightstartunits").className = changeto;
     document.getElementById("diameterunits").className = changeto;
-    document.getElementById("heightthrownunits").className = changeto;
 	//document.getElementById("expecteddistunits").className = changeto;
+	
+	if(document.getElementById('up').checked)
+	{
+		document.getElementById("heightthrownunits").className = changeto;
+	}
+	else
+	{
+		document.getElementById("veloc").className = changeto2;
+	}
+
 }
 
 
@@ -516,13 +592,41 @@ function prep_canvas() {
 	MyLib.canvaspoints = canvaspoints
 }
 
+function changeangle(angle)
+{
+	var canvas = document.getElementById("compass");
+	canvas.width = 20;
+	canvas.height = 20;
+    var ctx = canvas.getContext("2d");
+
+	ctx.beginPath();
+	ctx.strokeStyle="#000000";	
+    ctx.arc(10, 10, 10, 0, 2 * Math.PI, false);
+	
+	var computedangle = (angle * Math.PI / 180);
+	var x = 10 * Math.sin(computedangle)
+	var y = 10 * Math.cos(computedangle)
+	
+	ctx.moveTo(10,10)
+	ctx.lineTo(10-x, 10+y)
+	ctx.stroke();
+	
+	ctx.beginPath();
+	ctx.strokeStyle="#FF0000";
+	ctx.moveTo(10,10)
+	ctx.lineTo(10+x, 10-y)
+	ctx.stroke();
+	
+	changeit()
+}
+
 function reset_canvas() {
 
 	var canvas = document.getElementById("demo");		
     canvas.height = cnv.CANVAS_HEIGHT;
     canvas.width = cnv.CANVAS_WIDTH;    
 
-	draw_floor(Number(answers.radius), minmaxes)
+	draw_floor(Number(MyLib.radius), MyLib.minmaxes)
 	
 	if(MyLib.scale==true)
 	{
@@ -556,13 +660,13 @@ function draw_curve_active()
 	var canvas = document.getElementById("demo");
     var ctx = canvas.getContext("2d");
 	
-	if(!(MyLib.moveinterval==null))
-	{	clearInterval(MyLib.moveinterval); MyLib.moveinterval=null; }
+	if(!(MyLib.movetimeout==null))
+	{	clearTimeout(MyLib.movetimeout); MyLib.movetimeout=null; }
 	
 	var time = MyLib.globaltime
 	var i=1;
 	
-	window.MyLib.moveinterval = setInterval(function() {
+	/*window.MyLib.moveinterval = setInterval(function() {
 		
 		if(i>=canvaspoints.length)
 		{  clearInterval(MyLib.moveinterval); MyLib.moveinterval=null; return; }
@@ -577,7 +681,19 @@ function draw_curve_active()
 		
 		i+=1
 			
-	}, ( (time * (100/MyLib.percenttime))*1000 / canvaspoints.length) );
+	}, ( (time * (100/MyLib.percenttime))*1000 / canvaspoints.length) );*/
+	
+	(function moveline() {    
+		MyLib.movetimeout = setTimeout(moveline, (time * (100/MyLib.percenttime))*1000 / canvaspoints.length);
+		if(i>=canvaspoints.length)
+		{  clearTimeout(MyLib.movetimeout); MyLib.movetimeout=null; return; }
+
+		ctx.moveTo(canvaspoints[i-1].x+cnv.X_BUFFER, canvaspoints[i-1].y+cnv.Y_BUFFER);
+		ctx.lineTo(canvaspoints[i].x+cnv.X_BUFFER, canvaspoints[i].y+cnv.Y_BUFFER)
+		ctx.stroke();
+		i+=1
+	})();
+
 	
 }
 
@@ -791,7 +907,7 @@ function draw_scale()
 }
 
 
-function calc_error(diameter, height_start, gs, height_thrown) {
+function calc_error(diameter, height_start, gs, height_thrown, velocity) {
 	var radius = Decimal(diameter/2)
 	
 	var accel_earth
@@ -825,9 +941,21 @@ function calc_error(diameter, height_start, gs, height_thrown) {
 
 	var g_onball = omega*omega*r_onball;
 	
-	//Now get the starting velocities.
-	var start_v_y = Decimal.sqrt( 2 * accel_earth * height_thrown ) //calculated comparing to Earth's gravity
-	var start_v_x = Decimal(-1).mul( Decimal.sqrt( g_onball * r_onball ) ) //-1 b/c station is rotating clockwise
+	if(document.getElementById('up').checked)
+	{
+		//Now get the starting velocities.
+		var start_v_y = Decimal.sqrt( 2 * accel_earth * height_thrown ) //calculated comparing to Earth's gravity
+		var start_v_x = Decimal(-1).mul( Decimal.sqrt( g_onball * r_onball ) ) //-1 b/c station is rotating clockwise
+		MyLib.start_v_y = round(start_v_y);
+	}
+	else
+	{
+		var angle = height_thrown; //override inputs
+		var computedangle = (-1* angle * Math.PI / 180) + (Math.PI / 2);
+		
+		var start_v_y = Decimal(velocity * Math.sin(computedangle))
+		var start_v_x = Decimal(velocity * Math.cos(computedangle) + (-1 * Math.sqrt(g_onball * r_onball)))
+	}
 	
 	var slope = start_v_y.div( start_v_x )
 	
@@ -945,27 +1073,43 @@ function crunch_numbers( radius, g_accel, omega, start_v_y, start_v_x, slope, r_
 	var slope = start_v_y.div( start_v_x )
 		
 	var sqroot1 = Decimal.sqrt( Decimal.pow(slope,2).mul(Decimal.pow(r_onball,2)).sub((Decimal(1).add(Decimal.pow(slope,2))).mul( Decimal.pow(r_onball,2).sub(Decimal.pow(radius,2)  )) ) )
+
+	//var sqroot2 = Math.sqrt( Math.pow(r_onball,2) - ( 1 + Math.pow(slope,2) ) * ( Math.pow(r_onball,2) - Math.pow(radius,2) * Math.pow(slope,2) ) )
+	var sqroot2 = Decimal.sqrt( Decimal.pow(r_onball,2).sub(( Decimal(1).add(Decimal.pow(slope,2) ) ).mul(Decimal.pow(r_onball,2).sub(Decimal.pow(radius,2).mul(Decimal.pow(slope,2))))) )
 	
-	//var x_1 = ( (slope * r_onball) + sqroot1 ) / ( 1 + Math.pow(slope,2)) // +
-	var x_2 = ( (slope.mul( r_onball)).sub( sqroot1 )).div( Decimal(1).add( Decimal.pow(slope,2)) ) // -
+	
+	if(Number(slope)<0 && Number(start_v_x) < 0)
+	{
+		//var x_2 = ( (slope * r_onball) - sqroot1 ) / ( 1 + Math.pow(slope,2)) // -
+		//var y_2_abs = Decimal.sqrt(Math.pow(radius,2) - Math.pow(x_2,2) )
+		//var y_2 = ( (-1 * r_onball) + sqroot2 ) / ( 1 + Math.pow(slope,2) ) // +
+
+		var x_2 = ( (slope.mul( r_onball)).sub( sqroot1 )).div( Decimal(1).add( Decimal.pow(slope,2)) ) // -
+		var y_2 = ( new Decimal(-1 * r_onball).add( sqroot2 ) ).div( new Decimal(1).add(Decimal.pow(slope,2) ) ) // +
+	}
+	else
+	{
+		//var x_1 = ( (slope * r_onball) + sqroot1 ) / ( 1 + Math.pow(slope,2)) // +		
+		//var x_1 = ((slope.mul(r_onball)).add(sqroot1)).div( Decimal(1).add(Decimal.pow(slope,2)))
+		//var y_1_abs = Decimal.sqrt(Math.pow(radius,2) - Math.pow(x_1,2) ) 
+		//var y_1 = ( (-1 * r_onball) - sqroot2 ) / ( 1 + Math.pow(slope,2) ) // -
+
+		var x_2 = ( (slope.mul( r_onball)).sub( sqroot1 )).div( Decimal(1).add( Decimal.pow(slope,2)) ) // -
+		var y_1 = ((Decimal(-1).mul(r_onball)).sub( sqroot2 )).div( Decimal(1).add( Decimal.pow(slope,2)) ) // -
+		
+		//var x_2 = x_1  //NOPE! X1 is still not needed. the X eqn is always //-.
+		var y_2 = y_1
+	}
+	
 
 	//WARNING: THIS DOES NOT GIVE YOU THE CORRECT SIGN
 	//but it gives the absolute values that go with X.
-	//var y_1_abs = Decimal.sqrt(Math.pow(radius,2) - Math.pow(x_1,2) ) 
-	var y_2_abs = Decimal.sqrt(Math.pow(radius,2) - Math.pow(x_2,2) )
 	
 	//Now use the quadratic again for Y to get the sign.
 
-	//var sqroot2 = Math.sqrt( Math.pow(r_onball,2) - ( 1 + Math.pow(slope,2) ) * ( Math.pow(r_onball,2) - Math.pow(radius,2) * Math.pow(slope,2) ) )
-
-	
-	var sqroot2 = Decimal.sqrt( Decimal.pow(r_onball,2).sub(( Decimal(1).add(Decimal.pow(slope,2) ) ).mul(Decimal.pow(r_onball,2).sub(Decimal.pow(radius,2).mul(Decimal.pow(slope,2))))) )
 		
 	//Apparently the (-) from the Y eqn goes with the (+) in the X eqn. Just to be confusing.
-	//var y_1 = ( (-1 * r_onball) - sqroot2 ) / ( 1 + Math.pow(slope,2) ) // -
-	//var y_2 = ( (-1 * r_onball) + sqroot2 ) / ( 1 + Math.pow(slope,2) ) // +
 
-	var y_2 = ( new Decimal(-1 * r_onball).add( sqroot2 ) ).div( new Decimal(1).add(Decimal.pow(slope,2) ) ) // +
 	
 	//(X2, Y2) is the point that we want!
 	
@@ -1043,12 +1187,10 @@ function submit_values() {
     var height_start = Number(document.getElementById("heightstart").value);
     var diameter = Number(document.getElementById("diameter").value);
 	var gs = Number(document.getElementById("percentgravity").value) / 100;
-    var height_thrown = Number(document.getElementById("heightthrown").value);
-    //angle = Number(document.getElementById("anglethrown").value);
 
-	if(!(MyLib.moveinterval==null))
-	{ clearInterval(MyLib.moveinterval); 
-		MyLib.moveinterval=null; }
+	if(!(MyLib.movetimeout==null))
+	{ clearTimeout(MyLib.movetimeout); 
+		MyLib.movetimeout=null; }
 
 	//clear the output fields.
 	//////////////////////////
@@ -1067,8 +1209,18 @@ function submit_values() {
 	document.getElementById("timeinair").innerHTML = "";
 	document.getElementById("timeinairunits").innerHTML = "";
 
-	answers = calc_error( diameter, height_start, gs, height_thrown ) //is global
-	
+	if(document.getElementById('up').checked)
+	{
+		var height_thrown = Number(document.getElementById("heightthrown").value);		
+		var answers = calc_error( diameter, height_start, gs, height_thrown )
+	}
+	else
+	{
+		var angle = Number(document.getElementById("angle").value);
+		var velocity = Number(document.getElementById("velocity").value);
+		var answers = calc_error( diameter, height_start, gs, angle, velocity )
+
+	}
 	MyLib.globaltime = Number(answers.time)
 	
 	

@@ -19,3 +19,7 @@ table.model{
 	bottom:0px !important;
 }
 
+@media (min-width: 990px)
+{  .rotatetitle{
+		display:none !important; }
+}

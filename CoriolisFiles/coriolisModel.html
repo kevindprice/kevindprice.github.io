@@ -33,17 +33,6 @@
 			<td id="centripaccelunits" style="vertical-align:bottom;"></td>
 		</tr></table><br/>
 		<table class="inputsquare"><tr>
-			<td class="rightbold">Vertical throw speed:</td>
-			<td>
-				<div id="verticalvelocity" class="output2"></div>
-				<div id="verticalvelocity2" class="output2"></div>
-			</td>
-			<td>
-				<div id="verticalvelocityunits"></div>
-				<div id="verticalvelocityunits2"></div>
-			</td>
-		</tr></table><br/>
-		<table class="inputsquare"><tr>
 			<td class="rightbold">Standing speed (of person):</td>
 			<td>
 				<div id="standingvelocity" class="output2"></div>
@@ -58,8 +47,20 @@
 			<td class="rightbold">Rotation rate (station):</td>
 			<td id="rotationalvelocity" class="output2"></td>
 			<td id="rotationalvelocityunits" style="vertical-align:bottom;"></td>
+
 		</tr></table>
-</div>
+				<table class="inputsquare"><tr>
+			<td class="rightbold">Throw speed:</td>
+			<td>
+				<div id="verticalvelocity" class="output2"></div>
+				<div id="verticalvelocity2" class="output2"></div>
+			</td>
+			<td>
+				<div id="verticalvelocityunits"></div>
+				<div id="verticalvelocityunits2"></div>
+			</td>
+		</tr></table><br/>
+
 </div>
 </div>
 	
@@ -80,10 +81,34 @@
 		<!--input fields-->
 		<form action="" style="margin-bottom:5px; text-align:center;">
 		  <input type="radio" name="units" id="imperial" value="ft" onClick="convertunits(this.value)"/> Imperial (feet)&#160;&#160;
-		  <input type="radio" name="units" id="metric" checked="checked" value="m" onClick="convertunits(this.value)"/> Metric (meters)
+		  <input type="radio" name="units" id="metric" value="m" onClick="convertunits(this.value)"/> Metric (meters)
 		</form>
+		
+		<form action="" style="margin-bottom:5px; text-align:center;">
+		  <input type="radio" name="type" id="up" value="up" onClick="changeparams(this.value)"/> Throw "up"&#160;&#160;
+		  <input type="radio" name="type" id="anglevel" value="anglevel" onClick="changeparams(this.value)"/> Throw with velocity and angle
+		</form>
+		
 		<!--<div class="smallbreak"></div> smaller text break-->
 
+		<table class="inputsquare" id="throwup"><tr>
+				<td class="textright">Height thrown<br/>"up" on Earth</td>
+				<td><div id="heightthrownunits"><input type='number' min="0" step="any" class="inputfield" id="heightthrown" onchange="changeit()"/></div>&#160;
+					</td>
+		</tr></table>
+
+		<table class="inputsquare" id="vel"><tr>
+				<td class="textright">Throw speed</td>
+				<td><div id="veloc"><input type='number' min="0" step="any" class="inputfield" style="width:85px;" id="velocity" onchange="changeit()"/></div>
+					</td>
+		</tr></table>
+
+		<table class="inputsquare" id="ang"><tr>
+				<td class="textright" style="padding-left:8px">Throw angle<br/>(from vertical)</td>
+				<td><div style="display:inline-block;" class="degree"><input style="width: 50px; margin-left:-25px;" type='number' min="-360" max="360" step="1" class="inputfield" id="angle" onchange="changeangle(Number(this.value))"/></div>&#160;<canvas id="compass" style="margin-left:-5px;" width="20" height="20"/>
+					</td>
+		</tr></table>
+		
 		<table class="inputsquare"><tr>
 				<td class="textright">Starting height</td>
 				<td><div id="heightstartunits"><input type='number' step="any" min="0" class="inputfield" id="heightstart" onchange="changeit()"/></div></td>
@@ -94,14 +119,7 @@
 				<td class="textright">Station diameter</td>
 				<td><div id="diameterunits"><input type='number' step="any" class="inputfield" min="0" max="1000000000000" id="diameter" onchange="changeDiameter(this.value)"/></div>
 					</td>
-		</tr></table>
-		
-		<table class="inputsquare"><tr>
-				<td class="textright">Height thrown<div></div>"up" on Earth</td>
-				<td><div id="heightthrownunits"><input type='number' min="0" step="any" class="inputfield" id="heightthrown" onchange="changeit()"/></div>&#160;
-					</td>
-		</tr></table>
-		
+		</tr></table>		
 		
 		<table class="inputsquare"><tr>
 				<td class="textright">Percent gravity</td>
@@ -118,7 +136,7 @@
 
 <div id="error" style="color:red; font-weight:bold; text-align:center;"></div>
 <!--<br/><h5 style="text-align:center;">What This Throw Would Look Like</h5>-->
-<div id="canvascontainer"><canvas id="demo"></canvas></div>
+<div id="canvascontainer"><canvas id="demo"/></div>
 
 <div id="outertime" style="text-align:center;">
 	<input type="checkbox" style="display:inline-block;margin-bottom:7px;" id="checktime" autocomplete="off" onchange="changecheck(this);"/>&#160;&#160;Show in real time

@@ -56,6 +56,10 @@ table.model {
 	margin-right:auto;
 }
 
+.hide {
+	display:none;
+}
+
 .units {
 	display:inline-block;		
 }
@@ -92,6 +96,11 @@ table.model {
 	/*display:inline-block;*/
 }
 
+/* won't work */
+input#up:checked ~ #vel{ display:none; }
+input#up:checked ~ #ang{ display:none; }
+input#anglevel:checked ~ #up{ display:none; }
+
 div.imperial, div.metric, div.percentsign{
 	margin-top:18px;
 	margin-bottom:-5px;
@@ -100,24 +109,35 @@ div.imperial, div.metric, div.percentsign{
 }
 
 div.imperial::after, div.metric::after, div.percentsign::after{
-	  margin-left: -38px;
+	  margin-left: -35px;
 	  margin-bottom:10px;
 	  position:absolute;
 	  bottom:4px;
 	  color:DimGrey;
 }
 
-div.percentsign::after{
-	content: "%";
+div.degree::after {
+	margin-left: -32px;
+	position:relative;
+	bottom:4px;
+	color:DimGrey;
 }
 
-div.imperial::after{
-  content: "ft";
+div.imperialvel::after, div.metricvel::after{
+	margin-left: -45px;
+	margin-right: 17px;
+	position:relative;
+	bottom:4px;
+	color:DimGrey;
 }
 
-div.metric::after{
-  content: "m";
-}
+div.percentsign::after{ content: "%"; }
+div.imperial::after{ content: "ft"; }
+div.metric::after{ content: "m"; }
+div.metricvel::after{ content: "m/s"; }
+div.imperialvel::after{ content: "ft/s"; }
+div.degree::after{ content: "°"; }
+div.degree { width:79px; }
 
 #gravitygs {
 	position:relative;
