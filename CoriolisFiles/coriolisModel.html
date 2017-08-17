@@ -19,64 +19,24 @@
 
 <link type="text/css" rel="stylesheet" href="CoriolisFiles/style.css"/>
 
+<h5 style="color:#CE0D45; text-align:center;">A Coin Toss on a Virtual Space Station</h5>
+
+<div id="outertime" style="text-align:center;">
+	<input type="checkbox" style="display:inline-block;margin-bottom:7px;" id="checktime" autocomplete="off" onchange="changecheck(this);"/>&#160;&#160;Show in real time
+	<div id="percenttimediv" style="display:inline-block;"></div>
+	<div class="smallbreak"></div>
+	<input type="checkbox" style="display:inline-block;margin:0 0 7 -30;" id="checkscale" autocomplete="off" onchange="changescale(this);"/>&#160;&#160;Display scale
+</div><br/>
+
+<div id="canvascontainer"><canvas id="demo"/></div>
 
 <!--onmouseover="setfields()"-->
 <table border="1" class="model">
-	<tr><td style="padding:0px 10px 0px 10px;"><h5 style="color:#CE0D45; text-align:center;">A Coin Toss on a Virtual Space Station</h5></td></tr>
-	
-	<tr><td><div style="text-align:center; padding:12px;">
-	<div class="rotatetitle"><h5>Miscellaneous</h5></div>
-	<div>
-		<table class="inputsquare"><tr>
-			<td class="rightbold">Centripetal acceleration (at floor):</td>
-			<td id="centripaccel" class="output2"></td>
-			<td id="centripaccelunits" style="vertical-align:bottom;"></td>
-		</tr></table><br/>
-		<table class="inputsquare"><tr>
-			<td class="rightbold">Standing speed (of person):</td>
-			<td>
-				<div id="standingvelocity" class="output2"></div>
-				<div id="standingvelocity2" class="output2"></div>
-			</td>
-			<td>
-				<div id="standingvelocityunits"></div>
-				<div id="standingvelocityunits2"></div>
-			</td>
-		</tr></table><br/>
-		<table class="inputsquare"><tr>
-			<td class="rightbold">Rotation rate (station):</td>
-			<td id="rotationalvelocity" class="output2"></td>
-			<td id="rotationalvelocityunits" style="vertical-align:bottom;"></td>
-
-		</tr></table>
-				<table class="inputsquare"><tr>
-			<td class="rightbold">Throw speed:</td>
-			<td>
-				<div id="verticalvelocity" class="output2"></div>
-				<div id="verticalvelocity2" class="output2"></div>
-			</td>
-			<td>
-				<div id="verticalvelocityunits"></div>
-				<div id="verticalvelocityunits2"></div>
-			</td>
-		</tr></table><br/>
-
-</div>
-</div>
+	<!--<tr><td style="padding:0px 10px 0px 10px;"><h5 style="color:#CE0D45; text-align:center;">A Coin Toss on a Virtual Space Station</h5></td></tr>-->
 	
 	
-	</td></tr>
-	
-	
-	
-	
-	
-	
-	
-	<tr id="calculations"><td style="padding:15px 0px 0px 20px;">
-	
-	<div class="rotatetitle" style="width:70px; margin:55px 0px -89px -27px;"
-><h5>Input</h5></div>
+<tr id="calculations"><td style="padding:15px 0px 0px 20px;">
+	<div class="rotatetitle" style="width:70px; margin:55px 0px -89px -27px;"><h5>Input</h5></div>
 
 		<!--input fields-->
 		<form action="" style="margin-bottom:5px; text-align:center;">
@@ -105,7 +65,7 @@
 
 		<table class="inputsquare" id="ang"><tr>
 				<td class="textright" style="padding-left:8px">Throw angle<br/>(from vertical)</td>
-				<td><div style="display:inline-block;" class="degree"><input style="width: 50px; margin-left:-25px;" type='number' min="-360" max="360" step="1" class="inputfield" id="angle" onchange="changeangle(Number(this.value))"/></div>&#160;<canvas id="compass" style="margin-left:-5px;" width="20" height="20"/>
+				<td><div style="display:inline-block;" class="degree"><input style="width: 50px; margin-left:-25px;" type='number' min="-360" max="360" step="1" class="inputfield" id="angle" onchange="changeangle(Number(this.value))"/></div>&#160;<canvas id="compass" style="margin-left:-7px;" width="20" height="20"/>
 					</td>
 		</tr></table>
 		
@@ -122,12 +82,69 @@
 		</tr></table>		
 		
 		<table class="inputsquare"><tr>
-				<td class="textright">Percent gravity</td>
+				<td class="textright">Percent gravity<br/>at floor</td>
 				<td><div class="percentsign"><input type='number' step="any" min="0" class="inputfield" id="percentgravity" onchange="outputgs(this.value); changeit();" style="width:63px"/></div>
 					<div id="gravitygs" style="display:inline-block;"></div></td>
 		</tr></table>
 	<div class="smallbreak"></div>
-	</td></tr></table>
+</td></tr>
+	
+<tr><td><div style="text-align:center; padding:12px;">
+	<div class="rotatetitle"><h5>Miscellaneous</h5></div>
+	<div>
+		<table class="inputsquare"><tr>
+			<td class="rightbold">Throw speed:</td>
+			<td>
+				<div id="verticalvelocity" class="output2"></div>
+				<div id="verticalvelocity2" class="output2"></div>
+			</td>
+			<td>
+				<div id="verticalvelocityunits"></div>
+				<div id="verticalvelocityunits2"></div>
+			</td>
+		</tr></table><br/>
+		<table class="inputsquare"><tr>
+			<td class="rightbold">Rotation rate (station):</td>
+			<td id="rotationalvelocity" class="output2"></td>
+			<td id="rotationalvelocityunits" style="vertical-align:bottom;"></td>
+		</tr></table><br/>
+		<table class="inputsquare"><tr>
+			<td class="rightbold">Standing speed (of coin):</td>
+			<td>
+				<div id="standingcoin" class="output2"></div>
+				<div id="standingcoin2" class="output2"></div>
+			</td>
+			<td>
+				<div id="standingcoinunits"></div>
+				<div id="standingcoinunits2"></div>
+			</td>
+		</tr></table><br/>
+		<table class="inputsquare"><tr>
+			<td class="rightbold">Standing speed (of person):</td>
+			<td>
+				<div id="standingvelocity" class="output2"></div>
+				<div id="standingvelocity2" class="output2"></div>
+			</td>
+			<td>
+				<div id="standingvelocityunits"></div>
+				<div id="standingvelocityunits2"></div>
+			</td>
+		</tr></table><br/>
+		<table class="inputsquare"><tr>
+			<td class="rightbold">Centripetal acceleration (at floor):</td>
+			<td id="centripaccel" class="output2"></td>
+			<td id="centripaccelunits" style="vertical-align:bottom;"></td>
+		</tr></table><br/>
+		<table class="inputsquare"><tr>
+			<td class="rightbold">Centripetal acceleration (on coin):</td>
+			<td id="coinaccel" class="output2"></td>
+			<td id="coinaccelunits" style="vertical-align:bottom;"></td>
+		</tr></table><br/>
+	</div>
+	</div>
+</td></tr>
+	
+</table>
 			
 			
 			
@@ -136,21 +153,13 @@
 
 <div id="error" style="color:red; font-weight:bold; text-align:center;"></div>
 <!--<br/><h5 style="text-align:center;">What This Throw Would Look Like</h5>-->
-<div id="canvascontainer"><canvas id="demo"/></div>
-
-<div id="outertime" style="text-align:center;">
-	<input type="checkbox" style="display:inline-block;margin-bottom:7px;" id="checktime" autocomplete="off" onchange="changecheck(this);"/>&#160;&#160;Show in real time
-	<div id="percenttimediv" style="display:inline-block;"></div>
-	<div class="smallbreak"></div>
-	<input type="checkbox" style="display:inline-block;margin:0 0 7 -30;" id="checkscale" autocomplete="off" onchange="changescale(this);"/>&#160;&#160;Display scale
-</div>
 
 
 
 <!--SECOND TABLE========================-->
 
 <!--wanted to create a table border with a div. This div must be inline-block or it will expand to the full width. A div cannot be both inline-block and text-align:center (or margin 0 auto;). Thus I need an outer div.-->
-<div style="text-align:center;"><div style="border:1px solid #000; margin:15px; display:inline-block; text-align:center;"><table style="border-collapse:separate; border-spacing:10px 0px;">
+<div style="text-align:center;"><div style="border:1px solid #000; margin:15px; display:inline-block; text-align:center;"><table style="border-collapse:separate; border-spacing:15px 0px;">
 	<tr class="border_bottom"><td><h3 style="text-align:center;" >Results</h3></td>
 		<td style="color:#CE0D45;">On station</td>
 		<td style="color:#2F329F; text-align:center;">On Earth</td>
@@ -173,13 +182,15 @@
 			<td class="borderright"><div style="color:#CE0D45;"><div>Distance "away"</div> at landing</div></td>
 			<td>
 				<div id="finalseparation" class="output1"></div>
-					<div id="finalseparationunits" class="output1"></div>
+					<div id="finalseparationunits" class="output1"></div><br id="conditionalbreak"/>
 				<div id="finalseparation2" class="output1"></div>
 					<div id="finalseparationunits2" class="output1"></div>
 				</td>
 			<td>
 				<div id="expecteddist" class="output1"></div>
-					<div id="expecteddistunits" class="output1"></div>
+					<div id="expecteddistunits" class="output1"></div><br id="conditionalbreak2"/>
+				<div id="expecteddist2" class="output1"></div>
+					<div id="expecteddistunits2" class="output1"></div>
 				<div id="" class="output1"></div>
 					<div id="" class="output1"></div>
 				</td>

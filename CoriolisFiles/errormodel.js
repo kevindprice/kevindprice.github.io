@@ -180,7 +180,7 @@ function changecheck(checkboxElem) {
 		
 		timeinput = document.getElementById("percenttime")
 		if(MyLib.globaltime>1)
-		{ timeinput.setAttribute("max", Math.floor(MyLib.globaltime)*100 );	}
+		{ timeinput.setAttribute("max", Math.ceil(MyLib.globaltime)*100 );	}
 		else
 		{ timeinput.setAttribute("max", 100 );	}
 		
@@ -318,7 +318,6 @@ function setunits(setting) {
 
 	document.getElementById("heightstartunits").className = changeto;
     document.getElementById("diameterunits").className = changeto;
-	//document.getElementById("expecteddistunits").className = changeto;
 	
 	if(document.getElementById('up').checked)
 	{
@@ -642,6 +641,13 @@ function draw_curve_static()
 	var canvas = document.getElementById("demo");
     var ctx = canvas.getContext("2d");
 
+	ctx.beginPath();
+	ctx.strokeStyle="#5c6870";
+	ctx.arc(canvaspoints[0].x+cnv.X_BUFFER, canvaspoints[0].y+cnv.Y_BUFFER,5,0,2*Math.PI);
+	ctx.stroke();
+	
+	ctx.beginPath();
+	ctx.strokeStyle="#000000";
 	ctx.moveTo(canvaspoints[0].x+cnv.X_BUFFER, canvaspoints[0].y+cnv.Y_BUFFER);
 	
 	for(var i=1; i<canvaspoints.length; i++)
@@ -665,6 +671,12 @@ function draw_curve_active()
 	
 	var time = MyLib.globaltime
 	var i=1;
+	ctx.beginPath();
+	ctx.strokeStyle="#5c6870";
+	ctx.arc(canvaspoints[0].x+cnv.X_BUFFER, canvaspoints[0].y+cnv.Y_BUFFER,5,0,2*Math.PI);
+	ctx.stroke();
+
+	ctx.strokeStyle="#000000";
 	
 	/*window.MyLib.moveinterval = setInterval(function() {
 		
@@ -688,6 +700,7 @@ function draw_curve_active()
 		if(i>=canvaspoints.length)
 		{  clearTimeout(MyLib.movetimeout); MyLib.movetimeout=null; return; }
 
+		ctx.beginPath();
 		ctx.moveTo(canvaspoints[i-1].x+cnv.X_BUFFER, canvaspoints[i-1].y+cnv.Y_BUFFER);
 		ctx.lineTo(canvaspoints[i].x+cnv.X_BUFFER, canvaspoints[i].y+cnv.Y_BUFFER)
 		ctx.stroke();
@@ -707,9 +720,6 @@ function draw_curve_active()
 
 function draw_floor(radius, minmaxes)
 {	
-	var canvas = document.getElementById("demo");
-    var ctx = canvas.getContext("2d");
-
 	
 	radius = Number(radius)
 	var toconvert = 2 * minmaxes.range / radius
@@ -743,7 +753,12 @@ function draw_floor(radius, minmaxes)
 	var values = new CanvasPoint(minmaxes, x, y)
 	bottomcurve.push(values)
 
+	var canvas = document.getElementById("demo");
+    var ctx = canvas.getContext("2d");
 	
+	ctx.beginPath()
+	ctx.lineWidth=3; 
+	ctx.strokeStyle="#007acc";
 	ctx.moveTo(bottomcurve[0].x+cnv.X_BUFFER, bottomcurve[0].y+cnv.Y_BUFFER)
 	
 	for(var i=1; i<bottomcurve.length; i+=1)
@@ -781,6 +796,11 @@ function draw_floor(radius, minmaxes)
 		}
 		ctx.stroke()
 	}
+	
+	//reset the stroke
+	ctx.lineWidth=1;	
+	ctx.strokeStyle="#000000";
+
 }
 
 
@@ -896,6 +916,7 @@ function draw_scale()
     var ctx = canvas.getContext("2d");
 	ctx.font = "10px Arial";
 
+	ctx.beginPath();
 	for(var i=0; i<scalemarks.length; i++)
 	{
 		var mark = scalemarks[i]
@@ -940,21 +961,26 @@ function calc_error(diameter, height_start, gs, height_thrown, velocity) {
 	var r_onball = radius - height_start;
 
 	var g_onball = omega*omega*r_onball;
+
+	var standingcoin = Decimal(-1).mul( Decimal.sqrt( g_onball * r_onball ) ) //-1 b/c station is rotating clockwise
 	
 	if(document.getElementById('up').checked)
 	{
 		//Now get the starting velocities.
 		var start_v_y = Decimal.sqrt( 2 * accel_earth * height_thrown ) //calculated comparing to Earth's gravity
-		var start_v_x = Decimal(-1).mul( Decimal.sqrt( g_onball * r_onball ) ) //-1 b/c station is rotating clockwise
 		MyLib.start_v_y = round(start_v_y);
+		var throw_v_x = 0;
+		var start_v_x = standingcoin
 	}
 	else
 	{
 		var angle = height_thrown; //override inputs
 		var computedangle = (-1* angle * Math.PI / 180) + (Math.PI / 2);
+
+		var throw_v_x = Decimal(velocity * Math.cos(computedangle))
 		
+		var start_v_x = throw_v_x.add(standingcoin)
 		var start_v_y = Decimal(velocity * Math.sin(computedangle))
-		var start_v_x = Decimal(velocity * Math.cos(computedangle) + (-1 * Math.sqrt(g_onball * r_onball)))
 	}
 	
 	var slope = start_v_y.div( start_v_x )
@@ -1046,17 +1072,42 @@ function calc_error(diameter, height_start, gs, height_thrown, velocity) {
 
 	MyLib.relativepoints = relativepoints
 	MyLib.radius = Number(radius)
+
+
+	if(start_v_y > 0)
+	{			
+		//var expectedheight = height_start + height_thrown; //works out exactly the same for case throw "up"
+
+		var expectedheight = (Math.pow(start_v_y,2) / (2 * accel_earth)) + height_start;
+		var expectedtime = Decimal.sqrt( 2 * expectedheight / accel_earth ).add(start_v_y / accel_earth) //same formula as throw "up"
+	}
+	else
+	{
+		var expectedheight = height_start;
+		
+		var end_v_y = -1 * Math.sqrt( Math.pow(start_v_y,2) + 2*accel_earth*height_start )
+		var expectedtime = Math.abs(2 * height_start / (Number(start_v_y) + end_v_y))
+	}
+
+	var expecteddist = throw_v_x * expectedtime
+
+
 	
 	var answers = {
 		maxheight: maxheight,
 		g_accel: g_accel,
 		radius: radius,
 		standingvelocity: standingvelocity,
+		standingcoin: standingcoin,
 		start_v_y:start_v_y,
+		expecteddist : Math.abs(expecteddist),
+		expectedtime : expectedtime,
+		expectedheight : expectedheight,
 		omega: omega,
 		total_difference: total_difference,
 		time: time,
 		accel_earth: accel_earth,
+		g_onball : g_onball
 	}
 	
 	
@@ -1125,50 +1176,57 @@ function crunch_numbers( radius, g_accel, omega, start_v_y, start_v_x, slope, r_
 	//This would have made more sense if I did it in reference to time instead.
 	//Oh well.
 
-	//Starting values
-	var test_x = start_vtotal*(time/10) //Starting test increment
-	var direction = -1  //iterate leftwards to start.
-	var maxvalue = radius.sub(r_onball)  //start with initial height
-	var current_x = 0    //ball goes left. Negative.
-	var current_y = 0
-	var current_value = 0
-	var disttocenter = 0
-	var lastvalue = 0
-	var timesinarow = 0
-	
-	for(i=0; i<1000; i++)
+	if(Number(start_v_y) > 0)
 	{
-		current_x = current_x + (test_x * direction)
+		//Starting values
+		var test_x = start_vtotal*(time/10) //Starting test increment
+		var direction = -1  //iterate leftwards to start.
+		var maxvalue = radius.sub(r_onball)  //start with initial height
+		var current_x = 0    //ball goes left. Negative.
+		var current_y = 0
+		var current_value = 0
+		var disttocenter = 0
+		var lastvalue = 0
+		var timesinarow = 0
 		
-		//y = mx + b
-		current_y = (slope * current_x) - r_onball
-		
-		//pythagoras, to find distance to ball from center of station
-		disttocenter = Decimal.sqrt( Math.pow(current_x,2) +Math.pow(current_y,2) )
-		
-		current_value = radius - disttocenter
-		
-		if(current_value<lastvalue)
-		{  //if the values are decreasing
-			//then it's the wrong direction.
-			direction = direction * -1;
-			test_x = test_x / 2;
-		}
-
-		if(current_value > maxvalue)
-		{ maxvalue = current_value  }
-		
-		if( Math.abs(current_value - lastvalue) < .0001 )
-		{ timesinarow += 1	}
-		else
-		{ timesinarow = 0 }
-		
-		if(timesinarow == 5)
+		for(i=0; i<1000; i++)
 		{
-			break;
+			current_x = current_x + (test_x * direction)
+			
+			//y = mx + b
+			current_y = (slope * current_x) - r_onball
+			
+			//pythagoras, to find distance to ball from center of station
+			disttocenter = Decimal.sqrt( Math.pow(current_x,2) +Math.pow(current_y,2) )
+			
+			current_value = radius - disttocenter
+			
+			if(current_value<lastvalue)
+			{  //if the values are decreasing
+				//then it's the wrong direction.
+				direction = direction * -1;
+				test_x = test_x / 2;
+			}
+
+			if(current_value > maxvalue)
+			{ maxvalue = current_value  }
+			
+			if( Math.abs(current_value - lastvalue) < .0001 )
+			{ timesinarow += 1	}
+			else
+			{ timesinarow = 0 }
+			
+			if(timesinarow == 5)
+			{
+				break;
+			}
+			
+			lastvalue = current_value;
 		}
-		
-		lastvalue = current_value;
+	}
+	else //if it was thrown downwards
+	{
+		var maxvalue = radius - r_onball;
 	}
 	
 	return {
@@ -1196,6 +1254,7 @@ function submit_values() {
 	//////////////////////////
 	document.getElementById("centripaccel").innerHTML = ""
 	document.getElementById("standingvelocity").innerHTML = ""
+	document.getElementById("standingcoin").innerHTML = ""
 	document.getElementById("standingvelocity2").innerHTML = ""
 	document.getElementById("standingvelocityunits2").innerHTML = ""
 	document.getElementById("rotationalvelocity").innerHTML = ""
@@ -1219,7 +1278,6 @@ function submit_values() {
 		var angle = Number(document.getElementById("angle").value);
 		var velocity = Number(document.getElementById("velocity").value);
 		var answers = calc_error( diameter, height_start, gs, angle, velocity )
-
 	}
 	MyLib.globaltime = Number(answers.time)
 	
@@ -1229,11 +1287,12 @@ function submit_values() {
 	draw_curve_static();
 	
 	//expected values
-	var expectedheight = height_start + height_thrown
-	document.getElementById("expectedheight").innerHTML = round( expectedheight )
+	document.getElementById("expectedheight").innerHTML = round( answers.expectedheight )
 	document.getElementById("expectedheightunits").innerHTML = 	"&nbsp;" + MyLib.units
-	document.getElementById("expectedtime").innerHTML = round( Decimal.sqrt( 2 * expectedheight / answers.accel_earth ).add(answers.start_v_y / answers.accel_earth)  )
+	document.getElementById("expectedtime").innerHTML = round( answers.expectedtime )
 	document.getElementById("expectedtimeunits").innerHTML = "&nbsp;s"
+	document.getElementById("expecteddist").innerHTML = round(answers.expecteddist)
+	document.getElementById("expecteddistunits").innerHTML = 	"&nbsp;" + MyLib.units
 
 	
 	document.getElementById("maxheightachieved").innerHTML = round(answers.maxheight);
@@ -1243,36 +1302,57 @@ function submit_values() {
 	///////////////////////////////////////////////////////
 	
 	document.getElementById("centripaccel").innerHTML = round(answers.g_accel).toString()
+	document.getElementById("coinaccel").innerHTML = round(answers.g_onball).toString()
+	
 	
 	document.getElementById("standingvelocity").innerHTML = round(answers.standingvelocity).toString()
-	document.getElementById("verticalvelocity").innerHTML = round(answers.start_v_y).toString()
 
+	if(document.getElementById('up').checked)
+	{
+		var verticalvelocity = answers.start_v_y
+	}
+	else{
+		var verticalvelocity = velocity
+	}
+
+	document.getElementById("verticalvelocity").innerHTML = round(verticalvelocity).toString()
+	document.getElementById("standingcoin").innerHTML = round(Math.abs(answers.standingcoin)).toString()
 	
 	//Show velocity values.
 	if(MyLib.units=="ft")
 	{
 		document.getElementById("centripaccelunits").innerHTML = "&nbsp;ft/s/s"
+		document.getElementById("coinaccelunits").innerHTML = "&nbsp;ft/s/s"
 		document.getElementById("standingvelocityunits").innerHTML = "&nbsp;ft/s"
+		document.getElementById("standingcoinunits").innerHTML = "&nbsp;ft/s"
 		document.getElementById("verticalvelocityunits").innerHTML = "&nbsp;ft/s"
 		
 		
 		var standingvelocity2 = answers.standingvelocity * 0.681818
-		var verticalvelocity2 = answers.start_v_y * 0.681818
+		var standingcoin2 = Math.abs(answers.standingcoin * 0.681818)
+		var verticalvelocity2 = verticalvelocity * 0.681818
 		document.getElementById("standingvelocity2").innerHTML = "(" + round(standingvelocity2).toString();
+		document.getElementById("standingcoin2").innerHTML = "(" + round(standingcoin2).toString();
 		document.getElementById("standingvelocityunits2").innerHTML = "&nbsp;mph)";		
+		document.getElementById("standingcoinunits2").innerHTML = "&nbsp;mph)";		
 		document.getElementById("verticalvelocity2").innerHTML = "(" + round(verticalvelocity2).toString();
 		document.getElementById("verticalvelocityunits2").innerHTML = "&nbsp;mph)";
 		
 	} else if(MyLib.units=="m")
 	{
 		document.getElementById("centripaccelunits").innerHTML = "m/s/s"
+		document.getElementById("coinaccelunits").innerHTML = "m/s/s"
 		document.getElementById("standingvelocityunits").innerHTML = "m/s";
+		document.getElementById("standingcoinunits").innerHTML = "m/s";
 		document.getElementById("verticalvelocityunits").innerHTML = "m/s";
 		
 		var standingvelocity2 = answers.standingvelocity * 3.6;
-		var verticalvelocity2 = answers.start_v_y * 3.6;
+		var standingcoin2 = Math.abs(answers.standingcoin * 3.6);
+		var verticalvelocity2 = verticalvelocity * 3.6;
 		document.getElementById("standingvelocity2").innerHTML = "(" + round(standingvelocity2).toString();
+		document.getElementById("standingcoin2").innerHTML = "(" + round(standingcoin2).toString();
 		document.getElementById("standingvelocityunits2").innerHTML = "km/h)";
+		document.getElementById("standingcoinunits2").innerHTML = "km/h)";
 		document.getElementById("verticalvelocity2").innerHTML = "(" + round(verticalvelocity2).toString();
 		document.getElementById("verticalvelocityunits2").innerHTML = "km/h)";
 	}
@@ -1302,10 +1382,8 @@ function submit_values() {
 	
 	if(answers.total_difference < 1.0)
 	{	
-		//aligns text to center
-		document.getElementById("finalseparation2").className="answer";
-		document.getElementById("finalseparationunits2").className="answer"; 
-		
+		document.getElementById("conditionalbreak").className = ""
+
 		if(MyLib.units=="ft")
 		{
 			var finalseparation2 = answers.total_difference * 12
@@ -1319,10 +1397,38 @@ function submit_values() {
 			document.getElementById("finalseparation2").innerHTML = "(" + round(finalseparation2).toString();
 			document.getElementById("finalseparationunits2").innerHTML = "cm)";
 		}
-	} else {  //aligns text to bottom
-		document.getElementById("finalseparation2").className=""; 
-		document.getElementById("finalseparationunits2").className="";
 	}
+	else
+	{
+		document.getElementById("conditionalbreak").className = "hide"
+	}
+	
+	if(answers.expecteddist < 1.0 && answers.expecteddist != 0)
+	{	
+		document.getElementById("conditionalbreak2").className = ""
+
+		if(MyLib.units=="ft")
+		{
+			var expecteddist2 = answers.expecteddist * 12
+			document.getElementById("expecteddist2").innerHTML = "(" + round(expecteddist2).toString();
+			document.getElementById("expecteddistunits2").innerHTML = "in)";
+		}
+		
+		if(MyLib.units=="m")
+		{
+			var expecteddist2 = answers.expecteddist * 100
+			document.getElementById("expecteddist2").innerHTML = "(" + round(expecteddist2).toString();
+			document.getElementById("expecteddistunits2").innerHTML = "cm)";
+		}
+	}
+	else
+	{
+		document.getElementById("conditionalbreak2").className = "hide"
+	}
+	
+	document.getElementById("expecteddist").innerHTML = round( Math.abs(answers.expecteddist) )
+	document.getElementById("expecteddistunits").innerHTML = 	"&nbsp;" + MyLib.units
+
 	
 
 	//ERRORS///////////////////////////////////////////
