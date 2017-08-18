@@ -111,6 +111,21 @@ Decimal.set({ precision: 30 });  //accuracy of 30 decimals for the initial calcu
 function setfields() {
 	MyLib.allatonce=true;
 	
+	document.getElementById('checkscale').checked = false;
+	document.getElementById('checktime').checked = false;
+	document.getElementById('percenttimediv').innerHTML = "";
+	document.getElementById("percenttimediv").className = "";
+	document.getElementById("outertime").style.marginTop="0px";
+	
+	if(MyLib.repeattimeout!=null)
+	{
+		clearTimeout(MyLib.repeattimeout);
+		clearTimeout(MyLib.movetimeout);
+		MyLib.repeattimeout=null;
+		MyLib.movetimeout=null;
+	}
+
+
 	//mouseover=true;
 	var percentgravity = 100;
 	
@@ -125,7 +140,7 @@ function setfields() {
 	document.getElementById('imperial').checked = true;
 	document.getElementById('up').checked = true;
 	changeparams("up")
-
+	
 	MyLib.units="ft";
 	setunits(MyLib.units);
 
@@ -134,7 +149,7 @@ function setfields() {
 	submit_values()
 	
 	var checkboxtime = document.getElementsByTagName('checktime');
-	checkboxtime.checked=false;
+	checkboxtime.checked=false;	
 }
 
 //the starting height cannot be greater than the diameter of the station.
@@ -160,6 +175,9 @@ function changescale(checkboxElem) {
 	  MyLib.scale=false;
 	  //EXTRA_X_BUFFER=0;
 	  
+	document.getElementById("scalemessage").innerHTML = ""
+
+	  
 	  if(MyLib.repeattimeout==null) //if the scale is static, it won't erase otherwise.
 	  {
 		reset_canvas()
@@ -169,7 +187,7 @@ function changescale(checkboxElem) {
 }
 
 function changecheck(checkboxElem) {
-  if (checkboxElem.checked) 
+  if(checkboxElem.checked) 
   {
 		var timediv = document.getElementById("percenttimediv")
 		
@@ -254,28 +272,15 @@ function convertunits(setting) {
 	{
 		document.getElementById("heightstart").value = round(to_meters(document.getElementById("heightstart").value) )
 		document.getElementById("diameter").value = round(to_meters(document.getElementById("diameter").value) )
-
-		if(document.getElementById('up').checked)
-		{
-			document.getElementById("heightthrown").value = round(to_meters(document.getElementById("heightthrown").value) )
-		}
-		else{
-			document.getElementById("velocity").value = round(to_meters(document.getElementById("velocity").value) )
-		}
+		document.getElementById("heightthrown").value = round(to_meters(document.getElementById("heightthrown").value) )
+		document.getElementById("velocity").value = round(to_meters(document.getElementById("velocity").value) )
 
 	} else if(MyLib.units=="m" && setting=="ft")
 	{
 		document.getElementById("heightstart").value = round(to_feet(document.getElementById("heightstart").value) )
 		document.getElementById("diameter").value = round(to_feet(document.getElementById("diameter").value) )
 		document.getElementById("heightthrown").value = round(to_feet(document.getElementById("heightthrown").value) )
-		
-		if(document.getElementById('up').checked)
-		{
-			document.getElementById("heightthrown").value = round(to_feet(document.getElementById("heightthrown").value) )
-		}
-		else{
-			document.getElementById("velocity").value = round(to_feet(document.getElementById("velocity").value) )
-		}
+		document.getElementById("velocity").value = round(to_feet(document.getElementById("velocity").value) )
 	}	
 	MyLib.units = setting;
 	MyLib.allatonce=false;
@@ -853,8 +858,18 @@ function scale_increment() {
 		}
 	}
 }
+
 function draw_scale()
 {
+	if(MyLib.units=="ft")
+	{
+		document.getElementById("scalemessage").innerHTML = "<sup><i>Scale in feet</i></sup>"
+	}
+	else
+	{
+		document.getElementById("scalemessage").innerHTML = "<sup><i>Scale in meters</i></sup>"		
+	}
+	
 	//var lastpoint = relativepoints[relativepoints.length-1]
 	var start = 3*Math.PI/2
 
@@ -1280,11 +1295,18 @@ function submit_values() {
 		var answers = calc_error( diameter, height_start, gs, angle, velocity )
 	}
 	MyLib.globaltime = Number(answers.time)
-	
-	
+
 	prep_canvas();
 	reset_canvas();
-	draw_curve_static();
+	
+	if(MyLib.repeattimeout!=null)
+	{
+		set_time_interval()
+	}
+	else
+	{
+		draw_curve_static();
+	}
 	
 	//expected values
 	document.getElementById("expectedheight").innerHTML = round( answers.expectedheight )
