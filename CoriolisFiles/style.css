@@ -39,6 +39,15 @@ p {
 		display:none }
 }
 
+
+@media (max-width: 450px)
+{	img, .image {
+		float:none !important;
+	}
+	
+}
+
+
 .border_bottom td {
 	border-bottom:1px solid #000;
 }
