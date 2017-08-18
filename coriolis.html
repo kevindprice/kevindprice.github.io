@@ -66,8 +66,8 @@
         <header class="article">
             <h2><a href="./coriolis.html" rel="bookmark">The Coriolis Effect: Why Space Life with Artificial Gravity Would Be Weird</a></h2>
 			<div style="display:inline-block; margin-top: 3px; font-family: Baskerville, Garamond, Palatino;">— Computer Modeling —&nbsp;&nbsp;</div>
-            <time datetime="2017-02-19T00:00:00-05:00">
-                Feb 19, 2017
+            <time datetime="2017-08-18T00:00:00-04:00">
+                Aug 18, 2017
             </time>
         </header>
     </div>
@@ -101,7 +101,7 @@
     <!-- Summary: An article about the Coriolis effect, containing a mathematical model. -->
 
 <p>Artificial gravity is as important to pop culture as it is to future space missions. It is important to the future health of real astronauts, and we see it in nearly every space movie. How would man-made gravity work? How does the physics hold up in your favorite sci-fi movies?</p>
-<p>I’m not asking you to discount any of your favorite movies just because the physics principles in them might not be accurate. But really, what would artificial gravity look like in space? I have generated a computer model to provide an answer. My model shows that, thanks to the Coriolis effect, artificial gravity would be very strange.</p>
+<p>I’m not asking you to discount any of your favorite movies just because the physics principles in them might not be accurate. But really, what would artificial gravity look like in space? I have generated a computer model to show you. My model shows that, thanks to the Coriolis effect, artificial gravity would be very strange.</p>
 
 
 <p><img style="float: left; margin-right:10px;" src="CoriolisFiles/CentripetalForce3.jpg" width="180" height="180"/></p>
@@ -118,8 +118,7 @@
 <li>the virtual space station is rotating clockwise (counterclockwise would be flipped)</li>
 <li>you use the same force you would have used on Earth to throw 3 feet into the air, to 7 feet height.</li>
 </ul>
-<p>As you experiment with the values, you will see that the final result changes.
-Spoiler alert: the coin does not land at your feet! </p>
+<p>You can change the result by experimenting with the starting values. Spoiler alert: the coin does not land at your feet! </p>
 <p><br/>
 <!-- This is the table model script -->
 <div id="inserthere"></div>
@@ -164,13 +163,13 @@ Spoiler alert: the coin does not land at your feet! </p>
 <p>The larger the station, the smaller these Coriolis effects will become; however, to make the effects unnoticeable, you would need an impractically massive space station. I have modeled our coin toss in a graph. Earth-“normalness” increases on a logarithmic scale!</p>
 <p><img style="margin: 5px 0px 5px 0px;" src="CoriolisFiles/CoriolisGraph.png" width="525" height="525"/>
 <p style="margin-top:-15px;"><sup>This uses the same assumptions as stated in the introduction: the throw starts from four feet and goes three feet up in the air. The Python code I used to generate this can be found <a href="CoriolisFiles/CoriolisTable.py">here</a>.</sup></p></p>
-<p>Life in artificial gravity would show a few additional effects:</p>
+<p>You would see a few additional effects on a space station:</p>
 <ul>
 <li>
 <p>If you were to climb toward the center of the station, gravity would decrease. At the exact center of the station, there would be no gravity at all.</p>
 </li>
 <li>
-<p>The station would need to be balanced for the gravity to work properly. The station will rotate around its center of gravity, wherever it is.</p>
+<p>The station would need to be balanced for the gravity to work best, otherwise the centripetal force would <em>differ</em> depending on where you are along the station floor. The station will rotate around its center of gravity, wherever it is. On an unbalanced station, some parts of the floor would be farther away from the center of rotation than other points.</p>
 </li>
 <li>
 <p>The station's rotation may decrease over time as objects onboard interact with each other; the station would need a periodic “boost.”</p>
