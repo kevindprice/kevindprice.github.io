@@ -112,6 +112,8 @@ function setfields() {
 	MyLib.allatonce=true;
 	
 	document.getElementById('checkscale').checked = false;
+	MyLib.scale=false;
+	document.getElementById("scalemessage").innerHTML = ""
 	document.getElementById('checktime').checked = false;
 	document.getElementById('percenttimediv').innerHTML = "";
 	document.getElementById("percenttimediv").className = "";
