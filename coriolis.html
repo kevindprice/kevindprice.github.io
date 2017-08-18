@@ -140,9 +140,10 @@ Spoiler alert: the coin does not land at your feet! </p>
 <h3>The Physics of Artificial Gravity</h3>
 <p>What would artificial gravity be like?</p>
 <p>To help you understand the answer to this question, I need to help you understand a bit of physics.</p>
-<p><img style="float: right; margin-left:10px;" src="CoriolisFiles/CentripetalForce.png" width="250" height="250"/></p>
+<p><img style="float: right; margin-left:10px;" src="CoriolisFiles/CentripetalForce.png" width="180" height="180"/></p>
 <p>The centripetal force works by fighting your inertia. As your body attempts to move in a straight line, the station pushes you with the curve. Unlike gravity, which “pulls you down,” the floor constantly “pushes you up.”</p>
 <p>You would feel different “forces” in every direction of motion. To be clear, these forces are not real forces because they are only apparent to someone who is spinning. You would be intuitively aware of which direction the space station is going. By moving your body, the Coriolis effect would indicate to you which direction you are rotating.</p>
+<p><img style="float: right; margin-left:10px;" src="CoriolisFiles/RealPath.png" width="180" height="180"/></p>
 <p>Here are some of the forces you would see:</p>
 <ul>
 <li>
@@ -203,6 +204,9 @@ Spoiler alert: the coin does not land at your feet! </p>
 <p>Increase the throw velocity to almost exactly match the “standing speed of coin” (23.823 ft/s on default settings). Set the throw to 90 degrees again. It never almost never lands! Check the “time in the air!” (The model shows it landing because the “standing speed” is rounded. You cannot match it exactly.)</p>
 </li>
 <li>
+<p>Continue to exactly matching the coin's “standing speed.” Now decrease the throw angle by one degree (to 89 degrees), so it launches one degree up from horizontal. It slowly spirals upward toward the center, at which point it reverses direction and spirals back down to the floor!</p>
+</li>
+<li>
 <p>Now set the station diameter to something unrealistically huge, such as 500000000 feet or meters. The throws now appear as they would on earth!</p>
 </li>
 </ul>
@@ -229,13 +233,15 @@ Spoiler alert: the coin does not land at your feet! </p>
 </div>
 
 <p>In most sci-fi movies, you see an artificial gravity “generator” underneath the station that uses an energy source to produce pure gravity. This is the view in the Star Wars and Star Trek universes. This is how I choose to define “fantasy.” A “pure” gravity source would not be possible! Even if, in the far-distant future, a method were found to convert energy into pure gravity, it would take such an unimaginably huge energy source that it will never <em>ever</em> be practical.</p>
-<p>Real gravity is produced by mass. Einstein famously discovered the relationship between mass and energy (and thus gravity) with the equation <span class="math">\(E=mc^2\)</span>. If we did figure out how to produce real gravity from energy, it would create a very real gravity well, and it would warp Earth's orbit! The force of this gravity would dissipate through space the same way the Earth's gravity does, following the equation, <span class="math">\(F = (G m_1 m_2)/r^2\)</span>, unless the gravity were somehow fundamentally different from real gravity.</p>
+<p>Real gravity is produced by mass. Albert Einstein famously discovered the relationship between mass and energy (and thus gravity) with the equation <span class="math">\(E=mc^2\)</span>. In this equation, c equals the speed of light, an enormous number. Simulating the necessary mass would require an impossibly large amount of energy.</p>
+<p>If we did manage to produce real gravity from energy, it would create a real gravity well. The acceleration due to this gravity would dissipate through space the same way the Earth's gravity does, following the equation, <span class="math">\(a = (G m)/r^2\)</span>, where G is the gravitational constant and r is the distance from the gravity source. Earth would accelerate toward the station!</p>
 <p><img style="float: left; margin-right:10px;" src="CoriolisFiles/Halo.jpg" width="270" height="270"/></p>
-<p>There is one other story worth mentioning in this category: the video game, <em>Halo: Combat Evolved</em>. This story centers around the discovery of a massive ring world created by advanced humans from the distant past.</p>
+<p>Leaving the math aside, there is one other story worth mentioning in this category: the video game, <em>Halo: Combat Evolved</em>. This story centers around the discovery of a massive ring world created by advanced humans from the distant past.</p>
 <p>This ring world does <em>not</em> generate its gravity through rotation, even though it could easily do so. (See <a href="https://en.wikipedia.org/wiki/Artificial_gravity_(fiction)">this link</a>: Halo “also uses some form of field or other artificially generated gravity as it is stated in <em>Halo: The Flood</em>, the ring world does not spin nearly fast enough to create the amount of gravity it possesses.”) Furthermore, a station like this would require a glass ceiling to retain an atmosphere.</p>
 <p>Let’s pretend for a moment that the ring world does correctly generate artificial gravity. This would be interesting because massive stations minimize the Coriolis effect. Would the effect still be noticeable?</p>
 <p>According to <a href="https://en.wikipedia.org/wiki/Artificial_gravity_(fiction)">the same Wikipedia article I cited above,</a> the ring in <em>Halo: Combat Evolved</em> is approximately 10,000 km in diameter (10,000,000 meters, 33,000,000 ft, or 6,200 miles). If you insert these numbers into my model, you will see that our coin toss would land about a millimeter away.</p>
-<p>A millimeter of error seems small, but the Master Chief is known for shooting projectiles over large distances. The error would accumulate over these distances to make his firing quite difficult. Furthermore, this error would be different depending on the direction he is facing, the velocity of the projectile, and the size of the station (i.e. <em>which</em> station he is standing on). He would need some sort of “smart ballistics” capable of calculating the constantly changing error.</p>
+<p>Now try a scenario realistic to the Master Chief, the main character of <em>Halo</em>. He is known for launching high-speed projectiles. A bullet would travel proportionally close to the speed of the floor, thus it would follow a distorted path. Try firing the coin at 2500 ft/s (average bullet speed) at 90 degrees from vertical (with a station diameter of 33000000 ft). The results table tells us how this would turn out (though the drawn path has terrible proportions). The projectile would land about 150 feet away from its expected location!</p>
+<p>The Master Chief's firing would be quite difficult. The error would be different depending on the direction he is facing, the velocity of the projectile, and the size of the station (i.e. <em>which</em> station he is standing on). Changing the launching angle by just a degree changes the result dramatically. He would need some sort of “smart ballistics” capable of calculating the constantly changing error.</p>
 <p><br/></p>
 <h3>Designing a real space station that minimizes the Coriolis effect</h3>
 <p>To achieve earth-“normalness” in artificial gravity, you would need a massively huge station!</p>

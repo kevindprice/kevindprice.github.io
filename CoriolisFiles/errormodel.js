@@ -1,20 +1,37 @@
+/* Author: Kevin Price */
+/* Performs all of the calculations relevant to the Coriolis model. */
 
 
+
+
+//make the script context-aware. Is it embedded or standalone?
+//(if standalone, it is manually set to true in a <script> tag underneath <head>)
 if(typeof standalone === 'undefined')
-{
-	var standalone = false;
-}
+{  var standalone = false;   }
 
-var cnv = {}; //Canvas variable namespace
 
-//namespace
+
+//Namespace for variables relevant to canvas
+var cnv = {}; 
+cnv.clientWidth = null;
+cnv.canvasmaxString = getComputedStyle(document.getElementById("canvascontainer")).maxWidth
+cnv.canvasMax = parseInt( cnv.canvasmaxString.substring(0, cnv.canvasmaxString.length-2));
+cnv.DELAY_BETWEEN_DRAWS = 2.5 //seconds to wait until next draw, when looping.
+
+
+Decimal.set({ precision: 30 });  //accuracy of 30 decimals for the calculations.
+							//Calculations with a large diameter tend to need this.
+		//(the diameter field is set to MAX out before it gets glitchy again at precision 30...)
+		//(though it is entertaining watching the computer attempt to draw that)
+
+
+//Namespace for other variables
 var MyLib = {}
-
 MyLib.units = "ft";  //declares the unit type the page is using, either "ft" or "m".
 MyLib.allatonce = false; //used so that some functions can change all the values
 					   //and submit only once.
 
-MyLib.PI = Decimal.acos(-1);  //more accurate than Math.PI
+MyLib.PI = Decimal.acos(-1);  //Math.PI only goes out to 15 decimals.
 MyLib.percenttime = 100;
 MyLib.scale=false;
 MyLib.relativepoints = []
@@ -22,92 +39,22 @@ MyLib.globaltime = null;
 MyLib.repeattimeout = null;
 MyLib.movetimeout = null;
 
-//these are so the scale can be drawn in real-time mode, right when it's selected
-//(instead of waiting)
+
+//these are set to the global namespace
+//so the scale can be drawn in real-time mode, right when it's selected
+//instead of waiting for the next re-draw.
+//(though if you deselect it, you still have to wait)
 MyLib.radius = null;
 MyLib.minmaxes = null;
 MyLib.canvaspoints = null;
-MyLib.clientWidth = null;
 MyLib.start_v_y = null;
-
-MyLib.canvasmaxString = getComputedStyle(document.getElementById("canvascontainer")).maxWidth
-MyLib.canvasMax = parseInt( MyLib.canvasmaxString.substring(0, MyLib.canvasmaxString.length-2));
-
-MyLib.DELAY_BETWEEN_DRAWS = 2.5 //seconds to wait until next draw, when looping.
-Decimal.set({ precision: 30 });  //accuracy of 30 decimals for the initial calculation
-
-
-
-(function() {
-	var
-	// Obtain a reference to the canvas element using its id.
-	htmlCanvas = document.getElementById('demo'),
-	// Obtain a graphics context on the canvas element for drawing.
-	context = htmlCanvas.getContext('2d');
-
-   // Start listening to resize events and draw canvas.
-   initialize();
-
-   function initialize() {
-	   // Register an event listener to call the resizeCanvas() function 
-	   // each time the window is resized.
-	   window.addEventListener('resize', resizeCanvas, false);
-	   // Draw canvas border for the first time.
-	   resizeCanvas();
-	}
-
-	// Display custom canvas. In this case it's a blue, 5 pixel 
-	// border that resizes along with the browser window.
-	function redraw() {  //not being used
-	   context.strokeStyle = 'blue';
-	   context.lineWidth = '5';
-	   context.strokeRect(0, 0, window.innerWidth, window.innerHeight);
-	}
-
-	// Runs each time the DOM window resize event fires.
-	// Resets the canvas dimensions to match window,
-	// then draws the new borders accordingly.
-	function resizeCanvas() {
-		var clientWidth = htmlCanvas.parentElement.clientWidth;
-
-		//only resize if the parent's width has actually changed, and if this width is actually less than the max.
-		if(clientWidth != MyLib.clientWidth && (clientWidth < MyLib.canvasMax || MyLib.clientWidth < MyLib.canvasMax) )
-		{
-			MyLib.clientWidth = clientWidth;
-			cnv.CANVAS_WIDTH = htmlCanvas.parentElement.clientWidth;
-
-			//htmlCanvas.width = htmlCanvas.parentElement.clientWidth;
-			//htmlCanvas.height = window.innerHeight;
-			//redraw();
-			cnv.CANVAS_HEIGHT = 300
-			cnv.X_BUFFER = cnv.CANVAS_WIDTH/10
-			cnv.Y_BUFFER = cnv.CANVAS_HEIGHT/15
-			cnv.DRAWING_WIDTH = cnv.CANVAS_WIDTH - 2 * cnv.X_BUFFER
-			cnv.DRAWING_HEIGHT = cnv.CANVAS_HEIGHT - 2 * cnv.Y_BUFFER
-			if(MyLib.relativepoints.length!=0 && MyLib.repeattimeout==null)
-			{
-				reset_canvas();
-				draw_curve_static()
-			}
-			else if(MyLib.relativepoints.length!=0)
-			{
-				clearTimeout(MyLib.repeattimeout);
-				clearTimeout(MyLib.movetimeout);
-				MyLib.repeattimeout=null;
-				MyLib.movetimeout=null;
-
-				reset_canvas();
-				set_time_interval();				
-			}
-		}
-	}
-})();
 
 
 
 
 
 //Set the fields after initially loading the page.
+//(or reset them if you push the "reset" button)
 function setfields() {
 	MyLib.allatonce=true;
 	
@@ -154,25 +101,31 @@ function setfields() {
 	checkboxtime.checked=false;	
 }
 
+
 //the starting height cannot be greater than the diameter of the station.
+//Ensure that this never happens!
+//(set to run whenever the diameter changes...just to make sure)
 function changeDiameter(value) {
 	MyLib.allatonce=true;
 	var startfield = document.getElementById("heightstart");
 	startfield.setAttribute("max",value);
-	if(startfield.value > value)
-	{
-		startfield.value = value;
-	}
+	
+	//if the starting height already IS larger, then fix it.
+	if(Number(startfield.value) > Number(value))
+	{ startfield.value = value; }
+
 	MyLib.allatonce=false;
 
 	changeit();
 }
 
+//handles selecting/deselecting the scale option.
 function changescale(checkboxElem) {
   if (checkboxElem.checked) {
 	  MyLib.scale=true;
 	  draw_scale();
-	  //EXTRA_X_BUFFER=25;  //It was a good idea. But no.
+	  //EXTRA_X_BUFFER=25;  //It was a good idea. But no. (alter the x-positions based on whether it's displaying a scale...)
+													//(...can bump part of the display off the canvas.)
   } else {
 	  MyLib.scale=false;
 	  //EXTRA_X_BUFFER=0;
@@ -188,30 +141,32 @@ function changescale(checkboxElem) {
   }
 }
 
+//gets called when the user selects "show in real time"
 function changecheck(checkboxElem) {
   if(checkboxElem.checked) 
   {
 		var timediv = document.getElementById("percenttimediv")
 		
+		//Add the input field to alter the percent speed
 		timediv.innerHTML="&#8195;&#8194;Speed&#160;<input type='number' step='1' min='0' max='500' style='width:63px' id='percenttime' value='100' onchange='changepercenttime(this.value)'/>";
 		MyLib.percenttime=100;
 		
 		timediv.className = "percentsign";
 		
+		//Set a MAX on percenttime. The browser can only handle about 100 canvaspoints per second.
 		timeinput = document.getElementById("percenttime")
 		if(MyLib.globaltime>1)
 		{ timeinput.setAttribute("max", Math.ceil(MyLib.globaltime)*100 );	}
 		else
 		{ timeinput.setAttribute("max", 100 );	}
-		
+	
+		//I have to change the top margin of the checkbox depending on whether the checkmark is selected.
+		//When you adjust the width of the div, it also alters its height on a page, which looks super awkward.
+		//the margins work out differently depending on whether you view the model embedded vs standalone.
 		if(standalone!=true)
-		{
-			document.getElementById("outertime").style.marginTop="-29px";
-		}
+		{	document.getElementById("outertime").style.marginTop="-29px"; }
 		else
-		{
-			document.getElementById("outertime").style.marginTop="-19px";
-		}
+		{	document.getElementById("outertime").style.marginTop="-19px"; }
 
 		set_time_interval();
 		
@@ -220,9 +175,12 @@ function changecheck(checkboxElem) {
   }
 }
 
-
+//Start the active display.
 function set_time_interval()
 {
+	//If, by some glitch, the intervals are already set,
+		//stop them so they don't conflict!
+	//(saves you from seeing double)
 	if(MyLib.movetimeout!=null)
 	{ clearTimeout(MyLib.movetimeout); MyLib.movetimeout=null;	}
 
@@ -230,16 +188,16 @@ function set_time_interval()
 	{ clearTimeout(MyLib.repeattimeout); MyLib.repeattimeout=null; }
 	var time = MyLib.globaltime;
 
-	//intervals were being too buggy for this one.
-	//An interval created by an interval== not a good idea.
+	//self-invoking timeouts are much less glitchy than intervals.
 	(function repeatdraw() {    
 		canvasthings = reset_canvas()
 		draw_curve_active()
 		
-		MyLib.repeattimeout = setTimeout(repeatdraw, ((MyLib.globaltime * (100/MyLib.percenttime)) + MyLib.DELAY_BETWEEN_DRAWS) * 1000);
+		MyLib.repeattimeout = setTimeout(repeatdraw, ((MyLib.globaltime * (100/MyLib.percenttime)) + cnv.DELAY_BETWEEN_DRAWS) * 1000);
 	})();
 }
 
+//Self-explanatory. Go from active to static display.
 function stop_time_interval()
 {
 	clearTimeout(MyLib.repeattimeout);
@@ -255,6 +213,7 @@ function stop_time_interval()
 	draw_curve_static()
 }
 
+//Change the percent time in the global namespace, when the user changes it.
 function changepercenttime(value)
 {
 	MyLib.percenttime = value;
@@ -264,11 +223,11 @@ function changepercenttime(value)
 	//set_time_interval()
 }
 
-//Activated by radiobutton, user changes the unit setting.
+//Activated by radiobutton when the user changes the unit setting.
 function convertunits(setting) {
     MyLib.allatonce=true; //this changes ALL of the unit fields. 
 					//boolean to prevent submission until the end of the function.
-	setunits(setting)
+	setunits(setting);
 	
 	if(MyLib.units=="ft" && setting=="m")
 	{
@@ -286,13 +245,14 @@ function convertunits(setting) {
 	}	
 	MyLib.units = setting;
 	MyLib.allatonce=false;
-	submit_values()
+	submit_values();
 }
 
+//Change between throw "up" vs throw with velocity and angle
 function changeparams(setting) {
 	if(setting=="anglevel")
 	{
-		//the ~ operator in css refused to work for me
+		//the ~ operator in css refused to work for me. So I'm doing this instead.
 		document.getElementById("ang").className = "inputsquare"
 		document.getElementById("vel").className = "inputsquare"
 		document.getElementById("throwup").className = "hide"
@@ -334,7 +294,6 @@ function setunits(setting) {
 	{
 		document.getElementById("veloc").className = changeto2;
 	}
-
 }
 
 
@@ -348,14 +307,13 @@ function round(num) {   //, places) {
 	if(Math.abs(output - Math.round(output)) <= .0011)
 	{ output = Math.round(output); }
 
-	return output;
-	
+	return output;	
 }
 
+//Tell the user the g-forces (if they customize gravity)
 function outputgs(percentgravity)
 {	
 	gs = percentgravity / 100
-	//Tell the user what the gravity is.
 	if(gs!=1) {
 		document.getElementById("gravitygs").innerHTML = gs.toString() + " g's"; //, g_accel.toString(), " ", MyLib.units, "/s/s");
 	} else {
@@ -363,13 +321,16 @@ function outputgs(percentgravity)
 	}
 }
 
-function to_meters(feet)
-{ return feet * 0.3048 } //defined exactly by the National Bureau of Standards.
+function to_meters(feet) //defined exactly by the National Bureau of Standards.
+{ return feet * 0.3048 } //Is the definition of a foot.
+						 //I can't get more accurate than that.
 
-function to_feet(meters)
+function to_feet(meters)			//The inverse calculates to more decimals...
 { return meters * 3.2808333333 }
+
 	
-	
+//creates a buffer when submitting values, in case I am changing all of them at once.
+//In that case, I don't need to submit multiple times.
 function changeit()
 {
 	if(MyLib.allatonce == false)
@@ -377,8 +338,10 @@ function changeit()
 		submit_values()
 	}
 }
-	
 
+
+//Calculate and store the location of the person and coin at t = time,
+//given the rotation rate and slope.
 function AbsolutePoints( time, radius, omega, slope, height_start, start_v_x)
 {
 	//solve for the location of the person and the coin.
@@ -398,6 +361,8 @@ function AbsolutePoints( time, radius, omega, slope, height_start, start_v_x)
 	this.y_coin = y_coin
 }
 
+//If the slope of the ball is not finite (e.g. it is heading directly up with infinite slope),
+//then AbsolutePoints() will not work correctly. Here is an alternate function.
 function AbsolutePointsVertical( time, radius, omega, slope, height_start, start_v_y)
 {
 	var theta_op = (3*MyLib.PI / 2) - (omega * time) //person's angle, from origin to person
@@ -416,7 +381,8 @@ function AbsolutePointsVertical( time, radius, omega, slope, height_start, start
 }
 
 
-
+//Take a set of absolute points [(personx, persony), (coinx, coiny)],
+//and find the coin's distance relative to the person's feet at (0,0), oriented "upward."
 function RelativePoint( points )
 {
 	var x_diff = points.x_coin - points.x_person
@@ -471,6 +437,7 @@ function RelativePoint( points )
 }
 
 
+//Generate point coordinates with respect to the canvas.
 function CanvasPoint(minmaxes, x, y) {
 	//canvasPoint can accept either X and Y coordinates or a RelativePoint.
 	if(!(typeof x=="number"))
@@ -483,25 +450,24 @@ function CanvasPoint(minmaxes, x, y) {
 	this.y = canvasY;
 }
 
-
+//calculate the min and max values for the displayed canvas.
 function minmax(pointlist) {
-	var minX=pointlist[0].x
-	var maxX=pointlist[0].x
-	var minY=0 //definitely need to show the original floor.
 	
+	//Ensure, that if these max values are not reached, that
+	//these are set to the maxes (otherwise it will find a greater value)
+	var minX=pointlist[0].x  //a good starting value is the first one in the list.
+	var maxX=pointlist[0].x
+	var minY=0 //definitely need to show the original floor. Include y=0 in the range!
+
 	//the coin toss assumes a 6-ft person :-)
 	//I'd ideally like to put that person into the window.
 	if(MyLib.units=="ft")
-	{
-		var maxY=6 
-	}
+	{	var maxY=6 	}
 	else
-	{
-		var maxY = 1.829 //meters
-	}
-	//var maxY=pointlist[0].y
-
+	{	var maxY = 1.829  } //meters
 	
+	//Iterate through the given point list to find the min and max values
+	//(assuming it supercedes the values I initialized above)
 	for(var i=0; i<pointlist.length; i++)
 	{
 		if(pointlist[i].x < minX)
@@ -530,19 +496,18 @@ function minmax(pointlist) {
 	else
 	{ canvasSize = cnv.DRAWING_HEIGHT }
 	
-	
 	minmaxes = { minX: minX,
 				 maxX: maxX,
 				 minY: minY,
 				 maxY: maxY,
-				 //rangeX: (maxX - minX),
-				 //rangeY: (maxY - minY),
-				 range: range,
+				 range: range, //only one variable for range, to keep x proportional with y.
 				 canvasSize: canvasSize }
+				 
 	return minmaxes
 }
 
 //only runs when the canvaspoints need to be *changed*.
+//(when the model is changed, or percent speed is altered)
 function prep_canvas() {
 	var relativepoints = MyLib.relativepoints
 	var minmaxes = minmax(relativepoints)
@@ -565,16 +530,12 @@ function prep_canvas() {
 	{numpoints = relativepoints.length}
 	if(numpoints<80)
 	{numpoints = 80}
-
-	//}
-	//else
-	//{ numpoints = 120 }
-
-
 		
 	var canvaspoints = []
 	
 	//generate HTML canvas coordinates.
+	//Will select a variable number based on the "percent speed" selected.
+	//(it won't use all of the relativepoint()'s)
 	var i=0;
 	var lastpoint = false;
 	var interval = relativepoints.length / numpoints
@@ -589,15 +550,17 @@ function prep_canvas() {
 		canvaspoints.push(new CanvasPoint(minmaxes, relativepoints[i]))
 	}
 		
-	//ensure the very last canvaspoint gets pushed, to make it seamless.
+	//ensure the very last relativepoint gets used, to make it seamless with the floor.
 	if(i!=relativepoints.length-1)
 	{
 		canvaspoints.push(new CanvasPoint(minmaxes, relativepoints[relativepoints.length-1]))
 	}
 
-	MyLib.canvaspoints = canvaspoints
+	MyLib.canvaspoints = canvaspoints;  //set it in the global namespace for the draw functions.
 }
 
+//In velocity-angle mode, render the little compass next to the input field
+//to help the viewers interpret angle values.
 function changeangle(angle)
 {
 	var canvas = document.getElementById("compass");
@@ -626,6 +589,7 @@ function changeangle(angle)
 	changeit()
 }
 
+//erase canvas, draw the floor, and draw the scale if applicable.
 function reset_canvas() {
 
 	var canvas = document.getElementById("demo");		
@@ -638,8 +602,6 @@ function reset_canvas() {
 	{
 		draw_scale();
 	}
-	//return { canvaspoints: canvaspoints,
-	//		 minmaxes: minmaxes	}
 }
 
 function draw_curve_static()
@@ -648,11 +610,13 @@ function draw_curve_static()
 	var canvas = document.getElementById("demo");
     var ctx = canvas.getContext("2d");
 
+	//draw a little circle where the coin *started*.
 	ctx.beginPath();
 	ctx.strokeStyle="#5c6870";
 	ctx.arc(canvaspoints[0].x+cnv.X_BUFFER, canvaspoints[0].y+cnv.Y_BUFFER,5,0,2*Math.PI);
 	ctx.stroke();
 	
+	//now render all of the canvaspoints for the coin's calculated path.
 	ctx.beginPath();
 	ctx.strokeStyle="#000000";
 	ctx.moveTo(canvaspoints[0].x+cnv.X_BUFFER, canvaspoints[0].y+cnv.Y_BUFFER);
@@ -678,32 +642,20 @@ function draw_curve_active()
 	
 	var time = MyLib.globaltime
 	var i=1;
+	
+	//draw a little circle where the coin *started*.
 	ctx.beginPath();
 	ctx.strokeStyle="#5c6870";
 	ctx.arc(canvaspoints[0].x+cnv.X_BUFFER, canvaspoints[0].y+cnv.Y_BUFFER,5,0,2*Math.PI);
 	ctx.stroke();
 
-	ctx.strokeStyle="#000000";
+	ctx.strokeStyle="#000000"; //reset the stroke style to black.
 	
-	/*window.MyLib.moveinterval = setInterval(function() {
-		
-		if(i>=canvaspoints.length)
-		{  clearInterval(MyLib.moveinterval); MyLib.moveinterval=null; return; }
-
-		//if(i==1)  //necessary to move to the necessary spot every time,
-		//{			//If I want to draw anything else *while* it's drawing the active curve.
-			ctx.moveTo(canvaspoints[i-1].x+cnv.X_BUFFER, canvaspoints[i-1].y+cnv.Y_BUFFER);
-		//}
-		
-		ctx.lineTo(canvaspoints[i].x+cnv.X_BUFFER, canvaspoints[i].y+cnv.Y_BUFFER)
-		ctx.stroke();
-		
-		i+=1
-			
-	}, ( (time * (100/MyLib.percenttime))*1000 / canvaspoints.length) );*/
-	
+	//Timeouts are better than intervals because they can be adjusted mid-draw,
+	//and they will not interfere with each other.
 	(function moveline() {    
-		MyLib.movetimeout = setTimeout(moveline, (time * (100/MyLib.percenttime))*1000 / canvaspoints.length);
+		MyLib.movetimeout = setTimeout(moveline, (time * (100/MyLib.percenttime))*1000 / canvaspoints.length); //set the next timeout FIRST, so
+									//drawing time will not distort "realtime"
 		if(i>=canvaspoints.length)
 		{  clearTimeout(MyLib.movetimeout); MyLib.movetimeout=null; return; }
 
@@ -719,19 +671,24 @@ function draw_curve_active()
 
 
 
+
+
 //Custom circle-drawing function to render the station floor.
 
 //depending on the parameters, the station could be HUGE, or very small.
 	//If it's huge, I don't want to render the entire floor. Too big!
 	//If it's small, I DO want to render the entire floor.
-
+	
+//I felt that it would be easier to keep it proportional by doing this
+		//together with my canvaspoint()'s,
+//rather than simply using the context.arc() function.
 function draw_floor(radius, minmaxes)
 {	
 	
 	radius = Number(radius)
 	var toconvert = 2 * minmaxes.range / radius
 	
-	//Double-check I'm using valid values for the arc-cosine.
+	//Double-check here that I'm using valid values for the arc-cosine.
 	if(toconvert < 1)
 	{
 		var floor_start = Math.acos( toconvert )
@@ -745,7 +702,7 @@ function draw_floor(radius, minmaxes)
 	
 	var arc = floor_end - floor_start
 
-	var bottomcurve = []
+	var bottomcurve = [] //points for bottom half of circle
 	for(var i=floor_start; i<floor_end; i+=arc/100)
 	{	
 		var x = radius * Math.cos(i)
@@ -807,10 +764,11 @@ function draw_floor(radius, minmaxes)
 	//reset the stroke
 	ctx.lineWidth=1;	
 	ctx.strokeStyle="#000000";
-
 }
 
 
+//generate the positions for a scale mark,
+//given the angle on a circle where you want to display it and a labeled "value"
 function scalemark(radius, angle, minmaxes, pxperfoot, value)
 {
 	//mark size 10px, means 5px above and below station curve
@@ -838,7 +796,7 @@ function scalemark(radius, angle, minmaxes, pxperfoot, value)
 	this.value = value
 }
 
-//scale the scale nicely from units of 1,2,4,5,10,20,40,50,100,...
+//increment the scale nicely to units of 1,2,4,5,10,20,40,50,100,...
 //more intuitive for the user.
 function scale_increment() {
 	this.series = -1;
@@ -863,57 +821,69 @@ function scale_increment() {
 
 function draw_scale()
 {
+	//Label the scale so people know what they're looking at.
 	if(MyLib.units=="ft")
-	{
-		document.getElementById("scalemessage").innerHTML = "<sup><i>Scale in feet</i></sup>"
-	}
+	{  document.getElementById("scalemessage").innerHTML = "<sup><i>Scale in feet</i></sup>"  }
 	else
-	{
-		document.getElementById("scalemessage").innerHTML = "<sup><i>Scale in meters</i></sup>"		
-	}
+	{  document.getElementById("scalemessage").innerHTML = "<sup><i>Scale in meters</i></sup>"  }
 	
-	//var lastpoint = relativepoints[relativepoints.length-1]
-	var start = 3*Math.PI/2
-
 	var radius = MyLib.radius;
 	var minmaxes = MyLib.minmaxes;
 	
+	//the last point is the relative landing position of the coin,
+	//which is where the scale should go to.
 	var lastpoint = MyLib.relativepoints[MyLib.relativepoints.length-1];
 
-	//not sure why that didn't work
+	//angle swept from person to coin's landing position.
 	var chord_angle = 2 * Math.asin(lastpoint.dist/(2*radius))
-	//var chord_angle = lastpoint.theta_pc
+	//var chord_angle = lastpoint.theta_pc //is apparently not equivalent?
 
+	//var curve_dist = radius * chord_angle //total scale distance
+											//variable never used.
+	
+	var start = 3*Math.PI/2  //starting scale angle, always at 3PI/2 (270D)
+	
+	//show the scale in both directions! 
+	//If the coin goes the other way, then display the scale the other way.	
 	if(lastpoint.x < 0)
-	{
-		var end = start - chord_angle
-	}
+	{	var end = start - chord_angle  } //end scale angle
 	else
-	{
-		var end = start + chord_angle		
-	}
+	{	var end = start + chord_angle  }
 
-	
-	var curve_dist = radius * chord_angle
-	
+
+	//Match the scale to the canvas. Calculate arc-per-foot, px-per-foot.
+	//Or METERS...the math works out the same. I'm not changing variable names.
+	//arcperfoot is the variable actually used to calculate tic locations.
+	//Pxperfoot is used to generate a scale range that would actually be
+	//human-interpretable.
 	var pxperfoot = minmaxes.canvasSize / minmaxes.range
-	
 	var arc_per_foot = 1 / radius
 	
+	//Pick a scale distance that fits with > 20 pixels between each tick.
+	//Intelligently increment the scale interval to something human-interpretable.
+	//Goes 1, 2, 4, 5, 10, 20, 40, 50, 100, 200, 400, 500, 1000...
 	var increment=1;
-
-	var series = [2,2]
 	var increaseval = new scale_increment()
+	
 	while(pxperfoot*increment<20)
 	{
 		increment = increaseval.run(increment);
 	}
-	
-	var scalemarks = []
-	var i=0;	//draw tic marcks, up to one past the end spot
 
+	//if the numbers are long, give it extra space
+	//by incrementing the interval once more.
+	if(increment.toString().length >= 3)
+	{	increment = increaseval.run(increment); }
+	
+	//generate the locations for the tic marcks, 
+	//up to the end spot plus one tic.
+	//coded for both a positive arc and a negative arc, depending
+	//which way the coin went.
+	var i=0;
+	var scalemarks = [];
 	if(lastpoint.x < 0)
 	{
+		//incrementing over an angle, so I called it a for angle.
 		for(var a=start; a>end-(arc_per_foot*increment); a-=(arc_per_foot*increment))
 		{
 			scalemarks.push(new scalemark(radius, a, minmaxes, pxperfoot, i) )
@@ -928,7 +898,8 @@ function draw_scale()
 			i+=increment;
 		}		
 	}
-	
+
+	//draw the marks	
 	var canvas = document.getElementById("demo");
     var ctx = canvas.getContext("2d");
 	ctx.font = "10px Arial";
@@ -945,6 +916,9 @@ function draw_scale()
 }
 
 
+
+//Calculate the variables for the model!
+//If a velocity is received, then height_thrown is actually the "angle."
 function calc_error(diameter, height_start, gs, height_thrown, velocity) {
 	var radius = Decimal(diameter/2)
 	
@@ -961,7 +935,7 @@ function calc_error(diameter, height_start, gs, height_thrown, velocity) {
 	
 	var g_accel = accel_earth * gs;
 	
-		//CALCULATE!!! /////////////////////////////////////////
+	//CALCULATE!!! /////////////////////////////////////////
 	////////////////////////////////////////////////////////
 	
 	var standingvelocity = Decimal.sqrt( g_accel * radius )
@@ -972,26 +946,28 @@ function calc_error(diameter, height_start, gs, height_thrown, velocity) {
 	//get forces on the ball
 	//a = omega^2 * r  eqn with rotational velocity
 	var omega = Decimal.sqrt( g_accel / radius );
-
-	//var height_start = height_person * (2/3);
 	
 	var r_onball = radius - height_start;
 
 	var g_onball = omega*omega*r_onball;
 
-	var standingcoin = Decimal(-1).mul( Decimal.sqrt( g_onball * r_onball ) ) //-1 b/c station is rotating clockwise
+	//Now get the starting velocities.
+	//start_v_y is calculated as if you launched with Earth's gravity.
+	//var start_v_y = Math.sqrt( 2 * accel_earth * height_thrown ) 
+	//var start_v_x = -1 * Math.sqrt( g_onball * r_onball ) //-1 b/c station is rotating clockwise
 	
+	var standingcoin = Decimal(-1).mul( Decimal.sqrt( g_onball * r_onball ) ) //-1 b/c station is rotating clockwise
+
 	if(document.getElementById('up').checked)
 	{
-		//Now get the starting velocities.
-		var start_v_y = Decimal.sqrt( 2 * accel_earth * height_thrown ) //calculated comparing to Earth's gravity
+		var start_v_y = Decimal.sqrt( 2 * accel_earth * height_thrown )
 		MyLib.start_v_y = round(start_v_y);
 		var throw_v_x = 0;
 		var start_v_x = standingcoin
 	}
 	else
 	{
-		var angle = height_thrown; //override inputs
+		var angle = height_thrown; //override inputs.
 		var computedangle = (-1* angle * Math.PI / 180) + (Math.PI / 2);
 
 		var throw_v_x = Decimal(velocity * Math.cos(computedangle))
@@ -1000,9 +976,12 @@ function calc_error(diameter, height_start, gs, height_thrown, velocity) {
 		var start_v_y = Decimal(velocity * Math.sin(computedangle))
 	}
 	
+	//slope of ball's path
+	//var slope_ball = start_v_y / start_v_x
 	var slope = start_v_y.div( start_v_x )
 	
-	//if you start AT the center of the station
+	//if it goes perfectly straight up, the slope will not be finite.
+	//(for example, thrown at the exact radius of the station)
 	if ( !slope.isFinite() && start_v_y != 0 )
 	{
 		var time = ((Decimal(2).mul(radius)).sub(height_start)).div(start_v_y)
@@ -1020,24 +999,36 @@ function calc_error(diameter, height_start, gs, height_thrown, velocity) {
 	}
 	
 	//radial angle swept by the person
+	
+	//var theta_traversed_person = omega * time
+	//var initial_angle_person = (3 * Math.PI) / 2
+	//var final_angle_person = initial_angle_person - theta_traversed_person //minus b/c clockwise rotation
 	var theta_traversed_person = omega.mul( time )
 	var initial_angle_person = (Decimal(3).mul(MyLib.PI)).div(2)
-	var final_angle_person = initial_angle_person.sub(theta_traversed_person) //minus b/c clockwise rotation
+	var final_angle_person = initial_angle_person.sub(theta_traversed_person)
+	
 	
 	//final position of person
 	//fortunately Javascript uses radians, not degrees
+	
+	//var xf_person = radius * Math.cos(final_angle_person)
+	//var yf_person = radius * Math.sin(final_angle_person)
 	var xf_person = radius.mul(Decimal.cos(final_angle_person) )
 	var yf_person = radius.mul(Decimal.sin(final_angle_person) )
 	
+	//var x_difference = xf_person - x_2
+	//var y_difference = yf_person - y_2	
+	//var total_difference = Math.sqrt( Math.pow(x_difference,2) + Math.pow(y_difference,2) )
+	
 	var x_difference = xf_person.sub( x_f )
 	var y_difference = yf_person.sub( y_f )
-	
 	var total_difference = Decimal.sqrt( Decimal.pow(x_difference,2).add(Decimal.pow(y_difference,2) ) )
 	
 	
 	/////SOLVE FOR A LIST OF ABSOLUTE POINTS ALONG PATH/////////////
 	////////////////////////////////////////////////////////////////
-
+	//These calculations apparently do not require as much precision.
+	//I apparently do not need the Decimal module for this part.
 	
 	var absolutepoints = []
 	
@@ -1108,7 +1099,6 @@ function calc_error(diameter, height_start, gs, height_thrown, velocity) {
 
 	var expecteddist = throw_v_x * expectedtime
 
-
 	
 	var answers = {
 		maxheight: maxheight,
@@ -1129,61 +1119,68 @@ function calc_error(diameter, height_start, gs, height_thrown, velocity) {
 	
 	
 	return answers
-
-	
-	
 }
 
 
 
+//finds the coin's landing position on the circle, and max height achieved.
 function crunch_numbers( radius, g_accel, omega, start_v_y, start_v_x, slope, r_onball )
 {
+	//Now find intersection with the circle.
+
+	//slope of ball's path
+	//var slope_ball = start_v_y / start_v_x
 	var slope = start_v_y.div( start_v_x )
-		
+	
+	//two possible forms of quadratic equation for both x and y.
+	//Solve for x_1, x_2, y_1, y_2.
+	//Punch in the x answer to absolute value y-equations to match up
+	//to the correct y before doing quadratic again for y.
+	//sqroot1 and sqroot2 are intermediate calculations.
+	//sqroot1 is needed for the x calculation, and sqroot2 is needed for y.	
+	
+	//var sqroot1 = Math.sqrt( Math.pow(slope_ball,2) * Math.pow(r_onball,2) - ((1 + Math.pow(slope_ball,2)) * ( Math.pow(r_onball,2) - Math.pow(radius,2)  )) )
 	var sqroot1 = Decimal.sqrt( Decimal.pow(slope,2).mul(Decimal.pow(r_onball,2)).sub((Decimal(1).add(Decimal.pow(slope,2))).mul( Decimal.pow(r_onball,2).sub(Decimal.pow(radius,2)  )) ) )
 
 	//var sqroot2 = Math.sqrt( Math.pow(r_onball,2) - ( 1 + Math.pow(slope,2) ) * ( Math.pow(r_onball,2) - Math.pow(radius,2) * Math.pow(slope,2) ) )
 	var sqroot2 = Decimal.sqrt( Decimal.pow(r_onball,2).sub(( Decimal(1).add(Decimal.pow(slope,2) ) ).mul(Decimal.pow(r_onball,2).sub(Decimal.pow(radius,2).mul(Decimal.pow(slope,2))))) )
-	
-	
+		
 	if(Number(slope)<0 && Number(start_v_x) < 0)
 	{
 		//var x_2 = ( (slope * r_onball) - sqroot1 ) / ( 1 + Math.pow(slope,2)) // -
-		//var y_2_abs = Decimal.sqrt(Math.pow(radius,2) - Math.pow(x_2,2) )
+		//var y_2_abs = Math.sqrt(Math.pow(radius,2) - Math.pow(x_2,2) )
 		//var y_2 = ( (-1 * r_onball) + sqroot2 ) / ( 1 + Math.pow(slope,2) ) // +
 
+		//Apparently the (-) from the Y eqn goes with the (+) in the X eqn, just to be confusing.		
+		
 		var x_2 = ( (slope.mul( r_onball)).sub( sqroot1 )).div( Decimal(1).add( Decimal.pow(slope,2)) ) // -
 		var y_2 = ( new Decimal(-1 * r_onball).add( sqroot2 ) ).div( new Decimal(1).add(Decimal.pow(slope,2) ) ) // +
 	}
 	else
 	{
-		//var x_1 = ( (slope * r_onball) + sqroot1 ) / ( 1 + Math.pow(slope,2)) // +		
-		//var x_1 = ((slope.mul(r_onball)).add(sqroot1)).div( Decimal(1).add(Decimal.pow(slope,2)))
-		//var y_1_abs = Decimal.sqrt(Math.pow(radius,2) - Math.pow(x_1,2) ) 
+		//var y_1_abs = Math.sqrt(Math.pow(radius,2) - Math.pow(x_1,2) ) 
 		//var y_1 = ( (-1 * r_onball) - sqroot2 ) / ( 1 + Math.pow(slope,2) ) // -
 
 		var x_2 = ( (slope.mul( r_onball)).sub( sqroot1 )).div( Decimal(1).add( Decimal.pow(slope,2)) ) // -
 		var y_1 = ((Decimal(-1).mul(r_onball)).sub( sqroot2 )).div( Decimal(1).add( Decimal.pow(slope,2)) ) // -
 		
-		//var x_2 = x_1  //NOPE! X1 is still not needed. the X eqn is always //-.
-		var y_2 = y_1
+		var y_2 = y_1  //the later equations simply reference y_2.
+					   //Keep it standard.
 	}
-	
 
-	//WARNING: THIS DOES NOT GIVE YOU THE CORRECT SIGN
-	//but it gives the absolute values that go with X.
+	//It turns out  x_1 is never needed. the X eqn is always //-.
+	//Here is x_1.
+	//var x_1 = ( (slope * r_onball) + sqroot1 ) / ( 1 + Math.pow(slope,2)) // +
+	//var x_1 = ((slope.mul(r_onball)).add(sqroot1)).div( Decimal(1).add(Decimal.pow(slope,2)))
 	
-	//Now use the quadratic again for Y to get the sign.
-
-		
-	//Apparently the (-) from the Y eqn goes with the (+) in the X eqn. Just to be confusing.
-
 	
-	//(X2, Y2) is the point that we want!
 	
+	//total (absolute) starting velocity
+	//var start_vtotal = Math.sqrt( Math.pow(start_v_x,2) + Math.pow(start_v_y,2) )
 	var start_vtotal = Decimal.sqrt( Decimal.pow(start_v_x,2).add(Decimal.pow(start_v_y,2) ) )
 	
-	//Get the time.
+	//Get the time in the air, now that we know the landing spot.
+	//var time = Math.sqrt( Math.pow(x_2,2) + Math.pow( ( y_2 + r_onball ),2 ) ) / start_vtotal
 	var time = Decimal.sqrt( Decimal.pow(x_2,2).add(( y_2.add(r_onball )).pow(2) )).div( start_vtotal )
 	
 	///MAX HEIGHT/////////////////////////////////////
@@ -1277,6 +1274,8 @@ function submit_values() {
 	document.getElementById("rotationalvelocity").innerHTML = ""
 	document.getElementById("finalseparation").innerHTML = ""
 	document.getElementById("finalseparation2").innerHTML = ""
+	document.getElementById("expecteddist2").innerHTML = ""
+	document.getElementById("expecteddistunits2").innerHTML = ""
 	document.getElementById("finalseparationunits2").innerHTML = ""
 	document.getElementById("verticalvelocity").innerHTML = "";
 	document.getElementById("verticalvelocity2").innerHTML = "";
@@ -1400,6 +1399,9 @@ function submit_values() {
 	document.getElementById("finalseparation").innerHTML = round(answers.total_difference).toString()
 	document.getElementById("finalseparationunits").innerHTML = MyLib.units
 	
+	document.getElementById("expecteddist").innerHTML = round( Math.abs(answers.expecteddist) )
+	document.getElementById("expecteddistunits").innerHTML = "&nbsp;" + MyLib.units
+
 	document.getElementById("timeinair").innerHTML = round(answers.time).toString()
 	document.getElementById("timeinairunits").innerHTML = "s"
 	
@@ -1450,240 +1452,82 @@ function submit_values() {
 		document.getElementById("conditionalbreak2").className = "hide"
 	}
 	
-	document.getElementById("expecteddist").innerHTML = round( Math.abs(answers.expecteddist) )
-	document.getElementById("expecteddistunits").innerHTML = 	"&nbsp;" + MyLib.units
-
-	
 
 	//ERRORS///////////////////////////////////////////
 	///////////////////////////////////////////////////
-	
+	//no longer used. Was previously used to flash annoying messages
+	//on the screen if the launch is an "unrealistic scenario."
 	var errortext = ""
-	
-	/*
-	if(gs != 1 )
-	{
-		errortext = String.concat(errortext, "Now modifying Earth's gravity to match the model.<br/>")
-	}*/
-
-
-	/*if(height_start > answers.radius )
-	{
-		errortext += "Warning: The starting height is greater than the radius of the station (expect the unexpected).<br/>";
-	}
-	
-	if(height_thrown > (2 * answers.radius) )
-	{
-		errortext += "Warning: the throwing height is larger than the station (the ball will just hit the ceiling).<br/>";
-	}
-
-	if(gs > 5 )
-	{
-		errortext += "Warning: Dangerous g-forces.<br/>";
-	}
-
-	if(units=="ft")
-	{
-		var throw_vel = round( answers.start_v_y * 0.681818 );
-		if(throw_vel > 100)
-		{
-			errortext += "Warning: the throwing height requires a throwing velocity of " + throw_vel + " mph. This is unrealistic even for a pro-baseball pitcher.<br/>";
-		}
-	} else if(units=="m")
-	{
-		var throw_vel_mph = round( answers.start_v_y * 2.23694 );
-		if(throw_vel_mph > 100)
-		{
-			errortext += errortext, "Warning: the throwing height requires a throwing velocity of " + start_v_y + " m/s. This is unrealistic even for a pro-baseball pitcher.<br/>";
-		}
-	}*/
-	
 	document.getElementById("error").innerHTML = errortext
 }
 
 
 
 
-//This function version (not used) is prior to adding the decimal.js module.
-//Look through the code if you want a more straightforward understanding
-//of what formulas are being used in the current, more convoluted, function.
-/*
-function calc_error_original(diameter, height_start, gs, height_thrown) {
-	
-	radius = diameter/2
-	
-		var accel_earth
-	
-	//Get acceleration at floor.
-	if(units=="ft")
-	{	
-		accel_earth = 32.174; // ft/s/s
-	} else
-	{
-		accel_earth = 9.80665; // m/s/s, exact conventional standard
+//Self-invoking function handles window resizing.
+//I want the drawing canvas to adaptively adjust to the width of the page,
+//if the page shrinks to smaller than the CSS-selected canvas max-width.
+(function() {
+	var
+	// Obtain a reference to the canvas element using its id.
+	htmlCanvas = document.getElementById('demo'),
+	// Obtain a graphics context on the canvas element for drawing.
+	context = htmlCanvas.getContext('2d');
+
+   // Start listening to resize events and draw canvas.
+   initialize();
+
+   function initialize() {
+	   // Register an event listener to call the resizeCanvas() function 
+	   // each time the window is resized.
+	   window.addEventListener('resize', resizeCanvas, false);
+	   // Draw canvas border for the first time.
+	   resizeCanvas();
 	}
-	
-	var g_accel = accel_earth * gs;
-	
-	//CALCULATE!!! /////////////////////////////////////////
-	////////////////////////////////////////////////////////
-	
-	var standingvelocity = Math.sqrt( g_accel * radius )
-	
-	//Get variables and perform calculations here.
-	//Accurate up to about 15 decimals (17?)
-	
-	//get forces on the ball
-	//a = omega^2 * r  eqn with rotational velocity
-	var omega = Math.sqrt( g_accel / radius );
 
-	//var height_start = height_person * (2/3);
-	
-	var r_onball = radius - height_start;
+	// Display custom canvas. In this case it's a blue, 5 pixel 
+	// border that resizes along with the browser window.
+	function redraw() {  //not being used
+	   context.strokeStyle = 'blue';
+	   context.lineWidth = '5';
+	   context.strokeRect(0, 0, window.innerWidth, window.innerHeight);
+	}
 
-	var g_onball = omega*omega*r_onball;
-	
-	
-	
-	
-	//Now get the starting velocities.
-	var start_v_y = Math.sqrt( 2 * accel_earth * height_thrown ) //calculated comparing to Earth's gravity
-	var start_v_x = -1 * Math.sqrt( g_onball * r_onball ) //-1 b/c station is rotating clockwise
+	// Runs each time the DOM window resize event fires.
+	// Resets the canvas dimensions to match window,
+	// then draws the new borders accordingly.
+	function resizeCanvas() {
+		var clientWidth = htmlCanvas.parentElement.clientWidth;
 
-		//Now find intersection with the circle.
-	var slope_ball = start_v_y / start_v_x
-	
-	var sqroot1 = Math.sqrt( Math.pow(slope_ball,2) * Math.pow(r_onball,2) - ((1 + Math.pow(slope_ball,2)) * ( Math.pow(r_onball,2) - Math.pow(radius,2)  )) )
-	
-	var x_1 = ( (slope_ball * r_onball) + sqroot1 ) / ( 1 + Math.pow(slope_ball,2)) // +
-	var x_2 = ( (slope_ball * r_onball) - sqroot1 ) / ( 1 + Math.pow(slope_ball,2)) // -
-
-	//WARNING: THIS DOES NOT GIVE YOU THE CORRECT SIGN
-	//but it gives the absolute values that go with X.
-	var y_1_abs = Math.sqrt(Math.pow(radius,2) - Math.pow(x_1,2) ) 
-	var y_2_abs = Math.sqrt(Math.pow(radius,2) - Math.pow(x_2,2) )
-	
-	//Now use the quadratic again for Y to get the sign.
-	var sqroot2 = Math.sqrt( Math.pow(r_onball,2) - ( 1 + Math.pow(slope_ball,2) ) * ( Math.pow(r_onball,2) - Math.pow(radius,2) * Math.pow(slope_ball,2) ) )
-	
-	//Apparently the (-) from the Y eqn goes with the (+) in the X eqn. Just to be confusing.
-	var y_1 = ( (-1 * r_onball) - sqroot2 ) / ( 1 + Math.pow(slope_ball,2) ) // -
-	var y_2 = ( (-1 * r_onball) + sqroot2 ) / ( 1 + Math.pow(slope_ball,2) ) // +
-	
-	//(X2, Y2) is the point that we want!
-	
-	var start_vtotal = Math.sqrt( Math.pow(start_v_x,2) + Math.pow(start_v_y,2) )
-	
-	//Get the time.
-	var time = Math.sqrt( Math.pow(x_2,2) + Math.pow( ( y_2 + r_onball ),2 ) ) / start_vtotal
-	
-	//radial angle swept by the person
-	var theta_traversed_person = omega * time
-	var initial_angle_person = (3 * Math.PI) / 2
-	var final_angle_person = initial_angle_person - theta_traversed_person //minus b/c clockwise rotation
-	
-	//final position of person
-	//fortunately Javascript uses radians, not degrees
-	var xf_person = radius * Math.cos(final_angle_person)
-	var yf_person = radius * Math.sin(final_angle_person)
-	
-	var x_difference = xf_person - x_2
-	var y_difference = yf_person - y_2
-	
-	var total_difference = Math.sqrt( Math.pow(x_difference,2) + Math.pow(y_difference,2) )
-
-	
-	///MAX HEIGHT/////////////////////////////////////
-	//////////////////////////////////////////////////
-
-	//a maximization function.
-
-	//Starting values
-	var test_x = start_vtotal*(time/10) //Starting test increment
-	var direction = -1  //iterate leftwards to start.
-	var maxvalue = height_start
-
-	var current_x = 0    //ball goes left. Negative.
-	var current_y = 0
-	var current_value = 0
-	var disttocenter = 0
-	var lastvalue = 0
-	var timesinarow = 0
-	
-	for(i=0; i<1000; i++)
-	{
-		current_x = current_x + (test_x * direction)
-		
-		//y = mx + b
-		current_y = (slope_ball * current_x) - r_onball
-		
-		//pythagoras, to find distance to ball from center of station
-		disttocenter = Math.sqrt( Math.pow(current_x,2) +Math.pow(current_y,2) )
-		
-		current_value = radius - disttocenter
-		
-		if(current_value<lastvalue)
-		{  //if the values are decreasing
-			//then it's the wrong direction.
-			direction = direction * -1;
-			test_x = test_x / 2;
-		}
-
-		if(current_value > maxvalue)
-		{ maxvalue = current_value  }
-		
-		if( Math.abs(current_value - lastvalue) < .0001 )
-		{ timesinarow += 1	}
-		else
-		{ timesinarow = 0 }
-		
-		if(timesinarow == 5)
+		//only resize if the parent's width has actually changed, and if this width is actually less than the max.
+		if(clientWidth != cnv.clientWidth && (clientWidth < cnv.canvasMax || cnv.clientWidth < cnv.canvasMax) )
 		{
-			break;
+			cnv.clientWidth = clientWidth;
+			cnv.CANVAS_WIDTH = htmlCanvas.parentElement.clientWidth;
+
+			//htmlCanvas.width = htmlCanvas.parentElement.clientWidth;
+			//htmlCanvas.height = window.innerHeight;
+			//redraw();
+			cnv.CANVAS_HEIGHT = 300
+			cnv.X_BUFFER = cnv.CANVAS_WIDTH/10
+			cnv.Y_BUFFER = cnv.CANVAS_HEIGHT/15
+			cnv.DRAWING_WIDTH = cnv.CANVAS_WIDTH - 2 * cnv.X_BUFFER
+			cnv.DRAWING_HEIGHT = cnv.CANVAS_HEIGHT - 2 * cnv.Y_BUFFER
+			if(MyLib.relativepoints.length!=0 && MyLib.repeattimeout==null)
+			{
+				reset_canvas();
+				draw_curve_static()
+			}
+			else if(MyLib.relativepoints.length!=0)
+			{
+				clearTimeout(MyLib.repeattimeout);
+				clearTimeout(MyLib.movetimeout);
+				MyLib.repeattimeout=null;
+				MyLib.movetimeout=null;
+
+				reset_canvas();
+				set_time_interval();				
+			}
 		}
-		
-		lastvalue = current_value;
-	}	
-	
-	
-	var answers = {
-		maxvalue: maxvalue,
-		g_accel: g_accel,
-		radius: radius,
-		standingvelocity: standingvelocity,
-		start_v_y:start_v_y,
-		omega: omega,
-		total_difference: total_difference,
-		time: time,
-		accel_earth: accel_earth
 	}
-	
-	return answers	
-} */
-
-/*function RelativePoint ( time, radius, omega, slope, height_start, start_v_x ) {
-	//solve for person's location
-
-	var theta_op = ((Decimal(3).mul(PI)).div(2)).sub(omega.mul( time )) //person's angle, from origin to person
-	
-	var x_person = radius.mul(Decimal.cos(theta_op) )
-	var y_person = radius.mul(Decimal.sin(theta_op) )
-
-	var x_coin = start_v_x.mul(time)
-	var y_coin = (slope.mul(x_coin)).sub(radius.sub(height_start))
-	
-	var theta_pc = Decimal.atan((y_coin.sub(y_person)).div(x_coin.sub(x_person)))
-	var theta_po = Decimal.atan(y_person.div(x_person))
-	
-	var theta_rel = theta_po.sub(theta_pc)
-	
-	var dist = Decimal.sqrt( (Decimal.pow( y_coin.sub(y_person), 2)).add( Decimal.pow( x_coin.sub(x_person), 2) ) )
-	
-	var x_rel = dist.mul( Decimal.sin(theta_rel) )
-	var y_rel = dist.mul( Decimal.cos(theta_rel) )
-	
-	this.time = time
-	this.dist = dist
-	this.x = x_rel
-	this.y = y_rel
-}*/
+})();
