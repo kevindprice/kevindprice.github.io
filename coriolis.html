@@ -105,31 +105,31 @@
 
 
 <p><img style="float: left; margin-right:10px;" src="CoriolisFiles/CentripetalForce3.jpg" width="180" height="180"/></p>
-<p>In the real world, we can create artificial gravity by spinning something. This creates what is called the <em>centripetal force.</em> If you spin a bucket of water around your head, the water will stay inside! In space, rotating things will continue rotating perpetually, generating gravity.</p>
-<p><img style="float: right; margin-left:10px;" src="CoriolisFiles/RotatingStation.png" width="250" height="250"/></p>
-<p>Now, I would like you to imagine a coin toss as a thought experiment. What would a coin toss look like on a space station with artificial gravity? My computer model will show you.</p>
+<p>We can generate artificial gravity by spinning. This creates what is called the <em>centripetal force.</em> If you spin a bucket of water around your head, the water will stay inside! In space, rotating things will continue rotating perpetually, generating gravity.</p>
+<p><img style="float: right; margin-left:10px;" src="CoriolisFiles/RotatingStation.png" width="250" height="250"/>
+Unfortunately, objects that are rotating in space do not behave the same as objects that are on Earth. I would like you to imagine a coin toss as a thought experiment. What would a coin toss look like on a space station with artificial gravity? My computer model will show you.</p>
 <p>Imagine you are on Earth, and you throw a coin perfectly straight upwards, 3 feet into the air. You can expect this coin to land directly beneath you. Now, let's duplicate this throw in <em>artificial gravity.</em> How far away from your feet will the coin be when it lands on the floor?</p>
 <p>My model assumes:</p>
 <ul>
 <li>there is no air resistance</li>
 <li>the rotation has a diameter of 50 feet</li>
 <li>you throw from 4 feet off the ground</li>
-<li>before the throw, the coin was somehow attached to the floor (i.e. it was rotating with the station)</li>
-<li>you use the same force you would have used on Earth to throw 3 feet into the air, to 7 feet height.</li>
+<li>before the throw, the coin was somehow connected to the floor (i.e. it was rotating with the station)</li>
 <li>the virtual space station is rotating clockwise (counterclockwise would be flipped)</li>
+<li>you use the same force you would have used on Earth to throw 3 feet into the air, to 7 feet height.</li>
 </ul>
 <p>You can change the result by experimenting with the starting values. Spoiler alert: the coin does not land at your feet! </p>
 <p><br/>
 <!-- This is the table model script -->
 <div id="inserthere"></div>
 <script type="text/javascript" src="CoriolisFiles/insertelement.js" onload="insertPage('inserthere', 'CoriolisFiles/coriolisModel.html')"></script></p>
-<p><sup>Note: the answer in the “results” table may differ from what you see on the drawn scale. The calculated distance is the straight-line distance from your feet. The drawn scale shows the distance along the curve, which is longer.</sup></p>
+<p><sup style="width: 400px;">Note: the answer in the “results” table may differ from what you see on the drawn scale. The calculated distance is the straight-line distance; the drawn scale shows the distance <i>along the curve</i>.</sup></p>
 <p>The coin would land about as far over as you threw it upwards! What causes this weirdness? The Coriolis effect!</p>
 <p>If you would like to see the math I used to create the model, follow <a href="./coriolis-math.html">this link</a>.</p>
 <p>The Coriolis effect is an artifact of artificial gravity that causes objects to move in unexpected directions. The more I’ve read and seen about the Coriolis effect, the more I’m convinced that life with artificial gravity would be very difficult to get used to. You would feel an ever-present “force” countering everything you do.</p>
 <p>Furthermore, the Coriolis effect could cause nausea! It is unclear how well our bodies would adapt to perpetual rotation. Fortunately, it may be possible to reduce this nausea through engineering.</p>
 <p>Unfortunately, we do not currently have a space station with artificial gravity, so the concepts in this article are essentially discussing future tech; but the physics behind artificial gravity is real and could be put into practice in space. It will be essential for future space travel!</p>
-<p>Now that I have shown you my model, I'll discuss the science of weightlessness and artificial gravity. Then, I’ll use that physics to dive into everyone’s favorite sci-fi movies. I'll describe how you could minimize the Coriolis effect in future space stations. At the end of the article, I have attached a second Coriolis model I found elsewhere on the Internet.</p>
+<p>Now that I have shown you my model, I'll discuss the science of artificial gravity and weightlessness. Then, I’ll use that physics to dive into everyone’s favorite sci-fi movies. I'll describe how you could minimize the Coriolis effect in future space stations. At the end of the article, I have attached a <em>second</em> Coriolis model I found elsewhere on the Internet.</p>
 <p><br/></p>
 <h5>Fun things to do with the computer model</h5>
 <p>You might notice there are two modes to the model. By default, the model is set to throw the coin “up.” In the “velocity and angle” mode, you can throw the coin in any direction you desire.</p>
@@ -164,7 +164,7 @@
 
 <ul>
 <li>
-<p>Increase the throw velocity to exactly match the “standing speed of coin” (23.823 ft/s on default settings). Set the throw to 90 degrees again. Check the “time in the air!” It never almost never lands! The model <em>does</em> show it landing because the “standing speed” is rounded. You cannot match it exactly.</p>
+<p>Increase the throw velocity to exactly match the “standing speed of coin” (23.823 ft/s on default settings), with the throw set to 90 degrees. You have exactly counteracted the rotation on the coin. Check the “time in the air!” It never almost never lands. The model <em>does</em> show it landing because the “standing speed” is rounded (you cannot match it exactly).</p>
 </li>
 <li>
 <p>Continue to (almost) exactly match the coin's “standing speed.” Now decrease the throw angle by one degree (to 89 degrees), so it launches one degree up from horizontal. It slowly spirals upward toward the center, at which point it reverses direction and spirals back down to the floor!</p>
@@ -173,14 +173,6 @@
 <p>Now set the station diameter to something unrealistically huge, such as 500000000 feet or meters. The throws now appear as they would on earth!</p>
 </li>
 </ul>
-<p><br/></p>
-<h3>The problem of weightlessness</h3>
-<p>Why produce artificial gravity if it is so difficult? Weightlessness is toxic to our health! If humanity wishes to expand its presence in space, we will need to produce artificial gravity.</p>
-<div class="image" style="float: right; margin-left:10px;"><i>Scott Kelly</i><br/>
-<img src="CoriolisFiles/ScottKelly.jpeg" width="180" height="180"/></div>
-
-<p>Astronaut Scott Kelly just completed an important mission on the International Space Station: he stayed in space for an entire year while his identical twin brother lived on earth. This allowed scientists to compare the changes that occurred in Scott’s body to his brother's, so NASA can better prepare for a mission to Mars. <a href="https://www.nasa.gov/feature/how-stressful-will-a-trip-to-mars-be-on-the-human-body-we-now-have-a-peek-into-what-the-nasa">Here</a> is an article that discusses some of the findings. Let me summarize it so you don’t have to read it: in Scott’s body, scientists discovered inflammation, premature aging, bone loss, and (small) decreases in cognitive ability. If our country is planning long-distance missions to Mars, then artificial gravity will (or should be) important! </p>
-<p>It is effectively impossible for astronauts to exercise enough to counteract the effects of zero gravity. If we do not develop artificial gravity, astronauts will suffer from brittle bones, weak muscles, low immunity, and poor health. Life in space will not be sustainable without it.</p>
 <p><br/></p>
 <h3>The Physics of Artificial Gravity</h3>
 <p>What would artificial gravity be like?</p>
@@ -216,7 +208,7 @@
 <p>If you were to climb toward the center of the station, gravity would decrease. At the exact center of the station, there would be no gravity at all.</p>
 </li>
 <li>
-<p>The station would need to be balanced for the gravity to work best, otherwise the centripetal force would <em>differ</em> depending on where you are along the station floor. The station will rotate around its center of gravity, wherever it is. On an unbalanced station, some parts of the floor would be farther away from the center of rotation than other points.</p>
+<p>The station would need to be balanced for the gravity to work best, otherwise the centripetal force would <em>differ</em> depending on where you are along the floor. The station will rotate around its center of gravity. On an unbalanced station, some parts of the floor would be farther away from the center of rotation, thus they would experience different gravity.</p>
 </li>
 <li>
 <p>The station's rotation may decrease over time as objects onboard interact with each other; the station would need a periodic “boost.”</p>
@@ -225,6 +217,14 @@
 <p>Nonetheless, the rotation would be essentially perpetual. The objects onboard are moving at a constant speed perpendicular to the centripetal force, thus they are not consuming energy. The station's rotational momentum is constant, or “conserved.”</p>
 </li>
 </ul>
+<p><br/></p>
+<h3>Health effects of weightlessness</h3>
+<p>Why produce artificial gravity if it is so difficult? Weightlessness is toxic to our health! If humanity wishes to expand its presence in space, we will need to produce artificial gravity.</p>
+<div class="image" style="float: right; margin-left:10px;"><i>Scott Kelly</i><br/>
+<img src="CoriolisFiles/ScottKelly.jpeg" width="180" height="180"/></div>
+
+<p>Astronaut Scott Kelly just completed an important mission on the International Space Station: he stayed in space for an entire year while his identical twin brother lived on earth. This allowed scientists to compare the changes that occurred in Scott’s body to his brother's, so NASA can better prepare for a mission to Mars. <a href="https://www.nasa.gov/feature/how-stressful-will-a-trip-to-mars-be-on-the-human-body-we-now-have-a-peek-into-what-the-nasa">Here</a> is an article that discusses some of the findings. Let me summarize it so you don’t have to read it: in Scott’s body, scientists discovered inflammation, premature aging, bone loss, and (small) decreases in cognitive ability. If our country is planning long-distance missions to Mars, then artificial gravity will (or should be) important! </p>
+<p>It is effectively impossible for astronauts to exercise enough to counteract the effects of zero gravity. If we do not develop artificial gravity, astronauts will suffer from brittle bones, weak muscles, low immunity, and poor health. Life in space will not be sustainable without it.</p>
 <p><br/></p>
 <h3>Artificial gravity in science fiction</h3>
 <p>Artificial gravity has never been used in space, so our current perspective comes from science fiction. I would like to discuss the physics of sci-fi movies so that you can better understand how artificial gravity works. This way, you can be able to interpret what is “real” and “not real” in our universe.</p>
