@@ -123,7 +123,6 @@ Unfortunately, objects that are rotating do not behave the same as objects that 
 <!-- This is the table model script -->
 <div id="inserthere"></div>
 <script type="text/javascript" src="CoriolisFiles/insertelement.js" onload="insertPage('inserthere', 'CoriolisFiles/coriolisModel.html')"></script></p>
-<p><sup style="width: 400px;">Note: the answer in the “results” table may differ from what you see on the drawn scale. The calculated distance is the straight-line distance; the drawn scale shows the distance <i>along the curve</i>.</sup></p>
 <p>The coin would land about as far over as you threw it upwards! What causes this weirdness? The Coriolis effect!</p>
 <p>If you would like to see the math I used to create the model, follow <a href="./coriolis-math.html">this link</a>.</p>
 <p>The Coriolis effect is an artifact of artificial gravity that causes objects to move in unexpected directions. The more I’ve read and seen about the Coriolis effect, the more I’m convinced that life with artificial gravity would be very difficult to get used to. You would feel an ever-present “force” countering everything you do.</p>
@@ -136,13 +135,13 @@ Unfortunately, objects that are rotating do not behave the same as objects that 
 <p>If you would like to get a better grasp of what the Coriolis effect would look like, here are some things you can do with the model. </p>
 <ul>
 <li>
-<p>Throw the coin super high. At a high speed, it simply crashes against the other side of the station, but on a curve.</p>
+<p>Throw the coin super high. Increase the throwing height to greater than the diameter of the station. At a high speed, it simply crashes against the other side of the station, but on a curve.</p>
 </li>
 <li>
 <p>Try dropping the coin instead of throwing it (throw it “up” 0 feet, or at 0 ft/s). It curves in the opposite direction!</p>
 </li>
 <li>
-<p>Next, try dropping the coin (throw 0 ft up) from <em>almost</em> the center of the station, at 24.5 feet height. It appears to spiral outward slowly because there is low gravity there, and <em>you</em> are rotating relative to <em>it</em>.</p>
+<p>Next, try dropping the coin (throw 0 ft up) from <em>almost</em> the center of the station. If the diameter is 50 feet, place the starting height at 24.5 feet. It appears to spiral outward slowly because there is low gravity there, and <em>you</em> are rotating relative to <em>it</em>.</p>
 </li>
 </ul>
 <div class="image" style="float: right; margin-left:10px;"><i>The throw at 25°</i><br/>
@@ -150,13 +149,13 @@ Unfortunately, objects that are rotating do not behave the same as objects that 
 
 <ul>
 <li>
-<p>Now try dropping it at the <em>exact</em> center of the station. The coin will never land! There is no gravity. The computer does not attempt to draw it.</p>
+<p>Now try dropping it at the <em>exact</em> center of the station (25.0 feet). The coin will never land! There is no gravity. The computer does not attempt to draw it.</p>
 </li>
 <li>
-<p>Now reset the throw height to 3 feet. Try experimenting with the angle of the throw. Positive degrees are to the “right”, and negative degrees are to the “left”. At 25 degrees (14 ft/s, start at 4 ft), the coin loops back on itself.</p>
+<p>Now reset the model. Switch the model to “throw with a velocity and angle.” Try experimenting with the angle of the throw. Positive degrees are to the “right”, and negative degrees are to the “left”. At 25 degrees (14 ft/s, start at 4 ft), the coin loops back on itself.</p>
 </li>
 <li>
-<p>Try throwing the ball exactly opposite the rotation (90 degrees from vertical). You are counteracting the gravity on the coin by reducing its rotation speed. The throw stretches out impressively far!</p>
+<p>Try throwing the ball exactly opposite the rotation by setting the angle to 90 degrees. You are counteracting the gravity on the coin by reducing its rotation speed. The throw stretches out impressively far!</p>
 </li>
 </ul>
 <div class="image" style="float: right; margin-left:10px; margin-top:50px;"><i>23.823 ft/s at 89°</i><br/>
@@ -164,7 +163,7 @@ Unfortunately, objects that are rotating do not behave the same as objects that 
 
 <ul>
 <li>
-<p>Increase the throw velocity to exactly match the “standing speed of coin” (23.823 ft/s on default settings), with the throw set to 90 degrees. You have exactly counteracted the rotation on the coin. Check the “time in the air!” It never almost never lands. The model <em>does</em> show it landing because the “standing speed” is rounded (you cannot match it exactly).</p>
+<p>Increase the throw velocity to exactly match the “standing speed of coin” (23.823 ft/s on default settings), with the throw still set to 90 degrees. You have stopped the gravity! Check the “time in the air.” It almost never lands! The model <em>does</em> show it landing because the “standing speed” is rounded (you cannot quite match it exactly).</p>
 </li>
 <li>
 <p>Continue to (almost) exactly match the coin's “standing speed.” Now decrease the throw angle by one degree (to 89 degrees), so it launches one degree up from horizontal. It slowly spirals upward toward the center, at which point it reverses direction and spirals back down to the floor!</p>
@@ -223,7 +222,7 @@ Unfortunately, objects that are rotating do not behave the same as objects that 
 <div class="image" style="float: right; margin-left:10px;"><i>Scott Kelly</i><br/>
 <img src="CoriolisFiles/ScottKelly.jpeg" width="180" height="180"/></div>
 
-<p>Astronaut Scott Kelly just completed an important mission on the International Space Station: he stayed in space for an entire year while his identical twin brother lived on earth. This allowed scientists to compare the changes that occurred in Scott’s body to his brother's, so NASA can better prepare for a mission to Mars. <a href="https://www.nasa.gov/feature/how-stressful-will-a-trip-to-mars-be-on-the-human-body-we-now-have-a-peek-into-what-the-nasa">Here</a> is an article that discusses some of the findings. Let me summarize it so you don’t have to read it: in Scott’s body, scientists discovered inflammation, premature aging, bone loss, and (small) decreases in cognitive ability. If our country is planning long-distance missions to Mars, then artificial gravity will (or should be) important! </p>
+<p>Astronaut Scott Kelly just completed an important mission on the International Space Station: he stayed in space for an entire year while his identical twin brother lived on earth. This allowed scientists to compare the changes that occurred in Scott’s body to his brother's, so NASA can better prepare for a mission to Mars. <a href="https://www.nasa.gov/feature/how-stressful-will-a-trip-to-mars-be-on-the-human-body-we-now-have-a-peek-into-what-the-nasa">Here</a> is an article that discusses some of the findings. Let me summarize it so you don’t have to read it: in Scott’s body, scientists discovered inflammation, premature aging, bone loss, and (small) decreases in cognitive ability. If the world intends to send astronauts on long-distance missions, then artificial gravity will (or should be) important!</p>
 <p>It is effectively impossible for astronauts to exercise enough to counteract the effects of zero gravity. If we do not develop artificial gravity, astronauts will suffer from brittle bones, weak muscles, low immunity, and poor health. Life in space will not be sustainable without it.</p>
 <p><br/></p>
 <h3>Artificial gravity in science fiction</h3>
@@ -235,7 +234,7 @@ Unfortunately, objects that are rotating do not behave the same as objects that 
 <p>Recently, some movies have attempted to accurately portray science in fiction. There are some reasonably accurate sci-fi stories out there. In these movies, artificial gravity is correctly generated by rotation.</p>
 <p>None of these films mention the Coriolis effect, despite the massive presence it would have in future space missions. This omission is to be expected; we’ve never even built such a station before, so how could we depict it? If we someday build a massive space infrastructure capable of supporting artificial-gravity environments, the Coriolis effect will be the least of our troubles.</p>
 <p><img style="float: right; margin-left:10px;" src="CoriolisFiles/TheMartian.jpg" width="260" height="260"/></p>
-<p>Several films worth mentioning in this category are <em>The Martian</em>, <em>Interstellar</em>, <em>Passengers</em>, and <em>Ender's Game</em>. Each of these films features a spacecraft that generates gravity through rotation. In <em>The Martian</em>, the “Hermes” spacecraft rotates as it shuttles astronauts back and forth to Mars. In <em>Interstellar</em>, the rotating “Endurance” spacecraft transports astronauts past a fictional wormhole.</p>
+<p>Several films worth mentioning in this category are <em>The Martian</em>, <em>Interstellar</em>, <em>Passengers</em>, and <em>Ender's Game</em>. Each of these films features a spacecraft that generates gravity through rotation. In <em>The Martian</em>, the Hermes spacecraft rotates as it shuttles astronauts back and forth to Mars. In <em>Interstellar</em>, the rotating Endurance spacecraft transports astronauts past a fictional wormhole.</p>
 <div class="image" style="float: left; margin-right:10px;"><i>The Avalon</i><br/>
 <img src="CoriolisFiles/cropped-avalon.jpg" width="240" height="240"/></div>
 
@@ -257,7 +256,7 @@ Unfortunately, objects that are rotating do not behave the same as objects that 
 <p>This ring world does <em>not</em> generate its gravity through rotation, even though it could easily do so. (See <a href="https://en.wikipedia.org/wiki/Artificial_gravity_(fiction)">this link</a>: Halo “also uses some form of field or other artificially generated gravity as it is stated in <em>Halo: The Flood</em>, the ring world does not spin nearly fast enough to create the amount of gravity it possesses.”) Furthermore, a station like this would require a glass ceiling to retain an atmosphere.</p>
 <p>Let’s pretend for a moment that the ring world does correctly generate artificial gravity. This would be interesting because massive stations minimize the Coriolis effect. Would the effect still be noticeable? Let's test this with my computer model.</p>
 <p>According to <a href="https://en.wikipedia.org/wiki/Artificial_gravity_(fiction)">the same Wikipedia article I cited above,</a> the ring in <em>Halo: Combat Evolved</em> is approximately 10,000 km in diameter (10,000,000 meters, 33,000,000 ft, or 6,200 miles). If you insert these numbers into my model, you will see that our coin toss would land about a millimeter away.</p>
-<p>Now let's try a scenario realistic to the Master Chief, the main character of <em>Halo</em>. He is known for launching high-speed projectiles. Try firing the coin at 2500 ft/s (average bullet speed) at 90 degrees from vertical. The results table tells us how this would turn out (though the drawn path has terrible proportions). The projectile would land about 150 feet away from its expected location! A bullet's speed would be proportionally close to the speed of the floor, thus it would follow a distorted path.</p>
+<p>Now let's try a scenario realistic to the Master Chief, the main character of <em>Halo</em>. He is known for launching high-speed projectiles. Try firing the coin at 2500 ft/s (average bullet speed) at 90 degrees from vertical. The results table tells us how this would turn out. The projectile would land about 150 feet away from its expected location! A bullet's speed would be proportionally close to the speed of the floor, thus it would follow a distorted path.</p>
 <p>Then again, activity at close range would be reasonably accurate. You can adjust the model to 100 degrees (10 degrees below horizontal) to simulate a shot at close range. This would land 2/1000 of a foot from its intended target, 22.7 feet away.</p>
 <p>The Master Chief's long-range firing would be quite difficult. The error would be different depending on the direction he is facing, the velocity of the projectile, and the size of the station (i.e. <em>which</em> station he is standing on). Changing the launching angle by just a degree away from horizontal changes the result dramatically. He would need some sort of “smart ballistics” capable of calculating the constantly changing error.</p>
 <p><br/></p>
@@ -276,9 +275,7 @@ Unfortunately, objects that are rotating do not behave the same as objects that 
 <p>We have a long way to go before we'll be producing artificial gravity environments in space. It would be difficult to accomplish well, though it will also be essential to space travel. If we were to move around in a spinning space station, we would feel unexpected “forces” acting on us, and the environment may be nauseating. Nonetheless, the Coriolis effect gives us something to think about. Now we know how it would work.</p>
 <p><br/></p>
 <h3>Another Example of the Coriolis Effect</h3>
-<p><a href="http://andygiger.com/science/e-coriolis/">This website</a> contains another interesting Coriolis model. Here, Andy Giger poses a similar question: what would it look like if you had a spinning water fountain with water jets pointing inward? I copied his model (with small modifications) into this section.</p>
-<p>Imagine each dot on his water model as if it were the coin from my thought experiment. My math table (above) calculates where the coin would land; his model shows you what that would look like. And yes, the water jets are launched directly toward the center.</p>
-<p>The only difference between the thought experiments is that his water jets start from the ground. (You can make my coin toss start from the ground, too, by setting the person height equal to zero.)</p>
+<p><a href="http://andygiger.com/science/e-coriolis/">This website</a> contains another interesting Coriolis model. Here, Andy Giger poses a similar question: what would it look like if you had a spinning water fountain with water jets pointing inward? I copied his model below with some minor modifications. Imagine each dot on his water model as if it were the coin from my thought experiment.</p>
 <script type="text/javascript" src="CoriolisFiles/processing.js"></script>
 
 <div style="margin:0 auto;">

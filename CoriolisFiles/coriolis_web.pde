@@ -115,16 +115,16 @@ void draw() {
 
 void keyPressed() {
 if (key == 'a') {            // speed up rotation
-    dang -= 0.005;  rot = 2*PI/dang;  //clockwise
+    dang -= 0.004;  rot = 2*PI/dang;  //clockwise
   }
   if (key == 'z') {            // slow down rotation
-    dang += 0.005;  rot = 2*PI/dang;  //clockwise
+    dang += 0.004;  rot = 2*PI/dang;  //clockwise
   }
   if (key == 's') {            // increase water pressure
-    prs += 3;  
+    prs += 2;
   }
   if (key == 'x') {            // decrease water pressure
-    if(prs>0) { prs -= 3; }  
+    if(prs>0) { prs -= 2; }  
   }
   if (key == 'd') {            // increase frame rate
     fra += 1;  
