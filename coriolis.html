@@ -104,11 +104,11 @@
 <p>I’m not asking you to discount any of your favorite movies just because the physics principles in them might not be accurate. But really, what would artificial gravity look like in space? I have generated a computer model to show you. My model shows that, thanks to the Coriolis effect, artificial gravity would be very strange.</p>
 
 
-<p><img style="float: left; margin-right:10px;" src="CoriolisFiles/CentripetalForce3.jpg" width="165" height="165"/></p>
-<p>We can generate artificial gravity by spinning. If you spin a bucket of water around your head, the water will stay inside! This creates what is called the <em>centripetal force.</em> In space, rotating things will continue rotating perpetually, generating gravity.</p>
+<p><img style="float: left; margin-right:10px;" src="CoriolisFiles/CentripetalForce3.jpg" width="160" height="160"/></p>
+<p>We can generate artificial gravity by spinning. If you spin a bucket of water around your head, the water will stay inside! This creates what is called the <em>centripetal force.</em> In space, rotating things will continue rotating perpetually.</p>
 <p><img style="float: right; margin-left:10px;" src="CoriolisFiles/RotatingStation.png" width="250" height="250"/>
-Unfortunately, objects that are rotating do not behave the same as objects that are in normal gravity. I would like you to imagine a coin toss as a thought experiment. What would a coin toss look like on a space station with artificial gravity? My computer model will show you.</p>
-<p>Imagine you are on Earth, and you throw a coin perfectly straight upwards, 3 feet into the air. You can expect this coin to land directly beneath you. Now, let's duplicate this throw in <em>artificial gravity.</em> How far away from your feet will the coin be when it lands on the floor?</p>
+Unfortunately, objects that are rotating do not behave the same as objects that are not. How do they behave? I would like you to imagine a coin toss as a thought experiment. What would a coin toss look like on a space station with artificial gravity? My computer model will show you.</p>
+<p>Imagine you are on Earth, and you throw a coin perfectly straight upwards, 3 feet into the air. You can expect this coin to land directly beneath you. Now, let's duplicate this throw in <em>artificial gravity.</em> How far away from your feet will the coin be when it lands?</p>
 <p>My model assumes:</p>
 <ul>
 <li>there is no air resistance</li>
@@ -123,7 +123,7 @@ Unfortunately, objects that are rotating do not behave the same as objects that 
 <!-- This is the table model script -->
 <div id="inserthere"></div>
 <script type="text/javascript" src="CoriolisFiles/insertelement.js" onload="insertPage('inserthere', 'CoriolisFiles/coriolisModel.html')"></script></p>
-<p>The coin would land about as far over as you threw it upwards! What causes this weirdness? The Coriolis effect!</p>
+<p>The coin would land about as far over as you threw it “up!” What causes this weirdness? The Coriolis effect!</p>
 <p>If you would like to see the math I used to create the model, follow <a href="./coriolis-math.html">this link</a>.</p>
 <p>The Coriolis effect is an artifact of artificial gravity that causes objects to move in unexpected directions. The more I’ve read and seen about the Coriolis effect, the more I’m convinced that life with artificial gravity would be very difficult to get used to. You would feel an ever-present “force” countering everything you do.</p>
 <p>Furthermore, the Coriolis effect could cause nausea! It is unclear how well our bodies would adapt to perpetual rotation. Fortunately, it may be possible to reduce this nausea through engineering.</p>
@@ -133,6 +133,9 @@ Unfortunately, objects that are rotating do not behave the same as objects that 
 <h5>Fun things to do with the computer model</h5>
 <p>You might notice there are two modes to the model. By default, the model is set to throw the coin “up.” In the “velocity and angle” mode, you can throw the coin in any direction you desire.</p>
 <p>If you would like to get a better grasp of what the Coriolis effect would look like, here are some things you can do with the model. </p>
+<div class="image" style="float: right; margin-left:10px;"><i>Dropped from 24.5 ft</i><br/>
+<img src="CoriolisFiles/Dropped.png" width="180" height="180"/></div>
+
 <ul>
 <li>
 <p>Throw the coin super high. Increase the throwing height to greater than the diameter of the station. At a high speed, it simply crashes against the other side of the station, but on a curve.</p>
@@ -141,10 +144,10 @@ Unfortunately, objects that are rotating do not behave the same as objects that 
 <p>Try dropping the coin instead of throwing it (throw it “up” 0 feet, or at 0 ft/s). It curves in the opposite direction!</p>
 </li>
 <li>
-<p>Next, try dropping the coin (throw 0 ft up) from <em>almost</em> the center of the station. If the diameter is 50 feet, place the starting height at 24.5 feet. It appears to spiral outward slowly because there is low gravity there, and <em>you</em> are rotating relative to <em>it</em>.</p>
+<p>Next, try dropping the coin (throw 0 ft up) from <em>almost</em> the center of the station. If the diameter is 50 feet, place the starting height at 24.5 feet. It appears to spiral outward slowly because there is low gravity near the center, and <em>you</em> are rotating relative to <em>it</em>.</p>
 </li>
 </ul>
-<div class="image" style="float: right; margin-left:10px;"><i>The throw at 25°</i><br/>
+<div class="image" style="float: right; margin-left:10px;"><i>Thrown at 25°</i><br/>
 <img src="CoriolisFiles/25Degrees.png" width="90" height="90"/></div>
 
 <ul>
@@ -158,8 +161,8 @@ Unfortunately, objects that are rotating do not behave the same as objects that 
 <p>Try throwing the ball exactly opposite the rotation by setting the angle to 90 degrees. You are counteracting the gravity on the coin by reducing its rotation speed. The throw stretches out impressively far!</p>
 </li>
 </ul>
-<div class="image" style="float: right; margin-left:10px; margin-top:50px;"><i>23.823 ft/s at 89°</i><br/>
-<img src="CoriolisFiles/89Degrees.png" width="185" height="185"/></div>
+<div class="image" style="float: right; margin-left:10px;"><i>23.823 ft/s at 80°</i><br/>
+<img src="CoriolisFiles/80Degrees.png" width="185" height="185"/></div>
 
 <ul>
 <li>
