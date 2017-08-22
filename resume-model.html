@@ -66,8 +66,8 @@
         <header class="article">
             <h2><a href="./resume-model.html" rel="bookmark">How Computers Think: A Resume Job Field Classification Model in Python</a></h2>
 			<div style="display:inline-block; margin-top: 3px; font-family: Baskerville, Garamond, Palatino;">— Machine Learning —&nbsp;&nbsp;</div>
-            <time datetime="2017-05-13T00:00:00-04:00">
-                May 13, 2017
+            <time datetime="2017-08-22T00:00:00-04:00">
+                Aug 22, 2017
             </time>
         </header>
     </div>
@@ -99,16 +99,15 @@
             <article class="entry">
     <!-- Summary: A Python model to classify resumes based on their job type. -->
 
-<p>Can a computer correctly classify your resume into its correct job field? I recently built a classification model for my work, Mosaic Data Science, that answers this question. Depending on how you look at it, this model is either 89% or 82% accurate.</p>
+<p>Can a computer correctly classify your resume into its correct job field? I recently built a classification model for my work, Mosaic Data Science, that answers this question. Depending on how you look at it, this model is either 91% or 84% accurate.</p>
 <p>My boss granted me permission to post an article about this project to my website. I have decided to use this project to teach you how a computer “thinks.” I will attempt to explain myself as clearly as possible so that many readers can understand the data science concepts I have been working with. I hope that this article may enlighten you about how machine learning works.</p>
 
 
 <p><img style="float: right; margin-left:10px; margin-top:-5px;" src="images/fixing-unplugged-computer-clipart_750-754.jpeg" width=275 height=275 alt="https://clipartfest.com/download/bb6ad6c6ec516c0883d3f33d885b02cca169f21b.html"/></p>
 <p>This project was written as a demonstration for DARPA, the Defense Advanced Research Projects Agency. DARPA has another project in mind for Mosaic, contingent on our demonstration of a resume classification model. Thus I was tasked with building this model, with guidance from other employees at the company. The other employees spent a good deal of time advising me, though I wrote the vast majority of the code. I ultimately ended up abandoning other approaches to the model and creating our final approach to the model myself, resulting in a model with better performance. I am nonetheless very grateful for the valuable data science advice I continued to receive from the employees around me as I built this model.</p>
 <h3>The Model</h3>
-<p>After a great deal of experimenting with the advice of my colleagues, I discovered a code sample on scikit-learn’s website that does precisely what I am looking for. This code classifies news articles into 20 unique newsgroups, which is a very similar problem to classifying resumes by job-field.</p>
-<p>After experimenting with many other model versions, I ultimately adopted this code and the score improved dramatically. This code source is found here:</p>
-<p><a href="http://scikit-learn.org/stable/auto_examples/text/document_classification_20newsgroups.html">http://scikit-learn.org/stable/auto_examples/text/document_classification_20newsgroups.html</a></p>
+<p>After a great deal of experimenting with the advice of my colleagues, I discovered a <a href="http://scikit-learn.org/stable/auto_examples/text/document_classification_20newsgroups.html">code sample on scikit-learn’s website</a> that does precisely what I am looking for. This code classifies news articles into 20 unique newsgroups, which is a very similar problem to classifying resumes by job-field.</p>
+<p>After experimenting with many other model versions, I ultimately adopted this code and the score improved dramatically.</p>
 <p>After experimenting with the available classifiers from scikit-learn, I determined that the best model type for this feature setup was a Random Forest Classifier.</p>
 <p>A Random Forest is a collection of Decision Trees; and now, of course, I need to explain decision trees! A decision tree as a resume classifier would take the resumes and make a web of statistical choices about each resume. It would attempt to find which words are most strongly correlated with each topic and then use this information to make a category decision.</p>
 <p>To explain decision trees, I will reference an example from the Kaggle website. I have spent a good deal of time studying their dataset from the Titanic disaster. Kaggle is hosting a machine-learning competition to generate a model that can predict the survival of Titanic passengers. For this model, the most obvious decision tree feature would be whether the passenger is male or female; females had a much higher survivability rate than males. Next, I could gauge which class the passenger was in. Third class had poor survivability, while first class was much more likely to escape alive. These features would be different nodes on a decision tree. There is also an element of randomness in the decision tree; thus, it will not necessarily produce exactly the same result every time. </p>
@@ -166,7 +165,7 @@
 <p>Here is an example of how PCA works. Say a group of points are correlated and produce a nearly straight line. You could simplify the data by flattening it out, and still capture the majority of the variation in the data. Essentially, you can “boil down” the data to something simpler, while still capturing most of what makes the data unique. This process is called “dimensionality reduction.”</p>
 <p><img style="float: center; margin-bottom:10px;" src="images/PCA.png" width=600 height=200 alt="PCA demonstration" title="http://setosa.io/ev/principal-component-analysis/"/></p>
 <p>What the Random Forest model “sees” is a huge table. Each of the possible resume words are separate columns, and each of the resumes is a different row. The different columns in my data table are called “features.” After processing them through SVD, they become “components.” This table is 1000 columns (words)  x ~80,000 rows (resumes) large. The table does not store the actual words; it saves the TF-IDF scores from each word.</p>
-<p>Theoretically, less data input would mean less “overfitting.” In other words, reducing the data would streamline the model and prevent it from extrapolating excessive information or seeing trends where there are none. Unfortunately, using PCA brought the score down slightly instead of improving it, hence the model is 82% accurate instead of 89%. In my case, PCA was less helpful than expected.</p>
+<p>Theoretically, less data input would mean less “overfitting.” In other words, reducing the data would streamline the model and prevent it from extrapolating excessive information or seeing trends where there are none. Unfortunately, using PCA brought the score down slightly instead of improving it, hence the model is 84% accurate instead of 91%. In my case, PCA was less helpful than expected.</p>
 <p>For my model, I used a method that is very similar to PCA called Singular Value Decomposition (SVD), because the data input is sparse. PCA cannot work on sparse inputs, yet SVD can. Nonetheless, the general process used is the same.</p>
 <p>Sparse data is another way of using less computer memory to store information. If most of the datapoints are zero, then instead of saving all of the “zeros,” we can save only the datapoints that actually have data. This is the case for most of the words in my table, since most of the possible words will not be represented in a given resume.</p>
 <p><img style="float: right; margin-left:10px; margin-bottom:10px;" src="images/ExplainedVariance.png" width=415 height=415 alt="graph of variance from each new component"/></p>
@@ -221,11 +220,12 @@
 </table>
 
 <p><br/></p>
-<p>Adding in the SVD (PCA) reduced the score slightly and resulted in this final output:</p>
+<p>Adding in the SVD (PCA) reduced the score slightly and resulted in this output:</p>
 <p><img style="float: center; margin-bottom:10px;" src="images/output.png" alt="final output"/></p>
+<p>A few additional changes to the model brought the score up to 84%.</p>
 <h3>Conclusion</h3>
 <p>The computer can successfully identify a job field from a resume. This is especially surprising considering that many people change job fields; thus, their resumes may contain aspects of both fields.</p>
-<p>In a model with ~90 job fields and thousands of resumes, an 82% accuracy score seems very impressive. If the number of included job fields were increased dramatically, it is likely that the model would become confused between similar fields, such as “aircraft mechanic” and “auto mechanic.” However, at the current level of complexity, the model functions very well.</p>
+<p>In a model with ~90 job fields and thousands of resumes, an 84% accuracy score seems very impressive. If the number of included job fields were increased dramatically, it is likely that the model would become confused between similar fields, such as “aircraft mechanic” and “auto mechanic.” However, at the current level of complexity, the model functions very well.</p>
 
     <div id="disqus_thread"></div>
     <script type="text/javascript">
