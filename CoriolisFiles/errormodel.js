@@ -39,7 +39,6 @@ MyLib.globaltime = null;
 MyLib.repeattimeout = null;
 MyLib.movetimeout = null;
 
-
 //these are set to the global namespace
 //so the scale can be drawn in real-time mode, right when it's selected
 //instead of waiting for the next re-draw.
@@ -168,7 +167,7 @@ function changecheck(checkboxElem) {
 		else
 		{	document.getElementById("outertime").style.marginTop="-19px"; }
 
-		set_time_interval();
+		draw_curve_active();
 		
   } else {
 	  stop_time_interval();
@@ -178,23 +177,7 @@ function changecheck(checkboxElem) {
 //Start the active display.
 function set_time_interval()
 {
-	//If, by some glitch, the intervals are already set,
-		//stop them so they don't conflict!
-	//(saves you from seeing double)
-	if(MyLib.movetimeout!=null)
-	{ clearTimeout(MyLib.movetimeout); MyLib.movetimeout=null;	}
-
-	if(MyLib.repeattimeout!=null)
-	{ clearTimeout(MyLib.repeattimeout); MyLib.repeattimeout=null; }
-	var time = MyLib.globaltime;
-
-	//self-invoking timeouts are much less glitchy than intervals.
-	(function repeatdraw() {    
-		canvasthings = reset_canvas()
-		draw_curve_active()
-		
-		MyLib.repeattimeout = setTimeout(repeatdraw, ((MyLib.globaltime * (100/MyLib.percenttime)) + cnv.DELAY_BETWEEN_DRAWS) * 1000);
-	})();
+	draw_curve_active();
 }
 
 //Self-explanatory. Go from active to static display.
@@ -637,8 +620,11 @@ function draw_curve_active()
 	var canvas = document.getElementById("demo");
     var ctx = canvas.getContext("2d");
 	
-	if(!(MyLib.movetimeout==null))
-	{	clearTimeout(MyLib.movetimeout); MyLib.movetimeout=null; }
+	canvasthings = reset_canvas()
+	
+	if(MyLib.movetimeout!=null)
+	{	clearTimeout(MyLib.movetimeout); MyLib.movetimeout=null;
+		clearTimeout(MyLib.repeattimeout); MyLib.repeattimeout=null; }
 	
 	var time = MyLib.globaltime
 	var i=1;
@@ -656,8 +642,16 @@ function draw_curve_active()
 	(function moveline() {    
 		MyLib.movetimeout = setTimeout(moveline, (time * (100/MyLib.percenttime))*1000 / canvaspoints.length); //set the next timeout FIRST, so
 									//drawing time will not distort "realtime"
+
 		if(i>=canvaspoints.length)
-		{  clearTimeout(MyLib.movetimeout); MyLib.movetimeout=null; return; }
+		{  clearTimeout(MyLib.movetimeout); MyLib.movetimeout=null; 
+			//necessary so you don't have to wait forever
+			//if you adjusted the percent time mid-draw.
+
+			MyLib.repeattimeout = setTimeout(draw_curve_active, cnv.DELAY_BETWEEN_DRAWS * 1000);
+			prep_canvas();
+			return; 
+		}
 
 		ctx.beginPath();
 		ctx.moveTo(canvaspoints[i-1].x+cnv.X_BUFFER, canvaspoints[i-1].y+cnv.Y_BUFFER);
@@ -1302,7 +1296,7 @@ function submit_values() {
 	
 	if(MyLib.repeattimeout!=null)
 	{
-		set_time_interval()
+		draw_curve_active();
 	}
 	else
 	{
@@ -1526,7 +1520,7 @@ function submit_values() {
 				MyLib.movetimeout=null;
 
 				reset_canvas();
-				set_time_interval();				
+				draw_curve_active();				
 			}
 		}
 	}
