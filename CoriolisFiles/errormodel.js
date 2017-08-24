@@ -132,7 +132,7 @@ function changescale(checkboxElem) {
 	document.getElementById("scalemessage").innerHTML = ""
 
 	  
-	  if(MyLib.repeattimeout==null) //if the scale is static, it won't erase otherwise.
+	  if(MyLib.repeattimeout==null && MyLib.movetimeout==null) //if the scale is static, it won't erase otherwise.
 	  {
 		reset_canvas()
 		draw_curve_static()
@@ -147,7 +147,7 @@ function changecheck(checkboxElem) {
 		var timediv = document.getElementById("percenttimediv")
 		
 		//Add the input field to alter the percent speed
-		timediv.innerHTML="&#8195;&#8194;Speed&#160;<input type='number' step='1' min='0' max='500' style='width:63px' id='percenttime' value='100' onchange='changepercenttime(this.value)'/>";
+		timediv.innerHTML="&#8195;&#8194;Time&#160;<input type='number' step='1' min='0' max='500' style='width:63px' id='percenttime' value='100' onchange='changepercenttime(this.value)'/>";
 		MyLib.percenttime=100;
 		
 		timediv.className = "percentsign";
@@ -1311,7 +1311,7 @@ function submit_values() {
 	prep_canvas();
 	reset_canvas();
 	
-	if(MyLib.repeattimeout!=null)
+	if(MyLib.repeattimeout!=null || MyLib.movetimeout!=null)
 	{
 		draw_curve_active();
 	}
