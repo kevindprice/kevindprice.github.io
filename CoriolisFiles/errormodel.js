@@ -985,7 +985,7 @@ function calc_error(diameter, height_start, gs, height_thrown, velocity) {
 	}
 	else
 	{
-		variables = crunch_numbers( radius, g_accel, omega, start_v_y, start_v_x, slope, r_onball )
+		variables = crunch_numbers( radius, g_accel, omega, start_v_y, start_v_x, r_onball )
 		var time = variables.time
 		var x_f = variables.x_f
 		var y_f = variables.y_f
@@ -1118,10 +1118,15 @@ function calc_error(diameter, height_start, gs, height_thrown, velocity) {
 
 
 //finds the coin's landing position on the circle, and max height achieved.
-function crunch_numbers( radius, g_accel, omega, start_v_y, start_v_x, slope, r_onball )
+function crunch_numbers( radius, g_accel, omega, start_v_y, start_v_x, r_onball )
 {
 	//Now find intersection with the circle.
 
+	if(Math.abs(start_v_x) < 1e-13)
+	{ start_v_x=Decimal(0) }
+	if(Math.abs(start_v_y) < 1e-13)
+	{ start_v_y=Decimal(0) }
+	
 	//slope of ball's path
 	//var slope_ball = start_v_y / start_v_x
 	var slope = start_v_y.div( start_v_x )
@@ -1144,29 +1149,41 @@ function crunch_numbers( radius, g_accel, omega, start_v_y, start_v_x, slope, r_
 		//var x_2 = ( (slope * r_onball) - sqroot1 ) / ( 1 + Math.pow(slope,2)) // -
 		//var y_2_abs = Math.sqrt(Math.pow(radius,2) - Math.pow(x_2,2) )
 		//var y_2 = ( (-1 * r_onball) + sqroot2 ) / ( 1 + Math.pow(slope,2) ) // +
-
+		
 		//Apparently the (-) from the Y eqn goes with the (+) in the X eqn, just to be confusing.		
 		
 		var x_2 = ( (slope.mul( r_onball)).sub( sqroot1 )).div( Decimal(1).add( Decimal.pow(slope,2)) ) // -
 		var y_2 = ( new Decimal(-1 * r_onball).add( sqroot2 ) ).div( new Decimal(1).add(Decimal.pow(slope,2) ) ) // +
 	}
-	else
+	else if(slope > 0 && Number(start_v_x) > 0)
+	{
+		//var x_1 = ( (slope * r_onball) + sqroot1 ) / ( 1 + Math.pow(slope,2)) // +
+		//var x_1 = ((slope.mul(r_onball)).add(sqroot1)).div( Decimal(1).add(Decimal.pow(slope,2)))
+		
+		var x_1 = ((slope.mul(r_onball)).add(sqroot1)).div( Decimal(1).add(Decimal.pow(slope,2))) //+
+		var y_2 = ( new Decimal(-1 * r_onball).add( sqroot2 ) ).div( new Decimal(1).add(Decimal.pow(slope,2) ) ) // +		
+		
+		var x_2 = x_1
+	}
+	else if(slope < 0 && Number(start_v_y) < 0)
+	{
+		var x_1 = ((slope.mul(r_onball)).add(sqroot1)).div( Decimal(1).add(Decimal.pow(slope,2))) //+
+		var y_1 = ((Decimal(-1).mul(r_onball)).sub( sqroot2 )).div( Decimal(1).add( Decimal.pow(slope,2)) ) // -
+		
+		var x_2 = x_1
+		var y_2 = y_1
+	}
+	else //if((slope > 0 && Number(start_v_x) < 0) || slope == 0 )
 	{
 		//var y_1_abs = Math.sqrt(Math.pow(radius,2) - Math.pow(x_1,2) ) 
 		//var y_1 = ( (-1 * r_onball) - sqroot2 ) / ( 1 + Math.pow(slope,2) ) // -
-
+		
 		var x_2 = ( (slope.mul( r_onball)).sub( sqroot1 )).div( Decimal(1).add( Decimal.pow(slope,2)) ) // -
 		var y_1 = ((Decimal(-1).mul(r_onball)).sub( sqroot2 )).div( Decimal(1).add( Decimal.pow(slope,2)) ) // -
 		
 		var y_2 = y_1  //the later equations simply reference y_2.
 					   //Keep it standard.
-	}
-
-	//It turns out  x_1 is never needed. the X eqn is always //-.
-	//Here is x_1.
-	//var x_1 = ( (slope * r_onball) + sqroot1 ) / ( 1 + Math.pow(slope,2)) // +
-	//var x_1 = ((slope.mul(r_onball)).add(sqroot1)).div( Decimal(1).add(Decimal.pow(slope,2)))
-	
+	}	
 	
 	
 	//total (absolute) starting velocity
