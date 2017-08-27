@@ -174,11 +174,6 @@ function changecheck(checkboxElem) {
   }
 }
 
-//Start the active display.
-function set_time_interval()
-{
-	draw_curve_active();
-}
 
 //Self-explanatory. Go from active to static display.
 function stop_time_interval()
