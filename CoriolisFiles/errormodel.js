@@ -980,7 +980,7 @@ function calc_error(diameter, height_start, gs, height_thrown, velocity) {
 	}
 	else
 	{
-		variables = crunch_numbers( radius, g_accel, omega, start_v_y, start_v_x, r_onball )
+		variables = crunch_numbers( radius, start_v_y, start_v_x, r_onball )
 		var time = variables.time
 		var x_f = variables.x_f
 		var y_f = variables.y_f
@@ -1113,7 +1113,7 @@ function calc_error(diameter, height_start, gs, height_thrown, velocity) {
 
 
 //finds the coin's landing position on the circle, and max height achieved.
-function crunch_numbers( radius, g_accel, omega, start_v_y, start_v_x, r_onball )
+function crunch_numbers( radius, start_v_y, start_v_x, r_onball )
 {
 	//Now find intersection with the circle.
 
