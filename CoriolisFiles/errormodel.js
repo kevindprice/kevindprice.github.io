@@ -1032,7 +1032,7 @@ function calc_error(diameter, height_start, gs, height_thrown, velocity) {
 	
 	//var time_increment = Number(time.div(150))
 
-	if(slope.isFinite())
+	if(slope.isFinite() && time > 0)
 	{
 		for(var t=0; t<=Number(time); t+=time_increment)
 		{
@@ -1044,7 +1044,7 @@ function calc_error(diameter, height_start, gs, height_thrown, velocity) {
 		var absolutePoints = new AbsolutePoints( Number(time), Number(radius), Number(omega), Number(slope), Number(height_start), Number(start_v_x) );
 		absolutepoints.push( absolutePoints );			
 	}
-	else
+	else if(!slope.isFinite() && time > 0)
 	{
 		for(var t=0; t<=Number(time); t+=time_increment)
 		{
@@ -1055,6 +1055,11 @@ function calc_error(diameter, height_start, gs, height_thrown, velocity) {
 		//do it once more at t = time.
 		var absolutePoints = new AbsolutePointsVertical( Number(time), Number(radius), Number(omega), Number(slope), Number(height_start), Number(start_v_y) );
 		absolutepoints.push( absolutePoints );
+	}
+	else if(time==0)
+	{
+		var absolutePoints = new AbsolutePoints( 0, Number(radius), Number(omega), Number(slope), Number(height_start), Number(start_v_y) )
+		absolutepoints.push(absolutePoints) //push exactly one point
 	}
 	
 	//point = new RelativePoint( Number(time), Number(radius), Number(omega), Number(slope), Number(height_start), Number(start_v_x) )
