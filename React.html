@@ -100,9 +100,46 @@
             <article class="entry">
     <!-- Summary:  -->
 
-<p>Wanting to demonstrate something new, I decided to create a React web app. I rewrote the Coriolis computer model (below) around Facebook's React framework, generating a much cleaner page. This new page can be seen <a href="./CoriolisReact/index.html">here</a>.</p>
-<p>I am very pleased with the result. As you can see, the Coriolis model has provided ample material for creativity.</p>
+<p>I decided to create a React web app to demonstrate the Coriolis effect. I rewrote my Coriolis computer model (below) using the React framework, generating a much cleaner and more powerful page. This new page can be seen <a href="./CoriolisReact/index.html">here</a>.</p>
+<p>I am very pleased with the result. As you can see, the Coriolis model has provided ample material for creativity. The following article describes some of the steps I took to generate the React computer model.</p>
 
+
+<h3>Coding goals</h3>
+<p>The Coriolis effect is an object of fascination of mine. As I stated in my article, the Coriolis effect is an artifact of rotating environments (artificial gravity) that causes objects to move in unexpected directions. With my physics experience, I had the knowledge and equations I needed to build this model.</p>
+<p>My goal was to take this complicated physics principle and simplify it so that anyone can understand it. I wanted the model to be powerful enough to be able to render whatever throw a user wishes to model. With this objective, I hoped to make the effects of artificial gravity perfectly clear. Furthermore, I wanted the page to be compelling, clean, beautiful, fast, and not glitchy.</p>
+<h3>Steps to produce the model</h3>
+<p>This model came about in several stages. Though this came from a simple idea, the final result is much more sophisticated and powerful than what I had initially planned.</p>
+<ol>
+<li>
+<p>The first stage of this model was to calculate the landing position of the coin. The model should <em>compute</em> these coordinates for the viewer. Essentially, I needed to find the correct intersection between a line and a circle. The direction of this line is based on physics kinematics equations.</p>
+</li>
+<li>
+<p>With the landing coordinates, I could calculate the distance the coin would land away from the person; this is the measurable result of the Coriolis effect. I used this math in Python to generate a graph that shows the relationship between the diameter of the station and the "weirdness" of the throw produced by the Coriolis effect.</p>
+</li>
+<li>
+<p>I wanted to demonstrate what any throw would <em>look</em> like. Using the line of the coin's movement, I generated a time series of points, allowing me to plot these points on an HTML canvas element.</p>
+</li>
+<li>
+<p>These points needed to be in the <em>thrower's</em> reference frame, not the frame of the outside universe. This is the only way the Coriolis effect would be clearly demonstrated. This required me to translate my series of points into a new set of points that are <em>relative</em> to the thrower. This required writing out more equations and solving a bit of trigonometry.</p>
+</li>
+<li>
+<p>I wrote <a href="./Coriolis.html">an article</a> about the Coriolis effect. I wanted this article to be complete, informative, and entertaining.</p>
+</li>
+<li>
+<p>Next, I wanted to improve the model's UI to make it clean and professional. I rewrote the model to utilize the React framework. I added intuitive logarithmic sliders (that include the number zero!) so that it would be easy to change the throw's parameters.</p>
+</li>
+<li>
+<p>Finally, I continued debugging the code so that it would be less glitchy and could show all possible use cases.</p>
+</li>
+</ol>
+<h3>Some things I encountered while coding</h3>
+<p>I discovered that the standard decimal variable in Python and JavaScript is not accurate enough to calculate the results that I desired. Fifteen decimal places produces glitchy results with large "space stations." Thus, I translated all of my math to work with the Decimal.js JavaScript library and the Python Decimal package. Then, I increased the number of decimal places so I could model larger space stations.</p>
+<p>Here is my glitchy graph with the standard number of decimal places. You may note that the graph never actually achieves the values expected with stations that are larger than 1*10^7 meters:</p>
+<p><img style="margin: 5px 0px 5px 0px;" src="CoriolisFiles/CoriolisGraphGlitchy.png" width="525" height="525"/></p>
+<p>With additional decimal places:</p>
+<p><img style="margin: 5px 0px 5px 0px;" src="CoriolisFiles/CoriolisGraph.png" width="525" height="525"/></p>
+<p>The Python code I used to generate these graphs can be found <a href="./CoriolisFiles/CoriolisTable.py">here</a>.</p>
+<p>In JavaScript, the current version of the Decimal.js package does not work with webpack. Thus, in order to use the model with React, I needed to downgrade the package. This issue is discussed <a href="https://github.com/MikeMcl/decimal.js/issues/49">here</a>.</p>
 
     <div id="disqus_thread"></div>
     <script type="text/javascript">

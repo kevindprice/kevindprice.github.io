@@ -149,10 +149,16 @@ def run():
 
     
     while diameter < 100000001:
+
+        try:
+            currenttuple = (float(diameter), calc_diff(diameter, height_start, gs, heightthrown, units = "imperial") )
+            
+            answers.append(currenttuple)
+
+        except InvalidOperation:  #if I purposely decrease the number of decimals
+            pass                  #to show how glitchy it is
+                                  #then it will produce this error.
         
-        currenttuple = (float(diameter), calc_diff(diameter, height_start, gs, heightthrown, units = "imperial") )
-        
-        answers.append(currenttuple)
         
         loop+=1
 
