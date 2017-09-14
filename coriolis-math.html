@@ -208,9 +208,9 @@ By solving, we get:
 <div class="math">$$0=(1+m^2)x^2-2mr_{coin}x+(r_{coin}^2-r_{station}^2)$$</div>
 <p>The quadratic formula:</p>
 <div class="math">$$x=\frac {-b\pm\sqrt {b^2-4ac}}{2a}$$</div>
-<p>Plug in our variables and simplify:</p>
+<p>Plug in our variables and simplify (I skipped a few steps for brevity):</p>
 <div class="math">$$x=\frac{mr_{coin}\pm\sqrt{m^2r_{coin}^2-(1+m^2)(r_{coin}^2-r_{station}^2)}}{1+m^2}$$</div>
-<p>This is our formula for the x-coordinate of the coin. The correct value will be the answer that is negative, because the coin goes to the <em>left</em>. The equation correctly gives us -23.967 when we solve with the (+) operator.</p>
+<p>This is our formula for the x-coordinate of the coin. The correct value will be the answer that is negative, because the coin goes to the <em>left</em>. The equation correctly gives us -23.967 when we solve with the (-) operator.</p>
 <p>Now we need to solve for the y-component that matches this x-component:</p>
 <div class="math">$$x^2 + y^2= r_{station}^2$$</div>
 <div class="math">$$y=\sqrt {r_{station}^2-x^2}$$</div>
@@ -223,11 +223,13 @@ By solving, we get:
 <div class="math">$$0=y^2(1+m^2)+2r_{coin}y+(r_{coin}^2-r_{station}^2m^2)$$</div>
 <p>Put into the quadratic formula and simplify:</p>
 <div class="math">$$y=\frac{-r_{coin}\pm\sqrt{r_{coin}^2-(1+m^2)(r_{coin}^2-r_{station}^2m^2)}}{1+m^2}$$</div>
-<p>We already know the absolute value of the y-component. The quadratic formula tells us that this number should be negative, -7.113. We arrived at this number using the (-) operator.</p>
+<p>We already know the absolute value of the y-component. The quadratic formula tells us that this number should be negative, -7.113. We arrived at this number using the (+) operator.</p>
 <p>Our final coordinates are (-23.967, -7.113). This matches the values from the graphing website. </p>
-<p>The correct operators in the quadratic formula were (+) when solving for x, and (-) when solving for y. Thus, our final formulas are:</p>
-<div class="math">$$x=\frac{mr_{coin}+\sqrt{m^2r_{coin}^2-(1+m^2)(r_{coin}^2-r_{station}^2)}}{1+m^2}$$</div>
-<div class="math">$$y=\frac{-r_{coin}-\sqrt{r_{coin}^2-(1+m^2)(r_{coin}^2-r_{station}^2m^2)}}{1+m^2}$$</div>
+<p>The correct operators in the quadratic formula were (-) when solving for x, and (+) when solving for y. This is fairly intuitive, because the coin moves up and to the left (negative x direction, positive y direction).</p>
+<p>These operators differ if the coin moves in a direction other than up and to the left (e.g. if it is thrown in a direction other than straight up). Fortunately, the operators are intuitive based on which direction the coin moves.</p>
+<p>Thus, our final formulas are:</p>
+<div class="math">$$x=\frac{mr_{coin}-\sqrt{m^2r_{coin}^2-(1+m^2)(r_{coin}^2-r_{station}^2)}}{1+m^2}$$</div>
+<div class="math">$$y=\frac{-r_{coin}+\sqrt{r_{coin}^2-(1+m^2)(r_{coin}^2-r_{station}^2m^2)}}{1+m^2}$$</div>
 <p>Our variables:</p>
 <ul>
 <li><span class="math">\(m=\frac {v_y}{v_x}\)</span>. <span class="math">\(v_x\)</span> is negative because the coin is moving left.</li>
@@ -279,7 +281,7 @@ By solving, we get:
 <h5>The Final Answer</h5>
 <p>Now that we have the landing coordinates of the coin, and the person's final coordinates, we can calculate the straight line distance between the two using the Pythagorean theorem. This formula gives us our answer:</p>
 <div class="math">$$d = \sqrt{(x_{coin}-x_{person})^2 + (y_{coin}-y_{person})^2}$$</div>
-<p>Javascript calculates to a precision of about 15 decimal points.</p>
+<p>Javascript calculates to a precision of about 15 decimal points. This is insufficient for some calculations; thus my code uses the Decimal.js package to support 30 decimal places instead.</p>
 <p><br/></p>
 <h5>Max Height Achieved</h5>
 <p>My table also displays the max height achieved by the coin. Unfortunately, there is no formula to calculate this. I generated this number by creating a maximization script; the script sweeps up and down the path of the coin to find the point that is at the farthest distance from the circle.</p>
