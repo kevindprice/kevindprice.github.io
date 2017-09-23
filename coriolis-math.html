@@ -99,13 +99,13 @@
         <section>
             <article class="entry">
     <p>The math I employed in my Coriolis article is quite thorny and involved, so I decided to create a separate article to explain it. Despite the length of this math, the events that would take place still follow the rules of basic physics and kinematics.</p>
-<p>In my <a href="./CoriolisReact/index.html">Coriolis effect computer model</a>, I created a virtual coin toss on a space station. This model solved for the exact location where a coin would land if someone were to throw it while standing in artificial gravity. I discuss the Coriolis effect in <a href="./Coriolis.html">this article</a>.</p>
+<p>In my <a href="./coriolis/index.html">Coriolis effect computer model</a>, I created a virtual coin toss on a space station. This model solved for the exact location where a coin would land if someone were to throw it while standing in artificial gravity.</p>
 <p>To understand the events that take place in our coin toss, we must look at these events from a perspective that is not rotating. The Coriolis effect is not a force, but is simply described by the difference between rotation and real gravity.</p>
 <p>I assumed that the station is rotating clockwise. The math might have been slightly simpler if I had chosen counterclockwise instead, but this is how I imagined it. The station is a virtual coordinate system, where (0,0) is the exact center of the station. For our convenience, the moment of the throw takes place at the instant the person is standing at the bottom of the curve. The person throws the coin with the force that would have been needed to get it 3 feet up in the air on Earth.</p>
-<div style="text-align:center;"><img style="margin: -10px 10px 10px 10px;" src="CoriolisFiles/CoordinateSystem.png" width=300 height=300/></div>
+<div style="text-align:center;"><img style="margin: -10px 10px 10px 10px;" src="images/CoordinateSystem.png" width=300 height=300/></div>
 
 <p>While we are still holding the coin, we (and the coin) have a leftwards velocity due to the clockwise rotation. The centripetal force is pushing us upwards, directly towards the middle of the station.</p>
-<div style="text-align:center; margin:20px;"><img style="margin: -10px 10px 10px 10px; float:left;" src="CoriolisFiles/BeforeThrow.png" width=200 height=200/><img style="float:right; margin: -10px 10px 10px 10px;" src="CoriolisFiles/AfterThrow.png" width=200 height=200/></div>
+<div style="text-align:center; margin:20px;"><img style="margin: -10px 10px 10px 10px; float:left;" src="images/BeforeThrow.png" width=200 height=200/><img style="float:right; margin: -10px 10px 10px 10px;" src="images/AfterThrow.png" width=200 height=200/></div>
 
 <p><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/></p>
 <p>At the moment the coin is released, it will no longer have any forces acting on it. The coin is no longer touching the station. It will continue to have the same leftwards horizontal velocity, but it will now have a vertical velocity component defined by how hard you would have thrown it on earth.</p>
@@ -128,7 +128,7 @@
 <h5>Starting Velocity</h5>
 <h6>Vertical Component</h6>
 <p>The velocity of your throw is based on how hard you <em>would</em> have thrown the coin on Earth. This is the easy part of our quest; it's basic kinematics, and it uses Earth's gravity.</p>
-<p><img style="float: right; margin-left:10px;" src="CoriolisFiles/BasicKinematics.png" width=150 height=150/></p>
+<p><img style="float: right; margin-left:10px;" src="images/BasicKinematics.png" width=150 height=150/></p>
 <p>Physics tells us, that at the top of an arc of motion on earth, the velocity will exactly equal zero. </p>
 <p>In the image on the right, I expanded the path so you can better see the vertical throw; however, the coin still falls directly under where it was thrown.</p>
 <p>This is the relevant kinematics fomula:</p>
@@ -196,7 +196,7 @@ By solving, we get:
 <p>Now, we need to find where this line intersects with a circle. Here is the formula for a circle:</p>
 <div class="math">$$x^2 + y^2 = r^2$$</div>
 <p>We can cheat and solve this using an <a href="https://www.desmos.com/calculator">online graphing website</a>:</p>
-<div style="text-align:center;"><img style="margin: -10px 10px 10px 10px;" src="CoriolisFiles/IntersectPoint.png" width=250 height=250/></div>
+<div style="text-align:center;"><img style="margin: -10px 10px 10px 10px;" src="images/IntersectPoint.png" width=250 height=250/></div>
 
 <p>In this image, you can see the path of the coin and its final intersection with the ground, up and to the left. The coin starts at the y-intercept.</p>
 <p>Now, we will solve this by hand. For our computer model, we need formulas that the computer can solve! </p>
