@@ -1,8 +1,8 @@
 {
-  "main.css": "static/css/main.b4482019.css",
-  "main.css.map": "static/css/main.b4482019.css.map",
-  "main.js": "static/js/main.070a9cfc.js",
-  "main.js.map": "static/js/main.070a9cfc.js.map",
+  "main.css": "static/css/main.fceb8a49.css",
+  "main.css.map": "static/css/main.fceb8a49.css.map",
+  "main.js": "static/js/main.86ecf62f.js",
+  "main.js.map": "static/js/main.86ecf62f.js.map",
   "static\\media\\25Degrees.png": "static/media/25Degrees.362b185f.png",
   "static\\media\\36Degrees.png": "static/media/36Degrees.9f5c9ea3.png",
   "static\\media\\80Degrees.png": "static/media/80Degrees.47027d6f.png",
@@ -17,6 +17,7 @@
   "static\\media\\Dropped.png": "static/media/Dropped.f6a26a6b.png",
   "static\\media\\EnderGame.jpg": "static/media/EnderGame.0ed35e42.jpg",
   "static\\media\\Gemini_11_Agena.jpg": "static/media/Gemini_11_Agena.ae990eaf.jpg",
+  "static\\media\\Giphy.gif": "static/media/Giphy.868c8783.gif",
   "static\\media\\Halo.jpg": "static/media/Halo.a59f2a1b.jpg",
   "static\\media\\Kosmos_782.jpg": "static/media/Kosmos_782.989d9396.jpg",
   "static\\media\\Notes.zip": "static/media/Notes.a9debcae.zip",
@@ -31,6 +32,7 @@
   "static\\media\\diamond_upholstery.png": "static/media/diamond_upholstery.8f16f947.png",
   "static\\media\\dream-space-colony.jpg": "static/media/dream-space-colony.e1f2f1fd.jpg",
   "static\\media\\next_button.png": "static/media/next_button.548abaa4.png",
+  "static\\media\\rotatingroom.jpg": "static/media/rotatingroom.fd73ffe0.jpg",
   "static\\media\\silhouette.png": "static/media/silhouette.33f1b706.png",
   "static\\media\\silhouette2.png": "static/media/silhouette2.ffdbe7f3.png"
 }
