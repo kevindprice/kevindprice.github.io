@@ -141,7 +141,7 @@
 <p>My logarithmic ranges needed to <em>include</em> zero; the log of zero does not normally compute. I added a small offset from the numbers that are visible so that the value calculated is never actually zero.</p>
 <h5>Insufficient Decimal Places</h5>
 <p>I discovered that the standard decimal variable in Python and JavaScript is not accurate enough to calculate the results that I desired. Fifteen decimal places produces glitchy results with large "space stations." Thus, I translated all of my math to work with the Decimal.js JavaScript library and the Python Decimal package. Then, I increased the number of decimal places so I could model larger space stations.</p>
-<p>Here is my glitchy graph with the standard number of decimal places. You may note that the graph never actually achieves the values expected with stations that are larger than 1*10^7 meters:</p>
+<p>Here is my glitchy graph with the standard number of decimal places. The graph never reaches the correct values for stations that are larger than a million meters:</p>
 <p><img style="margin: 5px 0px 5px 0px;" src="images/CoriolisGraphGlitchy.png" width="525" height="525"/></p>
 <p>With additional decimal places:</p>
 <p><img style="margin: 5px 0px 5px 0px;" src="images/CoriolisGraph.png" width="525" height="525"/></p>
@@ -151,6 +151,10 @@
 <p>I wanted the model to be compatible with any screen size presented to it. Thus, I wanted to create an HTML canvas element that both fills the screen width and resizes. The canvas must receive its with from the properties, not from CSS. </p>
 <p><a href="https://www.npmjs.com/package/react-container-dimensions">This React plugin</a> initially looked like it would do the job, but it proved useless. Canvas elements must be connected to React refs in order to obtain the drawing context from ReactDOM. This is not possible with functional components, which the react-container-dimensions plugin uses.</p>
 <p>I ultimately created an event listener in the Canvas component which triggers a state change when the window is resized. The Canvas then inherits its width and height attributes from the component's state.</p>
+<h5>Article Overlay</h5>
+<p>My original page was an article with a model. I wanted the article to be interactive with the model I was creating! I rewrote the article as a React component, in Markdown.</p>
+<p>I found a fantastic React package for working with Markdown, <em>markdown-it-jsx</em>, which completely bybasses React's "dangerouslysetinnerhtml" construct. <em>markdown-it-jsx</em> converts the Markdown to .jsx, which I then convert into live components using the babel-standalone package, after loading. Without this package, my "Try it!" buttons would not be possible. I can embed React components directly in Markdown!</p>
+<p>Doing this required me to load markdown files as raw text, which requires the "raw-loader" for webpack. I created the React site with create-react-app, which automatically configures webpack for you. You are given the option to "eject" and customize the configuration, but this requires more manual upkeep. I discovered <em>react-app-rewired</em>, which allows you to edit the configuration in create-react-app without ejecting.</p>
 
     <div id="disqus_thread"></div>
     <script type="text/javascript">
@@ -188,7 +192,7 @@
                                     </a>
                                     /
                                     My code on
-                                    <a href="http://github.com/Priceisright204" target="blank">
+                                    <a href="http://github.com/kevindprice" target="blank">
                                         GitHub
                                     </a>
                                     /
