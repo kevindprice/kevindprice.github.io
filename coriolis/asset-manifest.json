@@ -1,8 +1,8 @@
 {
-  "main.css": "static/css/main.cf7b8418.css",
-  "main.css.map": "static/css/main.cf7b8418.css.map",
-  "main.js": "static/js/main.6e1f5aa5.js",
-  "main.js.map": "static/js/main.6e1f5aa5.js.map",
+  "main.css": "static/css/main.3f73c4f2.css",
+  "main.css.map": "static/css/main.3f73c4f2.css.map",
+  "main.js": "static/js/main.1d344104.js",
+  "main.js.map": "static/js/main.1d344104.js.map",
   "static\\media\\1989Concept.png": "static/media/1989Concept.15c65273.png",
   "static\\media\\25Degrees.png": "static/media/25Degrees.1f301ffb.png",
   "static\\media\\36Degrees.png": "static/media/36Degrees.f79b16c6.png",
@@ -28,14 +28,10 @@
   "static\\media\\Skylab.gif": "static/media/Skylab.a01108a8.gif",
   "static\\media\\StarTrek.jpg": "static/media/StarTrek.10031398.jpg",
   "static\\media\\TheMartian.jpg": "static/media/TheMartian.649f63c0.jpg",
-  "static\\media\\arrow.png": "static/media/arrow.0fe7026f.png",
-  "static\\media\\back_button.png": "static/media/back_button.36a2d468.png",
   "static\\media\\cropped-avalon.jpg": "static/media/cropped-avalon.54f0e9af.jpg",
   "static\\media\\diamond_upholstery.png": "static/media/diamond_upholstery.8f16f947.png",
   "static\\media\\dream-space-colony.jpg": "static/media/dream-space-colony.e1f2f1fd.jpg",
-  "static\\media\\next_button.png": "static/media/next_button.548abaa4.png",
+  "static\\media\\next_button.png": "static/media/next_button.b0d549f2.png",
   "static\\media\\rotatingroom.jpg": "static/media/rotatingroom.fd73ffe0.jpg",
-  "static\\media\\rotator.jpg": "static/media/rotator.a789f18f.jpg",
-  "static\\media\\silhouette.png": "static/media/silhouette.33f1b706.png",
-  "static\\media\\silhouette2.png": "static/media/silhouette2.ffdbe7f3.png"
+  "static\\media\\rotator.jpg": "static/media/rotator.a789f18f.jpg"
 }
