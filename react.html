@@ -100,15 +100,15 @@
             <article class="entry">
     <!-- Summary:  -->
 
-<p>I decided to create a React web app to demonstrate the Coriolis effect. This <a href="coriolis/index.html">new React model</a> is much cleaner and more powerful than my previous version, which I have removed from this site.</p>
-<p>I am very pleased with the result. As you can see, the Coriolis effect has provided me ample material for creativity. The following article describes some of the steps I took to generate this model.</p>
+<p>If you were to toss a coin on an artificial gravity space station, where would it end up? If you try my new <a href="./coriolis/index.html">React computer model,</a> the answer might surprise you!</p>
+<p>I decided to create a React web app to demonstrate the Coriolis effect. This model is clean and powerful, and it teaches a complicated Physics principle in a simple way. I am very pleased with the result, the product of many months of work. The following article describes some of the steps I took to generate this model.</p>
 
 
 <h3>Coding goals</h3>
-<p>The Coriolis effect is an object of fascination of mine. As I stated in my article, the Coriolis effect is an artifact of rotating environments (artificial gravity) that causes objects to move in unexpected directions. With my physics experience, I had the knowledge and equations I needed to build this model.</p>
+<p>The Coriolis effect is an object of fascination of mine. As I stated in <a href="./coriolis/index.html">my article</a>, the Coriolis effect is an artifact of rotating environments (artificial gravity) that causes objects to move in unexpected directions.</p>
 <p>My goal was to take this complicated physics principle and simplify it so that anyone can understand it. I wanted the model to be powerful enough to be able to render whatever throw a user wishes to model. With this objective, I hoped to make the effects of artificial gravity perfectly clear. Furthermore, I wanted the page to be compelling, clean, intuitive, understandable, beautiful, fast, resizable, mobile-friendly, and not glitchy.</p>
 <h3>Steps to produce the model</h3>
-<p>This model came about in several stages. Though this came from a simple idea, the final result is much more sophisticated and powerful than what I had initially planned.</p>
+<p>This model came about in several stages. This came from a simple idea, though the final result is much more sophisticated and powerful than what I had initially planned.</p>
 <ol>
 <li>
 <p>The first stage of this model was to calculate the landing position of the coin. The model should <em>compute</em> these coordinates for the viewer. Essentially, I needed to find the correct intersection between a line and a circle. The direction of this line is based on physics kinematics equations. <a href="./coriolis-math.html">This</a> is the math I used.</p>
@@ -123,7 +123,7 @@
 <p>These points needed to be in the <em>thrower's</em> reference frame, not the frame of the outside universe. This is the only way the Coriolis effect would be clearly demonstrated. This required me to translate my series of points into a new set of points that are <em>relative</em> to the thrower. This required writing out more equations and solving a bit of trigonometry.</p>
 </li>
 <li>
-<p>I wrote <a href="./Coriolis.html">an article</a> about the Coriolis effect. I wanted this article to be complete, informative, and entertaining.</p>
+<p>I wrote an article about the Coriolis effect and placed it overtop the model. I wanted this article to be complete, understandable, informative, and entertaining.</p>
 </li>
 <li>
 <p>Next, I wanted to improve the model's UI to make it clean and professional. I rewrote the model to utilize the React framework. I added intuitive logarithmic sliders (that include the number zero!) so that it would be easy to change the throw's parameters.</p>
@@ -131,16 +131,13 @@
 <li>
 <p>I continued debugging the code and adding more use cases.</p>
 </li>
-<li>
-<p>I added the article overtop the model in a way that users can easily jump between the two.</p>
-</li>
 </ol>
 <h3>Some things I encountered while coding</h3>
 <h5>Logarithmic Sliders</h5>
 <p>I wanted to produce logarithmic sliders for the model's input. This way, it would be intuitive what ranges are acceptable. I found the logic I needed at <a href="https://codepen.io/willat600series/pen/ojzYJx">this site</a>.</p>
-<p>My logarithmic ranges needed to <em>include</em> zero; the log of zero does not normally compute. I added a small offset from the numbers that are visible so that the value calculated is never actually zero.</p>
+<p>My logarithmic ranges needed to <em>include</em> zero. The log of zero does not normally compute! My code uses an offset to ensure the number it calculates the log of is never actually zero.</p>
 <h5>Insufficient Decimal Places</h5>
-<p>I discovered that the standard decimal variable in Python and JavaScript is not accurate enough to calculate the results that I desired. Fifteen decimal places produces glitchy results with large "space stations." Thus, I translated all of my math to work with the Decimal.js JavaScript library and the Python Decimal package. Then, I increased the number of decimal places so I could model larger space stations.</p>
+<p>I discovered that the standard number variable in Python and JavaScript is not accurate enough to calculate the results that I desired. Fifteen decimal places produces glitchy results with large "space stations." Thus, I translated all of my math to work with the Decimal.js JavaScript library and the Python Decimal package. Then, I increased the number of decimal places so I could model larger space stations.</p>
 <p>Here is my glitchy graph with the standard number of decimal places. The graph never reaches the correct values for stations that are larger than a million meters:</p>
 <p><img style="margin: 5px 0px 5px 0px;" src="images/CoriolisGraphGlitchy.png" width="525" height="525"/></p>
 <p>With additional decimal places:</p>
@@ -155,6 +152,13 @@
 <p>My original page was an article with a model. I wanted the article to be interactive with the model I was creating! I rewrote the article as a React component, in Markdown.</p>
 <p>I found a fantastic React package for working with Markdown, <em>markdown-it-jsx</em>, which completely bybasses React's "dangerouslysetinnerhtml" construct. <em>markdown-it-jsx</em> converts the Markdown to .jsx, which I then convert into live components using the babel-standalone package, after loading. Without this package, my "Try it!" buttons would not be possible. I can embed React components directly in Markdown!</p>
 <p>Doing this required me to load markdown files as raw text, which requires the "raw-loader" for webpack. I created the React site with create-react-app, which automatically configures webpack for you. You are given the option to "eject" and customize the configuration, but this requires more manual upkeep. I discovered <em>react-app-rewired</em>, which allows you to edit the configuration in create-react-app without ejecting.</p>
+<h5>A Person on the Space Station</h5>
+<p>The model was confusing without a <em>person</em> standing there to hold the coin. I needed a clipart of a person with their arm bent, ready to toss a coin. There <em>are</em> no images with a person in that posture!</p>
+<p>If you Google "silhouette person arm extended," you're bound to find something like this:</p>
+<p><img src="https://thumb10.shutterstock.com/display_pic_with_logo/2307293/495628813/stock-vector-one-boy-happy-arms-outstretched-silhouette-on-white-background-arms-open-hand-495628813.jpg" alt="Person with arm extended" width="150"/></p>
+<p>Even images of handshakes tend to have the arms fully extended.</p>
+<p>After several hours of searching, I finally found this hilarious image, which did the job after cropping out the Devil.</p>
+<p><img src="https://thumb7.shutterstock.com/display_pic_with_logo/6833/137180837/stock-photo-illustrated-silhouette-of-a-man-hesitating-to-shake-hands-to-do-a-deal-with-the-devil-137180837.jpg" alt="Person with arm extended" width="400"/></p>
 
     <div id="disqus_thread"></div>
     <script type="text/javascript">
