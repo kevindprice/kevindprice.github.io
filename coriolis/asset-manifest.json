@@ -1,8 +1,8 @@
 {
-  "main.css": "static/css/main.2ece1a97.css",
-  "main.css.map": "static/css/main.2ece1a97.css.map",
-  "main.js": "static/js/main.b7237c08.js",
-  "main.js.map": "static/js/main.b7237c08.js.map",
+  "main.css": "static/css/main.443c4f5a.css",
+  "main.css.map": "static/css/main.443c4f5a.css.map",
+  "main.js": "static/js/main.f3952879.js",
+  "main.js.map": "static/js/main.f3952879.js.map",
   "static\\media\\1989Concept.png": "static/media/1989Concept.15c65273.png",
   "static\\media\\25Degrees.png": "static/media/25Degrees.1f301ffb.png",
   "static\\media\\36Degrees.png": "static/media/36Degrees.f79b16c6.png",
@@ -29,8 +29,9 @@
   "static\\media\\cropped-avalon.jpg": "static/media/cropped-avalon.54f0e9af.jpg",
   "static\\media\\diamond_upholstery.png": "static/media/diamond_upholstery.8f16f947.png",
   "static\\media\\dream-space-colony.jpg": "static/media/dream-space-colony.e1f2f1fd.jpg",
+  "static\\media\\master_chief.jpg": "static/media/master_chief.62c7f5e3.jpg",
   "static\\media\\next_button.png": "static/media/next_button.b0d549f2.png",
-  "static\\media\\rotating.gif": "static/media/rotating.6fa54730.gif",
+  "static\\media\\rotating.gif": "static/media/rotating.fdb9c980.gif",
   "static\\media\\rotatingroom.jpg": "static/media/rotatingroom.fd73ffe0.jpg",
   "static\\media\\rotator.jpg": "static/media/rotator.a789f18f.jpg"
 }

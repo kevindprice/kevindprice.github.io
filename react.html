@@ -133,32 +133,34 @@
 </li>
 </ol>
 <h3>Some things I encountered while coding</h3>
-<h5>Logarithmic Sliders</h5>
-<p>I wanted to produce logarithmic sliders for the model's input. This way, it would be intuitive what ranges are acceptable. I found the logic I needed at <a href="https://codepen.io/willat600series/pen/ojzYJx">this site</a>.</p>
-<p>My logarithmic ranges needed to <em>include</em> zero. The log of zero does not normally compute! My code uses an offset to ensure the number it calculates the log of is never actually zero.</p>
+<h5>Article Overlay</h5>
+<p>This React webpage is both a model and an article. I wanted the article to be interactive with the model I was creating! I generated the article as a React component, in Markdown.</p>
+<p>I found a fantastic React package, <em>markdown-it-jsx</em>, which allowed me to embed React components directly into Markdown while rendering the text. Without this package, my "Try it!" buttons would be much more difficult to create. <em>markdown-it-jsx</em> converts the Markdown to .jsx, which I then convert into live components using the babel-standalone package after loading. Rendering this way also allows me to completely bybass React's "dangerouslysetinnerhtml" construct, which would be a security vulerability. Other React markdown renderers use this construct to embed the text.</p>
+<p>This configuration forced me to change the webpack configuration. This was somewhat tricky because create-react-app, which I was using, automatically configures webpack. "Ejecting" from their config requires more manual upkeep. I wanted to use the "raw-loader" in webpack so I could load markdown files as raw text. This would allow me to process them with <em>markdown-it-jsx</em>. <em>react-app-rewired</em> solved this problem by allowing me to edit the webpack configuration in create-react-app without ejecting.</p>
 <h5>Insufficient Decimal Places</h5>
 <p>I discovered that the standard number variable in Python and JavaScript is not accurate enough to calculate the results that I desired. Fifteen decimal places produces glitchy results with large "space stations." Thus, I translated all of my math to work with the Decimal.js JavaScript library and the Python Decimal package. Then, I increased the number of decimal places so I could model larger space stations.</p>
 <p>Here is my glitchy graph with the standard number of decimal places. The graph never reaches the correct values for stations that are larger than a million meters:</p>
 <p><img style="margin: 5px 0px 5px 0px;" src="images/CoriolisGraphGlitchy.png" width="525" height="525"/></p>
 <p>With additional decimal places:</p>
 <p><img style="margin: 5px 0px 5px 0px;" src="images/CoriolisGraph.png" width="525" height="525"/></p>
-<p>The Python code I used to generate these graphs can be found <a href="images/CoriolisTable.py">here</a>.</p>
+<p>The Python code I wrote to generate these graphs can be found <a href="images/CoriolisTable.py">here</a>.</p>
 <p>In JavaScript, the current version of the Decimal.js package does not work with webpack. Thus, in order to use the model with React, I needed to downgrade the package. This issue is discussed <a href="https://github.com/MikeMcl/decimal.js/issues/49">here</a>.</p>
-<h5>A Resizeable React canvas</h5>
-<p>I wanted the model to be compatible with any screen size presented to it. Thus, I wanted to create an HTML canvas element that both fills the screen width and resizes. The canvas must receive its with from the properties, not from CSS. </p>
-<p><a href="https://www.npmjs.com/package/react-container-dimensions">This React plugin</a> initially looked like it would do the job, but it proved useless. Canvas elements must be connected to React refs in order to obtain the drawing context from ReactDOM. This is not possible with functional components, which the react-container-dimensions plugin uses.</p>
-<p>I ultimately created an event listener in the Canvas component which triggers a state change when the window is resized. The Canvas then inherits its width and height attributes from the component's state.</p>
-<h5>Article Overlay</h5>
-<p>My original page was an article with a model. I wanted the article to be interactive with the model I was creating! I rewrote the article as a React component, in Markdown.</p>
-<p>I found a fantastic React package for working with Markdown, <em>markdown-it-jsx</em>, which completely bybasses React's "dangerouslysetinnerhtml" construct. <em>markdown-it-jsx</em> converts the Markdown to .jsx, which I then convert into live components using the babel-standalone package, after loading. Without this package, my "Try it!" buttons would not be possible. I can embed React components directly in Markdown!</p>
-<p>Doing this required me to load markdown files as raw text, which requires the "raw-loader" for webpack. I created the React site with create-react-app, which automatically configures webpack for you. You are given the option to "eject" and customize the configuration, but this requires more manual upkeep. I discovered <em>react-app-rewired</em>, which allows you to edit the configuration in create-react-app without ejecting.</p>
 <h5>A Person on the Space Station</h5>
 <p>The model was confusing without a <em>person</em> standing there to hold the coin. I needed a clipart of a person with their arm bent, ready to toss a coin. There <em>are</em> no images with a person in that posture!</p>
 <p>If you Google "silhouette person arm extended," you're bound to find something like this:</p>
 <p><img src="https://thumb10.shutterstock.com/display_pic_with_logo/2307293/495628813/stock-vector-one-boy-happy-arms-outstretched-silhouette-on-white-background-arms-open-hand-495628813.jpg" alt="Person with arm extended" width="150"/></p>
 <p>Even images of handshakes tend to have the arms fully extended.</p>
-<p>After several hours of searching, I finally found this hilarious image, which did the job after cropping out the Devil.</p>
+<p>After several hours of searching, I finally found this hilarious image of a man <em>hesitating</em> to shake the Devil's hand. This did the job after I cropped out the Devil.</p>
 <p><img src="https://thumb7.shutterstock.com/display_pic_with_logo/6833/137180837/stock-photo-illustrated-silhouette-of-a-man-hesitating-to-shake-hands-to-do-a-deal-with-the-devil-137180837.jpg" alt="Person with arm extended" width="400"/></p>
+<h5>Logarithmic Sliders</h5>
+<p>I wanted to produce logarithmic sliders for the model's input. This way, it would be intuitive what ranges are acceptable. I found the logic I needed at <a href="https://codepen.io/willat600series/pen/ojzYJx">this site</a>.</p>
+<p>My logarithmic ranges needed to <em>include</em> zero. The log of zero does not normally compute! My code uses an offset to ensure the number it calculates the log of is never actually zero.</p>
+<h5>A Resizeable React canvas</h5>
+<p>I wanted the model to be compatible with any screen size presented to it. Thus, I needed to create an HTML canvas element that both fills the screen width and resizes. The canvas must receive its with from the properties, not from CSS.</p>
+<p><a href="https://www.npmjs.com/package/react-container-dimensions">This React plugin</a> initially looked like it would do the job, but it proved useless. Canvas elements must be connected to React refs in order to obtain the drawing context from ReactDOM. This is not possible with functional components, which the react-container-dimensions plugin uses.</p>
+<p>I ultimately created an event listener in the Canvas component which triggers a state change when the window is resized. The Canvas then inherits its width and height attributes from the component's state.</p>
+<h3>Conclusion</h3>
+<p>This was a very fun, but involved project. I was happy to find some simple solutions to my complex coding problems. I hope I taught you something about artificial gravity!</p>
 
     <div id="disqus_thread"></div>
     <script type="text/javascript">
