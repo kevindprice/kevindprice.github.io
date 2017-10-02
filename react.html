@@ -100,8 +100,8 @@
             <article class="entry">
     <!-- Summary:  -->
 
-<p>If you were to toss a coin on an artificial gravity space station, where would it end up? If you try my new <a href="./coriolis/index.html">React computer model,</a> the answer might surprise you!</p>
-<p>I decided to create a React web app to demonstrate the Coriolis effect. This model is clean and powerful, and it teaches a complicated Physics principle in a simple way. I am very pleased with the result, the product of many months of work. The following article describes some of the steps I took to generate it.</p>
+<p>If you were to toss a coin on an artificial gravity space station, where would it end up? If you try my new <a href="./coriolis/index.html">React computer model,</a> the answer might surprise you! I created this web app to demonstrate the Coriolis effect. This model is clean and powerful, and it teaches a complicated Physics principle in a simple way.</p>
+<p>I am very pleased with the result, the product of many months of work. This page is both a model and an article. The article opens when <a href="./coriolis/index.html">the link</a> is opened; the model is visible when you press the "X" button at the top. The following article describes some of the steps I took to generate it.</p>
 
 
 <h3>Coding goals</h3>
@@ -111,10 +111,10 @@
 <p>This model came about in several stages. This came from a simple idea, though the final result is much more sophisticated and powerful than what I had initially planned.</p>
 <ol>
 <li>
-<p>The first stage of this model was to calculate the landing position of the coin. The model should <em>compute</em> these coordinates for the viewer. Essentially, I needed to find the correct intersection between a line and a circle. The direction of this line is based on physics kinematics equations. <a href="./coriolis-math.html">This</a> is the math I used.</p>
+<p>The first stage of this model was to calculate the landing position of the outer space coin toss, so I could quantify how "weird" the toss is. The model needed to <em>compute</em> these coordinates for the viewer. Finding these coordinates involves finding the correct intersection between a line and a circle; the direction of this line is based on physics kinematics equations. <a href="./coriolis-math.html">This</a> is the math I used.</p>
 </li>
 <li>
-<p>With the landing coordinates, I could calculate the distance the coin would land away from the person; this is the measurable result of the Coriolis effect. I used this math <a href="images/CoriolisTable.py">in Python</a> to generate a graph that shows the relationship between the diameter of the station and the "weirdness" of the throw produced by the Coriolis effect. These graphs assume the coin was tossed from four feet, up to a total height of 7 feet.</p>
+<p>With the landing coordinates, I could calculate the distance the coin would land away from the person; this is the measurable result of the Coriolis effect. I wrote the math <a href="images/CoriolisTable.py">into Python code</a> to generate a graph that shows the relationship between the diameter of the station and the "weirdness" of the throw produced by the Coriolis effect. These graphs assume the coin was tossed from four feet up to a total height of 7 feet.</p>
 </li>
 <li>
 <p>I wanted to demonstrate what any throw would <em>look</em> like. Using the line of the coin's movement, I generated a time series of points, allowing me to plot these points on an HTML canvas element.</p>
@@ -123,10 +123,10 @@
 <p>These points needed to be in the <em>thrower's</em> reference frame, not the frame of the outside universe. This is the only way the Coriolis effect would be clearly demonstrated. This required me to translate my series of points into a new set of points that are <em>relative</em> to the thrower. This required writing out more equations and solving a bit of trigonometry.</p>
 </li>
 <li>
-<p>I wrote an article about the Coriolis effect and placed it overtop the model. I wanted this article to be complete, understandable, informative, and entertaining.</p>
+<p>I wrote an article about the Coriolis effect and placed it overtop the model. I wanted this article to be complete, understandable, informative, and entertaining. I filled the article with photoshopped images and homemade giphys, and I made the article interactive with the model.</p>
 </li>
 <li>
-<p>Next, I wanted to improve the model's UI to make it clean and professional. I rewrote the model to utilize the React framework. I added intuitive logarithmic sliders (that include the number zero!) so that it would be easy to change the throw's parameters.</p>
+<p>Next, I wanted to improve the model's UI to make it clean and professional. I rewrote the model to utilize the React framework. I added intuitive logarithmic sliders so that it would be easy to change the throw's parameters.</p>
 </li>
 <li>
 <p>I continued debugging the code and adding more use cases.</p>
@@ -135,7 +135,7 @@
 <h3>Some things I encountered while coding</h3>
 <h5>Article Overlay</h5>
 <p>This React webpage is both a model and an article. I wanted the article to be interactive with the model I was creating! I generated the article as a React component, in Markdown.</p>
-<p>I found a fantastic React package, <em>markdown-it-jsx</em>, which allowed me to embed React components directly into Markdown while rendering the text. Without this package, my "Try it!" buttons would be much more difficult to create. <em>markdown-it-jsx</em> converts the Markdown to .jsx, which I then convert into live components using the babel-standalone package after loading. Rendering this way also allows me to completely bybass React's "dangerouslysetinnerhtml" construct, which would be a security vulerability. Other React markdown renderers use this construct to embed the text.</p>
+<p>I found a fantastic React package, <em>markdown-it-jsx</em>, which allowed me to embed React components directly into Markdown while rendering the text. Without this package, my interactive "Try it!" buttons would be much more difficult to create. <em>markdown-it-jsx</em> converts the Markdown to .jsx, which I then convert into live components using the babel-standalone package after loading. Rendering this way also allows me to completely bybass React's "dangerouslysetinnerhtml" construct, which would be a security vulerability. Other React markdown renderers use this construct to embed the text.</p>
 <p>This configuration forced me to change the webpack configuration. This was somewhat tricky because create-react-app, which I was using, automatically configures webpack. "Ejecting" from their config requires more manual upkeep. I wanted to use the "raw-loader" in webpack so I could load markdown files as raw text. This would allow me to process them with <em>markdown-it-jsx</em>. <em>react-app-rewired</em> solved this problem by allowing me to edit the webpack configuration in create-react-app without ejecting.</p>
 <h5>Insufficient Decimal Places</h5>
 <p>I discovered that the standard number variable in Python and JavaScript is not accurate enough to calculate the results that I desired. Fifteen decimal places produces glitchy results with large "space stations." Thus, I translated all of my math to work with the Decimal.js JavaScript library and the Python Decimal package. Then, I increased the number of decimal places so I could model larger space stations.</p>
