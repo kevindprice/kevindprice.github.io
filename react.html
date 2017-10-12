@@ -145,6 +145,25 @@
 <p><img style="margin: 5px 0px 5px 0px;" src="images/CoriolisGraph.png" width="525" height="525"/></p>
 <p>The Python code I wrote to generate these graphs can be found <a href="images/CoriolisTable.py">here</a>.</p>
 <p>In JavaScript, the current version of the Decimal.js package does not work with webpack. Thus, in order to use the model with React, I needed to downgrade the package. This issue is discussed <a href="https://github.com/MikeMcl/decimal.js/issues/49">here</a>.</p>
+<h5>A Hidden Feature: Querystrings</h5>
+<p>Just in case I want to prove to someone else something about the Coriolis effect, I added the ability to <em>open</em> the model page with specific settings in a linkable way. Likely, this feature will never be used. However, here are some of the possible querystrings one could use:</p>
+<p>Self-explanatory features:</p>
+<ul>
+<li>diameter</li>
+<li>radius</li>
+<li>percenttime</li>
+<li>startheight</li>
+<li>gravity</li>
+<li>speed   (of the coin)</li>
+<li>angle</li>
+<li>units (either ft, feet, imperial, metric, meters, or m)</li>
+</ul>
+<p>Other features:</p>
+<ul>
+<li>thrownUp: another hidden feature. Instead of specifying the angle and speed, you can simply tell it how high you would have thrown the coin on Earth (assuming angle 0 if you do not specify, though you are not required to assume that).</li>
+<li>statsMenu: just in case I want to more determinedly prove something, I could have it open the model <em>with</em> the statistics menu open. Possible values: either just "&amp;statsMenu" or "&amp;statsMenu=true".</li>
+<li>inputMenu: since I added a similar feature for the stats menu, it makes sense to add one for the input menu too.</li>
+</ul>
 <h5>A Person on the Space Station</h5>
 <p>The model was confusing without a <em>person</em> standing there to hold the coin. I needed a clipart of a person with their arm bent, ready to toss a coin. There <em>are</em> no images with a person in that posture!</p>
 <p>If you Google "silhouette person arm extended," you're bound to find something like this:</p>
