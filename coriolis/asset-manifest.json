@@ -1,8 +1,8 @@
 {
-  "main.css": "static/css/main.df926e06.css",
-  "main.css.map": "static/css/main.df926e06.css.map",
-  "main.js": "static/js/main.ede9005d.js",
-  "main.js.map": "static/js/main.ede9005d.js.map",
+  "main.css": "static/css/main.c33aec37.css",
+  "main.css.map": "static/css/main.c33aec37.css.map",
+  "main.js": "static/js/main.74eb4433.js",
+  "main.js.map": "static/js/main.74eb4433.js.map",
   "static\\media\\1989Concept.png": "static/media/1989Concept.15c65273.png",
   "static\\media\\25Degrees.png": "static/media/25Degrees.1f301ffb.png",
   "static\\media\\36Degrees.png": "static/media/36Degrees.f79b16c6.png",
@@ -18,7 +18,6 @@
   "static\\media\\EnderGame.jpg": "static/media/EnderGame.0ed35e42.jpg",
   "static\\media\\Gemini_11_Agena.jpg": "static/media/Gemini_11_Agena.ae990eaf.jpg",
   "static\\media\\Giphy.gif": "static/media/Giphy.868c8783.gif",
-  "static\\media\\Halo.jpg": "static/media/Halo.a59f2a1b.jpg",
   "static\\media\\Kosmos_782.jpg": "static/media/Kosmos_782.989d9396.jpg",
   "static\\media\\Nautilus-X.png": "static/media/Nautilus-X.6642eff4.png",
   "static\\media\\RotatingStation.png": "static/media/RotatingStation.a98244b6.png",
@@ -29,9 +28,9 @@
   "static\\media\\cropped-avalon.jpg": "static/media/cropped-avalon.54f0e9af.jpg",
   "static\\media\\diamond_upholstery.png": "static/media/diamond_upholstery.8f16f947.png",
   "static\\media\\dream-space-colony.jpg": "static/media/dream-space-colony.e1f2f1fd.jpg",
-  "static\\media\\master_chief.jpg": "static/media/master_chief.62c7f5e3.jpg",
   "static\\media\\next_button.png": "static/media/next_button.b0d549f2.png",
   "static\\media\\rotating.gif": "static/media/rotating.fdb9c980.gif",
   "static\\media\\rotatingroom.jpg": "static/media/rotatingroom.fd73ffe0.jpg",
-  "static\\media\\rotator.jpg": "static/media/rotator.a789f18f.jpg"
+  "static\\media\\rotator.jpg": "static/media/rotator.a789f18f.jpg",
+  "static\\media\\spacecraft_discovery.jpg": "static/media/spacecraft_discovery.a1f9d8fb.jpg"
 }
