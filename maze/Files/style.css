@@ -12,14 +12,19 @@
 
 #rotate {
     transform:rotate(-90deg);
-    width: 560px;
-    margin: 223px 0px 0px -270px;
+    width: 540px;
+    margin: 223px 0px 0px -265px;
     position:fixed;
+	background-color:#ffd5ab;
+	border-radius:3px;
+	padding:3px;
 }
 
 #action {
     border:solid brown;
-    padding:5px; 
+	border-radius:3px;
+    background-color:#ffd5ab;
+	padding:3px;
     margin-left:25px;
     display:inline-block;
     position:fixed;
