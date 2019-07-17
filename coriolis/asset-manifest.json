@@ -1,11 +1,12 @@
 {
-  "main.css": "static/css/main.5abe11d5.css",
-  "main.css.map": "static/css/main.5abe11d5.css.map",
-  "main.js": "static/js/main.525a0c94.js",
-  "main.js.map": "static/js/main.525a0c94.js.map",
+  "main.css": "static/css/main.eeab663d.css",
+  "main.css.map": "static/css/main.eeab663d.css.map",
+  "main.js": "static/js/main.c84f0209.js",
+  "main.js.map": "static/js/main.c84f0209.js.map",
   "static\\media\\1989Concept.png": "static/media/1989Concept.15c65273.png",
   "static\\media\\25Degrees.png": "static/media/25Degrees.1f301ffb.png",
   "static\\media\\36Degrees.png": "static/media/36Degrees.f79b16c6.png",
+  "static\\media\\5023.png": "static/media/5023.31e0c739.png",
   "static\\media\\80Degrees.png": "static/media/80Degrees.4b234af3.png",
   "static\\media\\89Degrees.png": "static/media/89Degrees.12674bff.png",
   "static\\media\\AlmostStopped.png": "static/media/AlmostStopped.8718c66e.png",
@@ -27,11 +28,13 @@
   "static\\media\\StarTrek.jpg": "static/media/StarTrek.10031398.jpg",
   "static\\media\\TheMartian.jpg": "static/media/TheMartian.649f63c0.jpg",
   "static\\media\\cropped-avalon.jpg": "static/media/cropped-avalon.54f0e9af.jpg",
-  "static\\media\\diamond_upholstery.png": "static/media/diamond_upholstery.8f16f947.png",
   "static\\media\\dream-space-colony.jpg": "static/media/dream-space-colony.e1f2f1fd.jpg",
   "static\\media\\next_button.png": "static/media/next_button.b0d549f2.png",
   "static\\media\\rotating.gif": "static/media/rotating.fdb9c980.gif",
   "static\\media\\rotatingroom.jpg": "static/media/rotatingroom.fd73ffe0.jpg",
   "static\\media\\rotator.jpg": "static/media/rotator.a789f18f.jpg",
-  "static\\media\\spacecraft_discovery.jpg": "static/media/spacecraft_discovery.a1f9d8fb.jpg"
+  "static\\media\\silhouette.png": "static/media/silhouette.244b8ee0.png",
+  "static\\media\\silhouette2.png": "static/media/silhouette2.6a12f96e.png",
+  "static\\media\\spacecraft_discovery.jpg": "static/media/spacecraft_discovery.a1f9d8fb.jpg",
+  "static\\media\\stars.jpg": "static/media/stars.0e138312.jpg"
 }
