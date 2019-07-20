@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Photography</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="style.css">
+	<link rel="stylesheet" href="./lightbox/css/lightbox.min.css">	
+</head>
+<body>
+<!--
+<h2>CSS Layout Float</h2>
+<p>In this example, we have created a header, two columns/boxes and a footer. On smaller screens, the columns will stack on top of each other.</p>
+<p>Resize the browser window to see the responsive effect (you will learn more about this in our next chapter - HTML Responsive.)</p>
+-->
+<header>
+  <h2>Photography</h2>
+</header>
+
+<div id="wrapper">
+  <nav>
+    <ul>
+      <li><a href="./space.html">ISS Tribute</a></li>
+      <li><a href="#">Nature Photos</a></li>
+    </ul>
+  </nav>
+  
+  <article>
+<section>
+    <h1>Nature Photos</h1>
+    <div>
+	<p>Here is a collection of artistic nature photos that I have submitted to Shutterstock and Getty Images.</p>
+	<!--Thumbnail background color for Irfanview: Red 247, Green 253, Blue 235 -->
+	
+      <a class="nature-image-link" href="https://live.staticflickr.com/65535/48325442011_bb3fc473e1_o.jpg" data-lightbox="nature" data-title="A ram, standing on a rocky outcrop on Y Mountain, Utah."><img class="nature-image" src="./nature_thumbs/image-1_t.jpg" alt=""/></a>
+	  
+      <a class="nature-image-link" href="https://live.staticflickr.com/65535/48325441746_e9d2851678_o.jpg" data-lightbox="nature" data-title="A view from Bryce Canyon, Utah."><img class="nature-image" src="./nature_thumbs/image-2_t.jpg" alt=""/></a>
+
+	  <a class="nature-image-link" href="https://live.staticflickr.com/65535/48325571287_13c0545d69_o.jpg" data-lightbox="nature" data-title="A friendly park on the Provo River Trail."><img class="nature-image" src="./nature_thumbs/image-3_t.jpg" alt=""/></a>
+
+	<!--
+	  <a data-flickr-embed="true"  href="https://www.flickr.com/photos/182779274@N06/48325570857/in/dateposted-public/" title="image-4"><img src="https://live.staticflickr.com/65535/48325570857_4fb7897e8e_o.jpg" width="3264" height="2448" alt="image-4"></a><script async src="//embedr.flickr.com/assets/client-code.js" charset="utf-8"></script>
+	  -->
+	  
+      <a class="nature-image-link" href="https://live.staticflickr.com/65535/48325570857_4fb7897e8e_o.jpg" data-lightbox="nature" data-title="Utah Lake."><img class="nature-image" src="./nature_thumbs/image-4_t.jpg" alt=""/></a>
+	  
+      <a class="nature-image-link" href="https://live.staticflickr.com/65535/48325570327_e56c7fbb81_o.jpg" data-lightbox="nature" data-title="A sunset over the Potomac River at Algonkian Regional Park."><img class="nature-image" src="./nature_thumbs/image-5_t.jpg" alt=""/></a>
+	  
+      <a class="nature-image-link" href="https://live.staticflickr.com/65535/48325570007_09aa63c313_o.jpg" data-lightbox="nature" data-title="A steep segment of the trail to the top of Y-Mountain, Utah."><img class="nature-image" src="./nature_thumbs/image-6_t.jpg" alt=""/></a>
+	  
+	  <a class="nature-image-link" href="https://live.staticflickr.com/65535/48325569687_4587e6901e_o.jpg" data-lightbox="nature" data-title="The Potomac River as seen from the Billy Goat Trail at Great Falls Park, Maryland."><img class="nature-image" src="./nature_thumbs/image-7_t.jpg" alt=""/></a>
+
+	  <a class="nature-image-link" href="https://live.staticflickr.com/65535/48325569117_7be623e3cb_o.jpg" data-lightbox="nature" data-title="A trail beside Utah Lake."><img class="nature-image" src="./nature_thumbs/image-8_t.jpg" alt=""/></a>
+	  
+	  <a class="nature-image-link" href="https://live.staticflickr.com/65535/48325568892_454fe8b344_o.jpg" data-lightbox="nature" data-title="The Atlantic Ocean at Virginia Beach."><img class="nature-image" src="./nature_thumbs/image-9_t.jpg" alt=""/></a>
+	  
+	  <a class="nature-image-link" href="https://live.staticflickr.com/65535/48325567297_2dae5eef6f_o.jpg" data-lightbox="nature" data-title="A glorious smokey sunrise at Shenandoah National Park, Virginia."><img class="nature-image" src="./nature_thumbs/image-10_t.jpg" alt=""/></a>
+	  
+	  <a class="nature-image-link" href="https://live.staticflickr.com/65535/48325568607_53de6afbbf_o.jpg" data-lightbox="nature" data-title="A box turtle."><img class="nature-image" src="./nature_thumbs/image-11_t.jpg" alt=""/></a>
+
+	  <a class="nature-image-link" href="https://live.staticflickr.com/65535/48325566952_c76566fc94_o.jpg" data-lightbox="nature" data-title="A community lake in Sterling, Virginia."><img class="nature-image" src="./nature_thumbs/image-12_t.jpg" alt=""/></a>
+	  
+	  <a class="nature-image-link" href="https://live.staticflickr.com/65535/48325568327_da28ea8c70_o.jpg" data-lightbox="nature" data-title="Lake Powell."><img class="nature-image" src="./nature_thumbs/image-13_t.jpg" alt=""/></a>
+
+	  <a class="nature-image-link" href="https://live.staticflickr.com/65535/48325438606_1cde65372f_o.jpg" data-lightbox="nature" data-title="The Potomac Heritage Trail."><img class="nature-image" src="./nature_thumbs/image-14_t.jpg" alt=""/></a>
+
+	  <a class="nature-image-link" href="https://live.staticflickr.com/65535/48325567577_1195ec30c4_o.jpg" data-lightbox="nature" data-title="A Provo sunset, as seen from Y-Mountain, Utah."><img class="nature-image" src="./nature_thumbs/image-15_t.jpg" alt=""/></a>
+
+	  <a class="nature-image-link" href="https://live.staticflickr.com/65535/48325566617_91b63bb47b_o.jpg" data-lightbox="nature" data-title="The trail on Y-Mountain, Utah."><img class="nature-image" src="./nature_thumbs/image-16_t.jpg" alt=""/></a>
+	  
+	</div>
+  </section>
+	
+  </article>
+</div>
+
+<footer>
+  <p style="color:#BCCE98;line-height:5px;">-</p>
+  <p><a href="https://kevindprice.github.io">Return to my homepage</a></p>
+</footer>
+
+<script src="./lightbox/js/lightbox-plus-jquery.min.js"></script>
+
+
+</body>
+</html>
