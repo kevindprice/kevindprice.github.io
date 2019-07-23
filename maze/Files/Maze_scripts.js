@@ -2925,7 +2925,7 @@ function backTrack()
 
     drawGrid();
     drawCurrentPosition();
-	if(tutorial=true)
+	if(tutorial==true)
 	{
 		tutorialHandler();
 	}
