@@ -119,9 +119,9 @@ hr {
 #sidebar {
     background-image: url(../img/gray_sand.png);
     border-top: 0.5rem solid #DC143C;
-    padding: 1.5rem 2rem 1rem;
+    padding: 1.5rem 1rem 1rem;
     margin-top: -0.5rem;
-    margin-left: 1.5rem;
+    margin-left: 0.5rem;
 
     -webkit-border-radius: 0px 0px 4px 4px;
     border-radius: 0px 0px 4px 4px;
@@ -172,7 +172,8 @@ hr {
 }
 
 #navigation nav li {
-    font-size: 0.875rem;
+    /*font-size: 0.875rem;*/
+	font-size: 1rem;
     text-transform: uppercase;
     background: none;
     margin: 0;
@@ -341,13 +342,17 @@ blockquote,
 code,
 dl,
 h1,
-h2,
+/*h2,*/
 h3,
 ol,
 p,
 pre,
 ul {
     font:normal normal 400 1rem/1.125rem Georgia, serif;
+}
+
+h2 {
+    font:normal normal 400 1.25rem Georgia, serif;
 }
 
 ol {

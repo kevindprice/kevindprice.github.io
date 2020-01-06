@@ -1332,13 +1332,11 @@ function endTutorial()
 
 function pageOne()
 {
-	document.getElementById("text-section").innerHTML += `<p>Welcome to the maze tutorial! I built this maze to answer the question: what would you end up with if you changed the rules for going through a maze? What if, instead of following a corridor, you continued straight until hitting something?</p>
-		
-	<p>In this maze, you must continue straight, following the grid lines, until you hit a wall. When you hit a wall, you may turn depending on which walls are around you.</p>
+	document.getElementById("text-section").innerHTML += `<p>Welcome to the maze tutorial! I built this maze with an unusual set of rules. In this maze, you do not follow a corridor. You must continue straight, following the grid lines, until you hit a wall. When you hit a wall, you may turn depending on which walls are around you.</p>
 	
-	<p>The tutorial will explain how the maze works. Avoid clicking on anything until you see specific action items at the bottom of a tutorial page.</p>
+	<p>The tutorial will explain how the maze works. Follow the action items at the bottom of the page; avoid clicking on anything else.</p>
 	
-	<p>The beginning of the maze is shown by a dark green tile, and the end is shown by a light green tile. There is only one beginning, but there <i>may</i> be multiple ends.</p>
+	<p>The beginning of the maze is shown by a dark green tile, and the end is shown by a light green tile. There is only one beginning, but there <i>may</i> be multiple ends (though usually there is only one end).</p>
 	
 	
 	<div style='border:2px solid blue; padding: 5px;'>
@@ -1352,17 +1350,17 @@ function pageTwo()
 {
 	document.getElementById("text-section").innerHTML += `<p>You have hit your first obstacle. This is an ordinary wall. When you come from below, you are forced to turn either right or left.<p>
 	
-	<p>Note that you can use ARROW KEYS! Instead of clicking an option in the action bar above, you can use your ARROW KEYS to make the same choice.</p>
+	<p>Note that you may use ARROW KEYS instead of clicking an option at the top!</p>
 
 	<div style='border:2px solid blue; padding: 5px;'>
 	<h4 style='color: blue;'>Action Items</h4>
-	<p>To continue, either select <b>'Go Right'</b> above or press your <b>RIGHT arrow</b> key. Note that if you select left instead, you will skip a page of this tutorial; you will miss learning about dead-ends!</p>
+	<p>To continue, either select <b>'Go Right'</b> above or press your <b>RIGHT arrow</b> key. Note that if you select left instead, you will skip a page of this tutorial. You would miss learning about dead-ends!</p>
 	</div>`
 }
 
 function pageThree()
 {
-	document.getElementById("text-section").innerHTML += `<p>You have hit a dead-end!  In an open-wall maze, you reverse directions when you hit one. This can be advantageous.</p>
+	document.getElementById("text-section").innerHTML += `<p>You have hit a dead-end!  In an open maze, you reverse directions when you hit one. This can be advantageous.</p>
 	
 	<div style='border:2px solid blue; padding: 5px;'>
 	<h4 style='color: blue;'>Action Items</h4>	
@@ -1411,13 +1409,13 @@ function pageSix()
 
 function pageSeven()
 {
-	document.getElementById("text-section").innerHTML += `<p>You have completed this tutorial. Note, you may also create and download your own mazes in the <b>Maze Creator</b> mode on the left. These can be uploaded in the <b>Other Mazes</b> menu.</p>
+	document.getElementById("text-section").innerHTML += `<p>You have completed the tutorial. Note, you may also create and download your own mazes in the <b>Maze Creator</b> mode on the left. Custom mazes can be uploaded and solved using the <b>Load from File</b> button in the <b>Other Mazes</b> menu.</p>
 	
 	<p>You may also show the solution at any time from wherever you are (except at the beginning or end) by pressing the <b>Solution</b> button above. I cannot guarantee that it will show the most efficient solution, but the computer <i>will</i> solve the maze for you.</p>
 	
 	<div style='border:2px solid blue; padding: 5px;'>
 	<h4 style='color: blue;'>Action Items</h4>
-	<p>I suggest you end the tutorial by pressing <b>'Skip/End Tutorial'</b> above. If you opened a link to a specific maze, that maze will be opened. Otherwise, you will see the menu to select another maze if you choose, and Maze 1 will also be opened automatically.</p>
+	<p>I suggest you end the tutorial by pressing <b>'Skip/End Tutorial'</b> above. You will see the menu to choose a maze, though Maze 1 will be opened automatically.</p>
 	</div>`
 }
 
@@ -2927,7 +2925,7 @@ function backTrack()
 
     drawGrid();
     drawCurrentPosition();
-	if(tutorial=true)
+	if(tutorial==true)
 	{
 		tutorialHandler();
 	}

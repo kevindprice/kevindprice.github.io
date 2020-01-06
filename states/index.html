@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>State Comparison</title>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.0.2/leaflet.css">
+		<link rel="stylesheet" href="styles.css" />
+		
+		<link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" />
+		<link rel="stylesheet" href="https://cdn.datatables.net/select/1.2.3/css/select.dataTables.min.css" />
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+		<link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap.min.css" />
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script type="text/javascript" src="jquery.csv.js"></script>
+
+	<!--<script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+	<script src="https://cdn.datatables.net/buttons/1.4.2/js/dataTables.buttons.min.js"></script>
+	<script src="https://cdn.datatables.net/buttons/1.4.2/js/buttons.flash.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/pdfmake.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/vfs_fonts.js"></script>
+	<script src="https://cdn.datatables.net/buttons/1.4.2/js/buttons.html5.min.js"></script>
+	<script src="https://cdn.datatables.net/buttons/1.4.2/js/buttons.print.min.js"></script>
+	<script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap.min.js"></script>-->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+     <script src="https://www.amcharts.com/lib/3/amcharts.js"></script>
+	<script src="https://www.amcharts.com/lib/3/serial.js"></script>
+	<script src="https://www.amcharts.com/lib/3/themes/light.js"></script>
+
+		
+	</head>
+<body>
+	<div style=" height: 100vh;">
+		<div style="position:fixed; z-index:5; width: 100%; background: #FFF; left: 0px; top: 0px; padding: 5px;">
+			<img src="flag.png" width=75 height=50 style="float:left;"/>  
+			<div class="dropdown">
+			  <button class="dropbtn">Data Option</button>
+			  <div class="dropdown-content">
+				<a href="#" onclick="setdata(1)">Average Temperature</a>
+				<a href="#" onclick="setdata(2)">Annual Precipitation</a>
+				<a href="#" onclick="setdata(3)">Population Density</a>
+				<a href="#" onclick="setdata(4)">Median Wage</a>
+				<a href="#" onclick="setdata(5)">Cost of Living</a>
+				<a href="#" onclick="setdata(6)">Median Home Value</a>
+			  </div>
+			</div>
+			<h1 style="text-align:center; margin:15px;">State Comparison</h1>
+		</div>
+		<div style="z-index:5; position:relative; left:250px; top:20px;">&#8592;Click here to change the map</div>
+
+	</div>
+
+	<div id="map" style="z-index:1;"></div>
+	
+<div style="position:relative; float:right; z-index:5; bottom:50px; right:10px;"><a href="http://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> | &copy;
+	    <a href="http://www.openstreetmap.org/copyright">Openstreetmap</a> contributors</div>
+
+<div style="bottom:10px; position:absolute; z-index:2000;">
+		<button onclick="openClose()" type="button" class="btn btn-primary deshbtn">Show/Hide Chart</button>
+	</div>
+
+
+<div id="dataDIV" style="height: 400px; padding-top:10px; width: 100%; bottom:6%; position:absolute; z-index:100; border-radius: 4px; display:none; background: rgba(255,255,255,0.75);">
+			<a onclick="openClose()" type="button" style="right:10px; top:9px; cursor:pointer; position:absolute; z-index: 5;"><img src="close.png"/></a>
+			<div class="maindiv">
+			<div id="chartdiv" style="width:100%;"></div>
+			<div id="chartdata"></div>
+		</div>
+	</div>
+		
+		
+<center>
+<button id="downClick" style="bottom:15px; border: 1px #FFF solid; border-radius: 50px; height: 30px; width: 30px; background-color: #00a2d4;color: #FFF;
+font-weight: 900;position: absolute; cursor:pointer; z-index: 2001;">&#709 </button></center>
+	<!--<div style="padding-top:50px; width: 80%; background-color: #FFF; position: absolute;
+padding: 10px; border-radius: 4px;">-->
+
+<div id="text" style="padding:70px; background-color:#FFF; position: absolute; left: 0; z-index:1;">
+
+		<h2>State Comparison</h2>
+<p class="text1">This website can be used to compare the quality of life in each state. Where is your ideal place to live? The background graph can be changed with the 'data option' button at the top. When looking at the shaded states, a darker color means a higher value.</p>
+<p class="text1">Information for this demo has been obtained from the following sites:</p>
+<ul><li><a href="https://www.amcharts.com/demos/simple-column-chart/">simple bar chart</a></li>
+	<li><a href="https://leafletjs.com/examples/choropleth/">US geoJSON/geolocation data source</a></li>
+	<li><a href="https://www.igismap.com/portfolio/climate/">igismap example</a> (similar to this site, but with some major changes)</li>
+	<li><a href="https://www.currentresults.com/Weather/US/average-annual-state-precipitation.php">Precipitation and temperature</a></li>
+	<li><a href="https://state.1keydata.com/state-population-density.php">Population density</a></li>
+	<li><a href="https://www.governing.com/gov-data/wage-average-median-pay-data-for-states.html">Median Hourly Wages</a></li>
+	<li><a href="https://www.usatoday.com/story/money/economy/2018/05/10/cost-of-living-value-of-dollar-in-every-state/34567549/">Cost of living and home prices</a></li>
+	<li><a href="https://github.com/timwis/leaflet-choropleth">choropleth/shading example</a></li></ul>
+	
+<p class="text1">My other websites are accessible from <a href="https://kevindprice.github.io">here</a>.</p>
+<button id="upClick" style="border: 1px #FFF solid; border-radius: 50px; height: 30px; width: 30px; background-color: #00a2d4;color: #FFF;
+font-weight: 900; cursor:pointer; position:absolute;left:50%; z-index:2500; bottom:5px;">&#708</button>
+</div>
+	
+	
+		<script src="https://unpkg.com/leaflet@1.2.0/dist/leaflet.js"></script>
+		<script src="choropleth.js"></script>
+		<script src="demo.js"></script>
+	</body>
+</html>

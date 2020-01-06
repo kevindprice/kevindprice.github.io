@@ -6,7 +6,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <title>The Math Behind The Coriolis Effect / Kevin Price</title>
+        <title>The Math Behind The Artificial Gravity Model / Kevin Price</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width">
 
@@ -52,7 +52,7 @@
                                         </small>
                                     </h1>
                                     <p>
-                                        I am a data science intern and computer programmer. Here are some of my projects and ideas.
+                                        I am a computer programmer interested in web development. Here are some of my projects and ideas.
                                     </p>
                                 </div>
                             </header>
@@ -64,7 +64,7 @@
 <div class="article-page">
     <div class="span7 offset2">
         <header class="article">
-            <h2><a href="./coriolis-math.html" rel="bookmark">The Math Behind The Coriolis Effect</a></h2>
+            <h2><a href="./coriolis-math.html" rel="bookmark">The Math Behind The Artificial Gravity Model</a></h2>
 			<div style="display:inline-block; margin-top: 3px; font-family: Baskerville, Garamond, Palatino;">— Computer Modeling —&nbsp;&nbsp;</div>
             <time datetime="2017-08-23T00:00:00-04:00">
                 Aug 23, 2017
@@ -98,39 +98,37 @@
     <div class="span7">
         <section>
             <article class="entry">
-    <p>The math I employed in my Coriolis article is quite thorny and involved, so I decided to create a separate article to explain it. Despite the length of this math, the events that would take place still follow the rules of basic physics and kinematics.</p>
-<p>In my <a href="./coriolis/index.html">Coriolis effect computer model</a>, I created a virtual coin toss on a space station. This model solved for the exact location where a coin would land if someone were to throw it while standing in artificial gravity.</p>
-<p>To understand the events that take place in our coin toss, we must look at these events from a perspective that is not rotating. The Coriolis effect is not a force, but is simply described by the difference between rotation and real gravity.</p>
-<p>I assumed that the station is rotating clockwise. The math might have been slightly simpler if I had chosen counterclockwise instead, but this is how I imagined it. The station is a virtual coordinate system, where (0,0) is the exact center of the station. For our convenience, the moment of the throw takes place at the instant the person is standing at the bottom of the curve. The person throws the coin with the force that would have been needed to get it 3 feet up in the air on Earth.</p>
-<div style="text-align:center;"><img style="margin: -10px 10px 10px 10px;" src="images/CoordinateSystem.png" width=300 height=300/></div>
+    <p>The math I employed in my Coriolis article is thorny and involved, yet this model still follows the rules of basic physics and kinematics. So we have a physics problem to solve! To review, we want to find where a coin toss would land on a virtual space station. This is the most important part of the model's math.</p>
+<h5>Set-up the coordinate system</h5>
+<p>To fully understand what happens during our coin toss, we must use a perspective that is not rotating. The Coriolis effect is not a real force, but is simply described by the difference between rotation and real gravity.</p>
+<p>In physics, we must set our coordinate system before we solve our math problem. The station is a virtual coordinate system with (0,0) at its exact center. I assumed that the station is rotating clockwise. The math might have been slightly simpler if I had chosen counterclockwise instead, but this is how I imagined it. For our convenience, the moment of the throw takes place at the instant the person is standing at the bottom of the curve. The person throws the coin with the force that would have been needed to get it 3 feet up in the air on Earth.</p>
+<div class="center"><img src="./article/CoordinateSystem.png" width="300" height="300"/></div>
 
 <p>While we are still holding the coin, we (and the coin) have a leftwards velocity due to the clockwise rotation. The centripetal force is pushing us upwards, directly towards the middle of the station.</p>
-<div style="text-align:center; margin:20px;"><img style="margin: -10px 10px 10px 10px; float:left;" src="images/BeforeThrow.png" width=200 height=200/><img style="float:right; margin: -10px 10px 10px 10px;" src="images/AfterThrow.png" width=200 height=200/></div>
-
-<p><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/></p>
 <p>At the moment the coin is released, it will no longer have any forces acting on it. The coin is no longer touching the station. It will continue to have the same leftwards horizontal velocity, but it will now have a vertical velocity component defined by how hard you would have thrown it on earth.</p>
-<p>Now that I have set up the physics, I will explain the order of operations for our quest. In my advanced physics classes, the professors emphasized creating an equation that can solve your problem for you. This problem is far too complex to be placed into one equation; thus, we will solve it in steps, and the computer will give us the answer. </p>
-<p>We are solving for the separation distance from where the coin landed and where we are standing at that moment. To find this, we need to find out the coordinates of where both we, and the coin, would end up. We know the velocity of the coin when it launches (or can solve for it easily). Using this, we can solve for its landing coordinate and the time it elapsed in the air. We can then use the time elapsed in the air to find where <em>we</em> would end up in an equivalent time period. This will give us our answer.</p>
-<p>To review:</p>
+<div class="center"><img src="./article/BeforeThrow.png" width="200" height="200"/><img src="./article/AfterThrow.png" width="200" height="200"/></div>
+
+<p>Now that I have set up the physics, I will explain the order of operations for our quest. In my advanced physics classes, the professors emphasized creating an equation that can solve your problem for you. This problem is far too complex to be placed into one equation; thus, we will solve it in steps, and the computer will give us the answer.</p>
+<p>We want to find how far away a coin would unexpectedly land from the thrower's feet. To find this, we need to find out the coordinates of where both the thrower and the coin would end up. First, we need the velocity of the coin when it launches. Using this, we can solve for its landing coordinate and the time it elapsed in the air. We can then use the time elapsed in the air to find where the thrower would end up in an equivalent time period. We can use this to find the separation between the coin and the thrower's feet.</p>
+<p>To review, here are the steps to solving our math problem:</p>
 <ol type="1">
     <li>Solve for the coin's starting velocity
         <ul><li>Both horizontal and vertical components</li></ul>
     </li>
     <li>Find the coin's landing coordinates</li>
     <li>Get the time elapsed</li>
-    <li>Calculate the arc swept by you in this time period
-        <ul><li>Use this to get your final coordinates</li></ul>
+    <li>Calculate the arc swept by the thrower
+        <ul><li>Use this to get the final coordinates</li></ul>
     </li>
-    <li>Calculate the difference between the final coordinates</li>
+    <li>Use the coordinates to calculate the distance between the coin and the thrower's feet</li>
 </ol>
 
 <p><br/></p>
 <h5>Starting Velocity</h5>
 <h6>Vertical Component</h6>
-<p>The velocity of your throw is based on how hard you <em>would</em> have thrown the coin on Earth. This is the easy part of our quest; it's basic kinematics, and it uses Earth's gravity.</p>
-<p><img style="float: right; margin-left:10px;" src="images/BasicKinematics.png" width=150 height=150/></p>
-<p>Physics tells us, that at the top of an arc of motion on earth, the velocity will exactly equal zero. </p>
-<p>In the image on the right, I expanded the path so you can better see the vertical throw; however, the coin should fall directly under where it was thrown.</p>
+<p>The throw velocity is based on how hard the coin <em>would</em> have been thrown on Earth. This is basic kinematics, and once again, this part of the problem takes place on Earth.</p>
+<p><img class="floatright" src="./article/BasicKinematics.png" width="150"/></p>
+<p>Physics tells us, that at the top of an arc of motion on Earth, the velocity will equal zero as the object changes direction. The coin will land directly under where it was thrown.</p>
 <p>This is the relevant kinematics fomula:</p>
 <div class="math">$$v_f^2=v_0^2+2ax$$</div>
 <p>Variables:</p>
@@ -138,44 +136,46 @@
 <li><span class="math">\(v_f\)</span> is the final velocity</li>
 <li><span class="math">\(v_0\)</span> is the initial velocty</li>
 <li><span class="math">\(a\)</span> is the acceleration</li>
-<li><span class="math">\(x\)</span> is the distance traveled</li>
+<li><span class="math">\(x\)</span> is the distance traveled upwards</li>
 </ul>
 <p>In our formula:</p>
 <ul>
 <li><span class="math">\(v_0\)</span> is the initial velocity, the variable we want</li>
 <li><span class="math">\(v_f=0\)</span> (the top of our throwing arc)</li>
 <li><span class="math">\(x\)</span> is the height of our throw (3 feet up)</li>
-<li><span class="math">\(a=-g_e=-32.174\)</span> ft/s/s, the gravity on earth.
-<br/><br/>
-By solving, we get:
-<div class="math">$$0=v_0^2-2gx$$</div>
-</li>
+<li><span class="math">\(a=-g_e=-32.174\)</span> ft/s/s, the gravity on earth.</li>
 </ul>
+<p><br/></p>
+<p>By solving, we get:</p>
+<p><br/></p>
+<div class="math">$$0=v_0^2-2gx$$</div>
 <div class="math">$$v_{0y}=\sqrt {2g_ex}$$</div>
+<p>This is the vertical component of the coin's starting velocity.</p>
 <h6>Horizontal Component</h6>
 <p>Before we solve for the coin's initial horizontal velocity, please note that the coin does not feel the same force of gravity as you do on the floor of the station. It has a smaller radius to the center of the station because you are holding it in your hand. Thus, the coin's horizontal velocity would not be <em>quite</em> the same as if it were touching the floor.</p>
-<p>This is the equation of interest for us here, the equation for rotational acceleration:</p>
+<p>The floor's "gravity" is a constant acceleration toward the center. This is the equation for rotational acceleraton:</p>
 <div class="math">$$a=\frac{v_t^2}{r}=\omega^2r$$</div>
 <p>Variables:</p>
 <ul>
-<li><span class="math">\(v_t\)</span> is the tangential velocity of an object on the station</li>
+<li><span class="math">\(v_t\)</span> is the horizontal velocity of an object on the station</li>
 <li>r is the radius where the object is located</li>
 <li>a is the acceleration felt by the object</li>
 <li><span class="math">\(\omega\)</span> is the rotational rate of the station in radians/second.</li>
 </ul>
-<p><span class="math">\(\omega\)</span> would be the same at the floor and at the coin. We can calculate <span class="math">\(\omega\)</span> using values at the floor (1g acceleration), and then use <span class="math">\(\omega\)</span> to find the tangential/horizontal velocity of the coin.</p>
+<p><span class="math">\(\omega\)</span> would be the same at the floor and at the coin. We can calculate <span class="math">\(\omega\)</span> using values at the floor (1g acceleration), and then use <span class="math">\(\omega\)</span> to find the horizontal velocity of the coin.</p>
 <div class="math">$$\omega=\sqrt {\frac {a}{r}}$$</div>
 <p>In our formula:</p>
 <ul>
 <li><span class="math">\(a=-32.174\)</span> ft/s/s, the acceleration at the floor</li>
 <li><span class="math">\(r\)</span> is the radius of the station.</li>
 </ul>
-<p>We can then use omega to calculate the tangential velocity of the coin at its radius. Using the formula at the top, we get:</p>
+<p>We can then use <span class="math">\(\omega\)</span> to calculate the horizontal velocity of the coin. Using the formula at the top, we get:</p>
 <div class="math">$$v_x = -v_t=-\omega*r_{coin}$$</div>
-<div class="math">$$r_{coin}=r_{station}-\frac {2}{3}*h_{person}$$</div>
-<p>The coin is thrown from <span class="math">\(\frac {2}{3}\)</span> the height of the person. The velocity is set to be negative, because the coin is going left in our coordinate plane. Left is a negative direction.</p>
+<div class="math">$$r_{coin}=r_{station}-h_{coin}$$</div>
+<p>The model's starting height is how far above the floor the coin is tossed from. The coin's radius would be the total radius minus the coin's starting height. </p>
+<p>The velocity is set to be negative, because the coin is going left in our coordinate plane. Left is a negative direction.</p>
 <p>Thus, our final formula:</p>
-<div class="math">$$v_x = -\sqrt {\frac{a}{r_{station}}}*(r_{station}-\frac {2}{3}*h_{person})$$</div>
+<div class="math">$$v_x = -\sqrt {\frac{a}{r_{station}}}*(r_{station}-h_{coin})$$</div>
 <p>Our variables:</p>
 <ul>
 <li>a = the acceleration of the station, -32.174 ft/s/s</li>
@@ -189,14 +189,14 @@ By solving, we get:
 <p>Our variables:</p>
 <ul>
 <li><span class="math">\(m=\frac {rise}{run}=\frac{v_y}{v_x}\)</span>, it will be <em>negative</em>.</li>
-<li><span class="math">\(b=\)</span>&nbsp;the y-intercept&nbsp;<span class="math">\(=-(r_{station}-\frac {2}{3}*h_{person})\)</span></li>
+<li><span class="math">\(b=\)</span>&nbsp;the y-intercept&nbsp;<span class="math">\(=-(r_{station}-h_{coin})\)</span></li>
 </ul>
 <p>My computer tells me that <span class="math">\(v_x=-23.82329\)</span> ft/s, and <span class="math">\(v_y=13.80403\)</span> ft/s. This is the formula for the path of the coin:</p>
 <div class="math">$$y=-.579434x-21$$</div>
 <p>Now, we need to find where this line intersects with a circle. Here is the formula for a circle:</p>
 <div class="math">$$x^2 + y^2 = r^2$$</div>
 <p>We can cheat and solve this using an <a href="https://www.desmos.com/calculator">online graphing website</a>:</p>
-<div style="text-align:center;"><img style="margin: -10px 10px 10px 10px;" src="images/IntersectPoint.png" width=250 height=250/></div>
+<div class="center"><img src="./article/IntersectPoint.png" width="250" height="250"/></div>
 
 <p>In this image, you can see the path of the coin and its final intersection with the ground, up and to the left. The coin starts at the y-intercept.</p>
 <p>Now, we will solve this by hand. For our computer model, we need formulas that the computer can solve! </p>
@@ -281,16 +281,10 @@ By solving, we get:
 <h5>The Final Answer</h5>
 <p>Now that we have the landing coordinates of the coin, and the person's final coordinates, we can calculate the straight line distance between the two using the Pythagorean theorem. This formula gives us our answer:</p>
 <div class="math">$$d = \sqrt{(x_{coin}-x_{person})^2 + (y_{coin}-y_{person})^2}$$</div>
-<p>Javascript calculates to a precision of about 15 decimal points. This is insufficient for some calculations; thus my code uses the Decimal.js package to support 30 decimal places instead.</p>
+<p>Javascript calculates to a precision of about 15 decimal points. This is insufficient for some calculations; thus my code uses the Decimal.js package to support 30 decimal places instead. The model breaks up the path of the coin into 100 pieces and moves real-time between them to make a realistic arc on the screen.</p>
 <p><br/></p>
 <h5>Max Height Achieved</h5>
 <p>My table also displays the max height achieved by the coin. Unfortunately, there is no formula to calculate this. I generated this number by creating a maximization script; the script sweeps up and down the path of the coin to find the point that is at the farthest distance from the circle.</p>
-<p><br/></p>
-<h4>Final Notes</h4>
-<p>I would quickly like to note my experience with physics. I do not have a physics degree, but I have studied physics-mechanics three times in school. I was successful each time.</p>
-<p>I originally studied physics as a high school student, and I was fascinated by it! I decided to take it again in high school as an AP course; I earned a 4/5 on the final AP exam.</p>
-<p>In college, I ended up taking this course a third time, even though I already had college credit for it. This class was a prerequisite for medical school, and medical schools do not accept AP credit. The equivalent course at BYU was "Principles of Physics I, for Scientists and Engineers." I earned an A.</p>
-<p>In none of these classes was the Coriolis effect ever mentioned. I was never given a physics problem similar to this one. It seems it would be far too complicated for an exam. I cannot remember where I originally read about the Coriolis effect. This subject is something that has fascinated me for years.</p>
 <script type="text/javascript">if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
     var align = "center",
         indent = "0em",
@@ -401,7 +395,7 @@ By solving, we get:
                         <div id="sidebar">
                             <div id="social-icons">
                                     <span class="social-icon">
-                                        <a href="https://github.com/priceisright204" target="_blank" title="GitHub">
+                                        <a href="https://github.com/kevindprice" target="_blank" title="GitHub">
                                             <i class="icon-github-alt"></i>
                                         </a>
                                     </span>
@@ -427,14 +421,17 @@ By solving, we get:
 					<a href=".">Site Home</a>
 				</li>
 
-					</br><li><a href="./coriolis/index.html" target="_blank">Coriolis Computer Model<br/><sub style="top:-4px">(React/JavaScript)</sub></a></li>
-					</br><li><a href="./maze/maze.html#&tutorial=true" target="_blank">Maze<br/><sub style="top:-4px">(Vanilla JavaScript)</sub></a></li>
+					</br><li><a href="./coriolis/index.html" target="_blank">Artificial Gravity Model</a></li>
+					</br><li><a href="./maze/maze.html#&tutorial=true" target="_blank">Maze</a></li>
+					</br><li><a href="./states/index.html" target="_blank">USA Graph</a></li>
+					</br><li><a href="https://erinpricewrites.github.io" target="_blank">Erin Price's Author Website</a></li>
+					</br><li><a href="./etc/nature.html" target="_blank">Other topics</a></li>
 
 			</ul>
 		</li>
 	</ul>
 </nav>
-
+<!--
 <nav>
 	<h2>Categories</h2>
 	<ul>
@@ -445,6 +442,9 @@ By solving, we get:
 					</li>
 					</br><li>
 						<a href="./category/computer-modeling.html">Computer Modeling</a>
+					</li>
+					</br><li>
+						<a href="./category/data-analysis.html">Data Analysis</a>
 					</li>
 					</br><li>
 						<a href="./category/games.html">Games</a>
@@ -458,7 +458,8 @@ By solving, we get:
 			</ul>
 		</li>
 	</ul>
-</nav>                            </div>
+</nav>
+-->                            </div>
                         </div> <!-- sidebar -->
 
                         <p id="back-to-top">
