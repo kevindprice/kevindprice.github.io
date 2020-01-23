@@ -374,7 +374,7 @@ ul li {
     background-repeat: no-repeat;
     background-position: 0 0.175rem;
     padding-left: 1.25rem;
-    line-height: 1.125rem;
+    line-height: 1.0rem;
 }
 
 pre, code {
