@@ -1,0 +1,15 @@
+{
+  "short_name": "The Coriolis Effect",
+  "name": "Why Artificial Gravity Will Be Weird, but Necessary for Space Travel",
+  "icons": [
+    {
+      "src": "favicon.ico",
+      "sizes": "64x64",
+      "type": "image/png"
+    }
+  ],
+  "start_url": "./index.html",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#ffffff"
+}
