@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2020-05-18T11:47:24-04:00</updated><id>/feed.xml</id><title type="html">Your awesome title</title><subtitle>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</subtitle><entry><title type="html">Conclusion and links</title><link href="/conclusion/" rel="alternate" type="text/html" title="Conclusion and links" /><published>2020-03-08T00:00:00-05:00</published><updated>2020-03-08T00:00:00-05:00</updated><id>/conclusion</id><content type="html" xml:base="/conclusion/">&lt;h3 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h3&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="https://kevindprice.github.io/coriolis/coriolis/feed.xml" rel="self" type="application/atom+xml" /><link href="https://kevindprice.github.io/coriolis/coriolis/" rel="alternate" type="text/html" /><updated>2020-05-18T14:11:29-04:00</updated><id>https://kevindprice.github.io/coriolis/coriolis/feed.xml</id><title type="html">Artificial Gravity and the Coriolis Effect</title><subtitle>An article and a computer model to help you understand life on a spinning space station</subtitle><entry><title type="html">Conclusion and links</title><link href="https://kevindprice.github.io/coriolis/coriolis/conclusion/" rel="alternate" type="text/html" title="Conclusion and links" /><published>2020-03-08T00:00:00-05:00</published><updated>2020-03-08T00:00:00-05:00</updated><id>https://kevindprice.github.io/coriolis/coriolis/conclusion</id><content type="html" xml:base="https://kevindprice.github.io/coriolis/coriolis/conclusion/">&lt;h3 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h3&gt;
 
-&lt;p&gt;&lt;img class=&quot;floatright&quot; src=&quot;/assets/img/rotating.gif&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img class=&quot;floatright&quot; src=&quot;/coriolis/assets/img/rotating.gif&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Artificial gravity will be difficult to accomplish, though it will also be essential to space travel. If we were to move around in a spinning space station, we would feel unexpected “forces” acting on us. An artificial gravity habitat could be built in the near future with the right designs in place. For now, the Coriolis effect gives us something to think about. Now we know how it would work.&lt;/p&gt;
 
@@ -91,11 +91,11 @@
 
 &lt;p&gt;In college, I ended up taking this course a third time due to some school requirements. I took “Principles of Physics I, for Scientists and Engineers.” I earned an A.&lt;/p&gt;
 
-&lt;p&gt;In none of these classes was the Coriolis effect ever mentioned. I was never given a physics problem similar to this one. It seems too complicated for an exam. I cannot remember where I originally read about the Coriolis effect. This subject is something that has fascinated me for years.&lt;/p&gt;</content><author><name></name></author><summary type="html">Conclusion</summary></entry><entry><title type="html">How does the Coriolis effect work?</title><link href="/physics/" rel="alternate" type="text/html" title="How does the Coriolis effect work?" /><published>2020-03-07T00:00:00-05:00</published><updated>2020-03-07T00:00:00-05:00</updated><id>/physics</id><content type="html" xml:base="/physics/">&lt;h3 id=&quot;how-does-the-coriolis-effect-work&quot;&gt;How does the Coriolis effect work?&lt;/h3&gt;
+&lt;p&gt;In none of these classes was the Coriolis effect ever mentioned. I was never given a physics problem similar to this one. It seems too complicated for an exam. I cannot remember where I originally read about the Coriolis effect. This subject is something that has fascinated me for years.&lt;/p&gt;</content><author><name></name></author><summary type="html">Conclusion</summary></entry><entry><title type="html">How does the Coriolis effect work?</title><link href="https://kevindprice.github.io/coriolis/coriolis/physics/" rel="alternate" type="text/html" title="How does the Coriolis effect work?" /><published>2020-03-07T00:00:00-05:00</published><updated>2020-03-07T00:00:00-05:00</updated><id>https://kevindprice.github.io/coriolis/coriolis/physics</id><content type="html" xml:base="https://kevindprice.github.io/coriolis/coriolis/physics/">&lt;h3 id=&quot;how-does-the-coriolis-effect-work&quot;&gt;How does the Coriolis effect work?&lt;/h3&gt;
 
 &lt;p&gt;The Coriolis effect causes objects in a rotating environment to move where you do not expect them to. To understand why you must take a look at the movement from a perspective that is not rotating.&lt;/p&gt;
 
-&lt;div class=&quot;floatright&quot;&gt;&lt;img src=&quot;/assets/img/outside.png&quot; width=&quot;210&quot; /&gt;&lt;/div&gt;
+&lt;div class=&quot;floatright&quot;&gt;&lt;img src=&quot;/coriolis/assets/img/outside.png&quot; width=&quot;210&quot; /&gt;&lt;/div&gt;
 &lt;p&gt;If you were to jump in artificial gravity, the centripetal force at your feet would cease the instant you leave the floor. You would observe Coriolis “forces” as you “accelerate” back to the floor; however, an onlooker who is not spinning would see you move in a straight line.&lt;/p&gt;
 
 &lt;p&gt;Now we will return to the coin toss. The graphic above shows what a vertical coin toss looks like to an observer outside the station. The coin cuts through the middle by going in a straight line; the &lt;em&gt;thrower&lt;/em&gt; continues moving with the floor, taking the longer path.&lt;/p&gt;
@@ -117,18 +117,18 @@
   &lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;div class=&quot;center&quot;&gt;&lt;img src=&quot;/assets/img/CoriolisDirection.png&quot; width=&quot;500&quot; /&gt;&lt;/div&gt;
+&lt;div class=&quot;center&quot;&gt;&lt;img src=&quot;/coriolis/assets/img/CoriolisDirection.png&quot; width=&quot;500&quot; /&gt;&lt;/div&gt;
 
 &lt;p&gt;The larger the station, the smaller these Coriolis effects become; however, to make the effects unnoticeable, you would need an impractically massive space station! I have modeled our coin toss in a logarithmic graph. Earth-“normalness” improves &lt;em&gt;incredibly&lt;/em&gt; slowly, on a logarithmic scale.&lt;/p&gt;
 
-&lt;div class=&quot;center&quot;&gt;&lt;img id=&quot;smallMargin&quot; src=&quot;/assets/img/CoriolisGraph.png&quot; width=&quot;500&quot; /&gt;&lt;/div&gt;
+&lt;div class=&quot;center&quot;&gt;&lt;img id=&quot;smallMargin&quot; src=&quot;/coriolis/assets/img/CoriolisGraph.png&quot; width=&quot;500&quot; /&gt;&lt;/div&gt;
 
-&lt;div class=&quot;center&quot;&gt;&lt;p class=&quot;smallText&quot;&gt;This assumes the throw starts from four feet and goes to a total height of seven feet.&lt;/p&gt;&lt;/div&gt;</content><author><name></name></author><summary type="html">How does the Coriolis effect work?</summary></entry><entry><title type="html">Artificial gravity in science fiction</title><link href="/scifi/" rel="alternate" type="text/html" title="Artificial gravity in science fiction" /><published>2020-03-06T00:00:00-05:00</published><updated>2020-03-06T00:00:00-05:00</updated><id>/scifi</id><content type="html" xml:base="/scifi/">&lt;h3 id=&quot;artificial-gravity-in-science-fiction&quot;&gt;Artificial gravity in science fiction&lt;/h3&gt;
+&lt;div class=&quot;center&quot;&gt;&lt;p class=&quot;smallText&quot;&gt;This assumes the throw starts from four feet and goes to a total height of seven feet.&lt;/p&gt;&lt;/div&gt;</content><author><name></name></author><summary type="html">How does the Coriolis effect work?</summary></entry><entry><title type="html">Artificial gravity in science fiction</title><link href="https://kevindprice.github.io/coriolis/coriolis/scifi/" rel="alternate" type="text/html" title="Artificial gravity in science fiction" /><published>2020-03-06T00:00:00-05:00</published><updated>2020-03-06T00:00:00-05:00</updated><id>https://kevindprice.github.io/coriolis/coriolis/scifi</id><content type="html" xml:base="https://kevindprice.github.io/coriolis/coriolis/scifi/">&lt;h3 id=&quot;artificial-gravity-in-science-fiction&quot;&gt;Artificial gravity in science fiction&lt;/h3&gt;
 
-&lt;p&gt;&lt;img class=&quot;floatright&quot; src=&quot;/assets/img/DeathStar.jpg&quot; width=&quot;200&quot; /&gt;
+&lt;p&gt;&lt;img class=&quot;floatright&quot; src=&quot;/coriolis/assets/img/DeathStar.jpg&quot; width=&quot;200&quot; /&gt;
 Artificial gravity has never been used in space, so our current perspective comes from science fiction. Sci-fi movies are not realistic; a “real” picture is not cinematic and would be difficult to simulate. No space movie has ever depicted the Coriolis effect.&lt;/p&gt;
 
-&lt;p&gt;&lt;img class=&quot;floatleft&quot; src=&quot;/assets/img/StarTrek.jpg&quot; width=&quot;200&quot; /&gt;
+&lt;p&gt;&lt;img class=&quot;floatleft&quot; src=&quot;/coriolis/assets/img/StarTrek.jpg&quot; width=&quot;200&quot; /&gt;
 In many sci-fi movies, you see an artificial gravity “generator” underneath the station that uses an energy source to produce pure gravity. This is impossible!&lt;/p&gt;
 
 &lt;p&gt;Some movies have taken a more “realistic” approach to sci-fi, showing rotating space stations. I will discuss some of these stories below. There are many options to choose from.&lt;/p&gt;
@@ -137,7 +137,7 @@ In many sci-fi movies, you see an artificial gravity “generator” underneath 
 
 &lt;p&gt;Here is a short list of sci-fi films with rotating spacecraft, and the names of those spacecraft:&lt;/p&gt;
 
-&lt;p&gt;&lt;img class=&quot;floatright&quot; src=&quot;/assets/img/spacecraft_discovery.jpg&quot; width=&quot;150&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img class=&quot;floatright&quot; src=&quot;/coriolis/assets/img/spacecraft_discovery.jpg&quot; width=&quot;150&quot; /&gt;&lt;/p&gt;
 &lt;ul&gt;
   &lt;li&gt;
     &lt;p&gt;&lt;em&gt;2001: A Space Odyssey&lt;/em&gt; (1968): Spacecraft Discovery One&lt;/p&gt;
@@ -150,7 +150,7 @@ In many sci-fi movies, you see an artificial gravity “generator” underneath 
   &lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;&lt;img class=&quot;floatright&quot; src=&quot;/assets/img/TheMartian.jpg&quot; width=&quot;230&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img class=&quot;floatright&quot; src=&quot;/coriolis/assets/img/TheMartian.jpg&quot; width=&quot;230&quot; /&gt;&lt;/p&gt;
 &lt;ul&gt;
   &lt;li&gt;
     &lt;p&gt;&lt;em&gt;The Martian&lt;/em&gt; (2015): Hermes&lt;/p&gt;
@@ -163,20 +163,20 @@ In many sci-fi movies, you see an artificial gravity “generator” underneath 
 &lt;p&gt;Even in films that take a more realistic approach, there are some mistakes in their gravity simulations. Here are a few examples.&lt;/p&gt;
 
 &lt;div class=&quot;floatleft&quot;&gt;&lt;div class=&quot;floatcaption&quot;&gt;&lt;i&gt;The Avalon&lt;/i&gt;&lt;/div&gt;
-&lt;img src=&quot;/assets/img/cropped-avalon.jpg&quot; width=&quot;230&quot; /&gt;&lt;/div&gt;
+&lt;img src=&quot;/coriolis/assets/img/cropped-avalon.jpg&quot; width=&quot;230&quot; /&gt;&lt;/div&gt;
 &lt;p&gt;In &lt;em&gt;Passengers&lt;/em&gt;, the entire story takes place aboard a rotating spacecraft, the Avalon. Passengers travel for many years to emigrate to another star system. In this movie, you see correctly that a ride on the elevator could temporarily cause 0g. One mistake is that a failure in the gravity drive would not cause gravity to “stop” abruptly; the station’s rotational momentum would prevent that.&lt;/p&gt;
 
 &lt;div class=&quot;tryParent&quot;&gt;&lt;a target=&quot;_blank&quot; href=&quot;https://kevindprice.github.io/coriolis/model#&amp;amp;diameter=500&amp;amp;startheight=4&amp;amp;speed=0&amp;amp;units=m&quot;&gt;&lt;div class=&quot;TryIt&quot;&gt;Try it!&lt;/div&gt;&lt;div class=&quot;tooltiptext&quot;&gt;&lt;p&gt;Diameter=500 m&lt;/p&gt;&lt;p&gt;Start height=4 m&lt;/p&gt;&lt;p&gt;Angle=0°&lt;/p&gt;&lt;p&gt;Speed=0 m/s &lt;/p&gt;&lt;p&gt;Gravity=100%&lt;/p&gt;&lt;/div&gt;&lt;/a&gt;&lt;/div&gt;
 &lt;p&gt;This button shows you how the waterfall in the main concourse of the Avalon &lt;em&gt;should&lt;/em&gt; appear.&lt;/p&gt;
 
-&lt;p&gt;&lt;img class=&quot;floatright&quot; src=&quot;/assets/img/EnderGame.jpg&quot; width=&quot;280&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img class=&quot;floatright&quot; src=&quot;/coriolis/assets/img/EnderGame.jpg&quot; width=&quot;280&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;em&gt;Ender’s Game&lt;/em&gt; is a fantasy story, but the main plot is about artificial gravity and weightlessness. Ender is trained to fight weightless space battles in a zero-g “battle room.” In this “battle room,” every action Ender takes depends on his direction. This would also be true in artificial gravity due to the Coriolis effect. One missing gravity detail is that the hallway &lt;em&gt;into&lt;/em&gt; the battle room would be almost zero-g. Gravity would vary based on how far you are from the center of rotation.&lt;/p&gt;
 
 &lt;div class=&quot;tryParent&quot;&gt;&lt;a target=&quot;_blank&quot; href=&quot;https://kevindprice.github.io/coriolis/model#&amp;amp;diameter=2640&amp;amp;startheight=4&amp;amp;speed=20&amp;amp;angle=90&quot;&gt;&lt;div class=&quot;TryIt&quot;&gt;Try it!&lt;/div&gt;&lt;div class=&quot;tooltiptext&quot;&gt;&lt;p&gt;Diameter=2640 ft&lt;/p&gt;&lt;p&gt;Start height=4 ft&lt;/p&gt;&lt;p&gt;Angle=90°&lt;/p&gt;&lt;p&gt;Speed=20 ft/s &lt;/p&gt;&lt;p&gt;Gravity=100%&lt;/p&gt;&lt;/div&gt;&lt;/a&gt;&lt;/div&gt;
 &lt;p&gt;In battle school, if Ender were to toss an object 10 feet away in his room, it would land about 1½ feet off-target (assuming a half-mile diameter).&lt;/p&gt;
 
-&lt;p&gt;It seems clear that an accurate spacecraft story requires a physics expert. We simply do not have experience with such things to know clearly what it would be like.&lt;/p&gt;</content><author><name></name></author><summary type="html">Artificial gravity in science fiction</summary></entry><entry><title type="html">The math behind this model</title><link href="/math/" rel="alternate" type="text/html" title="The math behind this model" /><published>2020-03-05T00:00:00-05:00</published><updated>2020-03-05T00:00:00-05:00</updated><id>/math</id><content type="html" xml:base="/math/">&lt;h3 id=&quot;the-math-behind-this-model&quot;&gt;The math behind this model&lt;/h3&gt;
+&lt;p&gt;It seems clear that an accurate spacecraft story requires a physics expert. We simply do not have experience with such things to know clearly what it would be like.&lt;/p&gt;</content><author><name></name></author><summary type="html">Artificial gravity in science fiction</summary></entry><entry><title type="html">The math behind this model</title><link href="https://kevindprice.github.io/coriolis/coriolis/math/" rel="alternate" type="text/html" title="The math behind this model" /><published>2020-03-05T00:00:00-05:00</published><updated>2020-03-05T00:00:00-05:00</updated><id>https://kevindprice.github.io/coriolis/coriolis/math</id><content type="html" xml:base="https://kevindprice.github.io/coriolis/coriolis/math/">&lt;h3 id=&quot;the-math-behind-this-model&quot;&gt;The math behind this model&lt;/h3&gt;
 
 &lt;p&gt;The math I employed in my Coriolis article is thorny and involved, yet this model still follows the rules of basic physics and kinematics. So we have a physics problem to solve! To review, we want to find where a coin toss would land on a virtual space station. This is the most important part of the model’s math.&lt;/p&gt;
 
@@ -186,13 +186,13 @@ In many sci-fi movies, you see an artificial gravity “generator” underneath 
 
 &lt;p&gt;In physics, we must set our coordinate system before we solve our math problem. The station is a virtual coordinate system with (0,0) at its exact center. I assumed that the station is rotating clockwise. The math might have been slightly simpler if I had chosen counterclockwise instead, but this is how I imagined it. For our convenience, the moment of the throw takes place at the instant the person is standing at the bottom of the curve. The person throws the coin with the force that would have been needed to get it 3 feet up in the air on Earth.&lt;/p&gt;
 
-&lt;div class=&quot;center&quot;&gt;&lt;img src=&quot;/assets/img/CoordinateSystem.png&quot; width=&quot;300&quot; height=&quot;300&quot; /&gt;&lt;/div&gt;
+&lt;div class=&quot;center&quot;&gt;&lt;img src=&quot;/coriolis/assets/img/CoordinateSystem.png&quot; width=&quot;300&quot; height=&quot;300&quot; /&gt;&lt;/div&gt;
 
 &lt;p&gt;While we are still holding the coin, we (and the coin) have a leftwards velocity due to the clockwise rotation. The centripetal force is pushing us upwards, directly towards the middle of the station.&lt;/p&gt;
 
 &lt;p&gt;At the moment the coin is released, it will no longer have any forces acting on it. The coin is no longer touching the station. It will continue to have the same leftwards horizontal velocity, but it will now have a vertical velocity component defined by how hard you would have thrown it on earth.&lt;/p&gt;
 
-&lt;div class=&quot;center&quot;&gt;&lt;img src=&quot;/assets/img/BeforeThrow.png&quot; width=&quot;200&quot; height=&quot;200&quot; /&gt;&lt;img src=&quot;/assets/img/AfterThrow.png&quot; width=&quot;200&quot; height=&quot;200&quot; /&gt;&lt;/div&gt;
+&lt;div class=&quot;center&quot;&gt;&lt;img src=&quot;/coriolis/assets/img/BeforeThrow.png&quot; width=&quot;200&quot; height=&quot;200&quot; /&gt;&lt;img src=&quot;/coriolis/assets/img/AfterThrow.png&quot; width=&quot;200&quot; height=&quot;200&quot; /&gt;&lt;/div&gt;
 
 &lt;p&gt;Now that I have set up the physics, I will explain the order of operations for our quest. In my advanced physics classes, the professors emphasized creating an equation that can solve your problem for you. This problem is far too complex to be placed into one equation; thus, we will solve it in steps, and the computer will give us the answer.&lt;/p&gt;
 
@@ -220,7 +220,7 @@ In many sci-fi movies, you see an artificial gravity “generator” underneath 
 
 &lt;p&gt;The throw velocity is based on how hard the coin &lt;em&gt;would&lt;/em&gt; have been thrown on Earth. This is basic kinematics, and once again, this part of the problem takes place on Earth.&lt;/p&gt;
 
-&lt;p&gt;&lt;img class=&quot;floatright&quot; src=&quot;/assets/img/BasicKinematics.png&quot; width=&quot;150&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img class=&quot;floatright&quot; src=&quot;/coriolis/assets/img/BasicKinematics.png&quot; width=&quot;150&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Physics tells us, that at the top of an arc of motion on Earth, the velocity will equal zero as the object changes direction. The coin will land directly under where it was thrown.&lt;/p&gt;
 
@@ -333,7 +333,7 @@ In many sci-fi movies, you see an artificial gravity “generator” underneath 
 
 &lt;p&gt;We can cheat and solve this using an &lt;a href=&quot;https://www.desmos.com/calculator&quot;&gt;online graphing website&lt;/a&gt;:&lt;/p&gt;
 
-&lt;div class=&quot;center&quot;&gt;&lt;img src=&quot;/assets/img/IntersectPoint.png&quot; width=&quot;250&quot; height=&quot;250&quot; /&gt;&lt;/div&gt;
+&lt;div class=&quot;center&quot;&gt;&lt;img src=&quot;/coriolis/assets/img/IntersectPoint.png&quot; width=&quot;250&quot; height=&quot;250&quot; /&gt;&lt;/div&gt;
 
 &lt;p&gt;In this image, you can see the path of the coin and its final intersection with the ground, up and to the left. The coin starts at the y-intercept.&lt;/p&gt;
 
@@ -487,7 +487,7 @@ In many sci-fi movies, you see an artificial gravity “generator” underneath 
 
 &lt;h5 id=&quot;max-height-achieved&quot;&gt;Max Height Achieved&lt;/h5&gt;
 
-&lt;p&gt;My table also displays the max height achieved by the coin. Unfortunately, there is no formula to calculate this. I generated this number by creating a maximization script; the script sweeps up and down the path of the coin to find the point that is at the farthest distance from the circle.&lt;/p&gt;</content><author><name></name></author><summary type="html">The math behind this model</summary></entry><entry><title type="html">The history of artificial gravity research</title><link href="/history/" rel="alternate" type="text/html" title="The history of artificial gravity research" /><published>2020-03-04T00:00:00-05:00</published><updated>2020-03-04T00:00:00-05:00</updated><id>/history</id><content type="html" xml:base="/history/">&lt;h3 id=&quot;the-history-of-artificial-gravity-research&quot;&gt;The history of artificial gravity research&lt;/h3&gt;
+&lt;p&gt;My table also displays the max height achieved by the coin. Unfortunately, there is no formula to calculate this. I generated this number by creating a maximization script; the script sweeps up and down the path of the coin to find the point that is at the farthest distance from the circle.&lt;/p&gt;</content><author><name></name></author><summary type="html">The math behind this model</summary></entry><entry><title type="html">The history of artificial gravity research</title><link href="https://kevindprice.github.io/coriolis/coriolis/history/" rel="alternate" type="text/html" title="The history of artificial gravity research" /><published>2020-03-04T00:00:00-05:00</published><updated>2020-03-04T00:00:00-05:00</updated><id>https://kevindprice.github.io/coriolis/coriolis/history</id><content type="html" xml:base="https://kevindprice.github.io/coriolis/coriolis/history/">&lt;h3 id=&quot;the-history-of-artificial-gravity-research&quot;&gt;The history of artificial gravity research&lt;/h3&gt;
 
 &lt;p&gt;Organizations like NASA and SpaceX have been working feverishly to try to make life in space viable. Space agencies will eventually need to construct artificial gravity habitats to solve the health problems of weightlesness. Unfortunately, no space agency has active plans to build an artificial-gravity habitat, though NASA’s archives are littered with proposals for one.&lt;/p&gt;
 
@@ -498,7 +498,7 @@ In many sci-fi movies, you see an artificial gravity “generator” underneath 
 &lt;/ul&gt;
 
 &lt;div class=&quot;floatright&quot;&gt;&lt;div class=&quot;floatcaption&quot; style=&quot;margin-left:20px&quot;&gt;&lt;i&gt;Gemini 11&lt;/i&gt;&lt;/div&gt;
-&lt;img src=&quot;/assets/img/Gemini_11_Agena.jpg&quot; width=&quot;270&quot; /&gt;&lt;/div&gt;
+&lt;img src=&quot;/coriolis/assets/img/Gemini_11_Agena.jpg&quot; width=&quot;270&quot; /&gt;&lt;/div&gt;
 &lt;ul&gt;
   &lt;li&gt;The Gemini 11 mission (September 1966) purposely rotated two capsules connected by a 36-meter tether to produce 0.0005 g. The astronauts did not feel the gravitational force (the perception threshold is about 0.2 g), but they observed objects slowly floating toward the floor of their capsule. They reported it had been “an interesting and puzzling experience.”&lt;/li&gt;
 &lt;/ul&gt;
@@ -511,7 +511,7 @@ In many sci-fi movies, you see an artificial gravity “generator” underneath 
 &lt;/ul&gt;
 
 &lt;div class=&quot;floatright&quot;&gt;&lt;div class=&quot;floatcaption&quot; style=&quot;color:red; margin-left: 90px; font-weight:bold;&quot;&gt;&lt;i&gt;Kosmos 782&lt;/i&gt;&lt;/div&gt;
-&lt;img src=&quot;/assets/img/Kosmos_782.jpg&quot; width=&quot;270&quot; /&gt;&lt;/div&gt;
+&lt;img src=&quot;/coriolis/assets/img/Kosmos_782.jpg&quot; width=&quot;270&quot; /&gt;&lt;/div&gt;
 &lt;ul&gt;
   &lt;li&gt;
     &lt;p&gt;The Russians, however, &lt;em&gt;were&lt;/em&gt; interested in artificial gravity. The Soviet space program initially believed that a human could not survive more than 14 days in space; the Soviets believed that the heart and blood vessels would be unable to adapt to weightlessness.&lt;/p&gt;
@@ -523,7 +523,7 @@ In many sci-fi movies, you see an artificial gravity “generator” underneath 
 &lt;div class=&quot;widebreak&quot;&gt;&lt;/div&gt;
 
 &lt;div class=&quot;floatright&quot;&gt;&lt;div class=&quot;floatcaption&quot; style=&quot;color: blue; font-weight: bold;&quot;&gt;&lt;i&gt;Skylab&lt;/i&gt;&lt;/div&gt;
-&lt;img src=&quot;/assets/img/Skylab.gif&quot; alt=&quot;Skylab Giphy&quot; /&gt;&lt;/div&gt;
+&lt;img src=&quot;/coriolis/assets/img/Skylab.gif&quot; alt=&quot;Skylab Giphy&quot; /&gt;&lt;/div&gt;
 &lt;ul&gt;
   &lt;li&gt;The (American) Skylab crews took advantage of the large open compartment to run around the curved circumference. Running in a circle created gravity. They reported no difficulty with either locomotion or motion sickness.&lt;/li&gt;
 &lt;/ul&gt;
@@ -538,7 +538,7 @@ In many sci-fi movies, you see an artificial gravity “generator” underneath 
 &lt;div class=&quot;widebreak&quot;&gt;&lt;/div&gt;
 
 &lt;div class=&quot;floatright&quot;&gt;&lt;div class=&quot;floatcaption&quot; style=&quot;margin-left: 5px;&quot;&gt;&lt;i&gt;Off-axis rotator&lt;/i&gt;&lt;/div&gt;
-&lt;img src=&quot;/assets/img/rotator.jpg&quot; width=&quot;270&quot; /&gt;&lt;/div&gt;
+&lt;img src=&quot;/coriolis/assets/img/rotator.jpg&quot; width=&quot;270&quot; /&gt;&lt;/div&gt;
 &lt;ul&gt;
   &lt;li&gt;
     &lt;p&gt;In 1998, the European Space Agency built an “off-axis rotator” for the ISS. This device centrifuged humans for seven minutes at a time at several speeds. Subjects said they felt like they were standing on their heads.&lt;/p&gt;
@@ -558,13 +558,13 @@ In many sci-fi movies, you see an artificial gravity “generator” underneath 
 &lt;p&gt;Living in a centrifuge may be nauseating. Minimizing the rotation rate would reduce this nausea. We can reduce the &lt;strong&gt;revolutions per minute (rpm)&lt;/strong&gt; by increasing the station size; however, it is unclear what rotation rate would be desirable, and large stations would be expensive. When we finally build a space station with simulated gravity, we should experiment with several rotation rates.&lt;/p&gt;
 
 &lt;div class=&quot;floatright&quot;&gt;&lt;div class=&quot;floatcaption&quot; style=&quot;margin-left: 79px;&quot;&gt;&lt;i&gt;Are you dizzy yet?&lt;/i&gt;&lt;/div&gt;
-&lt;img style=&quot;border-radius: 10px;&quot; src=&quot;/assets/img/Giphy.gif&quot; alt=&quot;Dizzy Giphy&quot; width=&quot;300&quot; /&gt;&lt;/div&gt;
+&lt;img style=&quot;border-radius: 10px;&quot; src=&quot;/coriolis/assets/img/Giphy.gif&quot; alt=&quot;Dizzy Giphy&quot; width=&quot;300&quot; /&gt;&lt;/div&gt;
 &lt;p&gt;Unlike astronauts in zero gravity, rotating astronauts must adapt to more than one sensation. While rotating, each direction of motion produces a different effect on the inner ear. This means that individuals would need to adjust to the rotation itself &lt;em&gt;and&lt;/em&gt; to sudden changes in direction. Furthermore, &lt;em&gt;windows&lt;/em&gt; could be disorienting on a rotating space station.&lt;/p&gt;
 
 &lt;p&gt;Nausea research on Earth began in 1958 in the &lt;em&gt;Slow Rotating Room,&lt;/em&gt; a facility in Pensacola, Florida. NASA placed individuals in a slowly rotating room for several days.&lt;/p&gt;
 
 &lt;div class=&quot;floatright&quot;&gt;&lt;div class=&quot;floatcaption&quot; style=&quot;margin-left: 20px;&quot;&gt;&lt;i&gt;NASA's Slow Rotating Room&lt;/i&gt;&lt;/div&gt;
-&lt;img src=&quot;/assets/img/rotatingroom.jpg&quot; alt=&quot;Slow Rotating Room&quot; width=&quot;250&quot; /&gt;&lt;/div&gt;
+&lt;img src=&quot;/coriolis/assets/img/rotatingroom.jpg&quot; alt=&quot;Slow Rotating Room&quot; width=&quot;250&quot; /&gt;&lt;/div&gt;
 &lt;p&gt;The &lt;em&gt;Slow Rotating Room&lt;/em&gt; generated some important findings. Study participants quickly learned to restrict their head movements, otherwise they would feel sharp nausea reactions (“acute nausea”). Over time, these individuals adjusted and became less restricted.&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&quot;https://ntrs.nasa.gov/archive/nasa/casi.ntrs.nasa.gov/20070001009.pdf&quot;&gt;This page&lt;/a&gt; explains: “Although few adverse effects are present when rotation rate is less than 1 rpm, higher rates produce motion sickness (similar to that occurring during the acute period of adaptation to weightlessness).” Researchers found that their test subjects could adapt to 3 rpm.&lt;/p&gt;
@@ -611,34 +611,34 @@ In many sci-fi movies, you see an artificial gravity “generator” underneath 
   &lt;li&gt;In 2011, NASA proposed the rotating Nautilus-X as a possible stopover for astronauts embarking on long-distance missions; it would be relatively inexpensive and feasible (~$3bn). It seems likely that we will build something similar to this first.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;div class=&quot;center&quot;&gt;&lt;i&gt;Nautilus-X (proposed)&lt;/i&gt;&lt;br /&gt;
-&lt;img src=&quot;/assets/img/Nautilus-X.png&quot; width=&quot;200&quot; /&gt;&lt;/div&gt;
+&lt;img src=&quot;/coriolis/assets/img/Nautilus-X.png&quot; width=&quot;200&quot; /&gt;&lt;/div&gt;
 &lt;div class=&quot;widebreak&quot;&gt;&lt;/div&gt;
 
 &lt;ul&gt;
   &lt;li&gt;This next image is for the Rotating Mars spacecraft, a 1989 concept idea. A space station using this tethered method could have an arbitrarily large diameter. A large space station at 1g may require exceptionally strong tethers using future materials such as carbon nanotubes.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;div class=&quot;center&quot;&gt;&lt;div class=&quot;floatcaption&quot;&gt;&lt;i&gt;1989&lt;/i&gt;&lt;/div&gt;
-&lt;img src=&quot;/assets/img/1989Concept.png&quot; width=&quot;250&quot; /&gt;&lt;/div&gt;
+&lt;img src=&quot;/coriolis/assets/img/1989Concept.png&quot; width=&quot;250&quot; /&gt;&lt;/div&gt;
 &lt;div class=&quot;widebreak&quot;&gt;&lt;/div&gt;
 
 &lt;ul&gt;
   &lt;li&gt;The 1969 design below requires a few revisions to work. The center corridor would need to be an elevator or a ladder. Also, you would be unable to stand in the long cylindrical containers; they are oriented in the wrong direction. This would work if we used many &lt;em&gt;small&lt;/em&gt; modules in a chain.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;div class=&quot;center&quot;&gt;&lt;div class=&quot;floatcaption&quot;&gt;&lt;i&gt;1969&lt;/i&gt;&lt;/div&gt;
-&lt;img src=&quot;/assets/img/Artificial_Gravity_Space_Station.png&quot; alt=&quot;1969 concept&quot; width=&quot;250&quot; /&gt;&lt;/div&gt;
+&lt;img src=&quot;/coriolis/assets/img/Artificial_Gravity_Space_Station.png&quot; alt=&quot;1969 concept&quot; width=&quot;250&quot; /&gt;&lt;/div&gt;
 &lt;div class=&quot;widebreak&quot;&gt;&lt;/div&gt;
 
 &lt;ul&gt;
   &lt;li&gt;In 1975, NASA designed a massive theoretical ring station, a “Stanford torus,” as a thought experiment. The Stanford torus has a proposed diameter of 1800 meters (1.1 miles), the minimum size to produce 1 rpm with full gravity. &lt;a href=&quot;http://www.ibtimes.co.uk/nasas-beautiful-dreams-self-sufficient-space-colony-revealed-1631672&quot;&gt;Here&lt;/a&gt; is an interesting news story about it.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;div class=&quot;center&quot;&gt;&lt;div class=&quot;floatcaption&quot;&gt;&lt;i&gt;The Stanford torus&lt;/i&gt;&lt;/div&gt;
-&lt;img src=&quot;/assets/img/dream-space-colony.jpg&quot; width=&quot;270&quot; /&gt;&lt;/div&gt;
+&lt;img src=&quot;/coriolis/assets/img/dream-space-colony.jpg&quot; width=&quot;270&quot; /&gt;&lt;/div&gt;
 &lt;div class=&quot;widebreak&quot;&gt;&lt;/div&gt;
 
 &lt;div class=&quot;tryParent&quot;&gt;&lt;a target=&quot;_blank&quot; href=&quot;https://kevindprice.github.io/coriolis/model#&amp;amp;diameter=1800&amp;amp;units=m&quot;&gt;&lt;div class=&quot;TryIt&quot;&gt;Try it!&lt;/div&gt;&lt;div class=&quot;tooltiptext&quot;&gt;&lt;p&gt;Diameter=1800 m&lt;/p&gt;&lt;p&gt;Start height=1.2 m&lt;/p&gt;&lt;p&gt;Angle=0°&lt;/p&gt;&lt;p&gt;Speed=4 m/s &lt;/p&gt;&lt;p&gt;Gravity=100%&lt;/p&gt;&lt;/div&gt;&lt;/a&gt;&lt;/div&gt;
 &lt;p&gt;Press this button to see the coin toss emulated on the Stanford Torus. The coin toss lands 8 cm (3 in) away. Perhaps someday we will reach out to the stars with a station like this one.&lt;/p&gt;
 
-&lt;p&gt;Much of the information on this page has been drawn from &lt;a href=&quot;https://ntrs.nasa.gov/archive/nasa/casi.ntrs.nasa.gov/20070001009.pdf&quot;&gt;this link&lt;/a&gt;.&lt;/p&gt;</content><author><name></name></author><summary type="html">The history of artificial gravity research</summary></entry><entry><title type="html">Health effects of weightlessness</title><link href="/weightlessness/" rel="alternate" type="text/html" title="Health effects of weightlessness" /><published>2020-03-03T00:00:00-05:00</published><updated>2020-03-03T00:00:00-05:00</updated><id>/weightlessness</id><content type="html" xml:base="/weightlessness/">&lt;h3 id=&quot;health-effects-of-weightlessness&quot;&gt;Health effects of weightlessness&lt;/h3&gt;
+&lt;p&gt;Much of the information on this page has been drawn from &lt;a href=&quot;https://ntrs.nasa.gov/archive/nasa/casi.ntrs.nasa.gov/20070001009.pdf&quot;&gt;this link&lt;/a&gt;.&lt;/p&gt;</content><author><name></name></author><summary type="html">The history of artificial gravity research</summary></entry><entry><title type="html">Health effects of weightlessness</title><link href="https://kevindprice.github.io/coriolis/coriolis/weightlessness/" rel="alternate" type="text/html" title="Health effects of weightlessness" /><published>2020-03-03T00:00:00-05:00</published><updated>2020-03-03T00:00:00-05:00</updated><id>https://kevindprice.github.io/coriolis/coriolis/weightlessness</id><content type="html" xml:base="https://kevindprice.github.io/coriolis/coriolis/weightlessness/">&lt;h3 id=&quot;health-effects-of-weightlessness&quot;&gt;Health effects of weightlessness&lt;/h3&gt;
 
 &lt;p&gt;Weightlessness is not a problem for short space flights; however, on long-duration flights it would be debilitating. Missions to Mars or beyond will present serious dangers without gravity.&lt;/p&gt;
 
@@ -647,7 +647,7 @@ In many sci-fi movies, you see an artificial gravity “generator” underneath 
 &lt;p&gt;Astronaut Scott Kelly just completed an important mission on the International Space Station: he stayed in space for an entire year while his identical twin brother lived on earth. This allowed scientists to compare the changes that occurred in Scott’s body to his brother’s, so NASA can better prepare for a mission to Mars. Scientists were able to more thoroughly study the effects of zero gravity on Kelly’s body.&lt;/p&gt;
 
 &lt;div class=&quot;floatright&quot;&gt;&lt;div class=&quot;floatcaption&quot;&gt;&lt;i&gt;Scott Kelly&lt;/i&gt;&lt;/div&gt;
-&lt;img src=&quot;/assets/img/ScottKelly.jpeg&quot; width=&quot;300&quot; /&gt;&lt;/div&gt;
+&lt;img src=&quot;/coriolis/assets/img/ScottKelly.jpeg&quot; width=&quot;300&quot; /&gt;&lt;/div&gt;
 
 &lt;p&gt;Scott Kelly recently wrote &lt;a href=&quot;https://www.amazon.com/Endurance-Year-Space-Lifetime-Discovery-ebook/dp/B01EE0FCEK&quot;&gt;a book&lt;/a&gt; about his journeys in space. In his book, he describes some of the health effects he experienced from living in space.&lt;/p&gt;
 
@@ -677,7 +677,7 @@ In many sci-fi movies, you see an artificial gravity “generator” underneath 
 
 &lt;p&gt;&lt;a href=&quot;https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4470275/&quot;&gt;This paper&lt;/a&gt; explains that zero gravity causes “debilitating and potentially fatal problems” including “bone loss, cardiovascular deconditioning, muscle weakening, sensorimotor and neurovestibular disturbances, and regulatory disorders.” Living in zero gravity causes blood to flow to the head, prompting dramatic fluid loss and increased blood thickness. After returning to Earth, thick blood flows back to the lower body, causing the heart rate to increase and blood pressure to drop. Today, returning astronauts also risk bone fractures and muscle tears during their recovery period. The paper says, “Were astronauts to embark upon a journey to Mars today, the 6-month exposure to weightlessness en route would leave them considerably debilitated.” We do not know how the low Martian gravity would affect them after arrival.&lt;/p&gt;
 
-&lt;p&gt;If the world intends to send astronauts on long-distance missions, then artificial gravity will be important!&lt;/p&gt;</content><author><name></name></author><summary type="html">Health effects of weightlessness</summary></entry><entry><title type="html">Fun things to do with the model</title><link href="/ideas/" rel="alternate" type="text/html" title="Fun things to do with the model" /><published>2020-03-02T00:00:00-05:00</published><updated>2020-03-02T00:00:00-05:00</updated><id>/ideas</id><content type="html" xml:base="/ideas/">&lt;h3 id=&quot;fun-things-to-do-with-the-computer-model&quot;&gt;Fun things to do with the computer model&lt;/h3&gt;
+&lt;p&gt;If the world intends to send astronauts on long-distance missions, then artificial gravity will be important!&lt;/p&gt;</content><author><name></name></author><summary type="html">Health effects of weightlessness</summary></entry><entry><title type="html">Fun things to do with the model</title><link href="https://kevindprice.github.io/coriolis/coriolis/ideas/" rel="alternate" type="text/html" title="Fun things to do with the model" /><published>2020-03-02T00:00:00-05:00</published><updated>2020-03-02T00:00:00-05:00</updated><id>https://kevindprice.github.io/coriolis/coriolis/ideas</id><content type="html" xml:base="https://kevindprice.github.io/coriolis/coriolis/ideas/">&lt;h3 id=&quot;fun-things-to-do-with-the-computer-model&quot;&gt;Fun things to do with the computer model&lt;/h3&gt;
 
 &lt;p&gt;Here are some things you can do with the model.&lt;/p&gt;
 
@@ -695,7 +695,7 @@ In many sci-fi movies, you see an artificial gravity “generator” underneath 
 &lt;div class=&quot;tryParent&quot;&gt;&lt;a target=&quot;_blank&quot; href=&quot;https://kevindprice.github.io/coriolis/model#&amp;amp;startheight=24.5&amp;amp;speed=0&quot;&gt;&lt;div class=&quot;TryIt&quot;&gt;Try it!&lt;/div&gt;&lt;div class=&quot;tooltiptext&quot;&gt;&lt;p&gt;Diameter=50 ft&lt;/p&gt;&lt;p&gt;Start height=24.5 ft&lt;/p&gt;&lt;p&gt;Angle=0°&lt;/p&gt;&lt;p&gt;Speed=0 ft/s &lt;/p&gt;&lt;p&gt;Gravity=100%&lt;/p&gt;&lt;/div&gt;&lt;/a&gt;&lt;/div&gt;
 
 &lt;div class=&quot;center&quot;&gt;&lt;i&gt;Dropped from 24.5 ft&lt;/i&gt;&lt;br /&gt;
-&lt;img src=&quot;/assets/img/Dropped.png&quot; width=&quot;180&quot; /&gt;&lt;/div&gt;
+&lt;img src=&quot;/coriolis/assets/img/Dropped.png&quot; width=&quot;180&quot; /&gt;&lt;/div&gt;
 
 &lt;div class=&quot;tryParent&quot;&gt;&lt;a target=&quot;_blank&quot; href=&quot;https://kevindprice.github.io/coriolis/model#&amp;amp;startheight=25&amp;amp;speed=0&quot;&gt;&lt;div class=&quot;TryIt&quot;&gt;Try it!&lt;/div&gt;&lt;div class=&quot;tooltiptext&quot;&gt;&lt;p&gt;Diameter=50 ft&lt;/p&gt;&lt;p&gt;Start height=25 ft&lt;/p&gt;&lt;p&gt;Angle=0°&lt;/p&gt;&lt;p&gt;Speed=0 ft/s &lt;/p&gt;&lt;p&gt;Gravity=100%&lt;/p&gt;&lt;/div&gt;&lt;/a&gt;&lt;/div&gt;
 &lt;ul&gt;
@@ -717,8 +717,8 @@ In many sci-fi movies, you see an artificial gravity “generator” underneath 
 &lt;/ul&gt;
 
 &lt;div class=&quot;center&quot;&gt;&lt;div&gt;
-	&lt;div class=&quot;inlinepad&quot;&gt;&lt;i&gt;Loop, at 25°&lt;/i&gt;&lt;br /&gt;&lt;img src=&quot;/assets/img/25Degrees.png&quot; height=&quot;150&quot; /&gt;&lt;/div&gt;
-	&lt;div class=&quot;inlinepad&quot;&gt;&lt;i&gt;Point, at 36°&lt;/i&gt;&lt;br /&gt;&lt;img src=&quot;/assets/img/36Degrees.png&quot; height=&quot;150&quot; /&gt;&lt;/div&gt;
+	&lt;div class=&quot;inlinepad&quot;&gt;&lt;i&gt;Loop, at 25°&lt;/i&gt;&lt;br /&gt;&lt;img src=&quot;/coriolis/assets/img/25Degrees.png&quot; height=&quot;150&quot; /&gt;&lt;/div&gt;
+	&lt;div class=&quot;inlinepad&quot;&gt;&lt;i&gt;Point, at 36°&lt;/i&gt;&lt;br /&gt;&lt;img src=&quot;/coriolis/assets/img/36Degrees.png&quot; height=&quot;150&quot; /&gt;&lt;/div&gt;
 &lt;/div&gt;&lt;/div&gt;
 
 &lt;div class=&quot;tryParent&quot;&gt;&lt;a target=&quot;_blank&quot; href=&quot;https://kevindprice.github.io/coriolis/model#&amp;amp;angle=90&quot;&gt;&lt;div class=&quot;TryIt&quot;&gt;Try it!&lt;/div&gt;&lt;div class=&quot;tooltiptext&quot;&gt;&lt;p&gt;Diameter=50 ft&lt;/p&gt;&lt;p&gt;Start height=4 ft&lt;/p&gt;&lt;p&gt;Angle=90°&lt;/p&gt;&lt;p&gt;Speed=14 ft/s &lt;/p&gt;&lt;p&gt;Gravity=100%&lt;/p&gt;&lt;/div&gt;&lt;/a&gt;&lt;/div&gt;
@@ -738,7 +738,7 @@ In many sci-fi movies, you see an artificial gravity “generator” underneath 
 
 &lt;div class=&quot;tryParent&quot;&gt;&lt;a target=&quot;_blank&quot; href=&quot;https://kevindprice.github.io/coriolis/model#&amp;amp;speed=23.81&amp;amp;angle=90&quot;&gt;&lt;div class=&quot;TryIt&quot;&gt;Try it!&lt;/div&gt;&lt;div class=&quot;tooltiptext&quot;&gt;&lt;p&gt;Diameter=50 ft&lt;/p&gt;&lt;p&gt;Start height=4 ft&lt;/p&gt;&lt;p&gt;Angle=90°&lt;/p&gt;&lt;p&gt;Speed=23.81 ft/s &lt;/p&gt;&lt;p&gt;Gravity=100%&lt;/p&gt;&lt;/div&gt;&lt;/a&gt;&lt;/div&gt;
 &lt;div class=&quot;center&quot;&gt;&lt;i&gt;Hovering midair&lt;/i&gt;&lt;br /&gt;
-&lt;img src=&quot;/assets/img/AlmostStopped.png&quot; width=&quot;185&quot; /&gt;&lt;/div&gt;
+&lt;img src=&quot;/coriolis/assets/img/AlmostStopped.png&quot; width=&quot;185&quot; /&gt;&lt;/div&gt;
 
 &lt;ul&gt;
   &lt;li&gt;Exactly match the coin’s speed again. Now decrease the throw angle by one degree (to 89 degrees), so it launches one degree up from horizontal. It slowly spirals upward toward the center, at which point it reverses direction and spirals back down to the floor!&lt;/li&gt;
@@ -746,7 +746,7 @@ In many sci-fi movies, you see an artificial gravity “generator” underneath 
 
 &lt;div class=&quot;tryParent&quot;&gt;&lt;a target=&quot;_blank&quot; href=&quot;https://kevindprice.github.io/coriolis/model#&amp;amp;speed=23.823&amp;amp;angle=89&quot;&gt;&lt;div class=&quot;TryIt&quot;&gt;Try it!&lt;/div&gt;&lt;div class=&quot;tooltiptext&quot;&gt;&lt;p&gt;Diameter=50 ft&lt;/p&gt;&lt;p&gt;Start height=4 ft&lt;/p&gt;&lt;p&gt;Angle=89°&lt;/p&gt;&lt;p&gt;Speed=23.823 ft/s &lt;/p&gt;&lt;p&gt;Gravity=100%&lt;/p&gt;&lt;/div&gt;&lt;/a&gt;&lt;/div&gt;
 &lt;div class=&quot;center&quot;&gt;&lt;i&gt;Thrown at 89°&lt;/i&gt;&lt;br /&gt;
-&lt;img src=&quot;/assets/img/89Degrees.png&quot; width=&quot;185&quot; /&gt;&lt;/div&gt;
+&lt;img src=&quot;/coriolis/assets/img/89Degrees.png&quot; width=&quot;185&quot; /&gt;&lt;/div&gt;
 
 &lt;div class=&quot;tryParent&quot;&gt;&lt;a target=&quot;_blank&quot; href=&quot;https://kevindprice.github.io/coriolis/model#&amp;amp;speed=150&quot;&gt;&lt;div class=&quot;TryIt&quot;&gt;Try it!&lt;/div&gt;&lt;div class=&quot;tooltiptext&quot;&gt;&lt;p&gt;Diameter=50 ft&lt;/p&gt;&lt;p&gt;Start height=4 ft&lt;/p&gt;&lt;p&gt;Angle=0°&lt;/p&gt;&lt;p&gt;Speed=150 ft/s &lt;/p&gt;&lt;p&gt;Gravity=100%&lt;/p&gt;&lt;/div&gt;&lt;/a&gt;&lt;/div&gt;
 &lt;ul&gt;
@@ -759,13 +759,13 @@ In many sci-fi movies, you see an artificial gravity “generator” underneath 
 &lt;/ul&gt;
 &lt;div class=&quot;tryParent&quot;&gt;&lt;a target=&quot;_blank&quot; href=&quot;https://kevindprice.github.io/coriolis/model#&amp;amp;speed=23.823&amp;amp;angle=80&quot;&gt;&lt;div class=&quot;TryIt&quot;&gt;Try it!&lt;/div&gt;&lt;div class=&quot;tooltiptext&quot;&gt;&lt;p&gt;Diameter=50 ft&lt;/p&gt;&lt;p&gt;Start height=4 ft&lt;/p&gt;&lt;p&gt;Angle=80°&lt;/p&gt;&lt;p&gt;Speed=23.823 ft/s &lt;/p&gt;&lt;p&gt;Gravity=100%&lt;/p&gt;&lt;/div&gt;&lt;/a&gt;&lt;/div&gt;
 &lt;div class=&quot;center&quot;&gt;&lt;i&gt;23.823 ft/s at 80°&lt;/i&gt;&lt;br /&gt;
-&lt;img src=&quot;/assets/img/80Degrees.png&quot; width=&quot;185&quot; /&gt;&lt;/div&gt;
+&lt;img src=&quot;/coriolis/assets/img/80Degrees.png&quot; width=&quot;185&quot; /&gt;&lt;/div&gt;
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
 &lt;h3 id=&quot;a-gargantuan-virtual-firing-range&quot;&gt;A gargantuan virtual firing range&lt;/h3&gt;
 
 &lt;div class=&quot;floatright&quot;&gt;&lt;div class=&quot;floatcaption&quot;&gt;&lt;i&gt;Tomahawk cruise missile&lt;/i&gt;&lt;/div&gt;
-&lt;img src=&quot;/assets/img/tomahawk_cruise_missile.jpg&quot; width=&quot;300&quot; /&gt;&lt;/div&gt;
+&lt;img src=&quot;/coriolis/assets/img/tomahawk_cruise_missile.jpg&quot; width=&quot;300&quot; /&gt;&lt;/div&gt;
 
 &lt;p&gt;Let’s create a massive rotating firing range with a diameter of &lt;b&gt;10,000 km&lt;/b&gt;. As you increase the size of a station, in theory, the error due to the Coriolis effect decreases. This section will show you that even the most massive space stations have visible error due to the Coriolis effect.&lt;/p&gt;
 
@@ -786,7 +786,7 @@ In many sci-fi movies, you see an artificial gravity “generator” underneath 
   &lt;li&gt;Now, fire a &lt;em&gt;bullet&lt;/em&gt; at 89 degrees. We will assume a speed of 750 m/s. Now you see &lt;strong&gt;500 meters&lt;/strong&gt; of error! I am assuming there is no air resistance.&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;div class=&quot;floatright&quot;&gt;&lt;img src=&quot;/assets/img/point.png&quot; width=&quot;50&quot; /&gt;&lt;/div&gt;
+&lt;div class=&quot;floatright&quot;&gt;&lt;img src=&quot;/coriolis/assets/img/point.png&quot; width=&quot;50&quot; /&gt;&lt;/div&gt;
 &lt;div class=&quot;tryParent&quot;&gt;&lt;a target=&quot;_blank&quot; href=&quot;https://kevindprice.github.io/coriolis/model#&amp;amp;diameter=10000000&amp;amp;startheight=1.2&amp;amp;speed=750&amp;amp;units=m&amp;amp;angle=6&amp;amp;playback=2000&quot;&gt;&lt;div class=&quot;TryIt&quot;&gt;Try it!&lt;/div&gt;&lt;div class=&quot;tooltiptext&quot;&gt;&lt;p&gt;Diameter=10000000 m&lt;/p&gt;&lt;p&gt;Start height=1.2 m&lt;/p&gt;&lt;p&gt;Angle=6°&lt;/p&gt;&lt;p&gt;Speed=750 m/s &lt;/p&gt;&lt;p&gt;Gravity=100%&lt;/p&gt;&lt;/div&gt;&lt;/a&gt;&lt;/div&gt;
 &lt;ul&gt;
   &lt;li&gt;If you fire a bullet (750 m/s) almost straight up but not quite (6 degrees from vertical), it comes to a point instead of creating a parabola as you would expect. (shown at 2000% playback speed)&lt;/li&gt;
@@ -803,9 +803,9 @@ In many sci-fi movies, you see an artificial gravity “generator” underneath 
   &lt;li&gt;Now try a short-range shot. Adjust the model to 100 degrees from vertical (10 degrees below horizontal) to aim the projectile at the ground. It would land about a millimeter from its intended target, 6.8 meters away.&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;In summary, long-range firing on a massive station would be very difficult. The error would be different depending on the direction you are facing, the velocity of the projectile, and the size of the station. Nonetheless, a coin toss would appear as it would on Earth, and short-range shots would be very precise. A &lt;em&gt;guided&lt;/em&gt; missile would always find its intended target, even with the Coriolis effect.&lt;/p&gt;</content><author><name></name></author><summary type="html">Fun things to do with the computer model</summary></entry><entry><title type="html">Introduction</title><link href="/intro/" rel="alternate" type="text/html" title="Introduction" /><published>2020-03-01T00:00:00-05:00</published><updated>2020-03-01T00:00:00-05:00</updated><id>/intro</id><content type="html" xml:base="/intro/">&lt;h1 id=&quot;what-is-this-model&quot;&gt;What is this model?&lt;/h1&gt;
+&lt;p&gt;In summary, long-range firing on a massive station would be very difficult. The error would be different depending on the direction you are facing, the velocity of the projectile, and the size of the station. Nonetheless, a coin toss would appear as it would on Earth, and short-range shots would be very precise. A &lt;em&gt;guided&lt;/em&gt; missile would always find its intended target, even with the Coriolis effect.&lt;/p&gt;</content><author><name></name></author><summary type="html">Fun things to do with the computer model</summary></entry><entry><title type="html">Introduction</title><link href="https://kevindprice.github.io/coriolis/coriolis/intro/" rel="alternate" type="text/html" title="Introduction" /><published>2020-03-01T00:00:00-05:00</published><updated>2020-03-01T00:00:00-05:00</updated><id>https://kevindprice.github.io/coriolis/coriolis/intro</id><content type="html" xml:base="https://kevindprice.github.io/coriolis/coriolis/intro/">&lt;h1 id=&quot;what-is-this-model&quot;&gt;What is this model?&lt;/h1&gt;
 
-&lt;p&gt;&lt;img class=&quot;floatright&quot; src=&quot;/assets/img/RotatingStation.png&quot; width=&quot;250&quot; style=&quot;border-radius: 10px&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img class=&quot;floatright&quot; src=&quot;/coriolis/assets/img/RotatingStation.png&quot; width=&quot;250&quot; style=&quot;border-radius: 10px&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;This model demonstrates how much artificial gravity would alter the environment around you on a space station. My model shows that, thanks to the Coriolis effect, artificial gravity would be very strange; it would not look like Earth’s gravity.&lt;/p&gt;
 
@@ -813,7 +813,7 @@ In many sci-fi movies, you see an artificial gravity “generator” underneath 
 
 &lt;h4 id=&quot;what-is-artificial-gravity&quot;&gt;What is artificial gravity?&lt;/h4&gt;
 
-&lt;p&gt;&lt;img class=&quot;floatleft&quot; src=&quot;/assets/img/CentripetalForce3.png&quot; width=&quot;160&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img class=&quot;floatleft&quot; src=&quot;/coriolis/assets/img/CentripetalForce3.png&quot; width=&quot;160&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;We can simulate gravity by spinning; this is “artificial” gravity. If you swing a bucket of water fast enough around your head, the water will stay inside. This creates what is called the &lt;em&gt;centripetal force.&lt;/em&gt;&lt;/p&gt;
 
