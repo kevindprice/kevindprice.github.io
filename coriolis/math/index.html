@@ -1,6 +1,3 @@
-<head>
-  <link rel="stylesheet" href="/assets/css/main.css">
-</head>
 
 <head>
 	<link rel="stylesheet" href='/coriolis/assets/css/main.css' />
@@ -138,106 +135,78 @@
 	</div>
 
 
- <h3 id="the-math-behind-this-model">The math behind this model</h3>
+ <h2 id="the-math-behind-this-model-difference-from-throw-on-earth">The math behind this model: “Difference from throw on Earth”</h2>
 
-<p>The math I employed in my Coriolis article is thorny and involved, yet this model still follows the rules of basic physics and kinematics. So we have a physics problem to solve! To review, we want to find where a coin toss would land on a virtual space station. This is the most important part of the model’s math.</p>
+<p>As I began putting this computer model together, I wanted a simple go-to measurement for the difference between a rotating throw and a throw on Earth. This provided me a fascinating physics problem. My goal was to calculate, if a person were to toss a coin in a rotating environment, how far away would it land from their feet?</p>
 
-<h5 id="set-up-the-coordinate-system">Set-up the coordinate system</h5>
+<h4 id="set-up-the-problem">Set-up the problem</h4>
 
-<p>To fully understand what happens during our coin toss, we must use a perspective that is not rotating. The Coriolis effect is not a real force, but is simply described by the difference between rotation and real gravity.</p>
+<p>To fully understand what happens during our coin toss, we must use a perspective that is not rotating. When beginning to solve a physics problem, it is important to establish a coordinate system. This helps to make sense of what is going on.</p>
 
-<p>In physics, we must set our coordinate system before we solve our math problem. The station is a virtual coordinate system with (0,0) at its exact center. I assumed that the station is rotating clockwise. The math might have been slightly simpler if I had chosen counterclockwise instead, but this is how I imagined it. For our convenience, the moment of the throw takes place at the instant the person is standing at the bottom of the curve. The person throws the coin with the force that would have been needed to get it 3 feet up in the air on Earth.</p>
+<p>The station is a virtual coordinate system with (0,0) at its exact center. I imagined the station rotating clockwise.</p>
+
+<p>Here are some conditions for this coin toss:</p>
+
+<ul>
+  <li>At the moment of the throw, the person is standing at the bottom of the circle, at 270 degrees or 3π/2 radians.</li>
+  <li>The person is holding the coin at 4 feet from the floor. This is the starting height.</li>
+  <li>The person throws the coin straight upward at 14 ft/s, which would have sent the coin about 3 feet up in the air on Earth.</li>
+  <li>The rotating space station has a diameter of 50 feet. It is rotating at the speed necessary to produce 1g of acceleration, or 100% Earth gravity at the floor.</li>
+  <li>The coin experiences less than this amount of centripetal acceleration or “gravity” because it is not at the floor.</li>
+</ul>
 
 <div class="center"><img src="/coriolis/assets/img/CoordinateSystem.png" width="300" height="300" /></div>
 
-<p>While we are still holding the coin, we (and the coin) have a leftwards velocity due to the clockwise rotation. The centripetal force is pushing us upwards, directly towards the middle of the station.</p>
+<p>Before the throw, the coin has a leftwards velocity due to the clockwise rotation; the throw adds an upwards velocity of 14 ft/s (the throw speed). These two velocity components define the direction that the coin travels through the air, which we will need to calculate so we can determine where it lands.</p>
 
-<p>At the moment the coin is released, it will no longer have any forces acting on it. The coin is no longer touching the station. It will continue to have the same leftwards horizontal velocity, but it will now have a vertical velocity component defined by how hard you would have thrown it on earth.</p>
+<p>The picture below is a diagram of these velocity components. $V$ represents the magnitude and direction of the coin’s velocity, and $V_x$ and $V_y$ are its components. $V_x$ equals the speed the coin was rotating at before the throw, and $V_y$ is 14 ft/s. $F_c$ is the centripetal force which disappears at the moment the coin is released.</p>
 
 <div class="center"><img src="/coriolis/assets/img/BeforeThrow.png" width="200" height="200" /><img src="/coriolis/assets/img/AfterThrow.png" width="200" height="200" /></div>
 
-<p>Now that I have set up the physics, I will explain the order of operations for our quest. In my advanced physics classes, the professors emphasized creating an equation that can solve your problem for you. This problem is far too complex to be placed into one equation; thus, we will solve it in steps, and the computer will give us the answer.</p>
+<p>Now that I have set up the problem, I will explain the next steps. Ideally, I would like a single equation that can solve the problem for me. Unfortunately, such an equation would be messy and impossible to simplify, so we will solve this in steps. We want to find how far away a coin would land from the thrower’s feet. To find this, we need to find the coordinates of where both the thrower and the coin would end up.</p>
 
-<p>We want to find how far away a coin would unexpectedly land from the thrower’s feet. To find this, we need to find out the coordinates of where both the thrower and the coin would end up. First, we need the velocity of the coin when it launches. Using this, we can solve for its landing coordinate and the time it elapsed in the air. We can then use the time elapsed in the air to find where the thrower would end up in an equivalent time period. We can use this to find the separation between the coin and the thrower’s feet.</p>
+<p>First, we need the magnitude and direction of the coin’s velocity after it launches. Using this, we can solve for its landing coordinate and the time it elapsed in the air. We can then use the time elapsed in the air to find where the thrower would end up in an equivalent time period. We can use this to find the separation between the coin and the thrower’s feet.</p>
 
-<p>To review, here are the steps to solving our math problem:</p>
+<p>Here are the steps to solving our math problem:</p>
 
-<ol type="1">
-	<li>Solve for the coin's starting velocity
-		<ul><li>Both horizontal and vertical components</li></ul>
-	</li>
-	<li>Find the coin's landing coordinates</li>
-	<li>Get the time elapsed</li>
-	<li>Calculate the arc swept by the thrower
-		<ul><li>Use this to get the final coordinates</li></ul>
-	</li>
-	<li>Use the coordinates to calculate the distance between the coin and the thrower's feet</li>
+<ol>
+  <li>Calculate the rotation speed at the floor in radians per second</li>
+  <li>Use the rotation speed to calculate the horizontal speed of the coin in feet per second</li>
+  <li>Calculate the magnitude and direction of the coin’s overall velocity through the air</li>
+  <li>Find the coin’s landing coordinates</li>
+  <li>Calculate the time elapsed as the coin traveled through the air</li>
+  <li>Calculate the arc swept by the thrower during this same time</li>
+  <li>Calculate the thrower’s final coordinates</li>
+  <li>Calculate the distance between the thrower’s feet and the coin when the coin lands</li>
 </ol>
 
 <p><br /></p>
 
-<h5 id="starting-velocity">Starting Velocity</h5>
+<h4 id="starting-velocity">Starting Velocity</h4>
 
-<h6 id="vertical-component">Vertical Component</h6>
+<p>We need the vertical and horizontal velocity components of the coin. The vertical velocity has been given to us as 14 ft/s, the throw speed of the coin. The horizontal velocity is currently unknown.</p>
 
-<p>The throw velocity is based on how hard the coin <em>would</em> have been thrown on Earth. This is basic kinematics, and once again, this part of the problem takes place on Earth.</p>
+<p>Before we solve for the coin’s initial horizontal velocity, please note that the coin does not feel the same force of gravity as you do on the floor of the station. It has a smaller radius to the center of the station because you are holding it in your hand; the coin starts at a height of 4 ft from the floor. Thus, the coin’s horizontal velocity would not be <em>quite</em> the same as if it were touching the floor.</p>
 
-<p><img class="floatright" src="/coriolis/assets/img/BasicKinematics.png" width="150" /></p>
+<p>The floor’s “gravity” is a constant acceleration toward the center. This is the equation for centripetal acceleraton:</p>
 
-<p>Physics tells us, that at the top of an arc of motion on Earth, the velocity will equal zero as the object changes direction. The coin will land directly under where it was thrown.</p>
-
-<p>This is the relevant kinematics fomula:</p>
-
-<script type="math/tex; mode=display">v_f^2=v_0^2+2ax</script>
+<script type="math/tex; mode=display">a=\frac{v^2}{r}</script>
 
 <p>Variables:</p>
 
 <ul>
-  <li>$v_f$ is the final velocity</li>
-  <li>$v_0$ is the initial velocty</li>
-  <li>$a$ is the acceleration</li>
-  <li>$x$ is the distance traveled upwards</li>
+  <li>a is the acceleration felt by the object in ft/s/s</li>
+  <li>$v$ is the horizontal (tangential) velocity of an object on the station in ft/s</li>
+  <li>r is the radius, or distance from the object to the center of rotation in feet</li>
 </ul>
 
-<p>In our formula:</p>
+<p>Unfortunately, we do not know either the acceleration felt by the coin or its current horizontal velocity. This is why we will need the rotational speed at the floor. The rotational speed in radians per second will be equivalent at the floor and at the coin. We <em>do</em> know the acceleration felt at the floor.</p>
 
-<ul>
-  <li>$v_0$ is the initial velocity, the variable we want</li>
-  <li>$v_f=0$ (the top of our throwing arc)</li>
-  <li>$x$ is the height of our throw (3 feet up)</li>
-  <li>$a=-g_e=-32.174$ ft/s/s, the gravity on earth.</li>
-</ul>
+<p>Rotational, or angular, velocity is related to linear velocity. This relationship is defined by $v=r*\omega$ where $\omega$ is the rotational rate of the station in radians/second.</p>
 
-<p><br /></p>
+<p>We can use this with our centripetal acceleration equation to get rotational speed.</p>
 
-<p>By solving, we get:</p>
-
-<p><br /></p>
-
-<script type="math/tex; mode=display">0=v_0^2-2gx</script>
-
-<script type="math/tex; mode=display">v_{0y}=\sqrt {2g_ex}</script>
-
-<p>This is the vertical component of the coin’s starting velocity.</p>
-
-<h6 id="horizontal-component">Horizontal Component</h6>
-
-<p>Before we solve for the coin’s initial horizontal velocity, please note that the coin does not feel the same force of gravity as you do on the floor of the station. It has a smaller radius to the center of the station because you are holding it in your hand. Thus, the coin’s horizontal velocity would not be <em>quite</em> the same as if it were touching the floor.</p>
-
-<p>The floor’s “gravity” is a constant acceleration toward the center. This is the equation for rotational acceleraton:</p>
-
-<script type="math/tex; mode=display">a=\frac{v_t^2}{r}=\omega^2r</script>
-
-<p>Variables:</p>
-
-<ul>
-  <li>$v_t$ is the horizontal velocity of an object on the station</li>
-  <li>r is the radius where the object is located</li>
-  <li>a is the acceleration felt by the object</li>
-  <li>$\omega$ is the rotational rate of the station in radians/second.</li>
-</ul>
-
-<p>$\omega$ would be the same at the floor and at the coin. We can calculate $\omega$ using values at the floor (1g acceleration), and then use $\omega$ to find the horizontal velocity of the coin.</p>
+<script type="math/tex; mode=display">a=\omega^2r</script>
 
 <script type="math/tex; mode=display">\omega=\sqrt {\frac {a}{r}}</script>
 
@@ -245,20 +214,13 @@
 
 <ul>
   <li>$a=-32.174$ ft/s/s, the acceleration at the floor</li>
-  <li>$r$ is the radius of the station.</li>
+  <li>$r$ is the radius of the station, or 25 feet.</li>
+  <li>$\omega$ is the rotational speed in radians per second</li>
 </ul>
 
-<p>We can then use $\omega$ to calculate the horizontal velocity of the coin. Using the formula at the top, we get:</p>
+<p>We can then use $\omega$ to calculate the horizontal velocity of the coin. The radius at the coin will be 25 ft minus 4 ft, or 21 feet. Therefore, $v_x=21*\omega$. This value will be negative because the coin is traveling left and is rotating clockwise.</p>
 
-<script type="math/tex; mode=display">v_x = -v_t=-\omega*r_{c}</script>
-
-<script type="math/tex; mode=display">r_{c}=r_{s}-h_{c}</script>
-
-<p>The model’s starting height is how far above the floor the coin is tossed from. The coin’s radius would be the total radius minus the coin’s starting height.</p>
-
-<p>The velocity is set to be negative, because the coin is going left in our coordinate plane. Left is a negative direction.</p>
-
-<p>Thus, our final formula:</p>
+<p>If you put all of this together, you get:</p>
 
 <script type="math/tex; mode=display">v_x = -\sqrt {\frac{a}{r_{s}}}*(r_{s}-h_{c})</script>
 
@@ -266,13 +228,13 @@
 
 <ul>
   <li>a = the acceleration of the station, -32.174 ft/s/s</li>
-  <li>$r_{s}$=the radius of the station</li>
-  <li>$h_{person}$=the height of the person</li>
+  <li>$r_{s}$ = the radius of the station</li>
+  <li>$h_{c}$ = the starting height of the coin</li>
 </ul>
 
 <p><br /></p>
 
-<h5 id="the-coins-landing-coordinates">The Coin’s Landing Coordinates</h5>
+<h4 id="the-coins-landing-coordinates">The Coin’s Landing Coordinates</h4>
 
 <p>We can use the velocity components of the coin to find its landing coordinates. The coin is traveling up and to the left in a straight line; the slope of the path it follows is the fraction of the two velocity components, $\frac{v_y}{v_x}$.</p>
 
@@ -281,7 +243,7 @@
 <p>Our variables:</p>
 
 <ul>
-  <li>$m=\frac {rise}{run}=\frac{v_y}{v_x}$, it will be <em>negative</em>.</li>
+  <li>$m=\frac{v_y}{v_x}$, it will be <em>negative</em>.</li>
   <li>$b=$ the y-intercept $=-(r_{s}-h_{c})$</li>
 </ul>
 
@@ -369,7 +331,7 @@
 
 <p><br /><br /></p>
 
-<h5 id="time-elapsed-in-the-air">Time Elapsed in the Air</h5>
+<h4 id="time-elapsed-in-the-air">Time Elapsed in the Air</h4>
 
 <p>Now that we have the landing coordinates, we can solve for the exact time elapsed using kinematics equations. First, we need the distance traveled. We will calculate this using the Pythagorean Theorem. The final coordinates of the coin are (x_f, y_f), and the initial coordinates are (0,$-r_{c}$).</p>
 
@@ -395,7 +357,7 @@
 
 <p><br /></p>
 
-<h5 id="the-arc-swept-by-the-person">The Arc Swept By the Person</h5>
+<h4 id="the-arc-swept-by-the-person">The Arc Swept By the Person</h4>
 
 <p>We can use the time variable to calculate the angle a person will cover while the coin is in the air. This will give us the final coordinates of the person.</p>
 
@@ -437,7 +399,7 @@
 
 <p><br /></p>
 
-<h5 id="the-final-answer">The Final Answer</h5>
+<h4 id="the-final-answer">The Final Answer</h4>
 
 <p>Now that we have the landing coordinates of the coin, and the person’s final coordinates, we can calculate the straight line distance between the two using the Pythagorean theorem. This formula gives us our answer:</p>
 
@@ -447,7 +409,7 @@
 
 <p><br /></p>
 
-<h5 id="max-height-achieved">Max Height Achieved</h5>
+<h4 id="max-height-achieved">Max Height Achieved</h4>
 
 <p>My table also displays the max height achieved by the coin. Unfortunately, there is no formula to calculate this. I generated this number by creating a maximization script; the script sweeps up and down the path of the coin to find the point that is at the farthest distance from the circle.</p>
  
