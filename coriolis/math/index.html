@@ -135,7 +135,7 @@
 	</div>
 
 
- <h2 id="the-math-behind-this-model-difference-from-throw-on-earth">The math behind this model: “Difference from throw on Earth”</h2>
+ <h2 id="the-math-behind-this-model-difference-from-throw-on-earth">The math behind this model: “difference from throw on Earth”</h2>
 
 <p>As I began putting this computer model together, I wanted a simple go-to measurement for the difference between a rotating throw and a throw on Earth. This provided me a fascinating physics problem. My goal was to calculate, if a person were to toss a coin in a rotating environment, how far away would it land from their feet?</p>
 
@@ -170,106 +170,119 @@
 <p>Here are the steps to solving our math problem:</p>
 
 <ol>
-  <li>Calculate the rotation speed at the floor in radians per second</li>
-  <li>Use the rotation speed to calculate the horizontal speed of the coin in feet per second</li>
-  <li>Calculate the magnitude and direction of the coin’s overall velocity through the air</li>
+  <li>Calculate the magnitude and direction of the coin’s velocity through the air</li>
   <li>Find the coin’s landing coordinates</li>
   <li>Calculate the time elapsed as the coin traveled through the air</li>
   <li>Calculate the arc swept by the thrower during this same time</li>
   <li>Calculate the thrower’s final coordinates</li>
-  <li>Calculate the distance between the thrower’s feet and the coin when the coin lands</li>
+  <li>Calculate the distance between the thrower’s feet and the coin where it lands</li>
 </ol>
 
 <p><br /></p>
 
-<h4 id="starting-velocity">Starting Velocity</h4>
+<h4 id="starting-velocity">Starting velocity</h4>
 
-<p>We need the vertical and horizontal velocity components of the coin. The vertical velocity has been given to us as 14 ft/s, the throw speed of the coin. The horizontal velocity is currently unknown.</p>
+<p>We need the vertical and horizontal velocity components of the coin. The vertical velocity has been given to us as 14 ft/s, the throw speed. The horizontal velocity is currently unknown, but it is based on the speed it was rotating before the throw. Using this information, we can calculate which direction the coin is moving.</p>
 
-<p>Before we solve for the coin’s initial horizontal velocity, please note that the coin does not feel the same force of gravity as you do on the floor of the station. It has a smaller radius to the center of the station because you are holding it in your hand; the coin starts at a height of 4 ft from the floor. Thus, the coin’s horizontal velocity would not be <em>quite</em> the same as if it were touching the floor.</p>
+<p>Before we solve for the coin’s initial horizontal velocity, please note that the coin does not feel the same force of “gravity” as the person’s feet do on the floor of the station. Its distance to the station’s center is smaller than the station’s radius because you are holding it in your hand. The coin starts at a height of 4 ft from the floor. Thus, the coin’s horizontal velocity would not be <em>quite</em> the same as if it were touching the floor.</p>
 
-<p>The floor’s “gravity” is a constant acceleration toward the center. This is the equation for centripetal acceleraton:</p>
+<p>We can calculate the coin’s velocity using the equations for centripetal acceleration, which produces the station’s “gravity”. Here is our equation:</p>
 
 <script type="math/tex; mode=display">a=\frac{v^2}{r}</script>
 
 <p>Variables:</p>
 
 <ul>
-  <li>a is the acceleration felt by the object in ft/s/s</li>
-  <li>$v$ is the horizontal (tangential) velocity of an object on the station in ft/s</li>
-  <li>r is the radius, or distance from the object to the center of rotation in feet</li>
+  <li>a is the acceleration (in ft/s/s) felt at a given radius on a rotating object</li>
+  <li>$v$ is the horizontal (tangential) velocity at this radius in ft/s</li>
+  <li>r is the radius, or distance to the center of rotation in feet</li>
 </ul>
 
-<p>Unfortunately, we do not know either the acceleration felt by the coin or its current horizontal velocity. This is why we will need the rotational speed at the floor. The rotational speed in radians per second will be equivalent at the floor and at the coin. We <em>do</em> know the acceleration felt at the floor.</p>
+<p>Unfortunately, we do not know either the acceleration felt by the coin or its current horizontal velocity. We will have to calculate it based on the station’s rotation rate, which we can get from the floor, where the acceleration is 1g. The rotational speed in radians per second will be equivalent at the floor and at the coin.</p>
 
-<p>Rotational, or angular, velocity is related to linear velocity. This relationship is defined by $v=r*\omega$ where $\omega$ is the rotational rate of the station in radians/second.</p>
+<p>Rotational, or angular, velocity (rate of spin) is related to linear velocity (straight-line motion). This relationship is defined by $v=\omega*r$ where $\omega$ is the rotational rate of the station in radians/second.</p>
 
-<p>We can use this with our centripetal acceleration equation to get rotational speed.</p>
+<p>We can use this with our centripetal acceleration equation to get rate of rotation at the floor by replacing $v^2$ with $\omega^2*r^2$. This gives us:</p>
 
 <script type="math/tex; mode=display">a=\omega^2r</script>
 
-<script type="math/tex; mode=display">\omega=\sqrt {\frac {a}{r}}</script>
+<p>Rearrange:</p>
 
-<p>In our formula:</p>
+<script type="math/tex; mode=display">\omega=-\sqrt {\frac {a}{r}}</script>
+
+<p>In this formula:</p>
 
 <ul>
-  <li>$a=-32.174$ ft/s/s, the acceleration at the floor</li>
+  <li>$a=-32.174$ ft/s/s (1g), the acceleration at the floor</li>
   <li>$r$ is the radius of the station, or 25 feet.</li>
-  <li>$\omega$ is the rotational speed in radians per second</li>
+  <li>$\omega$ is the rotational speed in radians per second. It is negative because the station is rotating clockwise.</li>
 </ul>
 
-<p>We can then use $\omega$ to calculate the horizontal velocity of the coin. The radius at the coin will be 25 ft minus 4 ft, or 21 feet. Therefore, $v_x=21*\omega$. This value will be negative because the coin is traveling left and is rotating clockwise.</p>
+<p>Now that we have the rate of rotation, we can calculate the horizontal velocity of the coin. The radius at the coin will be 25 ft minus 4 ft, or 21 feet. The velocity will be negative because the coin is traveling left.</p>
 
-<p>If you put all of this together, you get:</p>
+<p>If you put all of this together coin using $v=\omega*r$, using the rotation rate from the floor and the radius at the coin, you get:</p>
 
 <script type="math/tex; mode=display">v_x = -\sqrt {\frac{a}{r_{s}}}*(r_{s}-h_{c})</script>
 
 <p>Our variables:</p>
 
 <ul>
-  <li>a = the acceleration of the station, -32.174 ft/s/s</li>
-  <li>$r_{s}$ = the radius of the station</li>
-  <li>$h_{c}$ = the starting height of the coin</li>
+  <li>$v_x$: the horizontal velocity of the coin, which we are calculating</li>
+  <li>a: the acceleration of the station, -32.174 ft/s/s</li>
+  <li>$r_{s}$: the radius of the station, 25 feet</li>
+  <li>$h_{c}$: the starting height of the coin, 4 feet</li>
 </ul>
+
+<p>$v_x$ works out to -23.82329$ ft/s.</p>
 
 <p><br /></p>
 
-<h4 id="the-coins-landing-coordinates">The Coin’s Landing Coordinates</h4>
+<h4 id="the-coins-landing-coordinates">The coin’s landing coordinates</h4>
 
-<p>We can use the velocity components of the coin to find its landing coordinates. The coin is traveling up and to the left in a straight line; the slope of the path it follows is the fraction of the two velocity components, $\frac{v_y}{v_x}$.</p>
+<p>We can use the velocity components of the coin to find its landing coordinates. The coin is traveling up and to the left in a straight line; the slope of the path it follows is the fraction of the two velocity components, $\frac{v_y}{v_x}$. The landing coordinates will be where this line intersects with the station, a circle.</p>
 
-<p>The equation for a line: $y = mx + b$</p>
+<p>The equation for our line in slope-intercept form: $y = mx - r_c$</p>
 
 <p>Our variables:</p>
 
 <ul>
-  <li>$m=\frac{v_y}{v_x}$, it will be <em>negative</em>.</li>
-  <li>$b=$ the y-intercept $=-(r_{s}-h_{c})$</li>
+  <li>$m$: the slope, or $\frac{v_y}{v_x}$. It will be <em>negative</em> because the coin is moving left and up.</li>
+  <li>$r_c$: the y-intercept. This is the radius where the coin starts, mapped to our coordinate system. This is <em>subtracted</em> because it is below the center.</li>
 </ul>
 
-<p>My computer tells me that $v_x=-23.82329$ ft/s, and $v_y=13.80403$ ft/s. This is the formula for the path of the coin:</p>
+<p>Given that $v_x=-23.82329$ ft/s, $v_y=14$ ft/s, and $r_c=25-4=21$ ft, this is the line that makes up the coin’s path:</p>
 
-<script type="math/tex; mode=display">y=-.579434x-21</script>
+<script type="math/tex; mode=display">y=-.587660x-21</script>
 
-<p>Now, we need to find where this line intersects with a circle. Here is the formula for a circle:</p>
+<p>Now, we need to find where this line intersects with the circle that is the station. Here is our formula for the circle:</p>
 
-<script type="math/tex; mode=display">x^2 + y^2 = r^2</script>
+<script type="math/tex; mode=display">x^2 + y^2 = r_s^2</script>
 
-<p>We can cheat and solve this using an <a href="https://www.desmos.com/calculator">online graphing website</a>:</p>
+<ul>
+  <li>Note: $r_s$ is the radius of the station.</li>
+</ul>
+
+<p>We can cheat for a moment and solve for our coordinates using an <a href="https://www.desmos.com/calculator">online graphing website</a>:</p>
 
 <div class="center"><img src="/coriolis/assets/img/IntersectPoint.png" width="250" height="250" /></div>
 
-<p>In this image, you can see the path of the coin and its final intersection with the ground, up and to the left. The coin starts at the y-intercept.</p>
+<p>In this image, you can see the path of the coin and its final intersection with the floor on the left. The coin starts at the y-intercept; everything to the right of that is irrelevant. The numbers in this picture will help us validate our answers later.</p>
 
-<p>Now, we will solve this by hand. For our computer model, we need formulas that the computer can solve!</p>
+<p>Now, we will develop a formula to solve for the x coordinate. The computer model needs a formula! I am leaving $\frac{v_y}{v_x}$ as the variable $m$ for simplicity’s sake.</p>
+
+<p>Here are our equations again:</p>
 
 <script type="math/tex; mode=display">x^2 + y^2 = r_{s}^2</script>
 
 <script type="math/tex; mode=display">y=mx-r_{c}</script>
 
+<p>Put them together:</p>
+
 <script type="math/tex; mode=display">x^2 + (mx-r_{c})^2 = r_{s}^2</script>
 
-<p>Rearrange and simplify to a quadratic equation (format $0=ax^2+bx+c$):</p>
+<p>Next, rearrange and simplify to a quadratic equation (format $0=ax^2+bx+c$) by multiplying the y term and combining like terms:</p>
+
+<script type="math/tex; mode=display">x^2+m^2x^2-mxr_c-mxr_c+r_c^2=r_s^2</script>
 
 <script type="math/tex; mode=display">0=(1+m^2)x^2-2mr_{c}x+(r_{c}^2-r_{s}^2)</script>
 
@@ -277,141 +290,124 @@
 
 <script type="math/tex; mode=display">x=\frac {-b\pm\sqrt {b^2-4ac}}{2a}</script>
 
-<p>Plug in our variables and simplify (I skipped a few steps for brevity):</p>
+<p>Plug in our variables and simplify:</p>
+
+<script type="math/tex; mode=display">x=\frac{2mr_c\pm\sqrt{ 4m^2r_c^2-4(1+m^2)(r_c^2-r_s^2) }} { 2(1+m^2)}</script>
 
 <script type="math/tex; mode=display">x=\frac{mr_{c}\pm\sqrt{m^2r_{c}^2-(1+m^2)(r_{c}^2-r_{s}^2)}}{1+m^2}</script>
 
-<p>This is our formula for the x-coordinate of the coin. The correct value will be the answer that is negative, because the coin goes to the <em>left</em>. The equation correctly gives us -23.967 when we solve with the (-) operator.</p>
+<script type="math/tex; mode=display">x=\frac{mr_c\pm\sqrt{m^2r_c^2-r_c^2+r_s^2-m^2r_c^2+m^2r_s^2}}{1+m^2}</script>
 
-<p>Now we need to solve for the y-component that matches this x-component:</p>
+<script type="math/tex; mode=display">x=\frac{mr_c\pm\sqrt{r_s^2(1+m^2)-r_c^2}}{1+m^2}</script>
 
-<script type="math/tex; mode=display">x^2 + y^2= r_{s}^2</script>
+<p>This is our formula for the x-coordinate of the coin. The operator we use depends on what quadrant the coin lands in; in other words, it depends on the conditions of the throw. In this problem, the correct value will be the answer that is negative because the coin goes to the <em>left</em>. The equation correctly gives us -24.036 when we solve with the (-) operator.</p>
 
-<script type="math/tex; mode=display">y=\sqrt {r_{s}^2-x^2}</script>
+<p>Now we need to solve for the y-component that matches this x-component. Here is the equation for our line again:</p>
 
-<p>This gives us 7.113. There is one problem: solving this way only gives us the <em>absolute value</em> of the y-component!</p>
+<script type="math/tex; mode=display">y = mx - r_c</script>
 
-<p>To get the correct sign of the y-component, we need to use the quadratic formula <em>again</em>.</p>
+<p>Inserting -.587660 for $m$ and 21 for $r_c$ gives us an answer of y=-6.875. The coin’s final coordinates are (-24.036, -6.875).</p>
 
-<script type="math/tex; mode=display">y=mx-r_{c}</script>
+<p>Once more, here are our final formulas for the coin’s landing coordinates:</p>
 
-<script type="math/tex; mode=display">x=\frac{y+r_{c}}{m}</script>
+<script type="math/tex; mode=display">x_c=\frac{mr_c-\sqrt{r_s^2(1+m^2)-r_c^2}}{1+m^2}</script>
 
-<script type="math/tex; mode=display">\left(\frac {y+r_{c}}{m}\right)^2 + y^2= r_{s}^2</script>
-
-<p>Rearrange and simplify to a quadratic equation:</p>
-
-<script type="math/tex; mode=display">0=y^2(1+m^2)+2r_{c}y+(r_{c}^2-r_{s}^2m^2)</script>
-
-<p>Put into the quadratic formula and simplify:</p>
-
-<script type="math/tex; mode=display">y=\frac{-r_{c}\pm\sqrt{r_{c}^2-(1+m^2)(r_{c}^2-r_{s}^2m^2)}}{1+m^2}</script>
-
-<p>We already know the absolute value of the y-component. The quadratic formula tells us that this number should be negative, -7.113. We arrived at this number using the (+) operator.</p>
-
-<p>Our final coordinates are (-23.967, -7.113). This matches the values from the graphing website.</p>
-
-<p>The correct operators in the quadratic formula were (-) when solving for x, and (+) when solving for y. This is fairly intuitive, because the coin moves up and to the left (negative x direction, positive y direction).</p>
-
-<p>These operators differ if the coin moves in a direction other than up and to the left (e.g. if it is thrown in a direction other than straight up). Fortunately, the operators are intuitive based on which direction the coin moves.</p>
-
-<p>Thus, our final formulas are:</p>
-
-<script type="math/tex; mode=display">x=\frac{mr_{c}-\sqrt{m^2r_{c}^2-(1+m^2)(r_{c}^2-r_{s}^2)}}{1+m^2}</script>
-
-<script type="math/tex; mode=display">y=\frac{-r_{c}+\sqrt{r_{c}^2-(1+m^2)(r_{c}^2-r_{s}^2m^2)}}{1+m^2}</script>
+<script type="math/tex; mode=display">y_c = mx - r_c</script>
 
 <p>Our variables:</p>
 
 <ul>
-  <li>$m=\frac {v_y}{v_x}$. $v_x$ is negative because the coin is moving left.</li>
-  <li>$r_{c}$ is the radius at the coin.</li>
+  <li>$m=\frac {v_y}{v_x}$. Both $v_x$ and $m$ are negative because the coin is moving left.</li>
+  <li>$r_{c}$ is the radius where the coin starts, or the y-intercept.</li>
   <li>$r_{s}$ is the radius of the station.</li>
 </ul>
 
-<p><br /><br /></p>
+<p><br /></p>
 
-<h4 id="time-elapsed-in-the-air">Time Elapsed in the Air</h4>
+<h4 id="time-elapsed">Time Elapsed</h4>
 
-<p>Now that we have the landing coordinates, we can solve for the exact time elapsed using kinematics equations. First, we need the distance traveled. We will calculate this using the Pythagorean Theorem. The final coordinates of the coin are (x_f, y_f), and the initial coordinates are (0,$-r_{c}$).</p>
+<p>Now that we have the coin’s landing coordinates, we can solve for the exact time elapsed using kinematics. To calculate this, we need the distance traveled; however, we only need this in one dimension. We will use the initial and final x-coordinates. The coin travels from 0 to $x_f$, and its velocity is $v_x$.</p>
 
-<p>Pythagorean theorem: $d=\sqrt{(x_2-x_1)^2 + (y_2-y_1)^2}$.</p>
+<p>Basic kinematics tells us that $d=vt$ for objects that are not accelerating. We can rearrange this and plug in our values. We get:</p>
 
-<p>Using our variables: $d=\sqrt{x_f^2+(y_f+r_{c})^2}$</p>
-
-<p>We also need to solve for the velocity. We have the x and y components. The velocity, with the Pythagorean theorem, is $v=\sqrt {v_x^2 + v_y^2}$.</p>
-
-<p>We know from basic kinematics that $d=vt$ for objects that are not accelerating. We can rearrange this and plug in our values. We get:</p>
-
-<script type="math/tex; mode=display">t=\frac {\sqrt{x_f^2+(y_f+r_{c})^2}}{\sqrt {v_x^2 + v_y^2}}</script>
+<script type="math/tex; mode=display">t=\frac{x_f}{v_x}</script>
 
 <p>Our variables:</p>
 
 <ul>
+  <li>$t$ = the time elapsed</li>
   <li>$x_f$ = the final x-coordinate of the coin</li>
-  <li>$y_f$ = the final y-coordinate of the coin</li>
   <li>$v_x$ = the velocity x-component</li>
-  <li>$v_y$ = the velocity y-component</li>
-  <li>$r_{c}$ = the radius at the coin, before it is launched</li>
 </ul>
+
+<p>This solves to almost exactly one second, or 1.009s.</p>
 
 <p><br /></p>
 
 <h4 id="the-arc-swept-by-the-person">The Arc Swept By the Person</h4>
 
-<p>We can use the time variable to calculate the angle a person will cover while the coin is in the air. This will give us the final coordinates of the person.</p>
+<p>We can use the time variable to calculate the angle a person will rotate while the coin is in the air. This will give us the final coordinates of the person.</p>
 
-<p>We have already calculated the station’s rotation rate in the beginning of our problem. This is $\omega$, in radians/second.</p>
+<p>We have already calculated the station’s rotation rate in the beginning of our problem. This is $\omega$, in radians/second, and this is negative because the station is moving clockwise (counterclockwise is positive). Remember, $\omega=-t*\sqrt{\frac{a}{r}}$.</p>
 
-<p>The person starts at an angle of $\frac{3\pi}{2}$ (270 degrees). The person is sweeping a negative arc, because they are traveling clockwise (counterclockwise is positive for angles).</p>
+<p>If $\theta_p$ is the total arc swept by the person, then you would expect $\theta_p=\theta_f-\theta_0$, the final minus the initial angles. The person starts at an angle of $\frac{3\pi}{2}$ (270 degrees). The person is also sweeping a negative arc.</p>
 
-<p>If $\theta_t$ is the total arc swept by the person, then you would expect $\theta_t=\theta_f-\theta_0$. However, you must keep in mind the negative direction of the arc being traveled. We can switch the sign by flipping the terms of the equation. Thus, our formula is $\theta_t=\theta_0-\theta_f$, where $\theta_0=\frac{3\pi}{2}$. Now rearrange the terms:</p>
+<p>With rotational kinematics, we can calculate this arc swept by the person:</p>
 
-<script type="math/tex; mode=display">\theta_f = \theta_0 - \theta_t</script>
-
-<p>With rotational kinematics, we can calculate the arc swept by the person:</p>
-
-<script type="math/tex; mode=display">\theta_t = \omega t</script>
+<script type="math/tex; mode=display">\theta_p = \omega t</script>
 
 <p>Put the equations together:</p>
 
-<script type="math/tex; mode=display">\theta_f = \theta_0 - \omega t</script>
+<script type="math/tex; mode=display">\theta_f-\theta_0=\omega t</script>
+
+<p>Rearrange:</p>
+
+<script type="math/tex; mode=display">\theta_f = \theta_0 + \omega t</script>
+
+<p>We can also think of this in terms of the station’s acceleration:</p>
+
+<script type="math/tex; mode=display">\theta_f = \theta_0 - t*\sqrt{\frac{a}{r}}</script>
 
 <p>We have just calculated the person’s final angle in the station. Now, we have a set of polar coordinates: we have the final angle and the radius. We can convert these polar coordinates to cartesian coordinates using the equations:</p>
 
-<script type="math/tex; mode=display">x=r*cos(\theta)</script>
+<script type="math/tex; mode=display">x=r*cos(\theta_f)</script>
 
-<script type="math/tex; mode=display">y=r*sin(\theta)</script>
+<script type="math/tex; mode=display">y=r*sin(\theta_f)</script>
 
-<p>Our final x and y coordinates:</p>
+<p>Our final equations for the person’s x and y coordinates:</p>
 
-<script type="math/tex; mode=display">x=r*cos(\frac{3\pi}{2} - \omega t)</script>
+<script type="math/tex; mode=display">x_p=r_s*cos(\frac{3\pi}{2} - t*\sqrt{\frac{a}{r_s}})</script>
 
-<script type="math/tex; mode=display">y=r*sin(\frac{3\pi}{2} - \omega t)</script>
+<script type="math/tex; mode=display">y_p=r_s*sin(\frac{3\pi}{2} - t*\sqrt{\frac{a}{r_s}})</script>
 
 <p>Our variables:</p>
 
 <ul>
-  <li>r = the radius of the station</li>
-  <li>$\omega$ = the rotational rate of the station (calculated when we found the horizontal velocity)</li>
+  <li>$r_s$ = the radius of the station</li>
+  <li>$a$ = the rotational acceleration, which equals earth gravity (32.174 ft/s/s)</li>
   <li>t = the time elapsed while the coin is in the air</li>
 </ul>
+
+<p>The person’s final coordinates are (-22.763, -10.336).</p>
 
 <p><br /></p>
 
 <h4 id="the-final-answer">The Final Answer</h4>
 
-<p>Now that we have the landing coordinates of the coin, and the person’s final coordinates, we can calculate the straight line distance between the two using the Pythagorean theorem. This formula gives us our answer:</p>
+<p>Now that we have both the landing coordinates of the coin and the person’s final coordinates, we can calculate the straight line distance between the two using the Pythagorean theorem. This formula gives us our answer:</p>
 
-<script type="math/tex; mode=display">d = \sqrt{(x_{c}-x_{person})^2 + (y_{c}-y_{person})^2}</script>
+<script type="math/tex; mode=display">d = \sqrt{(x_{c}-x_{p})^2 + (y_{c}-y_{p})^2}</script>
 
-<p>Javascript calculates to a precision of about 15 decimal points. This is insufficient for some calculations; thus my code uses the Decimal.js package to support 30 decimal places instead. The model breaks up the path of the coin into 100 pieces and moves real-time between them to make a realistic arc on the screen.</p>
+<ul>
+  <li>$x_c$ and $y_c$ are the coin’s final coordinates</li>
+  <li>$x_p$ and $y_p$ are the person’s final coordinates</li>
+</ul>
+
+<p>This tells us that the coin landed 3.687 feet away from the person’s feet.</p>
+
+<p>The model then breaks up the path of the coin into 100 pieces, reorients each of these points to the person’s perspective at that moment, and moves real-time between these points to make an arc on the screen.</p>
 
 <p><br /></p>
-
-<h4 id="max-height-achieved">Max Height Achieved</h4>
-
-<p>My table also displays the max height achieved by the coin. Unfortunately, there is no formula to calculate this. I generated this number by creating a maximization script; the script sweeps up and down the path of the coin to find the point that is at the farthest distance from the circle.</p>
  
 </div>
 
