@@ -1,14 +1,14 @@
 {
   "short_name": "The Coriolis Effect",
-  "name": "Why Artificial Gravity Will Be Weird, but Necessary for Space Travel",
+  "name": "A Toss on a Spinning Space Station",
   "icons": [
     {
       "src": "favicon.ico",
-      "sizes": "64x64",
-      "type": "image/png"
+      "sizes": "150x150",
+      "type": "image/x-icon"
     }
   ],
-  "start_url": "./index.html",
+  "start_url": ".",
   "display": "standalone",
   "theme_color": "#000000",
   "background_color": "#ffffff"
