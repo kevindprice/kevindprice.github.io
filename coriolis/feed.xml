@@ -1,29 +1,12 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="https://kevindprice.github.io/coriolis/coriolis/feed.xml" rel="self" type="application/atom+xml" /><link href="https://kevindprice.github.io/coriolis/coriolis/" rel="alternate" type="text/html" /><updated>2020-05-18T14:11:29-04:00</updated><id>https://kevindprice.github.io/coriolis/coriolis/feed.xml</id><title type="html">Artificial Gravity and the Coriolis Effect</title><subtitle>An article and a computer model to help you understand life on a spinning space station</subtitle><entry><title type="html">Conclusion and links</title><link href="https://kevindprice.github.io/coriolis/coriolis/conclusion/" rel="alternate" type="text/html" title="Conclusion and links" /><published>2020-03-08T00:00:00-05:00</published><updated>2020-03-08T00:00:00-05:00</updated><id>https://kevindprice.github.io/coriolis/coriolis/conclusion</id><content type="html" xml:base="https://kevindprice.github.io/coriolis/coriolis/conclusion/">&lt;h3 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h3&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="http://0.0.0.0:4000/coriolis/feed.xml" rel="self" type="application/atom+xml" /><link href="http://0.0.0.0:4000/coriolis/" rel="alternate" type="text/html" /><updated>2020-06-06T00:57:02-04:00</updated><id>http://0.0.0.0:4000/coriolis/feed.xml</id><title type="html">Artificial Gravity and the Coriolis Effect</title><subtitle>An article and a computer model to help you understand life on a spinning space station</subtitle><entry><title type="html">Outside links and references</title><link href="http://0.0.0.0:4000/coriolis/conclusion/" rel="alternate" type="text/html" title="Outside links and references" /><published>2020-03-08T00:00:00-05:00</published><updated>2020-03-08T00:00:00-05:00</updated><id>http://0.0.0.0:4000/coriolis/conclusion</id><content type="html" xml:base="http://0.0.0.0:4000/coriolis/conclusion/">&lt;p&gt;&lt;img class=&quot;floatright&quot; src=&quot;/coriolis/assets/img/rotating.gif&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;img class=&quot;floatright&quot; src=&quot;/coriolis/assets/img/rotating.gif&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;Gravity through spinning provides an interesting topic for study because it is so different from our everyday experience. The Coriolis effect is an unexpected byproduct of a spinning world.&lt;/p&gt;
 
-&lt;p&gt;Artificial gravity will be difficult to accomplish, though it will also be essential to space travel. If we were to move around in a spinning space station, we would feel unexpected “forces” acting on us. An artificial gravity habitat could be built in the near future with the right designs in place. For now, the Coriolis effect gives us something to think about. Now we know how it would work.&lt;/p&gt;
-
-&lt;h4 id=&quot;links&quot;&gt;Links&lt;/h4&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://kevindprice.github.io/react.html&quot;&gt;My experience building the model&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://kevindprice.github.io/coriolis-math.html&quot;&gt;The math behind this model&lt;/a&gt;&lt;/p&gt;
-
-&lt;TextWindow source=&quot;/assets/img/CoriolisTable.py&quot;&gt;The Python code&lt;/TextWindow&gt;
-&lt;p&gt;I wrote to generate the graph in ‘How does the Coriolis effect work?’&lt;/p&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;h4 id=&quot;another-coriolis-model&quot;&gt;Another Coriolis model&lt;/h4&gt;
 
-&lt;p&gt;&lt;a href=&quot;http://andygiger.com/science/e-coriolis/&quot;&gt;This website&lt;/a&gt; contains another interesting Coriolis model. Here, Andy Giger poses a similar question: what does it look like if you have spinning water jets? As you can see in his model, the water veers forward, into the direction of rotation. If you look carefully, you will see that every dot individually follows a perfectly straight line.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;http://andygiger.com/science/e-coriolis/&quot;&gt;This website&lt;/a&gt; contains another interesting Coriolis model. Here, Andy Giger’s computer model takes another look at the Coriolis effect with spinning water jets. As you can see in his model, the water veers forward, into the direction of rotation. If you look carefully, you will see that every dot of water follows a perfectly straight line, but collectively it looks like a curve.&lt;/p&gt;
 
-&lt;div class=&quot;tryParent&quot;&gt;&lt;a target=&quot;_blank&quot; href=&quot;https://kevindprice.github.io/coriolis/model#&amp;amp;startheight=0&amp;amp;speed=100&quot;&gt;&lt;div class=&quot;TryIt&quot;&gt;Try it!&lt;/div&gt;&lt;div class=&quot;tooltiptext&quot;&gt;&lt;p&gt;Diameter=50 ft&lt;/p&gt;&lt;p&gt;Start height=0 ft&lt;/p&gt;&lt;p&gt;Angle=0°&lt;/p&gt;&lt;p&gt;Speed=100 ft/s &lt;/p&gt;&lt;p&gt;Gravity=100%&lt;/p&gt;&lt;/div&gt;&lt;/a&gt;&lt;/div&gt;
-
-&lt;p&gt;In my model, launching the coin from the floor has a similar result.&lt;/p&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;h4 id=&quot;references&quot;&gt;References&lt;/h4&gt;
+&lt;h4 id=&quot;useful-links&quot;&gt;Useful links&lt;/h4&gt;
 
 &lt;p&gt;&lt;a href=&quot;https://ntrs.nasa.gov/archive/nasa/casi.ntrs.nasa.gov/20070001009.pdf&quot;&gt;History of artificial gravity research&lt;/a&gt;&lt;/p&gt;
 
@@ -31,8 +14,6 @@
 
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;h4 id=&quot;image-sources&quot;&gt;Image sources&lt;/h4&gt;
-
-&lt;p&gt;Note: I have heavily photoshopped many of these.&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&quot;http://www.passmyexams.co.uk/GCSE/physics/circular-and-centripetal-force.html&quot;&gt;Clipart of centripetal force/swinging object&lt;/a&gt;&lt;/p&gt;
 
@@ -82,6 +63,8 @@
 
 &lt;p&gt;&lt;a href=&quot;http://www.popularmechanics.com/culture/tv/news/a21574/smithsonian-star-trek-enterpise-restored/&quot;&gt;The Enterprise&lt;/a&gt;&lt;/p&gt;
 
+&lt;p&gt;&lt;a href=&quot;https://upload.wikimedia.org/wikipedia/commons/thumb/d/d2/Right_hand_rule_cross_product.svg/507px-Right_hand_rule_cross_product.svg.png&quot;&gt;The right hand rule for cross products&lt;/a&gt;&lt;/p&gt;
+
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;h4 id=&quot;my-experience-with-physics&quot;&gt;My experience with physics&lt;/h4&gt;
 
@@ -91,39 +74,7 @@
 
 &lt;p&gt;In college, I ended up taking this course a third time due to some school requirements. I took “Principles of Physics I, for Scientists and Engineers.” I earned an A.&lt;/p&gt;
 
-&lt;p&gt;In none of these classes was the Coriolis effect ever mentioned. I was never given a physics problem similar to this one. It seems too complicated for an exam. I cannot remember where I originally read about the Coriolis effect. This subject is something that has fascinated me for years.&lt;/p&gt;</content><author><name></name></author><summary type="html">Conclusion</summary></entry><entry><title type="html">How does the Coriolis effect work?</title><link href="https://kevindprice.github.io/coriolis/coriolis/physics/" rel="alternate" type="text/html" title="How does the Coriolis effect work?" /><published>2020-03-07T00:00:00-05:00</published><updated>2020-03-07T00:00:00-05:00</updated><id>https://kevindprice.github.io/coriolis/coriolis/physics</id><content type="html" xml:base="https://kevindprice.github.io/coriolis/coriolis/physics/">&lt;h3 id=&quot;how-does-the-coriolis-effect-work&quot;&gt;How does the Coriolis effect work?&lt;/h3&gt;
-
-&lt;p&gt;The Coriolis effect causes objects in a rotating environment to move where you do not expect them to. To understand why you must take a look at the movement from a perspective that is not rotating.&lt;/p&gt;
-
-&lt;div class=&quot;floatright&quot;&gt;&lt;img src=&quot;/coriolis/assets/img/outside.png&quot; width=&quot;210&quot; /&gt;&lt;/div&gt;
-&lt;p&gt;If you were to jump in artificial gravity, the centripetal force at your feet would cease the instant you leave the floor. You would observe Coriolis “forces” as you “accelerate” back to the floor; however, an onlooker who is not spinning would see you move in a straight line.&lt;/p&gt;
-
-&lt;p&gt;Now we will return to the coin toss. The graphic above shows what a vertical coin toss looks like to an observer outside the station. The coin cuts through the middle by going in a straight line; the &lt;em&gt;thrower&lt;/em&gt; continues moving with the floor, taking the longer path.&lt;/p&gt;
-
-&lt;p&gt;The Coriolis force is different based on the direction an object is moving. This is what you would see:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;Objects moving &lt;em&gt;with&lt;/em&gt; the rotation would feel an extra downward “force.” They are effectively rotating more quickly.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Objects moving &lt;em&gt;opposite&lt;/em&gt; the rotation would become “lighter” or would move “up.” If you matched the station’s speed, you would become weightless.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Objects moving “upward” would be pushed into the rotation.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Objects moving “downward” would be pushed opposite the rotation.&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;div class=&quot;center&quot;&gt;&lt;img src=&quot;/coriolis/assets/img/CoriolisDirection.png&quot; width=&quot;500&quot; /&gt;&lt;/div&gt;
-
-&lt;p&gt;The larger the station, the smaller these Coriolis effects become; however, to make the effects unnoticeable, you would need an impractically massive space station! I have modeled our coin toss in a logarithmic graph. Earth-“normalness” improves &lt;em&gt;incredibly&lt;/em&gt; slowly, on a logarithmic scale.&lt;/p&gt;
-
-&lt;div class=&quot;center&quot;&gt;&lt;img id=&quot;smallMargin&quot; src=&quot;/coriolis/assets/img/CoriolisGraph.png&quot; width=&quot;500&quot; /&gt;&lt;/div&gt;
-
-&lt;div class=&quot;center&quot;&gt;&lt;p class=&quot;smallText&quot;&gt;This assumes the throw starts from four feet and goes to a total height of seven feet.&lt;/p&gt;&lt;/div&gt;</content><author><name></name></author><summary type="html">How does the Coriolis effect work?</summary></entry><entry><title type="html">Artificial gravity in science fiction</title><link href="https://kevindprice.github.io/coriolis/coriolis/scifi/" rel="alternate" type="text/html" title="Artificial gravity in science fiction" /><published>2020-03-06T00:00:00-05:00</published><updated>2020-03-06T00:00:00-05:00</updated><id>https://kevindprice.github.io/coriolis/coriolis/scifi</id><content type="html" xml:base="https://kevindprice.github.io/coriolis/coriolis/scifi/">&lt;h3 id=&quot;artificial-gravity-in-science-fiction&quot;&gt;Artificial gravity in science fiction&lt;/h3&gt;
+&lt;p&gt;In none of these classes was the Coriolis effect ever mentioned. I was never given a physics problem similar to this one. It seems too complicated for an exam. I cannot remember where I originally read about the Coriolis effect. This subject is something that has fascinated me for years.&lt;/p&gt;</content><author><name></name></author><summary type="html"></summary></entry><entry><title type="html">Artificial gravity in science fiction</title><link href="http://0.0.0.0:4000/coriolis/scifi/" rel="alternate" type="text/html" title="Artificial gravity in science fiction" /><published>2020-03-06T00:00:00-05:00</published><updated>2020-03-06T00:00:00-05:00</updated><id>http://0.0.0.0:4000/coriolis/scifi</id><content type="html" xml:base="http://0.0.0.0:4000/coriolis/scifi/">&lt;h3 id=&quot;artificial-gravity-in-science-fiction&quot;&gt;Artificial gravity in science fiction&lt;/h3&gt;
 
 &lt;p&gt;&lt;img class=&quot;floatright&quot; src=&quot;/coriolis/assets/img/DeathStar.jpg&quot; width=&quot;200&quot; /&gt;
 Artificial gravity has never been used in space, so our current perspective comes from science fiction. Sci-fi movies are not realistic; a “real” picture is not cinematic and would be difficult to simulate. No space movie has ever depicted the Coriolis effect.&lt;/p&gt;
@@ -176,176 +127,154 @@ In many sci-fi movies, you see an artificial gravity “generator” underneath 
 &lt;div class=&quot;tryParent&quot;&gt;&lt;a target=&quot;_blank&quot; href=&quot;https://kevindprice.github.io/coriolis/model#&amp;amp;diameter=2640&amp;amp;startheight=4&amp;amp;speed=20&amp;amp;angle=90&quot;&gt;&lt;div class=&quot;TryIt&quot;&gt;Try it!&lt;/div&gt;&lt;div class=&quot;tooltiptext&quot;&gt;&lt;p&gt;Diameter=2640 ft&lt;/p&gt;&lt;p&gt;Start height=4 ft&lt;/p&gt;&lt;p&gt;Angle=90°&lt;/p&gt;&lt;p&gt;Speed=20 ft/s &lt;/p&gt;&lt;p&gt;Gravity=100%&lt;/p&gt;&lt;/div&gt;&lt;/a&gt;&lt;/div&gt;
 &lt;p&gt;In battle school, if Ender were to toss an object 10 feet away in his room, it would land about 1½ feet off-target (assuming a half-mile diameter).&lt;/p&gt;
 
-&lt;p&gt;It seems clear that an accurate spacecraft story requires a physics expert. We simply do not have experience with such things to know clearly what it would be like.&lt;/p&gt;</content><author><name></name></author><summary type="html">Artificial gravity in science fiction</summary></entry><entry><title type="html">The math behind this model</title><link href="https://kevindprice.github.io/coriolis/coriolis/math/" rel="alternate" type="text/html" title="The math behind this model" /><published>2020-03-05T00:00:00-05:00</published><updated>2020-03-05T00:00:00-05:00</updated><id>https://kevindprice.github.io/coriolis/coriolis/math</id><content type="html" xml:base="https://kevindprice.github.io/coriolis/coriolis/math/">&lt;h3 id=&quot;the-math-behind-this-model&quot;&gt;The math behind this model&lt;/h3&gt;
+&lt;p&gt;It seems clear that an accurate spacecraft story requires a physics expert. We simply do not have experience with such things to know clearly what it would be like.&lt;/p&gt;</content><author><name></name></author><summary type="html">Artificial gravity in science fiction</summary></entry><entry><title type="html">The math behind this model</title><link href="http://0.0.0.0:4000/coriolis/math/" rel="alternate" type="text/html" title="The math behind this model" /><published>2020-03-05T00:00:00-05:00</published><updated>2020-03-05T00:00:00-05:00</updated><id>http://0.0.0.0:4000/coriolis/math</id><content type="html" xml:base="http://0.0.0.0:4000/coriolis/math/">&lt;h2 id=&quot;the-math-behind-this-model-difference-from-throw-on-earth&quot;&gt;The math behind this model: “difference from throw on Earth”&lt;/h2&gt;
 
-&lt;p&gt;The math I employed in my Coriolis article is thorny and involved, yet this model still follows the rules of basic physics and kinematics. So we have a physics problem to solve! To review, we want to find where a coin toss would land on a virtual space station. This is the most important part of the model’s math.&lt;/p&gt;
+&lt;p&gt;As I began putting this computer model together, I wanted a simple go-to measurement for the difference between a rotating throw and a throw on Earth. This provided me a fascinating physics problem. My goal was to calculate, if a person were to toss a coin in a rotating environment, how far away would it land from their feet?&lt;/p&gt;
 
-&lt;h5 id=&quot;set-up-the-coordinate-system&quot;&gt;Set-up the coordinate system&lt;/h5&gt;
+&lt;h4 id=&quot;set-up-the-problem&quot;&gt;Set up the problem&lt;/h4&gt;
 
-&lt;p&gt;To fully understand what happens during our coin toss, we must use a perspective that is not rotating. The Coriolis effect is not a real force, but is simply described by the difference between rotation and real gravity.&lt;/p&gt;
+&lt;p&gt;To fully understand what happens during our coin toss, we must use a perspective that is not rotating. When beginning to solve a physics problem, it is important to establish a coordinate system. This helps to make sense of what is going on.&lt;/p&gt;
 
-&lt;p&gt;In physics, we must set our coordinate system before we solve our math problem. The station is a virtual coordinate system with (0,0) at its exact center. I assumed that the station is rotating clockwise. The math might have been slightly simpler if I had chosen counterclockwise instead, but this is how I imagined it. For our convenience, the moment of the throw takes place at the instant the person is standing at the bottom of the curve. The person throws the coin with the force that would have been needed to get it 3 feet up in the air on Earth.&lt;/p&gt;
+&lt;p&gt;The station is a virtual coordinate system with (0,0) at its exact center and the thrower at the very bottom. I imagined the station rotating clockwise.&lt;/p&gt;
 
 &lt;div class=&quot;center&quot;&gt;&lt;img src=&quot;/coriolis/assets/img/CoordinateSystem.png&quot; width=&quot;300&quot; height=&quot;300&quot; /&gt;&lt;/div&gt;
 
-&lt;p&gt;While we are still holding the coin, we (and the coin) have a leftwards velocity due to the clockwise rotation. The centripetal force is pushing us upwards, directly towards the middle of the station.&lt;/p&gt;
+&lt;p&gt;Here are some conditions for this coin toss:&lt;/p&gt;
 
-&lt;p&gt;At the moment the coin is released, it will no longer have any forces acting on it. The coin is no longer touching the station. It will continue to have the same leftwards horizontal velocity, but it will now have a vertical velocity component defined by how hard you would have thrown it on earth.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;At the moment of the throw, the person is standing at the bottom of the circle, at 270 degrees or 3π/2 radians.&lt;/li&gt;
+  &lt;li&gt;The person is holding the coin at 4 feet from the floor. This is the starting height.&lt;/li&gt;
+  &lt;li&gt;The person throws the coin straight upward at 14 ft/s, which would have sent the coin about 3 feet up in the air on Earth.&lt;/li&gt;
+  &lt;li&gt;The rotating space station has a diameter of 50 feet. It is rotating at the speed necessary to produce 1g of acceleration, or 100% Earth gravity at the floor.&lt;/li&gt;
+  &lt;li&gt;The coin experiences less than this amount of centripetal acceleration or “gravity” because it is not at the floor.&lt;/li&gt;
+&lt;/ul&gt;
 
-&lt;div class=&quot;center&quot;&gt;&lt;img src=&quot;/coriolis/assets/img/BeforeThrow.png&quot; width=&quot;200&quot; height=&quot;200&quot; /&gt;&lt;img src=&quot;/coriolis/assets/img/AfterThrow.png&quot; width=&quot;200&quot; height=&quot;200&quot; /&gt;&lt;/div&gt;
+&lt;p&gt;The next picture is a diagram of the velocity components for the throw. Before the throw, the coin has a leftwards velocity ($V_x$) due to the clockwise rotation; the object also experiences the centripetal force upwards ($F_c$). The throw adds an upwards velocity of 14 ft/s (the throw speed); the centripetal force ceases. The velocity components define the overall direction that the coin travels through the air ($V$), which we will need to calculate so we can determine where it lands.&lt;/p&gt;
 
-&lt;p&gt;Now that I have set up the physics, I will explain the order of operations for our quest. In my advanced physics classes, the professors emphasized creating an equation that can solve your problem for you. This problem is far too complex to be placed into one equation; thus, we will solve it in steps, and the computer will give us the answer.&lt;/p&gt;
+&lt;div class=&quot;center&quot;&gt;&lt;img src=&quot;/coriolis/assets/img/BeforeThrow.png&quot; width=&quot;200&quot; /&gt;&lt;img src=&quot;/coriolis/assets/img/AfterThrow.png&quot; width=&quot;200&quot; /&gt;&lt;/div&gt;
 
-&lt;p&gt;We want to find how far away a coin would unexpectedly land from the thrower’s feet. To find this, we need to find out the coordinates of where both the thrower and the coin would end up. First, we need the velocity of the coin when it launches. Using this, we can solve for its landing coordinate and the time it elapsed in the air. We can then use the time elapsed in the air to find where the thrower would end up in an equivalent time period. We can use this to find the separation between the coin and the thrower’s feet.&lt;/p&gt;
+&lt;h4 id=&quot;steps-to-solve-the-problem&quot;&gt;Steps to solve the problem&lt;/h4&gt;
 
-&lt;p&gt;To review, here are the steps to solving our math problem:&lt;/p&gt;
+&lt;p&gt;Now that I have set up the problem, I will explain the next steps. Ideally, I would like a single equation that can solve the problem for me. Unfortunately, such an equation would be messy and impossible to simplify, so we will solve this in steps. We want to find how far away a coin would land from the thrower’s feet. To find this, we need to find the coordinates of where both the thrower and the coin would end up.&lt;/p&gt;
 
-&lt;ol type=&quot;1&quot;&gt;
-	&lt;li&gt;Solve for the coin's starting velocity
-		&lt;ul&gt;&lt;li&gt;Both horizontal and vertical components&lt;/li&gt;&lt;/ul&gt;
-	&lt;/li&gt;
-	&lt;li&gt;Find the coin's landing coordinates&lt;/li&gt;
-	&lt;li&gt;Get the time elapsed&lt;/li&gt;
-	&lt;li&gt;Calculate the arc swept by the thrower
-		&lt;ul&gt;&lt;li&gt;Use this to get the final coordinates&lt;/li&gt;&lt;/ul&gt;
-	&lt;/li&gt;
-	&lt;li&gt;Use the coordinates to calculate the distance between the coin and the thrower's feet&lt;/li&gt;
+&lt;p&gt;First, we need the magnitude and direction of the coin’s velocity after it launches. Using this, we can solve for its landing coordinate and the time it elapsed in the air. We can then use the time elapsed in the air to find where the thrower would end up in an equivalent time period. We can use this to find the separation between the coin and the thrower’s feet.&lt;/p&gt;
+
+&lt;p&gt;Here are the steps to solving our math problem:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Calculate the magnitude and direction of the coin’s velocity through the air&lt;/li&gt;
+  &lt;li&gt;Find the coin’s landing coordinates&lt;/li&gt;
+  &lt;li&gt;Calculate the time elapsed as the coin traveled through the air&lt;/li&gt;
+  &lt;li&gt;Calculate the arc swept by the thrower during this same time&lt;/li&gt;
+  &lt;li&gt;Calculate the thrower’s final coordinates&lt;/li&gt;
+  &lt;li&gt;Calculate the distance between the thrower’s feet and the coin where it lands&lt;/li&gt;
 &lt;/ol&gt;
 
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
-&lt;h5 id=&quot;starting-velocity&quot;&gt;Starting Velocity&lt;/h5&gt;
+&lt;h4 id=&quot;starting-velocity&quot;&gt;Starting velocity&lt;/h4&gt;
 
-&lt;h6 id=&quot;vertical-component&quot;&gt;Vertical Component&lt;/h6&gt;
+&lt;p&gt;We need the vertical and horizontal velocity components of the coin. The vertical velocity has been given to us as 14 ft/s, the throw speed. The horizontal velocity is currently unknown, but it is based on the speed it was rotating before the throw. Using this information, we can calculate which direction the coin is moving.&lt;/p&gt;
 
-&lt;p&gt;The throw velocity is based on how hard the coin &lt;em&gt;would&lt;/em&gt; have been thrown on Earth. This is basic kinematics, and once again, this part of the problem takes place on Earth.&lt;/p&gt;
+&lt;p&gt;Before we solve for the coin’s initial horizontal velocity, please note that the coin does not feel the same force of “gravity” as the person’s feet do on the floor of the station. Its distance to the station’s center is smaller than the station’s radius because you are holding it in your hand. The coin starts at a height of 4 ft from the floor. Thus, the coin’s horizontal velocity would not be &lt;em&gt;quite&lt;/em&gt; the same as if it were touching the floor.&lt;/p&gt;
 
-&lt;p&gt;&lt;img class=&quot;floatright&quot; src=&quot;/coriolis/assets/img/BasicKinematics.png&quot; width=&quot;150&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;We can calculate the coin’s velocity using the equations for centripetal acceleration, which produces the station’s “gravity”. Here is our equation:&lt;/p&gt;
 
-&lt;p&gt;Physics tells us, that at the top of an arc of motion on Earth, the velocity will equal zero as the object changes direction. The coin will land directly under where it was thrown.&lt;/p&gt;
-
-&lt;p&gt;This is the relevant kinematics fomula:&lt;/p&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;v_f^2=v_0^2+2ax&lt;/script&gt;
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;a=\frac{v^2}{r}&lt;/script&gt;
 
 &lt;p&gt;Variables:&lt;/p&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;$v_f$ is the final velocity&lt;/li&gt;
-  &lt;li&gt;$v_0$ is the initial velocty&lt;/li&gt;
-  &lt;li&gt;$a$ is the acceleration&lt;/li&gt;
-  &lt;li&gt;$x$ is the distance traveled upwards&lt;/li&gt;
+  &lt;li&gt;a is the acceleration (in ft/s/s) felt at a given radius on a rotating object&lt;/li&gt;
+  &lt;li&gt;$v$ is the horizontal (tangential) velocity at this radius in ft/s&lt;/li&gt;
+  &lt;li&gt;r is the radius, or distance to the center of rotation in feet&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;In our formula:&lt;/p&gt;
+&lt;p&gt;Unfortunately, we do not know either the acceleration felt by the coin or its current horizontal velocity. We will have to calculate it based on the station’s rotation rate, which we can get from the floor, where the acceleration is 1g. The rotational speed in radians per second will be equivalent at the floor and at the coin.&lt;/p&gt;
+
+&lt;p&gt;Rotational, or angular, velocity (rate of spin) is related to linear velocity (straight-line motion). This relationship is defined by $v=\omega*r$ where $\omega$ is the rotational rate of the station in radians/second.&lt;/p&gt;
+
+&lt;p&gt;We can use this with our centripetal acceleration equation to get rate of rotation at the floor by replacing $v^2$ with $\omega^2*r^2$. This gives us:&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;a=\omega^2r&lt;/script&gt;
+
+&lt;p&gt;Rearrange:&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;\omega=-\sqrt {\frac {a}{r}}&lt;/script&gt;
+
+&lt;p&gt;In this formula:&lt;/p&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;$v_0$ is the initial velocity, the variable we want&lt;/li&gt;
-  &lt;li&gt;$v_f=0$ (the top of our throwing arc)&lt;/li&gt;
-  &lt;li&gt;$x$ is the height of our throw (3 feet up)&lt;/li&gt;
-  &lt;li&gt;$a=-g_e=-32.174$ ft/s/s, the gravity on earth.&lt;/li&gt;
+  &lt;li&gt;$a=-32.174$ ft/s/s (1g), the acceleration at the floor&lt;/li&gt;
+  &lt;li&gt;$r$ is the radius of the station, or 25 feet.&lt;/li&gt;
+  &lt;li&gt;$\omega$ is the rotational speed in radians per second. It is negative because the station is rotating clockwise.&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p&gt;Now that we have the rate of rotation, we can calculate the horizontal velocity of the coin. The radius at the coin will be 25 ft minus 4 ft, or 21 feet. The velocity will be negative because the coin is traveling left.&lt;/p&gt;
 
-&lt;p&gt;By solving, we get:&lt;/p&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;0=v_0^2-2gx&lt;/script&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;v_{0y}=\sqrt {2g_ex}&lt;/script&gt;
-
-&lt;p&gt;This is the vertical component of the coin’s starting velocity.&lt;/p&gt;
-
-&lt;h6 id=&quot;horizontal-component&quot;&gt;Horizontal Component&lt;/h6&gt;
-
-&lt;p&gt;Before we solve for the coin’s initial horizontal velocity, please note that the coin does not feel the same force of gravity as you do on the floor of the station. It has a smaller radius to the center of the station because you are holding it in your hand. Thus, the coin’s horizontal velocity would not be &lt;em&gt;quite&lt;/em&gt; the same as if it were touching the floor.&lt;/p&gt;
-
-&lt;p&gt;The floor’s “gravity” is a constant acceleration toward the center. This is the equation for rotational acceleraton:&lt;/p&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;a=\frac{v_t^2}{r}=\omega^2r&lt;/script&gt;
-
-&lt;p&gt;Variables:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;$v_t$ is the horizontal velocity of an object on the station&lt;/li&gt;
-  &lt;li&gt;r is the radius where the object is located&lt;/li&gt;
-  &lt;li&gt;a is the acceleration felt by the object&lt;/li&gt;
-  &lt;li&gt;$\omega$ is the rotational rate of the station in radians/second.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;$\omega$ would be the same at the floor and at the coin. We can calculate $\omega$ using values at the floor (1g acceleration), and then use $\omega$ to find the horizontal velocity of the coin.&lt;/p&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;\omega=\sqrt {\frac {a}{r}}&lt;/script&gt;
-
-&lt;p&gt;In our formula:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;$a=-32.174$ ft/s/s, the acceleration at the floor&lt;/li&gt;
-  &lt;li&gt;$r$ is the radius of the station.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;We can then use $\omega$ to calculate the horizontal velocity of the coin. Using the formula at the top, we get:&lt;/p&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;v_x = -v_t=-\omega*r_{c}&lt;/script&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;r_{c}=r_{s}-h_{c}&lt;/script&gt;
-
-&lt;p&gt;The model’s starting height is how far above the floor the coin is tossed from. The coin’s radius would be the total radius minus the coin’s starting height.&lt;/p&gt;
-
-&lt;p&gt;The velocity is set to be negative, because the coin is going left in our coordinate plane. Left is a negative direction.&lt;/p&gt;
-
-&lt;p&gt;Thus, our final formula:&lt;/p&gt;
+&lt;p&gt;If you put all of this together coin using $v=\omega*r$, using the rotation rate from the floor and the radius at the coin, you get:&lt;/p&gt;
 
 &lt;script type=&quot;math/tex; mode=display&quot;&gt;v_x = -\sqrt {\frac{a}{r_{s}}}*(r_{s}-h_{c})&lt;/script&gt;
 
 &lt;p&gt;Our variables:&lt;/p&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;a = the acceleration of the station, -32.174 ft/s/s&lt;/li&gt;
-  &lt;li&gt;$r_{s}$=the radius of the station&lt;/li&gt;
-  &lt;li&gt;$h_{person}$=the height of the person&lt;/li&gt;
+  &lt;li&gt;$v_x$: the horizontal velocity of the coin, which we are calculating&lt;/li&gt;
+  &lt;li&gt;a: the acceleration of the station, -32.174 ft/s/s&lt;/li&gt;
+  &lt;li&gt;$r_{s}$: the radius of the station, 25 feet&lt;/li&gt;
+  &lt;li&gt;$h_{c}$: the starting height of the coin, 4 feet&lt;/li&gt;
 &lt;/ul&gt;
+
+&lt;p&gt;$v_x$ works out to -23.82329$ ft/s.&lt;/p&gt;
 
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
-&lt;h5 id=&quot;the-coins-landing-coordinates&quot;&gt;The Coin’s Landing Coordinates&lt;/h5&gt;
+&lt;h4 id=&quot;the-coins-landing-coordinates&quot;&gt;The coin’s landing coordinates&lt;/h4&gt;
 
-&lt;p&gt;We can use the velocity components of the coin to find its landing coordinates. The coin is traveling up and to the left in a straight line; the slope of the path it follows is the fraction of the two velocity components, $\frac{v_y}{v_x}$.&lt;/p&gt;
+&lt;p&gt;We can use the velocity components of the coin to find its landing coordinates. The coin is traveling up and to the left in a straight line; the slope of the path it follows is the fraction of the two velocity components, $\frac{v_y}{v_x}$. The landing coordinates will be where this line intersects with the station, a circle.&lt;/p&gt;
 
-&lt;p&gt;The equation for a line: $y = mx + b$&lt;/p&gt;
+&lt;p&gt;The equation for our line in slope-intercept form: $y = mx - r_c$&lt;/p&gt;
 
 &lt;p&gt;Our variables:&lt;/p&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;$m=\frac {rise}{run}=\frac{v_y}{v_x}$, it will be &lt;em&gt;negative&lt;/em&gt;.&lt;/li&gt;
-  &lt;li&gt;$b=$ the y-intercept $=-(r_{s}-h_{c})$&lt;/li&gt;
+  &lt;li&gt;$m$: the slope, or $\frac{v_y}{v_x}$. It will be &lt;em&gt;negative&lt;/em&gt; because the coin is moving left and up.&lt;/li&gt;
+  &lt;li&gt;$r_c$: the y-intercept. This is the radius where the coin starts, mapped to our coordinate system. This is &lt;em&gt;subtracted&lt;/em&gt; because it is below the center.&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;My computer tells me that $v_x=-23.82329$ ft/s, and $v_y=13.80403$ ft/s. This is the formula for the path of the coin:&lt;/p&gt;
+&lt;p&gt;Given that $v_x=-23.82329$ ft/s, $v_y=14$ ft/s, and $r_c=25-4=21$ ft, this is the line that makes up the coin’s path:&lt;/p&gt;
 
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;y=-.579434x-21&lt;/script&gt;
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;y=-.587660x-21&lt;/script&gt;
 
-&lt;p&gt;Now, we need to find where this line intersects with a circle. Here is the formula for a circle:&lt;/p&gt;
+&lt;p&gt;Now, we need to find where this line intersects with the circle that is the station. Here is our formula for the circle:&lt;/p&gt;
 
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;x^2 + y^2 = r^2&lt;/script&gt;
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;x^2 + y^2 = r_s^2&lt;/script&gt;
 
-&lt;p&gt;We can cheat and solve this using an &lt;a href=&quot;https://www.desmos.com/calculator&quot;&gt;online graphing website&lt;/a&gt;:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Note: $r_s$ is the radius of the station.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;We can cheat for a moment and solve for our coordinates using an &lt;a href=&quot;https://www.desmos.com/calculator&quot;&gt;online graphing website&lt;/a&gt;:&lt;/p&gt;
 
 &lt;div class=&quot;center&quot;&gt;&lt;img src=&quot;/coriolis/assets/img/IntersectPoint.png&quot; width=&quot;250&quot; height=&quot;250&quot; /&gt;&lt;/div&gt;
 
-&lt;p&gt;In this image, you can see the path of the coin and its final intersection with the ground, up and to the left. The coin starts at the y-intercept.&lt;/p&gt;
+&lt;p&gt;In this image, you can see the path of the coin and its final intersection with the floor on the left. The coin starts at the y-intercept; everything to the right of that is irrelevant. The numbers in this picture will help us validate our answers later.&lt;/p&gt;
 
-&lt;p&gt;Now, we will solve this by hand. For our computer model, we need formulas that the computer can solve!&lt;/p&gt;
+&lt;p&gt;Now, we will develop a formula to solve for the x coordinate. The computer model needs a formula! I am leaving $\frac{v_y}{v_x}$ as the variable $m$ for simplicity’s sake.&lt;/p&gt;
+
+&lt;p&gt;Here are our equations again:&lt;/p&gt;
 
 &lt;script type=&quot;math/tex; mode=display&quot;&gt;x^2 + y^2 = r_{s}^2&lt;/script&gt;
 
 &lt;script type=&quot;math/tex; mode=display&quot;&gt;y=mx-r_{c}&lt;/script&gt;
 
+&lt;p&gt;Put them together:&lt;/p&gt;
+
 &lt;script type=&quot;math/tex; mode=display&quot;&gt;x^2 + (mx-r_{c})^2 = r_{s}^2&lt;/script&gt;
 
-&lt;p&gt;Rearrange and simplify to a quadratic equation (format $0=ax^2+bx+c$):&lt;/p&gt;
+&lt;p&gt;Next, rearrange and simplify to a quadratic equation (format $0=ax^2+bx+c$) by multiplying the y term and combining like terms:&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;x^2+m^2x^2-mxr_c-mxr_c+r_c^2=r_s^2&lt;/script&gt;
 
 &lt;script type=&quot;math/tex; mode=display&quot;&gt;0=(1+m^2)x^2-2mr_{c}x+(r_{c}^2-r_{s}^2)&lt;/script&gt;
 
@@ -353,215 +282,186 @@ In many sci-fi movies, you see an artificial gravity “generator” underneath 
 
 &lt;script type=&quot;math/tex; mode=display&quot;&gt;x=\frac {-b\pm\sqrt {b^2-4ac}}{2a}&lt;/script&gt;
 
-&lt;p&gt;Plug in our variables and simplify (I skipped a few steps for brevity):&lt;/p&gt;
+&lt;p&gt;Plug in our variables and simplify:&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;x=\frac{2mr_c\pm\sqrt{ 4m^2r_c^2-4(1+m^2)(r_c^2-r_s^2) }} { 2(1+m^2)}&lt;/script&gt;
 
 &lt;script type=&quot;math/tex; mode=display&quot;&gt;x=\frac{mr_{c}\pm\sqrt{m^2r_{c}^2-(1+m^2)(r_{c}^2-r_{s}^2)}}{1+m^2}&lt;/script&gt;
 
-&lt;p&gt;This is our formula for the x-coordinate of the coin. The correct value will be the answer that is negative, because the coin goes to the &lt;em&gt;left&lt;/em&gt;. The equation correctly gives us -23.967 when we solve with the (-) operator.&lt;/p&gt;
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;x=\frac{mr_c\pm\sqrt{m^2r_c^2-r_c^2+r_s^2-m^2r_c^2+m^2r_s^2}}{1+m^2}&lt;/script&gt;
 
-&lt;p&gt;Now we need to solve for the y-component that matches this x-component:&lt;/p&gt;
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;x=\frac{mr_c\pm\sqrt{r_s^2(1+m^2)-r_c^2}}{1+m^2}&lt;/script&gt;
 
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;x^2 + y^2= r_{s}^2&lt;/script&gt;
+&lt;p&gt;This is our formula for the x-coordinate of the coin. The operator we use depends on what quadrant the coin lands in; in other words, it depends on the conditions of the throw. In this problem, the correct value will be the answer that is negative because the coin goes to the &lt;em&gt;left&lt;/em&gt;. The equation correctly gives us -24.036 when we solve with the (-) operator.&lt;/p&gt;
 
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;y=\sqrt {r_{s}^2-x^2}&lt;/script&gt;
+&lt;p&gt;Now we need to solve for the y-component that matches this x-component. Here is the equation for our line again:&lt;/p&gt;
 
-&lt;p&gt;This gives us 7.113. There is one problem: solving this way only gives us the &lt;em&gt;absolute value&lt;/em&gt; of the y-component!&lt;/p&gt;
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;y = mx - r_c&lt;/script&gt;
 
-&lt;p&gt;To get the correct sign of the y-component, we need to use the quadratic formula &lt;em&gt;again&lt;/em&gt;.&lt;/p&gt;
+&lt;p&gt;Inserting -.587660 for $m$ and 21 for $r_c$ gives us an answer of y=-6.875. The coin’s final coordinates are (-24.036, -6.875).&lt;/p&gt;
 
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;y=mx-r_{c}&lt;/script&gt;
+&lt;p&gt;Once more, here are our final formulas for the coin’s landing coordinates:&lt;/p&gt;
 
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;x=\frac{y+r_{c}}{m}&lt;/script&gt;
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;x_c=\frac{mr_c-\sqrt{r_s^2(1+m^2)-r_c^2}}{1+m^2}&lt;/script&gt;
 
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;\left(\frac {y+r_{c}}{m}\right)^2 + y^2= r_{s}^2&lt;/script&gt;
-
-&lt;p&gt;Rearrange and simplify to a quadratic equation:&lt;/p&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;0=y^2(1+m^2)+2r_{c}y+(r_{c}^2-r_{s}^2m^2)&lt;/script&gt;
-
-&lt;p&gt;Put into the quadratic formula and simplify:&lt;/p&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;y=\frac{-r_{c}\pm\sqrt{r_{c}^2-(1+m^2)(r_{c}^2-r_{s}^2m^2)}}{1+m^2}&lt;/script&gt;
-
-&lt;p&gt;We already know the absolute value of the y-component. The quadratic formula tells us that this number should be negative, -7.113. We arrived at this number using the (+) operator.&lt;/p&gt;
-
-&lt;p&gt;Our final coordinates are (-23.967, -7.113). This matches the values from the graphing website.&lt;/p&gt;
-
-&lt;p&gt;The correct operators in the quadratic formula were (-) when solving for x, and (+) when solving for y. This is fairly intuitive, because the coin moves up and to the left (negative x direction, positive y direction).&lt;/p&gt;
-
-&lt;p&gt;These operators differ if the coin moves in a direction other than up and to the left (e.g. if it is thrown in a direction other than straight up). Fortunately, the operators are intuitive based on which direction the coin moves.&lt;/p&gt;
-
-&lt;p&gt;Thus, our final formulas are:&lt;/p&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;x=\frac{mr_{c}-\sqrt{m^2r_{c}^2-(1+m^2)(r_{c}^2-r_{s}^2)}}{1+m^2}&lt;/script&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;y=\frac{-r_{c}+\sqrt{r_{c}^2-(1+m^2)(r_{c}^2-r_{s}^2m^2)}}{1+m^2}&lt;/script&gt;
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;y_c = mx - r_c&lt;/script&gt;
 
 &lt;p&gt;Our variables:&lt;/p&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;$m=\frac {v_y}{v_x}$. $v_x$ is negative because the coin is moving left.&lt;/li&gt;
-  &lt;li&gt;$r_{c}$ is the radius at the coin.&lt;/li&gt;
+  &lt;li&gt;$m=\frac {v_y}{v_x}$. Both $v_x$ and $m$ are negative because the coin is moving left.&lt;/li&gt;
+  &lt;li&gt;$r_{c}$ is the radius where the coin starts, or the y-intercept.&lt;/li&gt;
   &lt;li&gt;$r_{s}$ is the radius of the station.&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;&lt;br /&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
-&lt;h5 id=&quot;time-elapsed-in-the-air&quot;&gt;Time Elapsed in the Air&lt;/h5&gt;
+&lt;h4 id=&quot;time-elapsed&quot;&gt;Time Elapsed&lt;/h4&gt;
 
-&lt;p&gt;Now that we have the landing coordinates, we can solve for the exact time elapsed using kinematics equations. First, we need the distance traveled. We will calculate this using the Pythagorean Theorem. The final coordinates of the coin are (x_f, y_f), and the initial coordinates are (0,$-r_{c}$).&lt;/p&gt;
+&lt;p&gt;Now that we have the coin’s landing coordinates, we can solve for the exact time elapsed using kinematics. To calculate this, we need the distance traveled; however, we only need this in one dimension. We will use the initial and final x-coordinates. The coin travels from 0 to $x_f$, and its velocity is $v_x$.&lt;/p&gt;
 
-&lt;p&gt;Pythagorean theorem: $d=\sqrt{(x_2-x_1)^2 + (y_2-y_1)^2}$.&lt;/p&gt;
+&lt;p&gt;Basic kinematics tells us that $d=vt$ for objects that are not accelerating. We can rearrange this and plug in our values. We get:&lt;/p&gt;
 
-&lt;p&gt;Using our variables: $d=\sqrt{x_f^2+(y_f+r_{c})^2}$&lt;/p&gt;
-
-&lt;p&gt;We also need to solve for the velocity. We have the x and y components. The velocity, with the Pythagorean theorem, is $v=\sqrt {v_x^2 + v_y^2}$.&lt;/p&gt;
-
-&lt;p&gt;We know from basic kinematics that $d=vt$ for objects that are not accelerating. We can rearrange this and plug in our values. We get:&lt;/p&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;t=\frac {\sqrt{x_f^2+(y_f+r_{c})^2}}{\sqrt {v_x^2 + v_y^2}}&lt;/script&gt;
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;t=\frac{x_f}{v_x}&lt;/script&gt;
 
 &lt;p&gt;Our variables:&lt;/p&gt;
 
 &lt;ul&gt;
+  &lt;li&gt;$t$ = the time elapsed&lt;/li&gt;
   &lt;li&gt;$x_f$ = the final x-coordinate of the coin&lt;/li&gt;
-  &lt;li&gt;$y_f$ = the final y-coordinate of the coin&lt;/li&gt;
   &lt;li&gt;$v_x$ = the velocity x-component&lt;/li&gt;
-  &lt;li&gt;$v_y$ = the velocity y-component&lt;/li&gt;
-  &lt;li&gt;$r_{c}$ = the radius at the coin, before it is launched&lt;/li&gt;
 &lt;/ul&gt;
+
+&lt;p&gt;This solves to almost exactly one second, or 1.009s.&lt;/p&gt;
 
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
-&lt;h5 id=&quot;the-arc-swept-by-the-person&quot;&gt;The Arc Swept By the Person&lt;/h5&gt;
+&lt;h4 id=&quot;the-arc-swept-by-the-person&quot;&gt;The Arc Swept By the Person&lt;/h4&gt;
 
-&lt;p&gt;We can use the time variable to calculate the angle a person will cover while the coin is in the air. This will give us the final coordinates of the person.&lt;/p&gt;
+&lt;p&gt;We can use the time variable to calculate the angle a person will rotate while the coin is in the air. This will give us the final coordinates of the person.&lt;/p&gt;
 
-&lt;p&gt;We have already calculated the station’s rotation rate in the beginning of our problem. This is $\omega$, in radians/second.&lt;/p&gt;
+&lt;p&gt;We have already calculated the station’s rotation rate in the beginning of our problem. This is $\omega$, in radians/second, and this is negative because the station is moving clockwise (counterclockwise is positive). Remember, $\omega=-t*\sqrt{\frac{a}{r}}$.&lt;/p&gt;
 
-&lt;p&gt;The person starts at an angle of $\frac{3\pi}{2}$ (270 degrees). The person is sweeping a negative arc, because they are traveling clockwise (counterclockwise is positive for angles).&lt;/p&gt;
+&lt;p&gt;If $\theta_p$ is the total arc swept by the person, then you would expect $\theta_p=\theta_f-\theta_0$, the final minus the initial angles. The person starts at an angle of $\frac{3\pi}{2}$ (270 degrees). The person is also sweeping a negative arc.&lt;/p&gt;
 
-&lt;p&gt;If $\theta_t$ is the total arc swept by the person, then you would expect $\theta_t=\theta_f-\theta_0$. However, you must keep in mind the negative direction of the arc being traveled. We can switch the sign by flipping the terms of the equation. Thus, our formula is $\theta_t=\theta_0-\theta_f$, where $\theta_0=\frac{3\pi}{2}$. Now rearrange the terms:&lt;/p&gt;
+&lt;p&gt;With rotational kinematics, we can calculate this arc swept by the person:&lt;/p&gt;
 
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;\theta_f = \theta_0 - \theta_t&lt;/script&gt;
-
-&lt;p&gt;With rotational kinematics, we can calculate the arc swept by the person:&lt;/p&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;\theta_t = \omega t&lt;/script&gt;
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;\theta_p = \omega t&lt;/script&gt;
 
 &lt;p&gt;Put the equations together:&lt;/p&gt;
 
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;\theta_f = \theta_0 - \omega t&lt;/script&gt;
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;\theta_f-\theta_0=\omega t&lt;/script&gt;
+
+&lt;p&gt;Rearrange:&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;\theta_f = \theta_0 + \omega t&lt;/script&gt;
+
+&lt;p&gt;We can also think of this in terms of the station’s acceleration:&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;\theta_f = \theta_0 - t*\sqrt{\frac{a}{r}}&lt;/script&gt;
 
 &lt;p&gt;We have just calculated the person’s final angle in the station. Now, we have a set of polar coordinates: we have the final angle and the radius. We can convert these polar coordinates to cartesian coordinates using the equations:&lt;/p&gt;
 
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;x=r*cos(\theta)&lt;/script&gt;
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;x=r*cos(\theta_f)&lt;/script&gt;
 
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;y=r*sin(\theta)&lt;/script&gt;
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;y=r*sin(\theta_f)&lt;/script&gt;
 
-&lt;p&gt;Our final x and y coordinates:&lt;/p&gt;
+&lt;p&gt;Our final equations for the person’s x and y coordinates:&lt;/p&gt;
 
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;x=r*cos(\frac{3\pi}{2} - \omega t)&lt;/script&gt;
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;x_p=r_s*cos(\frac{3\pi}{2} - t*\sqrt{\frac{a}{r_s}})&lt;/script&gt;
 
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;y=r*sin(\frac{3\pi}{2} - \omega t)&lt;/script&gt;
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;y_p=r_s*sin(\frac{3\pi}{2} - t*\sqrt{\frac{a}{r_s}})&lt;/script&gt;
 
 &lt;p&gt;Our variables:&lt;/p&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;r = the radius of the station&lt;/li&gt;
-  &lt;li&gt;$\omega$ = the rotational rate of the station (calculated when we found the horizontal velocity)&lt;/li&gt;
+  &lt;li&gt;$r_s$ = the radius of the station&lt;/li&gt;
+  &lt;li&gt;$a$ = the rotational acceleration, which equals earth gravity (32.174 ft/s/s)&lt;/li&gt;
   &lt;li&gt;t = the time elapsed while the coin is in the air&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;h5 id=&quot;the-final-answer&quot;&gt;The Final Answer&lt;/h5&gt;
-
-&lt;p&gt;Now that we have the landing coordinates of the coin, and the person’s final coordinates, we can calculate the straight line distance between the two using the Pythagorean theorem. This formula gives us our answer:&lt;/p&gt;
-
-&lt;script type=&quot;math/tex; mode=display&quot;&gt;d = \sqrt{(x_{c}-x_{person})^2 + (y_{c}-y_{person})^2}&lt;/script&gt;
-
-&lt;p&gt;Javascript calculates to a precision of about 15 decimal points. This is insufficient for some calculations; thus my code uses the Decimal.js package to support 30 decimal places instead. The model breaks up the path of the coin into 100 pieces and moves real-time between them to make a realistic arc on the screen.&lt;/p&gt;
+&lt;p&gt;The person’s final coordinates are (-22.763, -10.336).&lt;/p&gt;
 
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
-&lt;h5 id=&quot;max-height-achieved&quot;&gt;Max Height Achieved&lt;/h5&gt;
+&lt;h4 id=&quot;the-final-answer&quot;&gt;The Final Answer&lt;/h4&gt;
 
-&lt;p&gt;My table also displays the max height achieved by the coin. Unfortunately, there is no formula to calculate this. I generated this number by creating a maximization script; the script sweeps up and down the path of the coin to find the point that is at the farthest distance from the circle.&lt;/p&gt;</content><author><name></name></author><summary type="html">The math behind this model</summary></entry><entry><title type="html">The history of artificial gravity research</title><link href="https://kevindprice.github.io/coriolis/coriolis/history/" rel="alternate" type="text/html" title="The history of artificial gravity research" /><published>2020-03-04T00:00:00-05:00</published><updated>2020-03-04T00:00:00-05:00</updated><id>https://kevindprice.github.io/coriolis/coriolis/history</id><content type="html" xml:base="https://kevindprice.github.io/coriolis/coriolis/history/">&lt;h3 id=&quot;the-history-of-artificial-gravity-research&quot;&gt;The history of artificial gravity research&lt;/h3&gt;
+&lt;p&gt;Now that we have both the landing coordinates of the coin and the person’s final coordinates, we can calculate the straight line distance between the two using the Pythagorean theorem. This formula gives us our answer:&lt;/p&gt;
 
-&lt;p&gt;Organizations like NASA and SpaceX have been working feverishly to try to make life in space viable. Space agencies will eventually need to construct artificial gravity habitats to solve the health problems of weightlesness. Unfortunately, no space agency has active plans to build an artificial-gravity habitat, though NASA’s archives are littered with proposals for one.&lt;/p&gt;
-
-&lt;p&gt;Here are some of the things the world’s space agencies have accomplished:&lt;/p&gt;
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;d = \sqrt{(x_{c}-x_{p})^2 + (y_{c}-y_{p})^2}&lt;/script&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;The Gemini 8 mission (March 1966) accidentally produced 4 g’s after a thruster incorrectly fired. The fast rotation caused intense nausea, and the astronauts nearly blacked out from the g-forces. The mission was aborted.&lt;/li&gt;
+  &lt;li&gt;$x_c$ and $y_c$ are the coin’s final coordinates&lt;/li&gt;
+  &lt;li&gt;$x_p$ and $y_p$ are the person’s final coordinates&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;div class=&quot;floatright&quot;&gt;&lt;div class=&quot;floatcaption&quot; style=&quot;margin-left:20px&quot;&gt;&lt;i&gt;Gemini 11&lt;/i&gt;&lt;/div&gt;
-&lt;img src=&quot;/coriolis/assets/img/Gemini_11_Agena.jpg&quot; width=&quot;270&quot; /&gt;&lt;/div&gt;
+&lt;p&gt;This tells us that the coin landed 3.687 feet away from the person’s feet.&lt;/p&gt;
+
+&lt;p&gt;The model then breaks up the path of the coin into 100 pieces, reorients each of these points to the person’s perspective at that moment, and moves real-time between these points to make an arc on the screen.&lt;/p&gt;
+
+&lt;h4 id=&quot;the-coriolis-force-in-the-moment-of-the-toss&quot;&gt;The Coriolis force in the moment of the toss&lt;/h4&gt;
+
+&lt;p&gt;Let’s look again at the same toss calculated above, but only at the moment the object is thrown. It is possible to calculate the direction and magnitude of the Coriolis “force” that a spinning object feels in a precise moment.&lt;/p&gt;
+
+&lt;p&gt;This section would not be useful for the distance calculation above because the direction of the Coriolis force would constantly be changing. Nonetheless, this can help us understand in which direction an object’s path is being distorted.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://phys420.phas.ubc.ca/p420_12/tony/Coriolis_Force/Home.html&quot;&gt;This article&lt;/a&gt; provides an equation to calculate the Coriolis force in a given moment:&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;\underline{F_C}=-2m(\underline{\Omega} \times \underline{v})&lt;/script&gt;
+
 &lt;ul&gt;
-  &lt;li&gt;The Gemini 11 mission (September 1966) purposely rotated two capsules connected by a 36-meter tether to produce 0.0005 g. The astronauts did not feel the gravitational force (the perception threshold is about 0.2 g), but they observed objects slowly floating toward the floor of their capsule. They reported it had been “an interesting and puzzling experience.”&lt;/li&gt;
+  &lt;li&gt;$F_C$ represents the Coriolis force felt by a spinning object&lt;/li&gt;
+  &lt;li&gt;m is the mass of the object&lt;/li&gt;
+  &lt;li&gt;$\Omega$ is the rotational velocity expressed as a vector (pointing in the direction of the axis of rotation)&lt;/li&gt;
+  &lt;li&gt;v is the object’s velocity expressed as a vector&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;div class=&quot;tryParent&quot;&gt;&lt;a target=&quot;_blank&quot; href=&quot;https://kevindprice.github.io/coriolis/model#&amp;amp;diameter=45&amp;amp;startheight=1.2&amp;amp;speed=0&amp;amp;units=m&amp;amp;gravity=.05&quot;&gt;&lt;div class=&quot;TryIt&quot;&gt;Try it!&lt;/div&gt;&lt;div class=&quot;tooltiptext&quot;&gt;&lt;p&gt;Diameter=45 m&lt;/p&gt;&lt;p&gt;Start height=1.2 m&lt;/p&gt;&lt;p&gt;Angle=0°&lt;/p&gt;&lt;p&gt;Speed=0 m/s &lt;/p&gt;&lt;p&gt;Gravity=.05%&lt;/p&gt;&lt;/div&gt;&lt;/a&gt;&lt;/div&gt;
-&lt;p&gt;Press this green button to emulate the gravity of the Gemini 11 mission. It takes 23 seconds for a dropped coin to land.&lt;/p&gt;
+&lt;p&gt;This equation is a cross product. I do not intend to fully calculate this right now, but even without calculations, we can use simple logic to understand the direction of the Coriolis force.&lt;/p&gt;
 
-&lt;ul&gt;
-  &lt;li&gt;By 1973, NASA had not recognized the need for artificial gravity. At this point, NASA’s only concern with zero gravity was motion sickness, which was only a problem for the first few days in orbit. This was the NASA flight surgeon’s position: “The magnitude of the motion-sickness problem experienced by astronauts to date does not appear to suggest clearly the need for design and incorporation of artificial gravity system in near-future space vehicles.”&lt;/li&gt;
-&lt;/ul&gt;
+&lt;div class=&quot;floatright&quot;&gt;&lt;i&gt;The Right Hand Rule for Cross Products&lt;/i&gt;&lt;br /&gt;
+&lt;img src=&quot;/coriolis/assets/img/507px-Right_hand_rule_cross_product.svg.png&quot; /&gt;&lt;/div&gt;
+&lt;p&gt;When calculating a cross product like this one, you can use your right hand to figure out where cross product’s answer will point. The pointer finger points along the axis of rotation; since my space station rotates clockwise, the pointer finger would point forward. The middle finger points in the direction the object is moving; the object is moving upward. The thumb, then, points in the opposite direction of the Coriolis force since the equation has a negative sign (to account for this negative sign you could just use the left hand instead). The Coriolis force would point leftward, or toward the rotation. This matches the result on the computer model; the tossed object initially curves left.&lt;/p&gt;
 
-&lt;div class=&quot;floatright&quot;&gt;&lt;div class=&quot;floatcaption&quot; style=&quot;color:red; margin-left: 90px; font-weight:bold;&quot;&gt;&lt;i&gt;Kosmos 782&lt;/i&gt;&lt;/div&gt;
-&lt;img src=&quot;/coriolis/assets/img/Kosmos_782.jpg&quot; width=&quot;270&quot; /&gt;&lt;/div&gt;
+&lt;p&gt;Here is a summary of the forces a spinning person would see:&lt;/p&gt;
+
+&lt;div class=&quot;center&quot;&gt;&lt;img src=&quot;/coriolis/assets/img/CoriolisDirection.png&quot; width=&quot;500&quot; /&gt;&lt;/div&gt;
+
 &lt;ul&gt;
   &lt;li&gt;
-    &lt;p&gt;The Russians, however, &lt;em&gt;were&lt;/em&gt; interested in artificial gravity. The Soviet space program initially believed that a human could not survive more than 14 days in space; the Soviets believed that the heart and blood vessels would be unable to adapt to weightlessness.&lt;/p&gt;
+    &lt;p&gt;Objects moving &lt;em&gt;with&lt;/em&gt; the rotation would appear to move downward because they are effectively rotating more quickly.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;In 1975, on Kosmos 782, the Soviets centrifuged animals in space. Fish and turtles were centrifuged at 1 g for 20-days in a 75 cm diameter centrifuge. The researchers did not find any differences between either the centrifuged animals, animals housed in 0g, or Earth-bound animals.&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-&lt;div class=&quot;widebreak&quot;&gt;&lt;/div&gt;
-
-&lt;div class=&quot;floatright&quot;&gt;&lt;div class=&quot;floatcaption&quot; style=&quot;color: blue; font-weight: bold;&quot;&gt;&lt;i&gt;Skylab&lt;/i&gt;&lt;/div&gt;
-&lt;img src=&quot;/coriolis/assets/img/Skylab.gif&quot; alt=&quot;Skylab Giphy&quot; /&gt;&lt;/div&gt;
-&lt;ul&gt;
-  &lt;li&gt;The (American) Skylab crews took advantage of the large open compartment to run around the curved circumference. Running in a circle created gravity. They reported no difficulty with either locomotion or motion sickness.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;div class=&quot;widebreak&quot;&gt;&lt;/div&gt;
-&lt;div class=&quot;widebreak&quot;&gt;&lt;/div&gt;
-&lt;div class=&quot;widebreak&quot;&gt;&lt;/div&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;The negative effects of weightlessness became clear during long-duration missions on Russian space stations such as Mir.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;div class=&quot;widebreak&quot;&gt;&lt;/div&gt;
-&lt;div class=&quot;widebreak&quot;&gt;&lt;/div&gt;
-
-&lt;div class=&quot;floatright&quot;&gt;&lt;div class=&quot;floatcaption&quot; style=&quot;margin-left: 5px;&quot;&gt;&lt;i&gt;Off-axis rotator&lt;/i&gt;&lt;/div&gt;
-&lt;img src=&quot;/coriolis/assets/img/rotator.jpg&quot; width=&quot;270&quot; /&gt;&lt;/div&gt;
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;In 1998, the European Space Agency built an “off-axis rotator” for the ISS. This device centrifuged humans for seven minutes at a time at several speeds. Subjects said they felt like they were standing on their heads.&lt;/p&gt;
+    &lt;p&gt;Objects moving &lt;em&gt;opposite&lt;/em&gt; the rotation would seem lighter and would move “up.” If you matched the station’s speed, you would become weightless because you are no longer spinning.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;Several studies on Earth have looked at long-term bed rest, which produces similar health effects to zero gravity. A 1998 study in Tokyo found that one hour a day in a centrifuge prevents blood volume from dropping in a bed rester and maintains the blood-pressure reflex. In 2005, NASA conducted similar studies in their Short-Radius Centrifuge in Houston.&lt;/p&gt;
+    &lt;p&gt;Objects moving “upward” would appear to be pushed in the same direction as the rotation.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;In December 2014, NASA launched a fruit-fly centrifuge to study the effects of artificial gravity on the immune system.&lt;/p&gt;
+    &lt;p&gt;Objects moving “downward” would appear to be pushed opposite the rotation.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Objects moving along the axis of rotation would not be affected. The Coriolis force only affects motion perpendicular to the axis of rotation.&lt;/p&gt;
   &lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;The scientific community periodically comes up with new gravity ideas, though we will never fully understand life in artificial gravity until we create an environment for outer space.&lt;/p&gt;
+&lt;p&gt;The Coriolis force is also called a pseudoforce because it only seems real to someone who is rotating.&lt;/p&gt;
 
-&lt;h4 id=&quot;rotation-and-nausea&quot;&gt;Rotation and nausea&lt;/h4&gt;
+&lt;h4 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h4&gt;
 
-&lt;p&gt;Living in a centrifuge may be nauseating. Minimizing the rotation rate would reduce this nausea. We can reduce the &lt;strong&gt;revolutions per minute (rpm)&lt;/strong&gt; by increasing the station size; however, it is unclear what rotation rate would be desirable, and large stations would be expensive. When we finally build a space station with simulated gravity, we should experiment with several rotation rates.&lt;/p&gt;
+&lt;p&gt;It takes complex calculations just to understand a simple motion in a spinning environment; thus, it seems to me that Coriolis effects and forces are best understood with computer models.
+&lt;br /&gt;&lt;/p&gt;</content><author><name></name></author><summary type="html">The math behind this model: “difference from throw on Earth”</summary></entry><entry><title type="html">Rotation research regarding nausea</title><link href="http://0.0.0.0:4000/coriolis/nausea/" rel="alternate" type="text/html" title="Rotation research regarding nausea" /><published>2020-03-04T00:00:00-05:00</published><updated>2020-03-04T00:00:00-05:00</updated><id>http://0.0.0.0:4000/coriolis/nausea</id><content type="html" xml:base="http://0.0.0.0:4000/coriolis/nausea/">&lt;p&gt;Most of the information on this page has been drawn from &lt;a href=&quot;https://ntrs.nasa.gov/archive/nasa/casi.ntrs.nasa.gov/20070001009.pdf&quot;&gt;this link&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h4 id=&quot;rotation-research-regarding-nausea&quot;&gt;Rotation research regarding nausea&lt;/h4&gt;
+
+&lt;p&gt;Living in a centrifuge may be nauseating and difficult to get used to.&lt;/p&gt;
+
+&lt;p&gt;Minimizing a space station’s rotation rate would reduce the nausea astronauts experience. We can reduce the revolutions per minute (rpm) required to produce 1g by increasing the station size; however, it is unclear what rotation rate would be desirable, and large stations would be expensive. When we finally build a spinning space station, we should experiment with several rotation rates.&lt;/p&gt;
 
 &lt;div class=&quot;floatright&quot;&gt;&lt;div class=&quot;floatcaption&quot; style=&quot;margin-left: 79px;&quot;&gt;&lt;i&gt;Are you dizzy yet?&lt;/i&gt;&lt;/div&gt;
 &lt;img style=&quot;border-radius: 10px;&quot; src=&quot;/coriolis/assets/img/Giphy.gif&quot; alt=&quot;Dizzy Giphy&quot; width=&quot;300&quot; /&gt;&lt;/div&gt;
-&lt;p&gt;Unlike astronauts in zero gravity, rotating astronauts must adapt to more than one sensation. While rotating, each direction of motion produces a different effect on the inner ear. This means that individuals would need to adjust to the rotation itself &lt;em&gt;and&lt;/em&gt; to sudden changes in direction. Furthermore, &lt;em&gt;windows&lt;/em&gt; could be disorienting on a rotating space station.&lt;/p&gt;
+&lt;p&gt;Unlike astronauts entering zero gravity, rotating astronauts must adapt to more than one sensation. While rotating, each direction of motion produces a different effect on the inner ear. This means that individuals would need to adjust to both the rotation itself and to sudden changes in direction. Windows might also be disorienting on a rotating space station.&lt;/p&gt;
 
-&lt;p&gt;Nausea research on Earth began in 1958 in the &lt;em&gt;Slow Rotating Room,&lt;/em&gt; a facility in Pensacola, Florida. NASA placed individuals in a slowly rotating room for several days.&lt;/p&gt;
+&lt;p&gt;Nausea research on Earth began in 1958 in the &lt;em&gt;Slow Rotating Room,&lt;/em&gt; a facility in Pensacola, Florida. NASA placed individuals in a rotating room for several days.&lt;/p&gt;
 
 &lt;div class=&quot;floatright&quot;&gt;&lt;div class=&quot;floatcaption&quot; style=&quot;margin-left: 20px;&quot;&gt;&lt;i&gt;NASA's Slow Rotating Room&lt;/i&gt;&lt;/div&gt;
 &lt;img src=&quot;/coriolis/assets/img/rotatingroom.jpg&quot; alt=&quot;Slow Rotating Room&quot; width=&quot;250&quot; /&gt;&lt;/div&gt;
@@ -569,20 +469,20 @@ In many sci-fi movies, you see an artificial gravity “generator” underneath 
 
 &lt;p&gt;&lt;a href=&quot;https://ntrs.nasa.gov/archive/nasa/casi.ntrs.nasa.gov/20070001009.pdf&quot;&gt;This page&lt;/a&gt; explains: “Although few adverse effects are present when rotation rate is less than 1 rpm, higher rates produce motion sickness (similar to that occurring during the acute period of adaptation to weightlessness).” Researchers found that their test subjects could adapt to 3 rpm.&lt;/p&gt;
 
-&lt;div class=&quot;tryParent&quot;&gt;&lt;a target=&quot;_blank&quot; href=&quot;https://kevindprice.github.io/coriolis/model#&amp;amp;diameter=200&amp;amp;startheight=1.2&amp;amp;speed=4&amp;amp;units=m&quot;&gt;&lt;div class=&quot;TryIt&quot;&gt;Try it!&lt;/div&gt;&lt;div class=&quot;tooltiptext&quot;&gt;&lt;p&gt;Diameter=200 m&lt;/p&gt;&lt;p&gt;Start height=1.2 m&lt;/p&gt;&lt;p&gt;Angle=0°&lt;/p&gt;&lt;p&gt;Speed=4 m/s &lt;/p&gt;&lt;p&gt;Gravity=100%&lt;/p&gt;&lt;/div&gt;&lt;/a&gt;&lt;/div&gt;
-&lt;p&gt;A station would need to be 200 meters to produce 3 rpm at full gravity. The International Space Station is 109 meters wide by comparison. Press this button to see the coin toss emulated on a 200-meter space station (the coin lands 20 cm away).&lt;/p&gt;
+&lt;div class=&quot;tryParent&quot;&gt;&lt;a target=&quot;_blank&quot; href=&quot;https://kevindprice.github.io/coriolis/model#&amp;amp;diameter=200&amp;amp;units=m&quot;&gt;&lt;div class=&quot;TryIt&quot;&gt;Try it!&lt;/div&gt;&lt;div class=&quot;tooltiptext&quot;&gt;&lt;p&gt;Diameter=200 m&lt;/p&gt;&lt;p&gt;Start height=1.2 m&lt;/p&gt;&lt;p&gt;Angle=0°&lt;/p&gt;&lt;p&gt;Speed=4 m/s &lt;/p&gt;&lt;p&gt;Gravity=100%&lt;/p&gt;&lt;/div&gt;&lt;/a&gt;&lt;/div&gt;
+&lt;p&gt;A space station would need to be 200 meters to produce 3 rpm at full gravity. The International Space Station is 109 meters wide by comparison. Press this button to see a coin toss emulated on a 200-meter space station (the coin lands 20 cm away).&lt;/p&gt;
 
 &lt;p&gt;Higher rotation rates would be more difficult to adapt to. In 10 rpm, individuals showed no adaptation after 12 days. The study indicated it is possible to &lt;em&gt;build up&lt;/em&gt; to this rate in small increments, about 1-2 rpm per day; this might be an impractically long adjustment. My model’s default settings display a station at about 11 rpm (the speed for 1g with a diameter of 50 feet).&lt;/p&gt;
 
-&lt;p&gt;It is unclear how significant these studies are. Unlike these studies, living in space would rotate you vertically, not horizontally.&lt;/p&gt;
+&lt;p&gt;It is unclear how significant these studies are. A centrifuge in outer space would rotate you vertically, not horizontally.&lt;/p&gt;
 
 &lt;p&gt;A 1993 study in Udine, Italy focused on &lt;em&gt;vertical&lt;/em&gt; rotation in a bicycle-powered centrifuge. Participants were able to move their heads without acute motion sickness at rates up to 19-21 rpm. Unlike the Slow Rotating Room, this study did not expose participants over several days; this would be very difficult.&lt;/p&gt;
 
 &lt;p&gt;It is not clear how well our bodies would adapt to rotation in space.&lt;/p&gt;
 
-&lt;h4 id=&quot;construction-ideas&quot;&gt;Construction ideas&lt;/h4&gt;
+&lt;h4 id=&quot;construction-strategies-to-prevent-nausea&quot;&gt;Construction strategies to prevent nausea&lt;/h4&gt;
 
-&lt;p&gt;There are a few strategies that could be helpful for building a rotating space station.&lt;/p&gt;
+&lt;p&gt;There are a few strategies that could be helpful for reducing nausea when building a rotating space station.&lt;/p&gt;
 
 &lt;div class=&quot;tryParent&quot;&gt;&lt;a target=&quot;_blank&quot; href=&quot;https://kevindprice.github.io/coriolis/model#&amp;amp;gravity=33&quot;&gt;&lt;div class=&quot;TryIt&quot;&gt;Try it!&lt;/div&gt;&lt;div class=&quot;tooltiptext&quot;&gt;&lt;p&gt;Diameter=50 ft&lt;/p&gt;&lt;p&gt;Start height=4 ft&lt;/p&gt;&lt;p&gt;Angle=0°&lt;/p&gt;&lt;p&gt;Speed=14 ft/s &lt;/p&gt;&lt;p&gt;Gravity=33%&lt;/p&gt;&lt;/div&gt;&lt;/a&gt;&lt;/div&gt;
 &lt;ul&gt;
@@ -595,37 +495,101 @@ In many sci-fi movies, you see an artificial gravity “generator” underneath 
     &lt;p&gt;Studies have indicated that &lt;em&gt;intermittent&lt;/em&gt; gravity is helpful. Would a higher rotation rate be tolerable if it is only for an hour a day? Try the coin toss in 2g!&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;As we saw in Gemini 11, it is possible to simulate gravity by rotating two capsules connected by a tether. This may prove less expensive than building an enormous station.&lt;/p&gt;
+    &lt;p&gt;It is possible to simulate gravity by rotating two capsules connected by a tether. With this strategy, we could build a spinning environment with an arbitrarily large radius, allowing us to reduce the spin rate. The astronauts in Gemini 11 briefly studied this phenomenon. This strategy may prove less expensive than building an enormous station, though the tether may require exceptionally strong materials.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
     &lt;p&gt;A modular station could be expanded over time, allowing us to reduce the rpm requirements or increase the gravity capability. Gravity would be highest at the ends and lowest in the middle.&lt;/p&gt;
   &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Reducing the spin rate would also reduce the Coriolis effect, another desirable outcome.&lt;/p&gt;</content><author><name></name></author><summary type="html">Most of the information on this page has been drawn from this link.</summary></entry><entry><title type="html">The history of research on rotation in outer space</title><link href="http://0.0.0.0:4000/coriolis/history/" rel="alternate" type="text/html" title="The history of research on rotation in outer space" /><published>2020-03-03T00:00:00-05:00</published><updated>2020-03-03T00:00:00-05:00</updated><id>http://0.0.0.0:4000/coriolis/history</id><content type="html" xml:base="http://0.0.0.0:4000/coriolis/history/">&lt;p&gt;Most of the information on this page has been drawn from &lt;a href=&quot;https://ntrs.nasa.gov/archive/nasa/casi.ntrs.nasa.gov/20070001009.pdf&quot;&gt;this link&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h3 id=&quot;the-history-of-research-on-rotation-in-outer-space&quot;&gt;The history of research on rotation in outer space&lt;/h3&gt;
+
+&lt;p&gt;Artificial gravity from spinning has been popularized by science fiction; this is where our perception of it comes from. In the real world, a spinning space station has never built, and no space agency has active plans to build one; nonetheless, NASA’s archives are littered with proposals for one. It is interesting to take a break from fiction and see what real efforts have been made to learn more about spinning in outer space.&lt;/p&gt;
+
+&lt;p&gt;Organizations like NASA and Roscomos (the Russian space agency) have been working feverishly to try to make life in space viable. Space agencies may eventually choose to construct spinning artificial gravity habitats to solve the health problems of weightlesness.&lt;/p&gt;
+
+&lt;p&gt;Here is some of the history of spinning in outer space:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;The Gemini 8 mission (March 1966) accidentally produced 4 g’s after a thruster incorrectly fired. The fast rotation caused intense nausea, and the astronauts nearly blacked out from the g-forces. The mission was aborted.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;floatright&quot;&gt;&lt;div class=&quot;floatcaption&quot; style=&quot;margin-left:20px&quot;&gt;&lt;i&gt;Gemini 11&lt;/i&gt;&lt;/div&gt;
+&lt;img src=&quot;/coriolis/assets/img/Gemini_11_Agena.jpg&quot; width=&quot;270&quot; /&gt;&lt;/div&gt;
+&lt;ul&gt;
+  &lt;li&gt;The Gemini 11 mission (September 1966) purposely rotated two capsules connected by a 36-meter tether to produce 0.0005 g. The astronauts did not feel the gravitational force (the perception threshold is about 0.2 g), but they observed objects slowly floating toward the floor of their capsule. They reported it had been “an interesting and puzzling experience.”&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;tryParent&quot;&gt;&lt;a target=&quot;_blank&quot; href=&quot;https://kevindprice.github.io/coriolis/model#&amp;amp;diameter=45&amp;amp;speed=0&amp;amp;units=m&amp;amp;gravity=.05&quot;&gt;&lt;div class=&quot;TryIt&quot;&gt;Try it!&lt;/div&gt;&lt;div class=&quot;tooltiptext&quot;&gt;&lt;p&gt;Diameter=45 m&lt;/p&gt;&lt;p&gt;Start height=1.2 m&lt;/p&gt;&lt;p&gt;Angle=0°&lt;/p&gt;&lt;p&gt;Speed=0 m/s &lt;/p&gt;&lt;p&gt;Gravity=.05%&lt;/p&gt;&lt;/div&gt;&lt;/a&gt;&lt;/div&gt;
+&lt;p&gt;Press this green button to emulate the gravity of the Gemini 11 mission. It takes 23 seconds for an object to land after dropping it.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;In 1973, NASA’s only concern with zero gravity was motion sickness, which was only a problem for the first few days in orbit. This was the NASA flight surgeon’s position: “The magnitude of the motion-sickness problem experienced by astronauts to date does not appear to suggest clearly the need for design and incorporation of artificial gravity system in near-future space vehicles.”&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;floatright&quot;&gt;&lt;div class=&quot;floatcaption&quot; style=&quot;color:red; margin-left: 90px; font-weight:bold;&quot;&gt;&lt;i&gt;Kosmos 782&lt;/i&gt;&lt;/div&gt;
+&lt;img src=&quot;/coriolis/assets/img/Kosmos_782.jpg&quot; width=&quot;270&quot; /&gt;&lt;/div&gt;
+&lt;ul&gt;
   &lt;li&gt;
-    &lt;p&gt;A station’s rotation rate would require small adjustments over time. Spinning a &lt;em&gt;reaction wheel&lt;/em&gt; could manage it without thrusters. Otherwise, the station would need to use propellant, which would be used up over time. This reaction wheel would spin in the opposite direction of the station and could be electrically powered. This wheel would need to be frictionless.&lt;/p&gt;
+    &lt;p&gt;The Soviet space program was initially very interested in artificial gravity in space. As early as 1961, the Soviets began studying how animals responded to various g-forces in parabolic flight (flights that do not reach orbit).&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;In 1975, on Kosmos 782, the Soviets centrifuged animals in space. Fish and turtles were centrifuged at 1 g for 20-days in a 75 cm diameter centrifuge. The researchers did not find any differences between either the centrifuged animals, animals housed in 0g, or Earth-bound animals.&lt;/p&gt;
   &lt;/li&gt;
 &lt;/ul&gt;
+&lt;div class=&quot;widebreak&quot;&gt;&lt;/div&gt;
+&lt;div class=&quot;widebreak&quot;&gt;&lt;/div&gt;
+
+&lt;div class=&quot;floatright&quot;&gt;&lt;div class=&quot;floatcaption&quot; style=&quot;color: blue; font-weight: bold;&quot;&gt;&lt;i&gt;Skylab&lt;/i&gt;&lt;/div&gt;
+&lt;img src=&quot;/coriolis/assets/img/Skylab.gif&quot; alt=&quot;Skylab Giphy&quot; /&gt;&lt;/div&gt;
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;The American crews on Skylab took advantage of the large open compartment and ran around the curved circumference. Running in a circle created gravity. They reported no difficulty with either locomotion or motion sickness.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The negative effects of weightlessness became clearer during long-duration missions on Russian space stations such as Mir.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Several studies on Earth have looked at long-term bed rest, which produces similar health effects to zero gravity. A 1998 study in Tokyo found that one hour a day in a centrifuge prevents blood volume from dropping in a bed rester and maintains the blood-pressure reflex. In 2005, NASA conducted similar studies in their Short-Radius Centrifuge in Houston.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;floatright&quot;&gt;&lt;div class=&quot;floatcaption&quot; style=&quot;margin-left: 5px;&quot;&gt;&lt;i&gt;Off-axis rotator&lt;/i&gt;&lt;/div&gt;
+&lt;img src=&quot;/coriolis/assets/img/rotator.jpg&quot; width=&quot;270&quot; /&gt;&lt;/div&gt;
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;In 1998, the European Space Agency built an “off-axis rotator” for the ISS. This device centrifuged humans for seven minutes at a time at several speeds. Subjects said they felt like they were standing on their heads.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;In December 2014, NASA launched a fruit-fly centrifuge to study the effects of artificial gravity on the immune system.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The scientific community periodically comes up with new gravity ideas, though we will never fully understand life in a spinning environment until we create an environment for outer space.&lt;/p&gt;
 
 &lt;h4 id=&quot;actual-spacecraft-proposals&quot;&gt;Actual Spacecraft Proposals&lt;/h4&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;In 2011, NASA proposed the rotating Nautilus-X as a possible stopover for astronauts embarking on long-distance missions; it would be relatively inexpensive and feasible (~$3bn). It seems likely that we will build something similar to this first.&lt;/li&gt;
+  &lt;li&gt;In 2011, NASA proposed the rotating Nautilus-X as a possible stopover for astronauts embarking on long-distance missions; it might be relatively inexpensive and feasible (~$3bn). It seems likely that we will build something similar to this first.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;div class=&quot;center&quot;&gt;&lt;i&gt;Nautilus-X (proposed)&lt;/i&gt;&lt;br /&gt;
 &lt;img src=&quot;/coriolis/assets/img/Nautilus-X.png&quot; width=&quot;200&quot; /&gt;&lt;/div&gt;
 &lt;div class=&quot;widebreak&quot;&gt;&lt;/div&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;This next image is for the Rotating Mars spacecraft, a 1989 concept idea. A space station using this tethered method could have an arbitrarily large diameter. A large space station at 1g may require exceptionally strong tethers using future materials such as carbon nanotubes.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;div class=&quot;center&quot;&gt;&lt;div class=&quot;floatcaption&quot;&gt;&lt;i&gt;1989&lt;/i&gt;&lt;/div&gt;
-&lt;img src=&quot;/coriolis/assets/img/1989Concept.png&quot; width=&quot;250&quot; /&gt;&lt;/div&gt;
-&lt;div class=&quot;widebreak&quot;&gt;&lt;/div&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;The 1969 design below requires a few revisions to work. The center corridor would need to be an elevator or a ladder. Also, you would be unable to stand in the long cylindrical containers; they are oriented in the wrong direction. This would work if we used many &lt;em&gt;small&lt;/em&gt; modules in a chain.&lt;/li&gt;
+  &lt;li&gt;The next picture is an interesting example of an early study into spinning space stations. The 1969 design below requires a few revisions to work. The center corridor would need to be an elevator or a ladder. Also, you would be unable to stand in the long cylindrical containers; they are oriented in the wrong direction.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;div class=&quot;center&quot;&gt;&lt;div class=&quot;floatcaption&quot;&gt;&lt;i&gt;1969&lt;/i&gt;&lt;/div&gt;
 &lt;img src=&quot;/coriolis/assets/img/Artificial_Gravity_Space_Station.png&quot; alt=&quot;1969 concept&quot; width=&quot;250&quot; /&gt;&lt;/div&gt;
+&lt;div class=&quot;widebreak&quot;&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;This next image is for the Rotating Mars spacecraft, a 1989 concept idea. A space station using this tethered method could have an arbitrarily large diameter. An especially large space station at 1g may require exceptionally strong tethers using future materials such as carbon nanotubes.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&quot;center&quot;&gt;&lt;div class=&quot;floatcaption&quot;&gt;&lt;i&gt;1989&lt;/i&gt;&lt;/div&gt;
+&lt;img src=&quot;/coriolis/assets/img/1989Concept.png&quot; width=&quot;250&quot; /&gt;&lt;/div&gt;
 &lt;div class=&quot;widebreak&quot;&gt;&lt;/div&gt;
 
 &lt;ul&gt;
@@ -636,48 +600,7 @@ In many sci-fi movies, you see an artificial gravity “generator” underneath 
 &lt;div class=&quot;widebreak&quot;&gt;&lt;/div&gt;
 
 &lt;div class=&quot;tryParent&quot;&gt;&lt;a target=&quot;_blank&quot; href=&quot;https://kevindprice.github.io/coriolis/model#&amp;amp;diameter=1800&amp;amp;units=m&quot;&gt;&lt;div class=&quot;TryIt&quot;&gt;Try it!&lt;/div&gt;&lt;div class=&quot;tooltiptext&quot;&gt;&lt;p&gt;Diameter=1800 m&lt;/p&gt;&lt;p&gt;Start height=1.2 m&lt;/p&gt;&lt;p&gt;Angle=0°&lt;/p&gt;&lt;p&gt;Speed=4 m/s &lt;/p&gt;&lt;p&gt;Gravity=100%&lt;/p&gt;&lt;/div&gt;&lt;/a&gt;&lt;/div&gt;
-&lt;p&gt;Press this button to see the coin toss emulated on the Stanford Torus. The coin toss lands 8 cm (3 in) away. Perhaps someday we will reach out to the stars with a station like this one.&lt;/p&gt;
-
-&lt;p&gt;Much of the information on this page has been drawn from &lt;a href=&quot;https://ntrs.nasa.gov/archive/nasa/casi.ntrs.nasa.gov/20070001009.pdf&quot;&gt;this link&lt;/a&gt;.&lt;/p&gt;</content><author><name></name></author><summary type="html">The history of artificial gravity research</summary></entry><entry><title type="html">Health effects of weightlessness</title><link href="https://kevindprice.github.io/coriolis/coriolis/weightlessness/" rel="alternate" type="text/html" title="Health effects of weightlessness" /><published>2020-03-03T00:00:00-05:00</published><updated>2020-03-03T00:00:00-05:00</updated><id>https://kevindprice.github.io/coriolis/coriolis/weightlessness</id><content type="html" xml:base="https://kevindprice.github.io/coriolis/coriolis/weightlessness/">&lt;h3 id=&quot;health-effects-of-weightlessness&quot;&gt;Health effects of weightlessness&lt;/h3&gt;
-
-&lt;p&gt;Weightlessness is not a problem for short space flights; however, on long-duration flights it would be debilitating. Missions to Mars or beyond will present serious dangers without gravity.&lt;/p&gt;
-
-&lt;p&gt;It was initially believed that the effects of weightlessness could be counteracted through exercise. It has become clear that it is impossible for astronauts to get sufficient exercise in space to protect them. Nonetheless, several hours of daily exercise is still important to astronauts living in zero gravity.&lt;/p&gt;
-
-&lt;p&gt;Astronaut Scott Kelly just completed an important mission on the International Space Station: he stayed in space for an entire year while his identical twin brother lived on earth. This allowed scientists to compare the changes that occurred in Scott’s body to his brother’s, so NASA can better prepare for a mission to Mars. Scientists were able to more thoroughly study the effects of zero gravity on Kelly’s body.&lt;/p&gt;
-
-&lt;div class=&quot;floatright&quot;&gt;&lt;div class=&quot;floatcaption&quot;&gt;&lt;i&gt;Scott Kelly&lt;/i&gt;&lt;/div&gt;
-&lt;img src=&quot;/coriolis/assets/img/ScottKelly.jpeg&quot; width=&quot;300&quot; /&gt;&lt;/div&gt;
-
-&lt;p&gt;Scott Kelly recently wrote &lt;a href=&quot;https://www.amazon.com/Endurance-Year-Space-Lifetime-Discovery-ebook/dp/B01EE0FCEK&quot;&gt;a book&lt;/a&gt; about his journeys in space. In his book, he describes some of the health effects he experienced from living in space.&lt;/p&gt;
-
-&lt;p&gt;In the prologue of his book, Kelly describes what it was like returning to Earth after his year in space. He could hardly stand! He writes, “All of my joints and all of my muscles are protesting the crushing pressure against gravity” (page 6). His blood pooled in his legs, causing swelling and pain, and causing low blood pressure everywhere else. His ankles were so swollen he could not find his ankle bones. His skin became hot, and he developed a strange, massive rash over his body. Doctors do not have experience with humans returning from long-duration space missions.&lt;/p&gt;
-
-&lt;p&gt;Throughout the book, Kelly writes some additional medical findings:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;Immediately after landing, he is surprised by how dizzy he feels. He writes, “When I tried to unstrap myself from my seat and get up, I found I nearly couldn’t move. I felt like I weighed a thousand pounds” (page 230).&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Some astronauts suffer vision damage during long space missions (page 140); this may be due to increased pressure in the head. This lowers drainage of cerebrospinal fluid, which causes increased pressure on the eyes. These vision changes are permament for some astronauts and temporary for others. Kelly writes that he experienced swelling of the optic nerve and permanent choroidal folds behind the retina.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;If astronauts do not exercise for several hours each day, they will lose 1 percent of bone mass each month. It is believed that astronauts have permanent structural changes in the bone. If astronauts skip a single exercise session, they feel their muscles atrophy (page 334). If an astronaut were to be injured and unable to exercise, he or she would lose bone mass.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Kelly writes that “more than two-thirds of space travelers suffer from some degree of space motion sickness, sometimes debilitating, and there isn’t much to be done but wait it out.” Motion-sick astronauts are as clumsy and tentative “as babies just learning to walk” until this is resolved. It can take astronauts four to six weeks to recover.
-(Artificial gravity might also cause motion sickness; it is unclear how this would compare.)&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Despite this short list of medical greviances, Kelly was nonetheless enthusiastic about his mission. Immediately after landing, he felt confident he could have walked away from the landing site.&lt;/p&gt;
-
-&lt;p&gt;Many of the negative effects of zero-gravity have been clear since the Soviets launched &lt;em&gt;Mir&lt;/em&gt;; they discovered toxic effects on the bone, muscle, and cardiovascular system.&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4470275/&quot;&gt;This paper&lt;/a&gt; explains that zero gravity causes “debilitating and potentially fatal problems” including “bone loss, cardiovascular deconditioning, muscle weakening, sensorimotor and neurovestibular disturbances, and regulatory disorders.” Living in zero gravity causes blood to flow to the head, prompting dramatic fluid loss and increased blood thickness. After returning to Earth, thick blood flows back to the lower body, causing the heart rate to increase and blood pressure to drop. Today, returning astronauts also risk bone fractures and muscle tears during their recovery period. The paper says, “Were astronauts to embark upon a journey to Mars today, the 6-month exposure to weightlessness en route would leave them considerably debilitated.” We do not know how the low Martian gravity would affect them after arrival.&lt;/p&gt;
-
-&lt;p&gt;If the world intends to send astronauts on long-distance missions, then artificial gravity will be important!&lt;/p&gt;</content><author><name></name></author><summary type="html">Health effects of weightlessness</summary></entry><entry><title type="html">Fun things to do with the model</title><link href="https://kevindprice.github.io/coriolis/coriolis/ideas/" rel="alternate" type="text/html" title="Fun things to do with the model" /><published>2020-03-02T00:00:00-05:00</published><updated>2020-03-02T00:00:00-05:00</updated><id>https://kevindprice.github.io/coriolis/coriolis/ideas</id><content type="html" xml:base="https://kevindprice.github.io/coriolis/coriolis/ideas/">&lt;h3 id=&quot;fun-things-to-do-with-the-computer-model&quot;&gt;Fun things to do with the computer model&lt;/h3&gt;
+&lt;p&gt;Press this button to see a coin toss emulated on the Stanford Torus. The coin toss lands 8 cm (3 in) away. Perhaps someday we will reach out to the stars with a station like this one.&lt;/p&gt;</content><author><name></name></author><summary type="html">Most of the information on this page has been drawn from this link.</summary></entry><entry><title type="html">Fun things to do with the model</title><link href="http://0.0.0.0:4000/coriolis/ideas/" rel="alternate" type="text/html" title="Fun things to do with the model" /><published>2020-03-02T00:00:00-05:00</published><updated>2020-03-02T00:00:00-05:00</updated><id>http://0.0.0.0:4000/coriolis/ideas</id><content type="html" xml:base="http://0.0.0.0:4000/coriolis/ideas/">&lt;h3 id=&quot;fun-things-to-do-with-the-computer-model&quot;&gt;Fun things to do with the computer model&lt;/h3&gt;
 
 &lt;p&gt;Here are some things you can do with the model.&lt;/p&gt;
 
@@ -803,38 +726,40 @@ In many sci-fi movies, you see an artificial gravity “generator” underneath 
   &lt;li&gt;Now try a short-range shot. Adjust the model to 100 degrees from vertical (10 degrees below horizontal) to aim the projectile at the ground. It would land about a millimeter from its intended target, 6.8 meters away.&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;In summary, long-range firing on a massive station would be very difficult. The error would be different depending on the direction you are facing, the velocity of the projectile, and the size of the station. Nonetheless, a coin toss would appear as it would on Earth, and short-range shots would be very precise. A &lt;em&gt;guided&lt;/em&gt; missile would always find its intended target, even with the Coriolis effect.&lt;/p&gt;</content><author><name></name></author><summary type="html">Fun things to do with the computer model</summary></entry><entry><title type="html">Introduction</title><link href="https://kevindprice.github.io/coriolis/coriolis/intro/" rel="alternate" type="text/html" title="Introduction" /><published>2020-03-01T00:00:00-05:00</published><updated>2020-03-01T00:00:00-05:00</updated><id>https://kevindprice.github.io/coriolis/coriolis/intro</id><content type="html" xml:base="https://kevindprice.github.io/coriolis/coriolis/intro/">&lt;h1 id=&quot;what-is-this-model&quot;&gt;What is this model?&lt;/h1&gt;
+&lt;p&gt;In summary, long-range firing on a massive station would be very difficult. The error would be different depending on the direction you are facing, the velocity of the projectile, and the size of the station. Nonetheless, a coin toss would appear as it would on Earth, and short-range shots would be very precise. A &lt;em&gt;guided&lt;/em&gt; missile would always find its intended target, even with the Coriolis effect.&lt;/p&gt;</content><author><name></name></author><summary type="html">Fun things to do with the computer model</summary></entry><entry><title type="html">Introduction</title><link href="http://0.0.0.0:4000/coriolis/intro/" rel="alternate" type="text/html" title="Introduction" /><published>2020-03-01T00:00:00-05:00</published><updated>2020-03-01T00:00:00-05:00</updated><id>http://0.0.0.0:4000/coriolis/intro</id><content type="html" xml:base="http://0.0.0.0:4000/coriolis/intro/">&lt;p&gt;&lt;em&gt;&lt;/em&gt;&lt;/p&gt;
+&lt;div class=&quot;tryParent&quot;&gt;&lt;a target=&quot;_blank&quot; href=&quot;https://kevindprice.github.io/coriolis/model#&quot;&gt;&lt;div class=&quot;TryIt&quot;&gt;Try it!&lt;/div&gt;&lt;div class=&quot;tooltiptext&quot;&gt;&lt;p&gt;Diameter=50 ft&lt;/p&gt;&lt;p&gt;Start height=4 ft&lt;/p&gt;&lt;p&gt;Angle=0°&lt;/p&gt;&lt;p&gt;Speed=14 ft/s &lt;/p&gt;&lt;p&gt;Gravity=100%&lt;/p&gt;&lt;/div&gt;&lt;/a&gt;&lt;/div&gt;
+&lt;p&gt;This article accompanies a computer model that shows motion on a spinning space station. The green link opens the model.&lt;/p&gt;
 
-&lt;p&gt;&lt;img class=&quot;floatright&quot; src=&quot;/coriolis/assets/img/RotatingStation.png&quot; width=&quot;250&quot; style=&quot;border-radius: 10px&quot; /&gt;&lt;/p&gt;
+&lt;h1 id=&quot;spinning-space-stations-and-the-coriolis-effect&quot;&gt;Spinning Space Stations and the Coriolis Effect&lt;/h1&gt;
 
-&lt;p&gt;This model demonstrates how much artificial gravity would alter the environment around you on a space station. My model shows that, thanks to the Coriolis effect, artificial gravity would be very strange; it would not look like Earth’s gravity.&lt;/p&gt;
+&lt;p&gt;&lt;img class=&quot;conditionalright&quot; src=&quot;/coriolis/assets/img/RotatingStation.png&quot; width=&quot;240&quot; style=&quot;border-radius: 10px; padding:5px; background-color:darkblue;&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;You can change the throw to whatever you want by pushing the “Edit Variables” button on the model page. The next page will give you some ideas (“Fun things to do with the computer model”).&lt;/p&gt;
+&lt;p&gt;No one has ever built a spinning space station before. By spinning a space station like a centrifuge, astronauts could be held to the floor like gravity. What would it be like in such a place?&lt;/p&gt;
 
-&lt;h4 id=&quot;what-is-artificial-gravity&quot;&gt;What is artificial gravity?&lt;/h4&gt;
+&lt;p&gt;Objects move differently in a spinning environment due to a phenomena called the Coriolis effect. If you were to toss something in the air, it would not land where you expect it to. The farther around the circle you spin while the tossed object is midair, the more distorted its path will look.&lt;/p&gt;
 
-&lt;p&gt;&lt;img class=&quot;floatleft&quot; src=&quot;/coriolis/assets/img/CentripetalForce3.png&quot; width=&quot;160&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;I sought to learn more about life in a spinning environment by building a computer model. Whether or not we &lt;em&gt;should&lt;/em&gt; build a spinning space station is up to history to decide; however, it seems likely that someday there will be such an environment, and when it exists, the Coriolis effect will be a major part of life there.&lt;/p&gt;
 
-&lt;p&gt;We can simulate gravity by spinning; this is “artificial” gravity. If you swing a bucket of water fast enough around your head, the water will stay inside. This creates what is called the &lt;em&gt;centripetal force.&lt;/em&gt;&lt;/p&gt;
+&lt;h4 id=&quot;should-we-build-a-spinning-space-station&quot;&gt;Should We Build a Spinning Space Station?&lt;/h4&gt;
 
-&lt;p&gt;Unfortunately, we do not currently have a space station that generates gravity, but the physics behind artificial gravity is real and could be put into practice in space.&lt;/p&gt;
+&lt;p&gt;&lt;img class=&quot;conditionalright&quot; src=&quot;/coriolis/assets/img/rotating.gif&quot; width=&quot;250&quot; style=&quot;border-radius: 10px&quot; /&gt;&lt;/p&gt;
 
-&lt;h4 id=&quot;what-is-the-coriolis-effect&quot;&gt;What is the Coriolis effect?&lt;/h4&gt;
+&lt;p&gt;There are arguments both for and against building a spinning space station.&lt;/p&gt;
 
-&lt;p&gt;The Coriolis effect is an effect of artificial gravity that causes objects to move where you do not expect them to. Objects that are rotating do not behave the same as objects that are not. This effect can also be seen in Earth’s weather patterns.&lt;/p&gt;
+&lt;p&gt;Creating a spinning environment would be expensive, and it is unclear how well astronauts could adapt to a spinning world. Each direction of motion would produce a different sensation, so the body would need to adapt to each direction differently. The stars on the computer model page are shown spinning slower than reality because it is too easy to get dizzy looking at it (of course, it is the person that is actually spinning, not the stars).&lt;/p&gt;
 
-&lt;p&gt;Because of this effect, life in simulated gravity may prove difficult to get used to. The Coriolis effect would affect everything you do. Increasing the size of a space station reduces the Coriolis effect, but eliminating it entirely would require an impossibly large space station.&lt;/p&gt;
+&lt;p&gt;On the other hand, producing gravity may prove essential to counteract the health effects of weightlessness on deep-space missions. Life without gravity causes vision changes, reduced blood volume, a weakened immune system, premature aging, weakened bones and muscles, and more. The result of weightlessness is similar to prolonged bed rest. If future astronauts must spend several years in space traveling to and from Mars, then these health effects will be a problem. One of the main objectives of astronaut Scott Kelly’s recent year-long trip to space was to learn more about these health effects.&lt;/p&gt;
 
-&lt;h4 id=&quot;model-assumptions&quot;&gt;Model Assumptions&lt;/h4&gt;
+&lt;p&gt;I believe that we should build a spinning space station for the purpose of learning more about this type of environment. We cannot know if this environment will be helpful to astronauts if we never try it. When we eventually do build a spinning environment, it will be interesting to learn more about how astronauts adapt to the Coriolis effect.&lt;/p&gt;
 
-&lt;p&gt;This model assumes:&lt;/p&gt;
+&lt;h4 id=&quot;can-we-get-rid-of-the-coriolis-effect&quot;&gt;Can We Get Rid of the Coriolis Effect?&lt;/h4&gt;
 
-&lt;ul&gt;
-  &lt;li&gt;there is no air resistance&lt;/li&gt;
-  &lt;li&gt;the numbers in the input menu represent the throw you &lt;em&gt;would have&lt;/em&gt; made on Earth&lt;/li&gt;
-  &lt;li&gt;before the throw, the coin was rotating with the thrower’s hand&lt;/li&gt;
-&lt;/ul&gt;
+&lt;p&gt;As we increase the size of the spinning space station, the Coriolis effect decreases. However, it would be impossible to build a station large enough to eliminate it. So no, we cannot eliminate the Coriolis effect.&lt;/p&gt;
 
-&lt;p&gt;The model shows the &lt;b&gt;&lt;i&gt;thrower’s&lt;/i&gt;&lt;/b&gt; perspective.
-The space station’s floor looks stationary to him.
-He sees &lt;b&gt;outer space&lt;/b&gt; rotating counterclockwise.&lt;/p&gt;</content><author><name></name></author><summary type="html">What is this model?</summary></entry></feed>
+&lt;p&gt;The improvement you see as you increase space station size is logarithmic; you need to increase the size by an order of magnitude to see a small decrease in the Coriolis effect. I have modeled our toss against increasing station size on a logarithmic graph. On Earth, a toss thrown straight up would land exactly at your feet, 0 cm away.&lt;/p&gt;
+
+&lt;div class=&quot;center&quot;&gt;&lt;img id=&quot;smallMargin&quot; src=&quot;/coriolis/assets/img/CoriolisGraph.png&quot; width=&quot;500&quot; /&gt;&lt;/div&gt;
+
+&lt;p&gt;This graph assumes the toss starts at a height of 1.2 meters, goes straight up at 4 m/s, and has 1g of gravity at the floor. This is the default setting for the computer model.&lt;/p&gt;
+
+&lt;p&gt;Try the computer model for yourself so you can see how different data points affect a throw.&lt;/p&gt;</content><author><name></name></author><summary type="html">Try it!Diameter=50 ftStart height=4 ftAngle=0°Speed=14 ft/s Gravity=100% This article accompanies a computer model that shows motion on a spinning space station. The green link opens the model.</summary></entry></feed>

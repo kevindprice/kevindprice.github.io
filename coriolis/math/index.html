@@ -36,13 +36,13 @@
 		
 
 		  
-			<a href="/coriolis/history/"><p class="TOClink">The history of artificial gravity research</p></a>
+			<a href="/coriolis/history/"><p class="TOClink">The history of research on rotation in outer space</p></a>
 		  
 		  
 		
 
 		  
-			<a href="/coriolis/weightlessness/"><p class="TOClink">Health effects of weightlessness</p></a>
+			<a href="/coriolis/nausea/"><p class="TOClink">Rotation research regarding nausea</p></a>
 		  
 		  
 		
@@ -60,13 +60,7 @@
 		
 
 		  
-			<a href="/coriolis/physics/"><p class="TOClink">How does the Coriolis effect work?</p></a>
-		  
-		  
-		
-
-		  
-			<a href="/coriolis/conclusion/"><p class="TOClink">Conclusion and links</p></a>
+			<a href="/coriolis/conclusion/"><p class="TOClink">Outside links and references</p></a>
 		  
 		  
 		
@@ -92,13 +86,13 @@
 		
 
 		  
-			<p class="TOClink"><a href="/coriolis/history/">The history of artificial gravity research</a></p>
+			<p class="TOClink"><a href="/coriolis/history/">The history of research on rotation in outer space</a></p>
 		  
 		  
 		
 
 		  
-			<p class="TOClink"><a href="/coriolis/weightlessness/">Health effects of weightlessness</a></p>
+			<p class="TOClink"><a href="/coriolis/nausea/">Rotation research regarding nausea</a></p>
 		  
 		  
 		
@@ -116,13 +110,7 @@
 		
 
 		  
-			<p class="TOClink"><a href="/coriolis/physics/">How does the Coriolis effect work?</a></p>
-		  
-		  
-		
-
-		  
-			<p class="TOClink"><a href="/coriolis/conclusion/">Conclusion and links</a></p>
+			<p class="TOClink"><a href="/coriolis/conclusion/">Outside links and references</a></p>
 		  
 		  
 		
@@ -143,7 +131,9 @@
 
 <p>To fully understand what happens during our coin toss, we must use a perspective that is not rotating. When beginning to solve a physics problem, it is important to establish a coordinate system. This helps to make sense of what is going on.</p>
 
-<p>The station is a virtual coordinate system with (0,0) at its exact center. I imagined the station rotating clockwise.</p>
+<p>The station is a virtual coordinate system with (0,0) at its exact center and the thrower at the very bottom. I imagined the station rotating clockwise.</p>
+
+<div class="center"><img src="/coriolis/assets/img/CoordinateSystem.png" width="300" height="300" /></div>
 
 <p>Here are some conditions for this coin toss:</p>
 
@@ -155,13 +145,11 @@
   <li>The coin experiences less than this amount of centripetal acceleration or “gravity” because it is not at the floor.</li>
 </ul>
 
-<div class="center"><img src="/coriolis/assets/img/CoordinateSystem.png" width="300" height="300" /></div>
+<p>The next picture is a diagram of the velocity components for the throw. Before the throw, the coin has a leftwards velocity ($V_x$) due to the clockwise rotation; the object also experiences the centripetal force upwards ($F_c$). The throw adds an upwards velocity of 14 ft/s (the throw speed); the centripetal force ceases. The velocity components define the overall direction that the coin travels through the air ($V$), which we will need to calculate so we can determine where it lands.</p>
 
-<p>Before the throw, the coin has a leftwards velocity due to the clockwise rotation; the throw adds an upwards velocity of 14 ft/s (the throw speed). These two velocity components define the direction that the coin travels through the air, which we will need to calculate so we can determine where it lands.</p>
+<div class="center"><img src="/coriolis/assets/img/BeforeThrow.png" width="200" /><img src="/coriolis/assets/img/AfterThrow.png" width="200" /></div>
 
-<p>The picture below is a diagram of these velocity components. $V$ represents the magnitude and direction of the coin’s velocity, and $V_x$ and $V_y$ are its components. $V_x$ equals the speed the coin was rotating at before the throw, and $V_y$ is 14 ft/s. $F_c$ is the centripetal force which disappears at the moment the coin is released.</p>
-
-<div class="center"><img src="/coriolis/assets/img/BeforeThrow.png" width="200" height="200" /><img src="/coriolis/assets/img/AfterThrow.png" width="200" height="200" /></div>
+<h4 id="steps-to-solve-the-problem">Steps to solve the problem</h4>
 
 <p>Now that I have set up the problem, I will explain the next steps. Ideally, I would like a single equation that can solve the problem for me. Unfortunately, such an equation would be messy and impossible to simplify, so we will solve this in steps. We want to find how far away a coin would land from the thrower’s feet. To find this, we need to find the coordinates of where both the thrower and the coin would end up.</p>
 
@@ -407,7 +395,57 @@
 
 <p>The model then breaks up the path of the coin into 100 pieces, reorients each of these points to the person’s perspective at that moment, and moves real-time between these points to make an arc on the screen.</p>
 
-<p><br /></p>
+<h4 id="the-coriolis-force-in-the-moment-of-the-toss">The Coriolis force in the moment of the toss</h4>
+
+<p>Let’s look again at the same toss calculated above, but only at the moment the object is thrown. It is possible to calculate the direction and magnitude of the Coriolis “force” that a spinning object feels in a precise moment.</p>
+
+<p>This section would not be useful for the distance calculation above because the direction of the Coriolis force would constantly be changing. Nonetheless, this can help us understand in which direction an object’s path is being distorted.</p>
+
+<p><a href="https://phys420.phas.ubc.ca/p420_12/tony/Coriolis_Force/Home.html">This article</a> provides an equation to calculate the Coriolis force in a given moment:</p>
+
+<script type="math/tex; mode=display">\underline{F_C}=-2m(\underline{\Omega} \times \underline{v})</script>
+
+<ul>
+  <li>$F_C$ represents the Coriolis force felt by a spinning object</li>
+  <li>m is the mass of the object</li>
+  <li>$\Omega$ is the rotational velocity expressed as a vector (pointing in the direction of the axis of rotation)</li>
+  <li>v is the object’s velocity expressed as a vector</li>
+</ul>
+
+<p>This equation is a cross product. I do not intend to fully calculate this right now, but even without calculations, we can use simple logic to understand the direction of the Coriolis force.</p>
+
+<div class="floatright"><i>The Right Hand Rule for Cross Products</i><br />
+<img src="/coriolis/assets/img/507px-Right_hand_rule_cross_product.svg.png" /></div>
+<p>When calculating a cross product like this one, you can use your right hand to figure out where cross product’s answer will point. The pointer finger points along the axis of rotation; since my space station rotates clockwise, the pointer finger would point forward. The middle finger points in the direction the object is moving; the object is moving upward. The thumb, then, points in the opposite direction of the Coriolis force since the equation has a negative sign (to account for this negative sign you could just use the left hand instead). The Coriolis force would point leftward, or toward the rotation. This matches the result on the computer model; the tossed object initially curves left.</p>
+
+<p>Here is a summary of the forces a spinning person would see:</p>
+
+<div class="center"><img src="/coriolis/assets/img/CoriolisDirection.png" width="500" /></div>
+
+<ul>
+  <li>
+    <p>Objects moving <em>with</em> the rotation would appear to move downward because they are effectively rotating more quickly.</p>
+  </li>
+  <li>
+    <p>Objects moving <em>opposite</em> the rotation would seem lighter and would move “up.” If you matched the station’s speed, you would become weightless because you are no longer spinning.</p>
+  </li>
+  <li>
+    <p>Objects moving “upward” would appear to be pushed in the same direction as the rotation.</p>
+  </li>
+  <li>
+    <p>Objects moving “downward” would appear to be pushed opposite the rotation.</p>
+  </li>
+  <li>
+    <p>Objects moving along the axis of rotation would not be affected. The Coriolis force only affects motion perpendicular to the axis of rotation.</p>
+  </li>
+</ul>
+
+<p>The Coriolis force is also called a pseudoforce because it only seems real to someone who is rotating.</p>
+
+<h4 id="conclusion">Conclusion</h4>
+
+<p>It takes complex calculations just to understand a simple motion in a spinning environment; thus, it seems to me that Coriolis effects and forces are best understood with computer models.
+<br /></p>
  
 </div>
 
