@@ -294,13 +294,13 @@
 
 <script type="math/tex; mode=display">y = mx - r_c</script>
 
-<p>Inserting -.587660 for $m$ and 21 for $r_c$ gives us an answer of y=-6.875. The coin’s final coordinates are (-24.036, -6.875).</p>
+<p>Inserting -.587660 for $m$, 21 for $r_c$, and -24.036 for $x$ gives us an answer of y=-6.875. The coin’s final coordinates are (-24.036, -6.875).</p>
 
 <p>Once more, here are our final formulas for the coin’s landing coordinates:</p>
 
 <script type="math/tex; mode=display">x_c=\frac{mr_c-\sqrt{r_s^2(1+m^2)-r_c^2}}{1+m^2}</script>
 
-<script type="math/tex; mode=display">y_c = mx - r_c</script>
+<script type="math/tex; mode=display">y_c = mx_c - r_c</script>
 
 <p>Our variables:</p>
 
@@ -403,24 +403,24 @@
 
 <p><a href="https://phys420.phas.ubc.ca/p420_12/tony/Coriolis_Force/Home.html">This article</a> provides an equation to calculate the Coriolis force in a given moment:</p>
 
-<script type="math/tex; mode=display">\underline{F_C}=-2m(\underline{\Omega} \times \underline{v})</script>
+<script type="math/tex; mode=display">\underline{F}_{Coriolis}=-2m(\underline{\Omega} \times \underline{v})</script>
 
 <ul>
-  <li>$F_C$ represents the Coriolis force felt by a spinning object</li>
+  <li>$\underline{F}_{Coriolis}$ represents the Coriolis force felt by an object in a spinning environment</li>
   <li>m is the mass of the object</li>
-  <li>$\Omega$ is the rotational velocity expressed as a vector (pointing in the direction of the axis of rotation)</li>
-  <li>v is the object’s velocity expressed as a vector</li>
+  <li>$\underline{\Omega}$ is the rotational velocity expressed as a vector, pointing in the direction of the axis of rotation. If you curl your right hand the way the station is rotating, your thumb will point in the right direction.</li>
+  <li>$\underline{v}$ is the object’s velocity expressed as a vector</li>
 </ul>
 
 <p>This equation is a cross product. I do not intend to fully calculate this right now, but even without calculations, we can use simple logic to understand the direction of the Coriolis force.</p>
 
-<div class="floatright"><i>The Right Hand Rule for Cross Products</i><br />
+<div class="conditionalright"><i>The Right Hand Rule for Cross Products</i><br />
 <img src="/coriolis/assets/img/507px-Right_hand_rule_cross_product.svg.png" /></div>
 <p>When calculating a cross product like this one, you can use your right hand to figure out where cross product’s answer will point. The pointer finger points along the axis of rotation; since my space station rotates clockwise, the pointer finger would point forward. The middle finger points in the direction the object is moving; the object is moving upward. The thumb, then, points in the opposite direction of the Coriolis force since the equation has a negative sign (to account for this negative sign you could just use the left hand instead). The Coriolis force would point leftward, or toward the rotation. This matches the result on the computer model; the tossed object initially curves left.</p>
 
 <p>Here is a summary of the forces a spinning person would see:</p>
 
-<div class="center"><img src="/coriolis/assets/img/CoriolisDirection.png" width="500" /></div>
+<div class="center"><img class="wideimage" src="/coriolis/assets/img/CoriolisDirection.png" /></div>
 
 <ul>
   <li>
