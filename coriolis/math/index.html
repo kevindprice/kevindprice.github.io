@@ -125,7 +125,7 @@
 
  <h2 id="the-math-behind-this-model-difference-from-throw-on-earth">The math behind this model: “difference from throw on Earth”</h2>
 
-<p>As I began putting this computer model together, I wanted a simple go-to measurement for the difference between a rotating throw and a throw on Earth. This provided me a fascinating physics problem. My goal was to calculate, if a person were to toss a coin in a rotating environment, how far away would it land from their feet?</p>
+<p>My purpose in creating a computer model was to learn more about a rotating environment. As I began building the model, I wanted a simple go-to measurement for the difference between a rotating throw and a throw on Earth. This provided me a fascinating physics problem. I wanted to know, if a person were to toss a coin straight upward in a rotating environment, how much would the Coriolis effect distort the toss? How far away would the coin land from their feet?</p>
 
 <h4 id="set-up-the-problem">Set up the problem</h4>
 
@@ -393,7 +393,9 @@
 
 <p>This tells us that the coin landed 3.687 feet away from the person’s feet.</p>
 
-<p>The model then breaks up the path of the coin into 100 pieces, reorients each of these points to the person’s perspective at that moment, and moves real-time between these points to make an arc on the screen.</p>
+<p>This value is the straight-line distance to the coin from the person’s feet. The model shows a scale along the floor; if you follow the tic-marks on the screen, you will discover the <em>curvilinear</em> distance to the coin, which may be slightly different. The model also calculates the curvilinear distance; you can find this in the stats menu.</p>
+
+<p>The model breaks up the path of the coin into 100 pieces, reorients each of these points to the person’s perspective at that moment, and moves real-time between these points to make an arc on the screen.</p>
 
 <h4 id="the-coriolis-force-in-the-moment-of-the-toss">The Coriolis force in the moment of the toss</h4>
 
