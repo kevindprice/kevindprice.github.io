@@ -397,40 +397,13 @@
 
 <p>The model breaks up the path of the coin into 100 pieces, reorients each of these points to the person’s perspective at that moment, and moves real-time between these points to make an arc on the screen.</p>
 
-<h4 id="the-coriolis-force-in-the-moment-of-the-toss">The Coriolis force in the moment of the toss</h4>
-
-<p>Let’s look again at the same toss calculated above, but only at the moment the object is thrown. It is possible to calculate the direction and magnitude of the Coriolis “force” that a spinning object feels in a precise moment.</p>
-
-<p>This section would not be useful for the distance calculation above because the direction of the Coriolis force would constantly be changing. Nonetheless, this can help us understand in which direction an object’s path is being distorted.</p>
-
-<p><a href="https://phys420.phas.ubc.ca/p420_12/tony/Coriolis_Force/Home.html">This article</a> provides an equation to calculate the Coriolis force in a given moment:</p>
-
-<script type="math/tex; mode=display">\underline{F}_{Coriolis}=-2m(\underline{\Omega} \times \underline{v})</script>
-
-<ul>
-  <li>$\underline{F}_{Coriolis}$ represents the Coriolis force felt by an object in a spinning environment</li>
-  <li>m is the mass of the object</li>
-  <li>$\underline{\Omega}$ is the rotational velocity expressed as a vector, pointing in the direction of the axis of rotation. If you curl your right hand the way the station is rotating, your thumb will point in the right direction.</li>
-  <li>$\underline{v}$ is the object’s velocity expressed as a vector</li>
-</ul>
-
-<p>This equation is a cross product. I do not intend to fully calculate this right now, but even without calculations, we can use simple logic to understand the direction of the Coriolis force.</p>
-
-<div class="conditionalright"><i>The Right Hand Rule for Cross Products</i><br />
-<img src="/coriolis/assets/img/507px-Right_hand_rule_cross_product.svg.png" /></div>
-<p>When calculating a cross product like this one, you can use your right hand to figure out where cross product’s answer will point. The pointer finger points along the axis of rotation; since my space station rotates clockwise, the pointer finger would point forward. The middle finger points in the direction the object is moving; the object is moving upward. The thumb, then, points in the opposite direction of the Coriolis force since the equation has a negative sign (to account for this negative sign you could just use the left hand instead). The Coriolis force would point leftward, or toward the rotation. This matches the result on the computer model; the tossed object initially curves left.</p>
+<h4 id="in-what-direction-is-motion-distorted">In what direction is motion distorted?</h4>
 
 <p>Here is a summary of the forces a spinning person would see:</p>
 
-<div class="center"><img class="wideimage" src="/coriolis/assets/img/CoriolisDirection.png" /></div>
+<div class="center"><img class="wideimage" style="max-width:619px" src="/coriolis/assets/img/CoriolisDirection.png" /></div>
 
 <ul>
-  <li>
-    <p>Objects moving <em>with</em> the rotation would appear to move downward because they are effectively rotating more quickly.</p>
-  </li>
-  <li>
-    <p>Objects moving <em>opposite</em> the rotation would seem lighter and would move “up.” If you matched the station’s speed, you would become weightless because you are no longer spinning.</p>
-  </li>
   <li>
     <p>Objects moving “upward” would appear to be pushed in the same direction as the rotation.</p>
   </li>
@@ -438,11 +411,17 @@
     <p>Objects moving “downward” would appear to be pushed opposite the rotation.</p>
   </li>
   <li>
-    <p>Objects moving along the axis of rotation would not be affected. The Coriolis force only affects motion perpendicular to the axis of rotation.</p>
+    <p>Objects moving <em>with</em> the rotation would appear to move downward because they are effectively rotating more quickly.</p>
+  </li>
+  <li>
+    <p>Objects moving <em>opposite</em> the rotation would seem lighter and would move “up.” If an object matches the station’s speed, it would become weightless because it is no longer spinning.</p>
+  </li>
+  <li>
+    <p>Objects moving along the axis of rotation (into the screen) would not be affected.</p>
   </li>
 </ul>
 
-<p>The Coriolis force is also called a pseudoforce because it only seems real to someone who is rotating.</p>
+<p>The toss on this page first moves upward in the thrower’s perspective (reference frame), thus it is pushed into the rotation or to the left. The Coriolis force is also called a pseudoforce because it only seems real to someone who is rotating. If you wish to learn more about how this is calculated, <a href="https://phys420.phas.ubc.ca/p420_12/tony/Coriolis_Force/Home.html">here</a> is a good link.</p>
 
 <h4 id="conclusion">Conclusion</h4>
 
