@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/coriolis/model/precache-manifest.cce3c4523642f9361012f69423e79425.js"
+  "/coriolis/model/precache-manifest.292f6d065cd5c2df7a38361135955541.js"
 );
 
 self.addEventListener('message', (event) => {

@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "4055a6817e45b66ae02c9f85df188b9b",
+    "revision": "645ca70f8ef6064a39426c26e809cad4",
     "url": "/coriolis/model/index.html"
   },
   {
-    "revision": "4312373ed354732d56f1",
+    "revision": "21ab9fededb0f91a115c",
     "url": "/coriolis/model/static/css/main.f2921c71.chunk.css"
   },
   {
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/coriolis/model/static/js/2.d431498c.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "4312373ed354732d56f1",
-    "url": "/coriolis/model/static/js/main.9d02c1cf.chunk.js"
+    "revision": "21ab9fededb0f91a115c",
+    "url": "/coriolis/model/static/js/main.f3ae4f0e.chunk.js"
   },
   {
     "revision": "1382244cc17675d8d8b9",
