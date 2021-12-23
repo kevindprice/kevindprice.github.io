@@ -1,0 +1,340 @@
+
+<head>
+	<link rel="stylesheet" href='/coriolis/assets/css/main.css' />
+	<link rel='icon' href='/coriolis/favicon.ico' sizes="150x150" type='image/x-icon' />
+  
+	<script>
+	// will scroll past the Table of Contents if the page is skinny
+	window.onload = function() {
+		var element = document.getElementById('scrollbuffer');
+		element.scrollIntoView();
+	}
+	</script>
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+</head>
+
+
+<div id="mainPage">
+
+<div id="TOC-container-left">
+	<div class="TOC" id="TOCleft">
+
+		
+
+		  
+			<a href="/coriolis/intro/"><p class="TOClink">Introduction</p></a>
+		  
+		  
+		
+
+		  
+			<a href="/coriolis/ideas/"><p class="TOClink">Fun things to do with the model</p></a>
+		  
+		  
+		
+
+		  
+			<a href="/coriolis/history/"><p class="TOClink">The history of research on rotation</p></a>
+		  
+		  
+		
+
+		  
+			<a href="/coriolis/nausea/"><p class="TOClink">Rotation research regarding nausea</p></a>
+		  
+		  
+		
+
+		  
+			<a href="/coriolis/math/"><p class="TOClink">The math - "difference from throw on Earth"</p></a>
+		  
+		  
+		
+
+		  
+			<p class="currentTOClink">The math - rendering the throw</p>
+		  
+		  
+		
+
+		  
+			<a href="/coriolis/scifi/"><p class="TOClink">Space stations and artificial gravity in science fiction</p></a>
+		  
+		  
+		
+
+		  
+			<a href="/coriolis/conclusion/"><p class="TOClink">Outside links and references</p></a>
+		  
+		  
+		
+						<div class='tryParent'><a target='_blank' href='https://coriolis-station.netlify.app#'><div class='TryIt'>Try it!</div><div class='tooltiptext'><p>Diameter=50 ft</p><p>Start height=4 ft</p><p>Angle=0°</p><p>Speed=14 ft/s </p><p>Gravity=100%</p></div></a></div>
+		<p style="margin-left:5px;">Open the model:</p>
+	</div>
+</div>
+
+<div id="article-body">
+	<div class="TOC" id="TOCtop">		
+		
+
+		  
+			<p class="TOClink"><a href="/coriolis/intro/">Introduction</a></p>
+		  
+		  
+		
+
+		  
+			<p class="TOClink"><a href="/coriolis/ideas/">Fun things to do with the model</a></p>
+		  
+		  
+		
+
+		  
+			<p class="TOClink"><a href="/coriolis/history/">The history of research on rotation</a></p>
+		  
+		  
+		
+
+		  
+			<p class="TOClink"><a href="/coriolis/nausea/">Rotation research regarding nausea</a></p>
+		  
+		  
+		
+
+		  
+			<p class="TOClink"><a href="/coriolis/math/">The math - "difference from throw on Earth"</a></p>
+		  
+		  
+		
+
+		  
+			<p class="currentTOClink">The math - rendering the throw</p>
+		  
+		  
+		
+
+		  
+			<p class="TOClink"><a href="/coriolis/scifi/">Space stations and artificial gravity in science fiction</a></p>
+		  
+		  
+		
+
+		  
+			<p class="TOClink"><a href="/coriolis/conclusion/">Outside links and references</a></p>
+		  
+		  
+		
+		<div style="width:210px;"> <div class='tryParent'><a target='_blank' href='https://coriolis-station.netlify.app#'><div class='TryIt'>Try it!</div><div class='tooltiptext'><p>Diameter=50 ft</p><p>Start height=4 ft</p><p>Angle=0°</p><p>Speed=14 ft/s </p><p>Gravity=100%</p></div></a></div> <p>Open the model:</p></div>	
+		<br/>
+		
+		<div id="scrollbuffer"><span class="labelSpan">—scroll up</span> for the clickable <span class="labelSpan">table of contents—</span></div>
+		
+		<br/>
+	</div>
+
+
+ <h2 id="the-math-behind-this-model-rendering-the-throw">The math behind this model: rendering the throw</h2>
+
+<p>Outer space continues to be a new fronteir. If we were to build a space station that spins to produce gravity, the physics inside would suprise most people.</p>
+
+<p>In the previous article, we calculated the distance a tossed object would land away from a person’s feet in a distorted spinning environment. Now, to render this toss upright on the screen, we need to perform an important conversion; we need to reorient the object for a spinning reference frame. This is necessary so the throw will look like it would if you were standing on the station. This article works backwards to solve this problem, working from what we need to know toward what we already know. This will require geometry and trigonometry.</p>
+
+<h4 id="reference-frames">Reference frames</h4>
+
+<p>A reference frame is your point of view. If you were to stand in a spinning environment, you would be spinning together with the objects surrounding you; this would affect how you view those objects. A spinning reference frame is how those objects would appear to you while spinning.</p>
+
+<div class="center"><div class="floatcaption"><i>A spinning reference frame</i></div>
+<img src="/coriolis/assets/img/spinning-frame.png" style="max-width:400px" /></div>
+
+<p>The calculations we made on the previous page required a view that was not spinning, as if we were floating outside the spinning station. This is an <em>inertial</em> reference frame. The tossed object’s coordinate position is based on the center of rotation.</p>
+
+<div class="center"><div class="floatcaption"><i>An inerital reference frame</i></div>
+<img src="/coriolis/assets/img/inertial-frame.png" style="max-width:400px" /></div>
+<p>To render the throw, we will need to convert the object’s path from an inertial reference frame to a spinning one. When we make this conversion, we orient the person upright and calculate the object’s X and Y position based on the distance to the person’s feet. Our new coordinate system will follow the tangent to the person’s feet on the circle that is the space station. The X-distance will be the distance along this tangent; the Y-distance, the object’s height, will be the distance away from the tangent. The person is constantly moving, so our coordinate system will also change as the person moves. This is a <em>spinning</em> reference frame.</p>
+
+<div class="center"><div class="floatcaption"><i>The object's coordinates in a spinning reference frame</i></div>
+<img src="/coriolis/assets/img/convert-to-spinning.png" style="max-width:400px" /></div>
+
+<h4 id="dividing-the-objects-path-into-viewable-points">Dividing the object’s path into viewable points</h4>
+
+<p>The computer model divides the path of the tossed object into tiny pieces to be rendered on the screen.</p>
+
+<p>We will use some information we calculated already in the previous article. Here is a summary of some useful facts we already calculated:</p>
+
+<ul>
+  <li>The rotation speed of the station</li>
+  <li>The time in the air</li>
+  <li>The starting X and Y velocities of the object</li>
+</ul>
+
+<div class="conditionalright"><img src="/coriolis/assets/img/points.png" width="200" style="border-radius: 10px;" /></div>
+
+<p>We can divide the time elapsed and use the velocities of the object to find about a hundred points in the object’s path. Now we have a hundred points in an inertial reference frame which we want to convert to a spinning reference frame. The computer can render each one at the correct time. For the purposes of this page, we will use an arbitrary point in the path of the object; we will demonstrate how to find its new coordinates in a spinning reference frame.</p>
+
+<h4 id="approaching-the-problem-with-trigonometry">Approaching the problem with trigonometry</h4>
+
+<p>Our goal is to calculate the X and Y coordinates of the object in a spinning reference frame. We can use trigonometry to calculate our answer, the “X” distance along the tangent to the person’s feet.</p>
+
+<div class="conditionalright"><img src="/coriolis/assets/img/trigreviewsine.png" width="150" style="border-radius: 10px;" /></div>
+<p>In a right triangle, the sine function can allow us to calculate the length of the side opposite an angle. Remember:</p>
+
+<script type="math/tex; mode=display">\sin{\theta}=\frac{opposite}{hypotenuse}</script>
+
+<p>We can work backwards to find an angle in a right triangle with a side parallel to this tangent. This will give us our answer.</p>
+
+<p>Keep in mind that the center of rotation is always perpendicular to this tangent (see the image below); the center will help us find the tangent. To solve for this distance, we will need to find the angle between the object (O), the person (P), and the center of rotation (C). Angle OPC will allow us to use trigonometry to solve for the X-distance along the tangent and the Y-distance away from the tangent. We will work backwards to solve this problem; we will find angle OPC later.</p>
+
+<div class="center"><div class="floatcaption"><i>Using OPC to find the spinning X coordinate</i></div>
+<img src="/coriolis/assets/img/X-answer.png" style="max-width:400px" /></div>
+
+<p>In the above image, the answer segment is parallel to the tangent, and the hypotenuse is the distance from the person to the object. Therefore,</p>
+
+<script type="math/tex; mode=display">\sin OPC = \frac{X}{D}</script>
+
+<script type="math/tex; mode=display">X = D * \sin OPC</script>
+
+<p>The distance D can be calculated using the distance formula with the inertial coordinates of the object and the person.</p>
+
+<script type="math/tex; mode=display">D = \sqrt{(X_2 - X_1)^2 + (Y_2 - Y_1)^2}</script>
+
+<div class="conditionalright"><img src="/coriolis/assets/img/trigreviewcosine.png" width="150" style="border-radius: 10px;" /></div>
+<p>Trigonometry will also provide us with the “Y” distance away from the tangent. We will need the cosine function because this is an adjacent side.</p>
+
+<script type="math/tex; mode=display">\cos{\theta}=\frac{adjacent}{hypotenuse}</script>
+
+<p>Once again, working from angle OPC (object-person-center) will allow us to use the cosine function to calculate the Y-distance.</p>
+
+<div class="center"><div class="floatcaption"><i>Using OPC to find the spinning Y coordinate</i></div>
+<img src="/coriolis/assets/img/Y-answer.png" style="max-width:400px" /></div>
+
+<script type="math/tex; mode=display">\cos OPC = \frac{Y}{D}</script>
+
+<script type="math/tex; mode=display">Y = D * \cos OPC</script>
+
+<h4 id="finding-angles">Finding angles</h4>
+
+<h5 id="angle-opc">Angle OPC</h5>
+
+<p>We will build an equation for angle OPC using the variables we know.</p>
+
+<p>If we place OPC on a horizontal line, we can see several angles that would help us find the value of OPC.</p>
+
+<div class="center"><img src="/coriolis/assets/img/findingOPC.png" style="max-width:500px" /></div>
+
+<p>Looking at this image, we can see that angle OPC can be found by subtracting the angle CPR (coin-person-right) from angle OPR (object-person-right).</p>
+
+<p>Now we will need to calculate angles OPR and CPR.</p>
+
+<h5 id="angle-opr">Angle OPR</h5>
+
+<p>To find this OPR (object-person-right), we will focus on finding angle OPV (object-person-vertical). Then, by adding 90 degrees, or $\frac{\pi}{2}$, we will have angle OPR.</p>
+
+<div class="center"><img src="/coriolis/assets/img/findingOPR.png" style="max-width:500px" /></div>
+
+<div class="conditionalright"><img src="/coriolis/assets/img/trigreviewtangent.png" width="150" style="border-radius: 10px;" /></div>
+<p>With the trigonometric tangent function, we can use the positions of the object and the person to find OPV. We simply need the differences between their X positions and Y positions. We will show how to calculate these positions later.</p>
+
+<script type="math/tex; mode=display">\tan \theta=\frac{opposite}{adjacent}</script>
+
+<script type="math/tex; mode=display">\theta = \tan^{-1} \frac{opposite}{adjacent}</script>
+
+<script type="math/tex; mode=display">OPV = \tan^{-1} \frac{X_{object} - X_{person}}{Y_{object} - Y_{person}}</script>
+
+<script type="math/tex; mode=display">OPR = OPV + \frac{\pi}{2}</script>
+
+<h5 id="angle-cpr">Angle CPR</h5>
+
+<div class="conditionalright"><img src="/coriolis/assets/img/findingCPR.png" width="200" style="border-radius: 10px;" /></div>
+<p>Angle CPR (center-person-right) can also be found with the tangent function. We will use it with the person’s coordinates.</p>
+
+<script type="math/tex; mode=display">\theta = \tan^{-1} \frac{opposite}{adjacent}</script>
+
+<script type="math/tex; mode=display">CPR = \tan^{-1} \frac{Y_{person}}{X_{person}}</script>
+
+<h4 id="calculating-the-persons-current-inertial-coordinates">Calculating the person’s current inertial coordinates</h4>
+
+<p>The object’s spinning coordinate we are calculating is based on a continuously-moving point of view. In order to solve for this spinning coordinate, we must first obtain the inertial coordinate for both the object and the person. We need this for every point we render.</p>
+
+<div class="conditionalright"><div class="floatcaption"><i>The person's inertial coordinate</i></div>
+<img src="/coriolis/assets/img/personinertial.png" style="max-width:250px; border-radius:10px;" /></div>
+
+<p>We can use the station’s rotation rate and the time elapsed to find the current angle (θ) of the person. This angle will help us find the person’s current inertial coordinate for any point in their path. In the previous article, we calculated the space station’s rotation speed, $\omega$, in radians per second. Remember, $\omega=-t*\sqrt{\frac{a}{r}}$, where t is time elapsed, a is the acceleration, and r is the radius.</p>
+
+<p>The person’s current angle on the unit circle would be:</p>
+
+<script type="math/tex; mode=display">\theta = \frac{3 \pi}{2} - \omega * time</script>
+
+<ul>
+  <li>$\omega$ is the station’s rotation rate</li>
+  <li>the problem assumes the toss started at angle $\frac{3 \pi}{2}$</li>
+  <li>subtraction because the station rotates clockwise</li>
+</ul>
+
+<p>We can find the current inertial coordinates of the person at every time increment using trigonometry; we can think of their coordinates as sitting in the trigonometric unit circle, with the angle we are using sitting in the that circle. Using cosine and sine will give us the X and Y values. The person’s coordinates are calculated using:</p>
+
+<script type="math/tex; mode=display">X_{person} = radius * \cos{\theta}</script>
+
+<script type="math/tex; mode=display">Y_{person} = radius * \sin{\theta}</script>
+
+<h4 id="calculating-the-objects-current-inertial-coordinates">Calculating the object’s current inertial coordinates</h4>
+
+<div class="conditionalright"><div class="floatcaption"><i>The object's inertial coordinate</i></div>
+<img src="/coriolis/assets/img/objectinertial.png" style="max-width:250px; border-radius:10px;" /></div>
+<p>We can use physics to find the object’s inertial position after an elapsed time. From this perspective, the object travels in a straight line based on its velocity. We calculated these velocity values in the previous article.</p>
+
+<script type="math/tex; mode=display">X_{object} = v_x * time</script>
+
+<script type="math/tex; mode=display">Y_{object} = v_y * time - (r - h)</script>
+
+<ul>
+  <li>$v_x$ and $v_y$ are the starting X and Y velocities of the object</li>
+  <li>r is the radius of the space station</li>
+  <li>h is the starting height of the object</li>
+</ul>
+
+<h4 id="review">Review</h4>
+
+<p>We now have all of the components we need to reorient the object for a spinning reference frame centered around the person’s feet. We worked backwards to find all the pieces; now we can list them in order.</p>
+
+<ol>
+  <li>Calculate the person and the object’s current inertial coordinates.</li>
+  <li>Calculate the angles adjacent to angle OPC on a horizontal line</li>
+  <li>Calculate angle OPC using those angles</li>
+  <li>Use angle OPC and trigonometry to find the value of the X and Y spinning coordinates</li>
+</ol>
+
+<p>The exact geometry will differ slightly depending on whether or not the object is above or below the person’s feet. For the purposes of this problem, I assumed the object is above the person’s feet, though the position can also be calculated if the object is below their feet.</p>
+
+<p>With this spinning coordinate, we can render the person and the object continuously upright on the screen.</p>
+ 
+
+	<!-- Next and back arrows -->
+	<div class="PageNavigation">
+	  
+		<a class="prev" href="http://kevindprice.github.io/coriolis/math/">&laquo; The math - "difference from throw on Earth"</a>
+	  
+	  
+		<a class="next" href="http://kevindprice.github.io/coriolis/scifi/">Space stations and artificial gravity in science fiction &raquo;</a>
+	  
+	</div>
+ 
+
+</div>
+
+</div>
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+	//showMathMenu: false,
+	tex2jax: {
+		inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+		processEscapes: true,
+	}
+});
+</script>
+
+<script type="text/javascript"
+    src="//cdn.rawgit.com/mathjax/MathJax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
