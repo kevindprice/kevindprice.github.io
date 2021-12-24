@@ -146,16 +146,16 @@
 <p>A reference frame is your point of view. If you were to stand in a spinning environment, you would be spinning together with the objects surrounding you; this would affect how you view those objects. A spinning reference frame is how those objects would appear to you while spinning.</p>
 
 <div class="center"><div class="floatcaption"><i>A spinning reference frame</i></div>
-<img src="/coriolis/assets/img/spinning-frame.png" style="max-width:400px" /></div>
+<img class="geoimage" src="/coriolis/assets/img/spinning-frame.png" /></div>
 
 <p>The calculations we made on the previous page required a view that was not spinning, as if we were floating outside the spinning station. This is an <em>inertial</em> reference frame. The tossed object’s coordinate position is based on the center of rotation.</p>
 
 <div class="center"><div class="floatcaption"><i>An inerital reference frame</i></div>
-<img src="/coriolis/assets/img/inertial-frame.png" style="max-width:400px" /></div>
+<img class="geoimage" src="/coriolis/assets/img/inertial-frame.png" /></div>
 <p>To render the throw, we will need to convert the object’s path from an inertial reference frame to a spinning one. When we make this conversion, we orient the person upright and calculate the object’s X and Y position based on the distance to the person’s feet. Our new coordinate system will follow the tangent to the person’s feet on the circle that is the space station. The X-distance will be the distance along this tangent; the Y-distance, the object’s height, will be the distance away from the tangent. The person is constantly moving, so our coordinate system will also change as the person moves. This is a <em>spinning</em> reference frame.</p>
 
 <div class="center"><div class="floatcaption"><i>The object's coordinates in a spinning reference frame</i></div>
-<img src="/coriolis/assets/img/convert-to-spinning.png" style="max-width:400px" /></div>
+<img class="geoimage" src="/coriolis/assets/img/convert-to-spinning.png" /></div>
 
 <h4 id="dividing-the-objects-path-into-viewable-points">Dividing the object’s path into viewable points</h4>
 
@@ -187,7 +187,7 @@
 <p>Keep in mind that the center of rotation is always perpendicular to this tangent (see the image below); the center will help us find the tangent. To solve for this distance, we will need to find the angle between the object (O), the person (P), and the center of rotation (C). Angle OPC will allow us to use trigonometry to solve for the X-distance along the tangent and the Y-distance away from the tangent. We will work backwards to solve this problem; we will find angle OPC later.</p>
 
 <div class="center"><div class="floatcaption"><i>Using OPC to find the spinning X coordinate</i></div>
-<img src="/coriolis/assets/img/X-answer.png" style="max-width:400px" /></div>
+<img class="geoimage" src="/coriolis/assets/img/X-answer.png" /></div>
 
 <p>In the above image, the answer segment is parallel to the tangent, and the hypotenuse is the distance from the person to the object. Therefore,</p>
 
@@ -207,7 +207,7 @@
 <p>Starting from angle OPC (object-person-center) will allow us to use the cosine function to calculate the Y-distance.</p>
 
 <div class="center"><div class="floatcaption"><i>Using OPC to find the spinning Y coordinate</i></div>
-<img src="/coriolis/assets/img/Y-answer.png" style="max-width:400px" /></div>
+<img class="geoimage" src="/coriolis/assets/img/Y-answer.png" /></div>
 
 <script type="math/tex; mode=display">\cos OPC = \frac{Y}{D}</script>
 
@@ -221,7 +221,7 @@
 
 <p>If we place OPC on a horizontal line, we can see several angles that would help us find the value of OPC.</p>
 
-<div class="center"><img src="/coriolis/assets/img/findingOPC.png" style="max-width:400px" /></div>
+<div class="center"><img class="geoimage" src="/coriolis/assets/img/findingOPC.png" /></div>
 
 <p>Looking at this image, we can see that angle OPC can be found by subtracting the angle CPR (coin-person-right) from angle OPR (object-person-right).</p>
 
@@ -231,7 +231,7 @@
 
 <p>To find this OPR (object-person-right), we will focus on finding angle OPV (object-person-vertical). Then, by adding 90 degrees, or $\frac{\pi}{2}$, we will have angle OPR.</p>
 
-<div class="center"><img src="/coriolis/assets/img/findingOPR.png" style="max-width:400px" /></div>
+<div class="center"><img class="geoimage" src="/coriolis/assets/img/findingOPR.png" /></div>
 
 <div class="conditionalright"><img src="/coriolis/assets/img/trigreviewtangent.png" width="150" style="border-radius: 10px;" /></div>
 <p>With the trigonometric tangent function, we can use the positions of the object and the person to find OPV. We simply need the differences between their X positions and Y positions. We will show how to calculate these positions later.</p>
