@@ -141,7 +141,7 @@
   <li>At the moment of the throw, the person is standing at the bottom of the circle, at 270 degrees or 3π/2 radians.</li>
   <li>The person is holding the coin at 4 feet from the floor. This is the starting height.</li>
   <li>The person throws the coin straight upward at 14 ft/s, which would have sent the coin about 3 feet up in the air on Earth.</li>
-  <li>The rotating space station has a diameter of 50 feet. It is rotating at the speed necessary to produce 1g of acceleration, or 100% Earth gravity at the floor.</li>
+  <li>The rotating space station has a diameter of 100 feet. It is rotating at the speed necessary to produce 1g of acceleration, or 100% Earth gravity at the floor.</li>
   <li>The coin experiences less than this amount of centripetal acceleration or “gravity” because it is not at the floor.</li>
 </ul>
 
@@ -202,11 +202,11 @@
 
 <ul>
   <li>$a=-32.174$ ft/s/s (1g), the acceleration at the floor</li>
-  <li>$r$ is the radius of the station, or 25 feet.</li>
+  <li>$r$ is the radius of the station, or 50 feet.</li>
   <li>$\omega$ is the rotational speed in radians per second. It is negative because the station is rotating clockwise.</li>
 </ul>
 
-<p>Now that we have the rate of rotation, we can calculate the horizontal velocity of the coin. The radius at the coin will be 25 ft minus 4 ft, or 21 feet. The velocity will be negative because the coin is traveling left.</p>
+<p>Now that we have the rate of rotation, we can calculate the horizontal velocity of the coin. The radius at the coin will be 50 ft minus 4 ft, or 46 feet. The velocity will be negative because the coin is traveling left.</p>
 
 <p>If you put all of this together coin using $v=\omega*r$, using the rotation rate from the floor and the radius at the coin, you get:</p>
 
@@ -216,12 +216,12 @@
 
 <ul>
   <li>$v_x$: the horizontal velocity of the coin, which we are calculating</li>
-  <li>a: the acceleration of the station, -32.174 ft/s/s</li>
-  <li>$r_{s}$: the radius of the station, 25 feet</li>
+  <li>a: the acceleration of the station, 32.174 ft/s/s</li>
+  <li>$r_{s}$: the radius of the station, 50 feet</li>
   <li>$h_{c}$: the starting height of the coin, 4 feet</li>
 </ul>
 
-<p>$v_x$ works out to -23.82329$ ft/s.</p>
+<p>$v_x$ works out to -36.89991$ ft/s.</p>
 
 <p><br /></p>
 
@@ -238,9 +238,9 @@
   <li>$r_c$: the y-intercept. This is the radius where the coin starts, mapped to our coordinate system. This is <em>subtracted</em> because it is below the center.</li>
 </ul>
 
-<p>Given that $v_x=-23.82329$ ft/s, $v_y=14$ ft/s, and $r_c=25-4=21$ ft, this is the line that makes up the coin’s path:</p>
+<p>Given that $v_x=-36.89991$ ft/s, $v_y=14$ ft/s, and $r_c=50-4=46$ ft, this is the line that makes up the coin’s path:</p>
 
-<script type="math/tex; mode=display">y=-.587660x-21</script>
+<script type="math/tex; mode=display">y=-.379405x-46</script>
 
 <p>Now, we need to find where this line intersects with the circle that is the station. Here is our formula for the circle:</p>
 
@@ -288,13 +288,13 @@
 
 <script type="math/tex; mode=display">x=\frac{mr_c\pm\sqrt{r_s^2(1+m^2)-r_c^2}}{1+m^2}</script>
 
-<p>This is our formula for the x-coordinate of the coin. The operator we use depends on what quadrant the coin lands in; in other words, it depends on the conditions of the throw. In this problem, the correct value will be the answer that is negative because the coin goes to the <em>left</em>. The equation correctly gives us -24.036 when we solve with the (-) operator.</p>
+<p>This is our formula for the x-coordinate of the coin. The operator we use depends on what quadrant the coin lands in; in other words, it depends on the conditions of the throw. In this problem, the correct value will be the answer that is negative because the coin goes to the <em>left</em>. The equation correctly gives us -39.098 when we solve with the (-) operator.</p>
 
 <p>Now we need to solve for the y-component that matches this x-component. Here is the equation for our line again:</p>
 
 <script type="math/tex; mode=display">y = mx - r_c</script>
 
-<p>Inserting -.587660 for $m$, 21 for $r_c$, and -24.036 for $x$ gives us an answer of y=-6.875. The coin’s final coordinates are (-24.036, -6.875).</p>
+<p>Inserting -.379405 for $m$, 46 for $r_c$, and -39.098 for $x$ gives us an answer of y=-31.166. The coin’s final coordinates are (-39.098, -31.166).</p>
 
 <p>Once more, here are our final formulas for the coin’s landing coordinates:</p>
 
@@ -312,7 +312,7 @@
 
 <p><br /></p>
 
-<h4 id="time-elapsed">Time Elapsed</h4>
+<h4 id="time-elapsed">Time elapsed</h4>
 
 <p>Now that we have the coin’s landing coordinates, we can solve for the exact time elapsed using kinematics. To calculate this, we need the distance traveled; however, we only need this in one dimension. We will use the initial and final x-coordinates. The coin travels from 0 to $x_f$, and its velocity is $v_x$.</p>
 
@@ -328,11 +328,11 @@
   <li>$v_x$ = the velocity x-component</li>
 </ul>
 
-<p>This solves to almost exactly one second, or 1.009s.</p>
+<p>This solves to almost exactly one second, or 1.060s.</p>
 
 <p><br /></p>
 
-<h4 id="the-arc-swept-by-the-person">The Arc Swept By the Person</h4>
+<h4 id="the-persons-final-coordinates">The person’s final coordinates</h4>
 
 <p>We can use the time variable to calculate the angle a person will rotate while the coin is in the air. This will give us the final coordinates of the person.</p>
 
@@ -376,11 +376,11 @@
   <li>t = the time elapsed while the coin is in the air</li>
 </ul>
 
-<p>The person’s final coordinates are (-22.763, -10.336).</p>
+<p>The person’s final coordinates are (-37.563, -33.001).</p>
 
 <p><br /></p>
 
-<h4 id="the-final-answer">The Final Answer</h4>
+<h4 id="the-final-answer">The final answer</h4>
 
 <p>Now that we have both the landing coordinates of the coin and the person’s final coordinates, we can calculate the straight line distance between the two using the Pythagorean theorem. This formula gives us our answer:</p>
 
@@ -391,11 +391,11 @@
   <li>$x_p$ and $y_p$ are the person’s final coordinates</li>
 </ul>
 
-<p>This tells us that the coin landed 3.687 feet away from the person’s feet.</p>
+<p>This tells us that the coin landed 2.393 feet away from the person’s feet.</p>
 
 <p>This value is the straight-line distance to the coin from the person’s feet. The model shows a scale along the floor; if you follow the tic-marks on the screen, you will discover the <em>curvilinear</em> distance to the coin, which may be slightly different. The model also calculates the curvilinear distance; you can find this in the stats menu.</p>
 
-<p>The model breaks up the path of the coin into 100 pieces, reorients each of these points to the person’s perspective at that moment, and moves real-time between these points to make an arc on the screen.</p>
+<p>The model breaks up the path of the coin into about 100 pieces, reorients each of these points to the person’s perspective at that moment, and moves real-time between these points to make an arc on the screen. The next article discusses how this is done.</p>
 
 <h4 id="conclusion">Conclusion</h4>
 
