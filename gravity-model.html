@@ -139,20 +139,20 @@
 <p>Just in case I want to demonstrate something about the Coriolis effect, I added the ability to <em>open</em> the model page with specific settings. Querystrings are extra modifiers at the end of your URL; it might look like this: http://coriolis-station.netlify.app/#&amp;diameter=400.</p>
 <p>Here are some of the possible querystrings one could use:</p>
 <ul>
-<li>diameter (&amp;diameter=400): diameter of the station</li>
-<li>radius (&amp;radius=5000): radius of the station</li>
-<li>percenttime (&amp;percenttime=50): show the movement as slower or faster than reality</li>
-<li>startheight (&amp;startheight=30): the height the movement starts from</li>
-<li>gravity (&amp;gravity=50): percent of Earth's gravity on the floor</li>
-<li>speed   (&amp;speed=20): speed of the object</li>
-<li>angle (&amp;angle=20): angle of the throw in degrees</li>
-<li>units (&amp;units=m): either ft, feet, imperial, metric, meters, or m</li>
-<li>thrownUp (&amp;thrownup=8): a hidden feature. Instead of specifying the angle and speed, you can simply tell it how high you would have thrown the object on Earth.</li>
-<li>statsMenu (&amp;statsmenu=true): I can open the model with the statistics menu open. Possible values: either just "&amp;statsMenu" or "&amp;statsMenu=true".</li>
-<li>inputMenu (&amp;inputmenu=false): I can open the model with the input menu open or closed. Note, this menu is already open by default in most views.</li>
+<li><em>diameter</em> (&amp;diameter=400): diameter of the station</li>
+<li><em>radius</em> (&amp;radius=5000): radius of the station</li>
+<li><em>percenttime</em> (&amp;percenttime=50): show the movement as slower or faster than reality</li>
+<li><em>startheight</em> (&amp;startheight=30): the height the movement starts from</li>
+<li><em>gravity</em> (&amp;gravity=50): percent of Earth's gravity on the floor</li>
+<li><em>speed</em>   (&amp;speed=20): speed of the object</li>
+<li><em>angle</em> (&amp;angle=20): angle of the throw in degrees</li>
+<li><em>units</em> (&amp;units=m): either ft, feet, imperial, metric, meters, or m</li>
+<li><em>thrownUp</em> (&amp;thrownup=8): a hidden feature. Instead of specifying the angle and speed, you can simply tell it how high you would have thrown the object on Earth.</li>
+<li><em>statsMenu</em> (&amp;statsmenu=true): I can open the model with the statistics menu open. Possible values: either just "&amp;statsMenu" or "&amp;statsMenu=true".</li>
+<li><em>inputMenu</em> (&amp;inputmenu=false): I can open the model with the input menu open or closed. Note, this menu is already open by default in most views.</li>
 </ul>
 <h5>Logarithmic Sliders</h5>
-<p>I wanted to produce logarithmic sliders for the model's input. This way, it would be intuitive what ranges are acceptable. I found the logic I needed at <a href="https://codepen.io/willat600series/pen/ojzYJx">this site</a>.</p>
+<p>I produced logarithmic sliders for the model's input. This way, it is intuitive what ranges are acceptable. I found the logic I needed at <a href="https://codepen.io/willat600series/pen/ojzYJx">this site</a>.</p>
 <p>My logarithmic ranges needed to <em>include</em> zero. The log of zero does not normally compute! My code uses an offset to allow me to use zero while ensuring the computer does not attempt to calculate the log of zero.</p>
 <h3>Conclusion</h3>
 <p>This was a very fun project that kept me involved for several years. I was happy to find some simple solutions to my complex coding problems. I hope I taught you something about artificial gravity!</p>
