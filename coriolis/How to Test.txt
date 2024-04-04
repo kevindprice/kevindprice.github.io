@@ -1,7 +1,0 @@
-Note: to serve locally, temporarily edit the _config.yml "baseurl" from:
-
-baseurl: "/coriolis" # the subpath of your site, e.g. /blog
-
-to:
-
-baseurl: "/" # the subpath of your site, e.g. /blog

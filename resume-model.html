@@ -113,7 +113,9 @@
 <p>To explain decision trees, I will reference an example from the Kaggle website. I have spent a good deal of time studying their dataset from the Titanic disaster. Kaggle is hosting a machine-learning competition to generate a model that can predict the survival of Titanic passengers. For this model, the most obvious decision tree feature would be whether the passenger is male or female; females had a much higher survivability rate than males. Next, I could gauge which class the passenger was in. Third class had poor survivability, while first class was much more likely to escape alive. These features would be different nodes on a decision tree. There is also an element of randomness in the decision tree; thus, it will not necessarily produce exactly the same result every time. </p>
 <p>For the resume classification project, a decision tree would map out correlations between words. The computer generates a forest of different decision trees and averages out their answers to get the best category choice for each resume. This is a Random Forest.</p>
 <h3>Data Source</h3>
-<p><img style="float: left; margin-right:10px;" src="images/k19403833.png" width=200 height=200 alt="Resume clip-art" title="http://www.fotosearch.com/CSP538/k19403833/"/></p>
+<p><img style="float: left; margin-right:10px;" src="images/k19403833.png" width=200 height=200 alt="Resume clip-art"/>
+ <!--obtained from http://www.fotosearch.com/CSP538/k19403833/ (now defunct)-->
+</p>
 <p>In order to build a resume classifier, I need resumes to classify! Fortunately, another intern at the company was tasked with the job of downloading batches of resumes from Indeed.com using shell scripts which were written by my supervisor. This intern downloaded 1000 resumes for each of 100 different job fields, in batches of 50. His job must have been very tedious.</p>
 <p>As I combed through the resume data, my boss and I discovered a problem: the downloaded resumes did not always match the supposed job field they represented! As I was showing my boss the input files, he found a resume that appeared completely irrelevant. This surprised me, and prompted me to investigate further. My colleagues and I had previously assumed this data was “correct.” In other words, we thought what we were downloading actually represented the field it was supposed to represent. Unfortunately, my boss and I only discovered this problem after the temporary employee who downloaded the resumes had already left. A computer model will not work if it is trained on faulty data!</p>
 <p>At this point, the model already appeared to be working marvellously! The model produced a high score, but obviously the underlying code was producing faulty predictions, since the data was incorrect. This meant the model was perpetuating the false job-fields it was being fed in. Something was similar in the returned resume results, or the model would not be able to classify the resumes at all. The computer model was successfully finding trends in the faulty resume data.</p>
@@ -131,7 +133,7 @@
 <p>A word that is important to a document should occur frequently in that document and infrequently in the others. TF-IDF capitalizes on this by counting up all of the words in each of the resumes and comparing these counts to each other. Each word in every resume gets a TF-IDF “score” which tells the computer how important the word theoretically is to that resume. All of these TF-IDF scores were placed in a massive table and compared to each other. This table contains all of the possible words in the entire dataset as columns (millions of unique words), and all of the different resumes as rows. If a word does not exist in a resume, then it simply gets a score of 0.</p>
 <p>TF-IDF rates how important each word is to a particular resume, but it does not rate how important the word is to the job field! To accomplish this, I discovered another handy feature in the scikit-learn package: a chi^2 importance test. Essentially, the script uses this test to determine which words in my large TF-IDF table were most correlated to each job field. I used this tool to determine which resume words to keep and which to discard. This left me with a small overall subset of highly relevant words. I determined that the overall top 1000 most-relevant words was the best selection.</p>
 <p>Here is some of the code from the text processing function:</p>
-<div class="highlight"><pre><span></span>def process(fields, allkeys, docID, map_output, res_output, jobwords):
+<div class="highlight"><pre><span></span><code>def process(fields, allkeys, docID, map_output, res_output, jobwords):
     &quot;&quot;&quot;Takes each resume in .json format and processes it&quot;&quot;&quot;
 
     #remove duplicate keys before processing them. I want unique resumes.
@@ -157,8 +159,7 @@
     map_output.write( str(docID) + &#39;,&#39; + key + &#39;\n&#39;) #docID : document-key mapping
 
     return key   #this is necessary to prevent duplicate resumes.
-</pre></div>
-
+</code></pre></div>
 
 <h3>Principal Component Analysis</h3>
 <p>One of the requirements of the project was that it include Principal Component Analysis. PCA is a method that can reduce the number of features used by the model while losing as little data as possible.</p>
@@ -197,7 +198,6 @@
     <td>76.4%</td>
 </tr>
 </table>
-
 <p><br/></p>
 <p>To balance these scores, I discovered a class_weight=”balanced” feature hidden in the Random Forest code. This tells the model that the different job field categories are unevenly stacked. Simply adding this setting improved all of the scores:</p>
 <table border="1" cellspacing="8" cellpadding="8" style="font-family:Georgia; margin-left:10px;">
@@ -218,7 +218,6 @@
     <td>86.3%</td>
 </tr>
 </table>
-
 <p><br/></p>
 <p>Adding in the SVD (PCA) reduced the score slightly and resulted in this output:</p>
 <p><img style="float: center; margin-bottom:10px;" src="images/output.png" alt="final output"/></p>
@@ -306,11 +305,10 @@
 				</li>
 
 					</br><li><a href="https://coriolis-station.netlify.app" target="_blank">Artificial Gravity Model</a></li>
-					</br><li><a href="./coriolis" target="_blank">Article: Spinning Space Stations</a></li>
-					</br><li><a href="./maze#&tutorial=true" target="_blank">Maze</a></li>
-					</br><li><a href="./states" target="_blank">Comparing the United States</a></li>
-					</br><li><a href="https://erinpricewrites.github.io" target="_blank">Erin Price's Author Website</a></li>
-					</br><li><a href="./photos/nature.html" target="_blank">Photography</a></li>
+					</br><li><a href="https://coriolis-station-article.netlify.app" target="_blank">Article: Spinning Space Stations</a></li>
+					</br><li><a href="https://inverted-maze.netlify.app#&tutorial=true" target="_blank">Inverted Maze</a></li>
+					</br><li><a href="https://us-states-comparison.netlify.app" target="_blank">Comparing the US States</a></li>
+					</br><li><a href="https://erinpricewrites.netlify.app" target="_blank">Erin Price's Author Website</a></li>
 
 			</ul>
 		</li>
