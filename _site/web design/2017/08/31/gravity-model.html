@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>An Artificial Gravity Computer Model</title>
+  <meta name="description" content="If you were to toss a coin on an artificial gravity space station, where would it end up? If you try my new computer model, you will discover that it won’t l...">
+
+  <!--<link rel="icon" type="image/x-icon" href="http://localhost:4000/">-->
+  <link rel="icon" type="image/x-icon" href="">
+
+<link rel="shortcut icon" href="/assets/img/favicon.ico" | prepend: site.baseurl }} />
+<link rel="apple-touch-icon" href="/assets/img/apple-touch-icon-iphone.png" | prepend: site.baseurl }} />
+<link rel="apple-touch-icon" sizes="72x72" href="/assets/img/apple-touch-icon-ipad.png" | prepend: site.baseurl }} />
+<link rel="apple-touch-icon" sizes="114x114" href="/assets/img/apple-touch-icon-iphone4.png" | prepend: site.baseurl }} />
+<link rel="apple-touch-icon" sizes="144x144" href="/assets/img/apple-touch-icon-ipad3.png" | prepend: site.baseurl }} />
+
+<link rel="stylesheet" href="/assets/css/bootstrap.min.css" | prepend: site.baseurl }}>
+<link rel="stylesheet" href="/assets/css/bootstrap-responsive.min.css" | prepend: site.baseurl }}>
+<link rel="stylesheet" href="/assets/css/font-awesome.min.css" | prepend: site.baseurl }}>
+<link rel="stylesheet" href="/assets/css/colorbox.css" | prepend: site.baseurl }}>
+<link rel="stylesheet" href="/assets/css/main.css" | prepend: site.baseurl }}">
+<script src="/assets/js/vendor/modernizr-2.6.2-respond-1.1.0.min.js" | prepend: site.baseurl }}></script>
+  
+  <link rel="canonical" href="http://localhost:4000/web%20design/2017/08/31/gravity-model.html">
+  <link rel="alternate" type="application/rss+xml" title="Kevin Price" href="http://localhost:4000/feed.xml">
+  <script src="/assets/js/jquery-1.8.2.min.js" | prepend: site.baseurl }}"></script>
+  <script src="/assets/js/jPages.js" | prepend: site.baseurl }}"></script>
+  <script src="/assets/js/script.js" | prepend: site.baseurl }}"></script>
+  <script src="/assets/js/snap.svg-min.js" | prepend: site.baseurl }}"></script>
+  <script defer src="https://buttons.github.io/buttons.js"></script>
+  <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+  {% if jekyll.environment == 'production' and site.google_analytics %}
+  {% include analytics.html %}
+  {% endif %}
+</head>
+
+  
+  <body>
+      <div class="container">
+          <div class="row">
+	  
+	  
+                          <div class="span9">
+                    <div class="row">
+                        <div class="span2"> <!-- logo -->
+                            <div id="logo">
+                                <a href="http://localhost:4000">
+                                    <img alt="Kevin Price" src="http://localhost:4000//images/me.jpg" />
+                                </a>
+                            </div> <!-- logo -->
+                        </div> <!-- logo span -->
+						
+                        <div class="span7"> <!-- header -->
+                            <!--[if lt IE 9]>
+                                <p class="chromeframe alert alert-warning">You are using an <strong>outdated</strong> browser, and this site might not look best in it. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+                            <![endif]-->
+                            <header id="site-header">
+                                <div id="site-header-content">
+                                    <h1>
+                                        <a href="http://localhost:4000">Kevin Price</a>
+                                        <small>
+                                            <span class="divider">/</span> <!--SITETAGLINE-->
+                                        </small>
+                                    </h1>
+                                    <p>
+                                        I am a computer programmer and math instructor. This is the home for my personal projects and activities.
+                                    </p>
+                                </div>
+                            </header>
+                        </div> <!-- header span -->
+                    </div> <!-- header row -->
+
+                    <div class="row"> <!-- content -->
+                        <div class="content">
+                            <div id="index">
+	                         <!-- CONTENT -->
+	                         
+	                         <div class="article-page"> <!--This block is what creates the paper-tab illusion-->
+    <div class="span7 offset2">
+	<header class="article">
+	    <h2><a href="http://localhost:4000" rel="bookmark">An Artificial Gravity Computer Model</a></h2>
+			<div style="display:inline-block; margin-top: 3px; font-family: Baskerville, Garamond, Palatino;">— Web Design —&nbsp;&nbsp;</div>
+	    <time datetime="">
+		August 31, 2017
+	    </time>
+	</header>
+    </div>
+
+    <div class="span2">
+        
+            <div class="article-meta article-meta-border">
+              <dl class="dl-horizontal">
+              <dt><i class="icon-tags"></i></dt>
+		<dd>
+			
+			
+			
+			
+			
+			    <a href="/tags#Computer-Modeling-React-JavaScript">Computer Modeling React JavaScript</a>
+			
+			
+               </dd>
+	      </dl>
+	      <b class="border-notch notch"></b>
+	      <b class="notch"></b>
+            </div>
+	
+
+        <!--{ block article_meta }
+        { endblock } -->
+    </div>
+
+    <div class="span7">
+        <section>
+            <article class="entry">
+                <!-- Summary:  -->
+
+<p>If you were to toss a coin on an artificial gravity space station, where would it end up? If you try my new <a href="https://coriolis-station.netlify.app">computer model</a>, you will discover that it won’t land at your feet where you would expect it to. I created this React web app to demonstrate the Coriolis effect, which would be apparent in artificial gravity, or gravity produced by spinning. This model teaches a complicated Physics principle in a simple way.</p>
+
+<p>I am very pleased with the result, the product of many months of work. This page is both a computer model and an article. The following text describes some of the steps I took to generate this model.</p>
+
+<!-- PELICAN_END_SUMMARY -->
+
+<p>###Coding goals</p>
+
+<p>As I state in <a href="https://coriolis-station-article.netlify.app">my article</a>, the Coriolis effect is an effect of rotating environments (artificial gravity) that distorts objects’ movement, causing objects to move to where you do not expect them. My goal was to take this complicated physics principle and simplify it so that anyone can understand it. I wanted to also <em>quantify</em> how “weird” each throw is with a simple number.</p>
+
+<p>I wanted the model to be powerful enough to be able to render whatever movement a user wishes to model. With this objective, I hoped to make the effects of artificial gravity perfectly clear. Furthermore, I wanted the page to be compelling, clean, intuitive, understandable, beautiful, fast, resizable, mobile-friendly, and not glitchy.</p>
+
+<p>###Steps to produce the model</p>
+
+<p>This model came about in several stages. The page started from a simple idea, though the final result is more sophisticated than what I had initially planned.</p>
+
+<ol>
+  <li>
+    <p>The first stage of this model was to calculate the landing position of the outer space coin toss, so I could quantify how “weird” the toss is. The model needed to <em>compute</em> these coordinates for the viewer. <a href="https://coriolis-station-article.netlify.app/math/">This page</a> explains the math I used.</p>
+  </li>
+  <li>
+    <p>With the landing coordinates, I could calculate the distance the coin would land away from the person; this is the measurable result of the Coriolis effect. I wrote the math <a href="images/CoriolisTable.py">into Python code</a> to generate a graph that shows the relationship between the diameter of the station and the “weirdness” of the throw produced by the Coriolis effect. These graphs assume the coin was tossed from four feet up to a total height of 7 feet.</p>
+  </li>
+  <li>
+    <p>I wanted to demonstrate what any throw would <em>look</em> like. I generated a series of points following the coin’s movement, allowing me to plot these points on an HTML canvas element. These points needed to be in the <em>thrower’s</em> reference frame. Again, here is <a href="https://coriolis-station-article.netlify.app/math-geometry/">the math</a> I used to develop this portion of the project.</p>
+  </li>
+  <li>
+    <p>I wrote an article about the Coriolis effect. I wanted this article to be complete, understandable, informative, and entertaining.</p>
+  </li>
+  <li>
+    <p>I improved the model’s user interface to make it clean and professional. For instance, I added intuitive logarithmic sliders so that it would be easy to change the throw’s parameters.</p>
+  </li>
+</ol>
+
+<p>###Some things I encountered while coding
+Here are some insights into the challenges I encountered while coding this webpage.</p>
+
+<p>#####Insufficient Decimal Places</p>
+
+<p>I discovered that an ordinary variable in Python or JavaScript, with fifteen decimal places, is not accurate enough to calculate the results that I wanted. These results were glitchy! I found a solution with the Decimal.js JavaScript library, which makes it possible to use longer decimals in Javascript. In Python, I made use of the Decimal package.</p>
+
+<p>Here is my glitchy Python graph with the standard number of decimal places:</p>
+
+<p><img src="/img/CoriolisGraphGlitchy.png" alt="glitchy_graph" title="The Python graph is glitchy with the standard number of decimal places." /></p>
+
+<p>Now, with additional decimal places:</p>
+
+<p><img src="/img/CoriolisGraph.png" alt="smooth_graph" title="The Python graph is smooth with 30 decimal places." /></p>
+
+<p>The Python code I wrote to generate these graphs can be found <a href="/img/CoriolisTable.py">here</a>.</p>
+
+<p>#####A Hidden Feature: Querystrings</p>
+
+<p>Just in case I want to demonstrate something about the Coriolis effect, I added the ability to <em>open</em> the model page with specific settings. Querystrings are extra modifiers at the end of your URL; it might look like this: http://coriolis-station.netlify.app/#&amp;diameter=400.</p>
+
+<p>Here are some of the possible querystrings one could use:</p>
+
+<ul>
+  <li><em>diameter</em> (&amp;diameter=400): diameter of the station</li>
+  <li><em>radius</em> (&amp;radius=5000): radius of the station</li>
+  <li><em>percenttime</em> (&amp;percenttime=50): show the movement as slower or faster than reality</li>
+  <li><em>startheight</em> (&amp;startheight=30): the height the movement starts from</li>
+  <li><em>gravity</em> (&amp;gravity=50): percent of Earth’s gravity on the floor</li>
+  <li><em>speed</em>   (&amp;speed=20): speed of the object</li>
+  <li><em>angle</em> (&amp;angle=20): angle of the throw in degrees</li>
+  <li><em>units</em> (&amp;units=m): either ft, feet, imperial, metric, meters, or m</li>
+  <li><em>thrownUp</em> (&amp;thrownup=8): a hidden feature. Instead of specifying the angle and speed, you can simply tell it how high you would have thrown the object on Earth.</li>
+  <li><em>statsMenu</em> (&amp;statsmenu=true): I can open the model with the statistics menu open. Possible values: either just “&amp;statsMenu” or “&amp;statsMenu=true”.</li>
+  <li><em>inputMenu</em> (&amp;inputmenu=false): I can open the model with the input menu open or closed. Note, this menu is already open by default in most views.</li>
+</ul>
+
+<p>#####Logarithmic Sliders</p>
+
+<p>I produced logarithmic sliders for the model’s input. This way, it is intuitive what ranges are acceptable. I found the logic I needed at <a href="https://codepen.io/willat600series/pen/ojzYJx">this site</a>.</p>
+
+<p>My logarithmic ranges needed to <em>include</em> zero. The log of zero does not normally compute! My code uses an offset to allow me to use zero while ensuring the computer does not attempt to calculate the log of zero.</p>
+
+<p>###Conclusion</p>
+
+<p>This was a very fun project that kept me involved for several years. I was happy to find some simple solutions to my complex coding problems. I hope I taught you something about artificial gravity!</p>
+
+                <!--{ block article_footer } { endblock }-->
+
+                
+		<div id="disqus_thread"></div>
+<script type="text/javascript">
+/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+var disqus_shortname = 'priceisright204'; // required: replace example with your forum shortname
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+	(function() { // DON'T EDIT BELOW THIS LINE
+		var d = document, s = d.createElement('script');
+		s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+		s.setAttribute('data-timestamp', +new Date());
+		(d.head || d.body).appendChild(s);
+	})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+	
+                
+            </article>
+        </section>
+    </div> <!-- span -->
+</div>
+
+
+
+
+<!-- from Erin's blog 
+<section style="padding-bottom: 0">
+	<article class="wrapper">
+		<div class="post-header">
+		<h2 class="red-title" >An Artificial Gravity Computer Model</h2>
+		<h6 class="red-title">By Erin N. Price</h6>
+		<ul class="tags">
+			
+			<li><a href="/tags#Computer Modeling">Computer Modeling</a></li>
+			
+			
+			<li><a href="/tags#React">React</a></li>
+			
+			
+			<li><a href="/tags#JavaScript">JavaScript</a></li>
+			
+			
+		</ul>
+		<div class="line-highlight">31 Aug 2017</div>
+		</div>
+		<div class="post-content">
+			{ content }
+		</div>
+		{ include post-pagination.html }
+		{ include share.html }
+	</article>
+</section>
+{ include comments.html } -->
+
+	                         
+			    </div>
+                        </div>
+                    </div> <!-- content row -->
+
+                    <div class="row"> <!-- footer -->
+                        <div class="span7 offset2">
+                            <footer id="site-footer">
+                                <p>
+                                    <!-- <a href="" target="_blank">
+                                        LICENSE_NAME
+                                    </a> --> Kevin Price /
+                                    <!--<a href="http://localhost:4000/ARCHIVES_URL">Archives</a>-->
+                                    Powered by
+                                    <a href="https://jekyllrb.com/" target="_blank">
+                                        Jekyll
+                                    </a>
+                                    /
+                                    My code on
+                                    <a href="http://github.com/kevindprice" target="blank">
+                                        GitHub
+                                    </a>
+                                    <!--/
+                                    Modified <code>Lannisport</code> theme-->
+                                </p>
+                            </footer>
+                        </div> <!-- footer span -->
+                    </div> <!-- footer row -->
+                </div> <!-- header+content+footer span -->
+
+
+        
+                          <div class="span3">
+                    <aside class="affix">
+                        <div id="sidebar">
+                            <div id="social-icons">
+                                
+                                    <span class="social-icon">
+                                        <a href="https://github.com/kevindprice" target="_blank" title="GitHub">
+                                            <i class="icon-github-alt"></i>
+                                        </a>
+                                    </span>
+                                
+                                
+                                    <span class="social-icon">
+                                        <a href="https://www.linkedin.com/in/kevin-price-371a9a6b" target="_blank" title="LinkedIn">
+                                            <i class="icon-linkedin"></i>
+                                        </a>
+                                    </span>
+                                
+                                
+                                
+                                
+                                    <span class="social-icon">
+                                        <a href="http://facebook.com/kevin.price.204" target="_blank" title="Facebook">
+                                            <i class="icon-facebook"></i>
+                                        </a>
+                                    </span>
+                                
+                                
+                            </div>
+
+                            <div id="navigation">
+                                <nav>
+	<h2>Pages</h2>
+	<ul>
+		<li>
+			<ul>
+				<li>
+					<a href="http://localhost:4000">Site Home</a>
+				</li>
+
+				
+					<li><a href="https://coriolis-station.netlify.app" target="_blank">Artificial Gravity Model</a></li>
+				
+					<li><a href="https://coriolis-station-article.netlify.app" target="_blank">Article: Spinning Space Stations</a></li>
+				
+					<li><a href="https://inverted-maze.netlify.app#&tutorial=true" target="_blank">Inverted Maze</a></li>
+				
+					<li><a href="https://us-states-comparison.netlify.app" target="_blank">Comparing the US States</a></li>
+				
+					<li><a href="https://erinpricewrites.netlify.app" target="_blank">Erin Price's Author Website</a></li>
+				
+
+			</ul>
+		</li>
+	</ul>
+</nav>
+<!--
+<nav>
+	<h2>Categories</h2>
+	<ul>
+		<li>
+			<ul>
+				
+			</ul>
+		</li>
+	</ul>
+</nav>
+-->
+ <!-- LINKS -->
+                            </div>
+                        </div> <!-- sidebar -->
+
+                        <p id="back-to-top">
+                            <a href="#">
+                                <i class="icon-double-angle-up"></i> Back to top
+                            </a>
+                        </p>
+
+                    </aside>
+                </div> <!-- logo+navigation span -->
+
+
+
+          </div> <!-- row -->
+      </div> <!-- /container -->
+
+  
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="/theme/js/vendor/jquery-3.2.1.min.js"><\/script>')</script>
+
+        <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.0/js/bootstrap.min.js"></script>
+        <script>$('body').popover || document.write('<script src="http://localhost:4000/assets/js/vendor/bootstrap.min.js"><\/script>')</script>
+
+        <script src="http://localhost:4000/assets/js/jquery.captions.js"></script>
+        <script src="http://localhost:4000/assets/js/vendor/jquery.colorbox-min.js"></script>
+
+        <script src="http://localhost:4000/assets/js/main.js"></script>
+
+        <script>
+            var _gaq=[['_setAccount','UA-104695649-1'],['_trackPageview'],['_trackPageLoadTime'],['_gat._anonymizeIp']];
+            (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+            g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+            s.parentNode.insertBefore(g,s)}(document,'script'));
+        </script>
+
+  </body>
+
+</html>

@@ -1,0 +1,71 @@
+<div class="wrapper">
+	{% assign counter-one = 0 %}
+	{% for post in site.posts %}
+	{% assign counter-one = counter-one | plus: 1 %}
+		
+	<div class="article-page"> <!--This block is what creates the paper-tab illusion-->
+	    <div class="span7 offset2">
+		<header class="article">
+		    <h2><a href="{{site.url}}{{post.url}}" rel="bookmark">{{post.title}}</a></h2>
+				<div style="display:inline-block; margin-top: 3px; font-family: Baskerville, Garamond, Palatino;">— {{post.category}} —&nbsp;&nbsp;</div>
+		    <time datetime="{{ post.date }}">
+			{{ post.date| date: "%B %-d, %Y" }}
+		    </time>
+		</header>
+	    </div>
+	    <div class="span2">
+		<!--{% if post.tags %}
+		    <div class="article-meta article-meta-border">
+		      <dl class="dl-horizontal">
+		      <dt><i class="icon-tags"></i></dt>
+			<dd>
+				{% assign tags = post.tags | join %}
+				
+				{% assign tags = tags | split: "," %}
+				
+				{% for tag in tags %}
+				    <a href="/tags#{{ tag | strip | replace: " ", "-" }}">{{ tag }}</a>
+				{% unless forloop.last %}
+				    <span class="separator">/</span>
+				{% endunless %}
+				{% endfor %}
+		       </dd>
+		      </dl>
+		      <b class="border-notch notch"></b>
+		      <b class="notch"></b>
+		    </div>
+		{% endif %} -->
+
+		<!--{ block article_meta }
+		{ endblock } -->
+
+	    </div>
+	    <div class="span7">
+		<section>
+		    <article class="entry">
+		    	{% assign wordCount = post.content | number_of_words %}
+			
+			<!-- ARTICLE PREVIEW -->
+			{{ post.excerpt | truncatewords: site.EXCERPT_WORDS }}
+			
+			<!-- add "continued" label for truncated posts-->
+			{% if wordCount > site.EXCERPT_WORDS %} 
+			<br/><br/>
+			&emsp;&emsp;<a href="{{site.url}}/{{post.url}}">— continued —</a>
+			{% endif %}
+			
+			<!--Any ideas about the following code?
+			{ block article_footer } { endblock }
+
+			{ if DISQUS_SHORTNAME }
+			    { block article_comments } { endblock }
+			{ endif }-->
+		    </article>
+		</section>
+	    </div> <!-- span -->
+
+	</div>
+	{% endfor %}
+		
+	{% include post-list-pagination.html %}
+</div>

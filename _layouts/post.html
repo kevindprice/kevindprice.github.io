@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+
+  {% include head.html %}
+  
+  <body>
+      <div class="container">
+          <div class="row">
+	  {% assign mylayout = 'post' %}
+	  
+          {% include main_body.html %}
+        
+          {% include side_panel.html %}
+
+          </div> <!-- row -->
+      </div> <!-- /container -->
+
+  {% include footer.html %}
+  </body>
+
+</html>
