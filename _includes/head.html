@@ -29,4 +29,5 @@
   <script src="{{ "{{ site.url }}/assets/js/snap.svg-min.js" | prepend: site.baseurl }}"></script>
   <script defer src="https://buttons.github.io/buttons.js"></script>
   <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+  {% if site.google_analytics %}{% include analytics.html %}{% endif %}
 </head>

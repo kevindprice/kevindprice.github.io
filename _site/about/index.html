@@ -30,9 +30,15 @@
   <script src="/assets/js/snap.svg-min.js" | prepend: site.baseurl }}"></script>
   <script defer src="https://buttons.github.io/buttons.js"></script>
   <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
-  {% if jekyll.environment == 'production' and site.google_analytics %}
-  {% include analytics.html %}
-  {% endif %}
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-SSHVSFZF4G"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-SSHVSFZF4G');
+</script>
+
 </head>
 <body><header class="site-header" role="banner">
 
@@ -74,24 +80,13 @@
 </article>
 
       </div>
-    </main>
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    </main>        <script src="//ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <script>window.jQuery || document.write('<script src="/theme/js/vendor/jquery-3.2.1.min.js"><\/script>')</script>
-
         <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.0/js/bootstrap.min.js"></script>
         <script>$('body').popover || document.write('<script src="http://localhost:4000/assets/js/vendor/bootstrap.min.js"><\/script>')</script>
-
         <script src="http://localhost:4000/assets/js/jquery.captions.js"></script>
         <script src="http://localhost:4000/assets/js/vendor/jquery.colorbox-min.js"></script>
-
         <script src="http://localhost:4000/assets/js/main.js"></script>
-
-        <script>
-            var _gaq=[['_setAccount','UA-104695649-1'],['_trackPageview'],['_trackPageLoadTime'],['_gat._anonymizeIp']];
-            (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
-            g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
-            s.parentNode.insertBefore(g,s)}(document,'script'));
-        </script>
 </body>
 
 </html>
