@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>How Humanity Discovered the Area of a Circle</title>
+  <meta name="description" content="I was recently thinking about the widely-known equation for the area of a circle, \(A=\pi r^2\). I realized that even though I have taught this equation to d...">
+
+  <!--<link rel="icon" type="image/x-icon" href="http://localhost:4000/">-->
+  <link rel="icon" type="image/x-icon" href="">
+
+<link rel="shortcut icon" href="/assets/img/favicon.ico" | prepend: site.baseurl }} />
+<link rel="apple-touch-icon" href="/assets/img/apple-touch-icon-iphone.png" | prepend: site.baseurl }} />
+<link rel="apple-touch-icon" sizes="72x72" href="/assets/img/apple-touch-icon-ipad.png" | prepend: site.baseurl }} />
+<link rel="apple-touch-icon" sizes="114x114" href="/assets/img/apple-touch-icon-iphone4.png" | prepend: site.baseurl }} />
+<link rel="apple-touch-icon" sizes="144x144" href="/assets/img/apple-touch-icon-ipad3.png" | prepend: site.baseurl }} />
+
+<link rel="stylesheet" href="/assets/css/bootstrap.min.css" | prepend: site.baseurl }}>
+<link rel="stylesheet" href="/assets/css/bootstrap-responsive.min.css" | prepend: site.baseurl }}>
+<link rel="stylesheet" href="/assets/css/font-awesome.min.css" | prepend: site.baseurl }}>
+<link rel="stylesheet" href="/assets/css/colorbox.css" | prepend: site.baseurl }}>
+<link rel="stylesheet" href="/assets/css/main.css" | prepend: site.baseurl }}">
+<script src="/assets/js/vendor/modernizr-2.6.2-respond-1.1.0.min.js" | prepend: site.baseurl }}></script>
+  
+  <link rel="canonical" href="http://localhost:4000/mathematics/2024/04/12/area-of-circle.html">
+  <link rel="alternate" type="application/rss+xml" title="Kevin Price" href="http://localhost:4000/feed.xml">
+  <script src="/assets/js/jquery-1.8.2.min.js" | prepend: site.baseurl }}"></script>
+  <script src="/assets/js/jPages.js" | prepend: site.baseurl }}"></script>
+  <script src="/assets/js/script.js" | prepend: site.baseurl }}"></script>
+  <script src="/assets/js/snap.svg-min.js" | prepend: site.baseurl }}"></script>
+  <script defer src="https://buttons.github.io/buttons.js"></script>
+  <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+  {% if jekyll.environment == 'production' and site.google_analytics %}
+  {% include analytics.html %}
+  {% endif %}
+</head>
+
+  
+  <body>
+      <div class="container">
+          <div class="row">
+	  
+	  
+                          <div class="span9">
+                    <div class="row">
+                        <div class="span2"> <!-- logo -->
+                            <div id="logo">
+                                <a href="http://localhost:4000">
+                                    <img alt="Kevin Price" src="http://localhost:4000//images/me.jpg" />
+                                </a>
+                            </div> <!-- logo -->
+                        </div> <!-- logo span -->
+						
+                        <div class="span7"> <!-- header -->
+                            <!--[if lt IE 9]>
+                                <p class="chromeframe alert alert-warning">You are using an <strong>outdated</strong> browser, and this site might not look best in it. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+                            <![endif]-->
+                            <header id="site-header">
+                                <div id="site-header-content">
+                                    <h1>
+                                        <a href="http://localhost:4000">Kevin Price</a>
+                                        <small>
+                                            <span class="divider">/</span> <!--SITETAGLINE-->
+                                        </small>
+                                    </h1>
+                                    <p>
+                                        I am a computer programmer and math instructor. This is the home for my personal projects and activities.
+                                    </p>
+                                </div>
+                            </header>
+                        </div> <!-- header span -->
+                    </div> <!-- header row -->
+
+                    <div class="row"> <!-- content -->
+                        <div class="content">
+                            <div id="index">
+	                         <!-- CONTENT -->
+	                         
+	                         <div class="article-page"> <!--This block is what creates the paper-tab illusion-->
+    <div class="span7 offset2">
+	<header class="article">
+	    <h2><a href="http://localhost:4000" rel="bookmark">How Humanity Discovered the Area of a Circle</a></h2>
+			<div style="display:inline-block; margin-top: 3px; font-family: Baskerville, Garamond, Palatino;">— Mathematics —&nbsp;&nbsp;</div>
+	    <time datetime="">
+		April 12, 2024
+	    </time>
+	</header>
+    </div>
+
+    <div class="span2">
+        
+            <div class="article-meta article-meta-border">
+              <dl class="dl-horizontal">
+              <dt><i class="icon-tags"></i></dt>
+		<dd>
+			
+			
+			
+			
+			
+			    <a href="/tags#Mathematics">Mathematics</a>
+			
+			
+               </dd>
+	      </dl>
+	      <b class="border-notch notch"></b>
+	      <b class="notch"></b>
+            </div>
+	
+
+        <!--{ block article_meta }
+        { endblock } -->
+    </div>
+
+    <div class="span7">
+        <section>
+            <article class="entry">
+                <!-- Summary:  -->
+
+<!-- PELICAN_END_SUMMARY -->
+
+<p>I was recently thinking about the widely-known equation for the area of a circle, \(A=\pi r^2\). I realized that even though I have taught this equation to dozens of students, I did not know how the equation is derived. In other words, yes this is the correct equation. But <em>why</em> is it? Furthermore, how did humanity arrive at this equation anciently? In my search for an intuitive answer, I found myself liking an approach using regular figures the best. This is more or less the approach that Archimedes (287-212 BC) used to prove \(A= \pi r^2\).</p>
+
+<h3 id="archimedes-method">Archimedes’ Method</h3>
+<p>Before I dive into the regular shapes that Archimedes used, I will start simple: with the area of a triangle. It makes sense that the area of a triangle is \(A=\frac{1}{2}bh\) because a triangle is a rectangle cut in half. You can draw a rectangle and call one side “b” for base and the other “h” for height (\(A=bh\)). Cut it in half and it will produce two triangles. So, since cutting a rectangle in half makes a triangle, we know that the area of a triangle is \(A=\frac{1}{2}bh\).</p>
+
+<p><img src="/images/square.png" alt="square" title="A triangle is a square cut in half." /></p>
+
+<p>This helps me prove another well-established formula, the formula for the area of a regular shape. A <em>regular</em> shape is one that has all congruent/equal sides and angles. Here is a regular hexagon. You can see that it is made up of six equal sides, which also gives us six equal triangles.</p>
+
+<p><img src="/images/hexagon.png" alt="hexagon" title="Finding the area of a regular hexagon" /></p>
+
+<p>Let’s look at the bottom triangle. Just like any triangle, we have a base, “b”, and a height, “h”. For any one of the triangles, the area is \(A=\frac{1}{2} bh\). You could just multiply this by six identical triangles to get the area of the whole hexagon, or \(A=6*\frac{1}{2} bh\). It makes sense that the area for the entire shape is just based on the number of sides or triangles in that shape. We can replace the “6” in this formula with a placeholder “n” to denote the number of sides. This allows us to step past hexagons to a regular shape with any number of sides.</p>
+
+<p>\(A=n*\frac{1}{2} bh\) </p>
+
+<p>\(n\) is the number of sides in a regular shape. \(\frac{1}{2}bh\) is the area of each triangle in the shape.</p>
+
+<p>We can see that \(n*b\), or the number of sides times the length of one side, just equals the <em>perimeter</em>, the distance around the shape. We can substitute \(nb=p\) to drop the number of sides and just focus on the distance around the shape.</p>
+
+<p>Using the the formula above (rearranged),</p>
+
+<p>\(A=\frac{1}{2} h*nb\) </p>
+
+<p>we get</p>
+
+<p>\(A=\frac{1}{2} hp\) </p>
+
+<p>where \(p\) is the perimeter and \(h\) is the height of one of the triangles.</p>
+
+<p>Next, in geometry, this “\(h\)” from the diagram is called an <em>apothem</em>, or the line from the center to the side of a regular shape. So instead of “\(h\)” I will call it \(a\). This gives us a standard equation I like to teach.</p>
+
+<p>The area of a regular shape:
+\(A=\frac{1}{2}ap\): \(a\) is for apothem and \(p\) is for perimeter.</p>
+
+<p>What happens if we increase the number of sides to infinity? This shape would  become a circle. We call the <em>perimeter</em> of this shape the <em>circumference</em> (C), and the <em>apothem</em> would become equivalent to a <em>radius</em> (r). Here, at 16 sides (below), the shape already begins to look like a circle.</p>
+
+<p><img src="/images/circle.png" alt="circle" title="A circle is a regular shape with infinite sides." /></p>
+
+<p>We just studied what happens when the number of sides of a regular figure approaches infinity: it becomes a circle. We will rename the variables from the last formula for more circle-friendly variables.</p>
+
+<p>From the formula above, \(A=\frac{1}{2}ap\), we get:
+\(A=\frac{1}{2} rC\), where C is circumference and r is radius.</p>
+
+<p>The formula for circumference is \(C=\pi d\), or pi times the diameter. This formula is, in fact, how \(\pi\) is defined: it is the ratio between the circumference and the diameter of a circle. We usually write this formula as \(C=2\pi r\) because the diameter is double the radius. Let’s put this into our formula.</p>
+
+<p>From above, we have:</p>
+
+<p>\(A=\frac{1}{2} Cr\) </p>
+
+<p>Substitute \(2 \pi r=C\):</p>
+
+<p>\(A=\frac{1}{2} * 2 \pi r* r\) </p>
+
+<p>Therefore,</p>
+
+<p>\(A=\pi r^2\) </p>
+
+<h3 id="conclusion">Conclusion</h3>
+<p>Here we have Archimedes’ method for deriving the area of a circle. Centuries later, others have pondered this same question and have given us additional methods to prove \(A=\pi r^2\). In modern times, calculus can also be used to derive this equation.</p>
+
+<p>As we look at the formulas we learn in school from a historical perspective, we can appreciate how the modern world of mathematics came to be.</p>
+
+<p>For more information, visit <a href="https://en.wikipedia.org/wiki/Area_of_a_circle">“Area of a Circle” on Wikipedia</a>.
+Figures were produced using <a href="https://www.math10.com/en/geometry/geogebra/fullscreen.html">GeoGebra</a>.</p>
+
+                <!--{ block article_footer } { endblock }-->
+
+                
+		<div id="disqus_thread"></div>
+<script type="text/javascript">
+/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+var disqus_shortname = 'priceisright204'; // required: replace example with your forum shortname
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+	(function() { // DON'T EDIT BELOW THIS LINE
+		var d = document, s = d.createElement('script');
+		s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+		s.setAttribute('data-timestamp', +new Date());
+		(d.head || d.body).appendChild(s);
+	})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+	
+                
+            </article>
+        </section>
+    </div> <!-- span -->
+</div>
+
+
+
+
+<!-- from Erin's blog 
+<section style="padding-bottom: 0">
+	<article class="wrapper">
+		<div class="post-header">
+		<h2 class="red-title" >How Humanity Discovered the Area of a Circle</h2>
+		<h6 class="red-title">By Erin N. Price</h6>
+		<ul class="tags">
+			
+			<li><a href="/tags#Mathematics">Mathematics</a></li>
+			
+			
+		</ul>
+		<div class="line-highlight">12 Apr 2024</div>
+		</div>
+		<div class="post-content">
+			{ content }
+		</div>
+		{ include post-pagination.html }
+		{ include share.html }
+	</article>
+</section>
+{ include comments.html } -->
+
+	                         
+			    </div>
+                        </div>
+                    </div> <!-- content row -->
+
+                    <div class="row"> <!-- footer -->
+                        <div class="span7 offset2">
+                            <footer id="site-footer">
+                                <p>
+                                    <!-- <a href="" target="_blank">
+                                        LICENSE_NAME
+                                    </a> --> Kevin Price /
+                                    <!--<a href="http://localhost:4000/ARCHIVES_URL">Archives</a>-->
+                                    Powered by
+                                    <a href="https://jekyllrb.com/" target="_blank">
+                                        Jekyll
+                                    </a>
+                                    /
+                                    My code on
+                                    <a href="http://github.com/kevindprice" target="blank">
+                                        GitHub
+                                    </a>
+                                    <!--/
+                                    Modified <code>Lannisport</code> theme-->
+                                </p>
+                            </footer>
+                        </div> <!-- footer span -->
+                    </div> <!-- footer row -->
+                </div> <!-- header+content+footer span -->
+
+
+        
+                          <div class="span3">
+                    <aside class="affix">
+                        <div id="sidebar">
+                            <div id="social-icons">
+                                
+                                    <span class="social-icon">
+                                        <a href="https://github.com/kevindprice" target="_blank" title="GitHub">
+                                            <i class="icon-github-alt"></i>
+                                        </a>
+                                    </span>
+                                
+                                
+                                    <span class="social-icon">
+                                        <a href="https://www.linkedin.com/in/kevin-price-371a9a6b" target="_blank" title="LinkedIn">
+                                            <i class="icon-linkedin"></i>
+                                        </a>
+                                    </span>
+                                
+                                
+                                
+                                
+                                    <span class="social-icon">
+                                        <a href="http://facebook.com/kevin.price.204" target="_blank" title="Facebook">
+                                            <i class="icon-facebook"></i>
+                                        </a>
+                                    </span>
+                                
+                                
+                            </div>
+
+                            <div id="navigation">
+                                <nav>
+	<h2>Pages</h2>
+	<ul>
+		<li>
+			<ul>
+				<li>
+					<a href="http://localhost:4000">Site Home</a>
+				</li>
+
+				
+					<li><a href="https://coriolis-station.netlify.app" target="_blank">Artificial Gravity Model</a></li>
+				
+					<li><a href="https://coriolis-station-article.netlify.app" target="_blank">Article: Spinning Space Stations</a></li>
+				
+					<li><a href="https://inverted-maze.netlify.app#&tutorial=true" target="_blank">Inverted Maze</a></li>
+				
+					<li><a href="https://us-states-comparison.netlify.app" target="_blank">Comparing the US States</a></li>
+				
+					<li><a href="https://erinpricewrites.netlify.app" target="_blank">Erin Price's Author Website</a></li>
+				
+
+			</ul>
+		</li>
+	</ul>
+</nav>
+<!--
+<nav>
+	<h2>Categories</h2>
+	<ul>
+		<li>
+			<ul>
+				
+			</ul>
+		</li>
+	</ul>
+</nav>
+-->
+ <!-- LINKS -->
+                            </div>
+                        </div> <!-- sidebar -->
+
+                        <p id="back-to-top">
+                            <a href="#">
+                                <i class="icon-double-angle-up"></i> Back to top
+                            </a>
+                        </p>
+
+                    </aside>
+                </div> <!-- logo+navigation span -->
+
+
+
+          </div> <!-- row -->
+      </div> <!-- /container -->
+
+  
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="/theme/js/vendor/jquery-3.2.1.min.js"><\/script>')</script>
+
+        <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.0/js/bootstrap.min.js"></script>
+        <script>$('body').popover || document.write('<script src="http://localhost:4000/assets/js/vendor/bootstrap.min.js"><\/script>')</script>
+
+        <script src="http://localhost:4000/assets/js/jquery.captions.js"></script>
+        <script src="http://localhost:4000/assets/js/vendor/jquery.colorbox-min.js"></script>
+
+        <script src="http://localhost:4000/assets/js/main.js"></script>
+
+        <script>
+            var _gaq=[['_setAccount','UA-104695649-1'],['_trackPageview'],['_trackPageLoadTime'],['_gat._anonymizeIp']];
+            (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+            g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+            s.parentNode.insertBefore(g,s)}(document,'script'));
+        </script>
+
+  </body>
+
+</html>

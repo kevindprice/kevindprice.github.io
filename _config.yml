@@ -1,1 +1,98 @@
-theme: jekyll-theme-cayman
+# Welcome to Jekyll!
+#
+# This config file is meant for settings that affect your whole blog, values
+# which you are expected to set up once and rarely edit after that. If you find
+# yourself editing this file very often, consider using Jekyll's data files
+# feature for the data you need to update frequently.
+#
+# For technical reasons, this file is *NOT* reloaded automatically when you use
+# 'bundle exec jekyll serve'. If you change this file, please restart the server process.
+#
+# If you need help with YAML syntax, here are some quick references for you:
+# https://learn-the-web.algonquindesign.ca/topics/markdown-yaml-cheat-sheet/#yaml
+# https://learnxinyminutes.com/docs/yaml/
+#
+# Site settings
+# These are used to personalize your new site. If you look in the HTML files,
+# you will see them accessed via {{ site.title }}, {{ site.email }}, and so on.
+# You can create any custom variable you would like, and they will be accessible
+# in the templates via {{ site.myvariable }}.
+
+title: Kevin Price
+author: Kevin Price
+email: kprice204@gmail.com
+description: >- # this means to ignore newlines until "baseurl:"
+  I am a computer programmer and math instructor. This is the home for my personal projects and activities.
+baseurl: "" # the subpath of your site, e.g. /blog
+#url: "http://kevindprice.github.io" # the base hostname & protocol for your site, e.g. http://example.com
+url: "https://kevindprice.netlify.app"
+# url: "localhost:4000" 
+# twitter_username: jekyllrb
+#SITETAGLINE: "My projects and ideas."
+SITEDESCR: "I am a computer programmer interested in web development. Here are some of my projects and ideas."
+
+
+lsi: false
+safe: true
+incremental: false
+highlighter: rouge
+gist:
+  noscript: false
+kramdown:
+  math_engine: mathjax
+  syntax_highlighter: rouge
+  auto_ids:         true
+  footnote_nr:      1
+  entity_output:    as_char
+  toc_levels:       1..6
+  enable_coderay:   false
+
+DISQUS_SHORTNAME: "priceisright204"
+github_username: kevindprice
+SITELOGO: "/images/me.jpg"
+GITHUB_URL: "https://github.com/kevindprice"
+GOOGLE_ANALYTICS_CODE: "UA-104695649-1" #OLD FORMAT (universal analytics), outdated and not used.
+google_analytics: "G-SSHVSFZF4G" #Google Analytics 4
+FACEBOOK_URL: "http://facebook.com/kevin.price.204"
+LINKEDIN_URL: "https://www.linkedin.com/in/kevin-price-371a9a6b"
+
+EXCERPT_WORDS: 70 #number of words in article preview
+
+# Build settings
+theme: minima
+plugins:
+  - jekyll-feed
+
+LINKS:
+  - title: "Artificial Gravity Model"
+    link: "https://coriolis-station.netlify.app"
+  - title: "Article: Spinning Space Stations"
+    link: "https://coriolis-station-article.netlify.app"
+  - title: "Inverted Maze"
+    link: "https://inverted-maze.netlify.app#&tutorial=true"
+  - title: "Comparing the US States"
+    link: "https://us-states-comparison.netlify.app"
+  - title: "Erin Price's Author Website"
+    link: "https://erinpricewrites.netlify.app"
+
+
+
+# Exclude from processing.
+# The following items will not be processed, by default.
+# Any item listed under the `exclude:` key here will be automatically added to
+# the internal "default list".
+#
+# Excluded items can be processed by explicitly listing the directories or
+# their entries' file path in the `include:` list.
+#
+# exclude:
+#   - .sass-cache/
+#   - .jekyll-cache/
+#   - gemfiles/
+#   - Gemfile
+#   - Gemfile.lock
+#   - node_modules/
+#   - vendor/bundle/
+#   - vendor/cache/
+#   - vendor/gems/
+#   - vendor/ruby/
