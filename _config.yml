@@ -25,12 +25,11 @@ description: >- # this means to ignore newlines until "baseurl:"
   I am a computer programmer and math instructor. This is the home for my personal projects and activities.
 baseurl: "" # the subpath of your site, e.g. /blog
 #url: "http://kevindprice.github.io" # the base hostname & protocol for your site, e.g. http://example.com
-url: "https://kevindprice.netlify.app"
+url: "https://kevindprice.github.io"
 # url: "localhost:4000" 
 # twitter_username: jekyllrb
 #SITETAGLINE: "My projects and ideas."
 SITEDESCR: "I am a computer programmer interested in web development. Here are some of my projects and ideas."
-
 
 lsi: false
 safe: true
