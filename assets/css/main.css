@@ -114,7 +114,7 @@ p figure {
 #site-header p {
     font-size: 1rem;
     font-style: italic;
-    color: #bbb;
+    color: #aaa;
     position: relative;
     border-bottom: 1px dashed #e0e0e0;
     padding-bottom: .5rem;
@@ -149,7 +149,7 @@ p figure {
 
 #social-icons a:hover {
     padding-left: 0.25rem;
-    color: #bbb;
+    color: #aaa;
 }
 
 #sidebar h2 {
@@ -251,7 +251,7 @@ header.article h2 a {
 }
 
 .article-meta dl {
-    color: #ccc;
+    color: #bbb;
     font-style: italic;
     font-size: 0.666rem;
     line-height: 1rem;
@@ -474,7 +474,7 @@ li {
 #site-footer p {
     font-size: small;
     line-height: 1rem;
-    color: #ccc;
+    color: #bbb;
     margin: 0;
 }
 
@@ -508,7 +508,37 @@ figcaption {
 }
 
 /* PAGINATION */
-.page-holder {
+.panel-footer{
+     text-align: center;
+     margin-bottom: 15px;
+     
+     a {
+        cursor: pointer;
+        display: inline-block;
+        height: 25px;
+        width: 40px;
+        font-size:1.2em;
+        /*font-weight:bold;*/
+     	     &:not(:last-child) {
+		margin-right: 5px;
+	     }
+	}
+     ul, li {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        background-image: none;
+        display: inline-block;
+     } 
+     ul {
+        border-radius: 10px;
+        padding: 10px 20px;
+        background-image: url(/assets/img/paperboard-texture_95678-72.avif);
+     }
+}
+
+/* jpages css code for old pagination plugin */
+/*.page-holder {
 	text-align: center;
 	a {
 		color: $blue;
@@ -542,12 +572,5 @@ figcaption {
 		cursor: auto;
 		event-pointers:none;
 	}
-}
+}*/
 
-.post-pagination {
-  height: 1.5em;
-  margin-top: 1.5em;
-  .next {
-    float: right;
-  }
-}

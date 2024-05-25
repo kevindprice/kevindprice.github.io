@@ -26,13 +26,12 @@
   
   <link rel="canonical" href="/"/>
   <link rel="alternate" type="application/rss+xml" title="Kevin Price" href="/feed.xml"/>
-  <!--<script src="http://localhost:4000/theme/js/vendor/jquery-3.2.1.min.js"></script>-->
-  <script src="http://localhost:4000/assets/js/jquery-1.8.2.min.js"></script>
   <script src="//ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="http://localhost:4000/assets/js/jquery.captions.js"></script>
   <script src="http://localhost:4000/assets/js/vendor/jquery.colorbox-min.js"></script>
   <script src="http://localhost:4000/assets/js/main.js"></script>
-  <script src="http://localhost:4000/assets/js/jPages.js"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/alfrcr/paginathing/dist/paginathing.min.js"></script>
+<!--  <script src="http://localhost:4000/assets/js/jPages.js"></script>-->
   <script src="http://localhost:4000/assets/js/script.js"></script>
   <script src="http://localhost:4000/assets/js/snap.svg-min.js"></script>
   <script defer src="https://buttons.github.io/buttons.js"></script>
@@ -92,15 +91,17 @@
 	                         
 	                         <div class="wrapper">
 
-<div class="page-holder page-holder-one"></div> <!-- top pagination links -->
-<br/>
+ <!-- top pagination links -->
+<!--<div class="page-holder page-holder-one"></div>
+<br/>-->
 
-<div id="pag-itemContainer-one" class="posts-list tab-one-list" style="padding-bottom: 0">
+<!--<div id="pag-itemContainer-one" class="posts-list tab-one-list" style="padding-bottom: 0">-->
+<div class="list-group">
 	
 	
 	
 		
-	<div class="article-page"> <!--This block is what creates the paper-tab illusion-->
+	<div class="article-page list-group-item"> <!--This block is what creates the paper-tab illusion-->
 	    <div class="span7 offset2">
 		<header class="article">
 		    <h2><a href="http://localhost:4000/mathematics/2024/04/12/area-of-circle.html" rel="bookmark">How Humanity Discovered the Area of a Circle</a></h2>
@@ -163,7 +164,7 @@
 	
 	
 		
-	<div class="article-page"> <!--This block is what creates the paper-tab illusion-->
+	<div class="article-page list-group-item"> <!--This block is what creates the paper-tab illusion-->
 	    <div class="span7 offset2">
 		<header class="article">
 		    <h2><a href="http://localhost:4000/data%20analysis/2019/07/12/state-map.html" rel="bookmark">Comparing the US States</a></h2>
@@ -224,7 +225,7 @@
 	
 	
 		
-	<div class="article-page"> <!--This block is what creates the paper-tab illusion-->
+	<div class="article-page list-group-item"> <!--This block is what creates the paper-tab illusion-->
 	    <div class="span7 offset2">
 		<header class="article">
 		    <h2><a href="http://localhost:4000/web%20design/2017/11/19/erin-website.html" rel="bookmark">Erin Price's Author Website</a></h2>
@@ -285,7 +286,7 @@
 	
 	
 		
-	<div class="article-page"> <!--This block is what creates the paper-tab illusion-->
+	<div class="article-page list-group-item"> <!--This block is what creates the paper-tab illusion-->
 	    <div class="span7 offset2">
 		<header class="article">
 		    <h2><a href="http://localhost:4000/web%20design/2017/08/31/gravity-model.html" rel="bookmark">An Artificial Gravity Computer Model</a></h2>
@@ -348,7 +349,7 @@
 	
 	
 		
-	<div class="article-page"> <!--This block is what creates the paper-tab illusion-->
+	<div class="article-page list-group-item"> <!--This block is what creates the paper-tab illusion-->
 	    <div class="span7 offset2">
 		<header class="article">
 		    <h2><a href="http://localhost:4000/machine%20learning/2017/08/20/resume-model.html" rel="bookmark">How Computers Think: A Resume Job Field Classification Model in Python</a></h2>
@@ -411,7 +412,7 @@
 	
 	
 		
-	<div class="article-page"> <!--This block is what creates the paper-tab illusion-->
+	<div class="article-page list-group-item"> <!--This block is what creates the paper-tab illusion-->
 	    <div class="span7 offset2">
 		<header class="article">
 		    <h2><a href="http://localhost:4000/about%20this%20site/2017/02/09/about-this-site.html" rel="bookmark">About This Site</a></h2>
@@ -452,9 +453,9 @@
 		    	
 			
 			<!-- ARTICLE PREVIEW -->
-			<p>Welcome to my website! I built this site using a site generator in Python called Pelican. I found a fantastic Pelican theme (Lannisport) and heavily modified it to make it my own.</p>
+			<p>Welcome to my website! I will post my coding projects and mathematics thoughts here. To see my code feel free to browse <a href="https://www.github.com/kevindprice">my GitHub page</a>.</p>
 
-<p>I will post my coding projects here. To see my code feel free to browse <a href="https://www.github.com/kevindprice">my GitHub page</a>.</p>
+<p>This page is built with a static site generator called Jekyll. The theme is based on a Pelican theme called Lannisport; the page was originally built with Pelican, but I reworked and customized this theme for Jekyll.</p>
 
 			
 			<!-- add "continued" label for truncated posts-->
@@ -475,10 +476,10 @@
 	</div> <!-- pag-itemContainer-one necessary for pagination script.js -->
 		
 	
-    <div>
+    <!--<div>
 		<div class="page-holder page-holder-one"></div>
 		<br/>
-	</div>
+	</div>-->
 
 
 

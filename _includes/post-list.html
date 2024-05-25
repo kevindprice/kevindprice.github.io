@@ -1,14 +1,16 @@
 <div class="wrapper">
 
-<div class="page-holder page-holder-one"></div> <!-- top pagination links -->
-<br/>
+ <!-- top pagination links -->
+<!--<div class="page-holder page-holder-one"></div>
+<br/>-->
 
-<div id="pag-itemContainer-one" class="posts-list tab-one-list" style="padding-bottom: 0">
+<!--<div id="pag-itemContainer-one" class="posts-list tab-one-list" style="padding-bottom: 0">-->
+<div class="list-group">
 	{% assign counter-one = 0 %}
 	{% for post in site.posts %}
 	{% assign counter-one = counter-one | plus: 1 %}
 		
-	<div class="article-page"> <!--This block is what creates the paper-tab illusion-->
+	<div class="article-page list-group-item"> <!--This block is what creates the paper-tab illusion-->
 	    <div class="span7 offset2">
 		<header class="article">
 		    <h2><a href="{{site.url}}{{post.url}}" rel="bookmark">{{post.title}}</a></h2>
