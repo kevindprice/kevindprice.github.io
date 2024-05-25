@@ -72,7 +72,7 @@ p figure {
 
 .content section,
 #site-header, #site-footer {
-    margin-bottom: 3rem;
+    margin-bottom: 2rem;
 }
 
 .content #index section {
@@ -505,4 +505,49 @@ figcaption {
     padding-top: 0.5rem;
     display: table;
     border-bottom: 1px dotted #ddd;
+}
+
+/* PAGINATION */
+.page-holder {
+	text-align: center;
+	a {
+		color: $blue;
+		text-align: center;
+		cursor: pointer;
+        display: inline-block;
+        height: 25px;
+        width: 25px;
+		&:not(:last-child) {
+			margin-right: 5px;
+		}
+	}
+	span {
+		color: $blue;
+		font-weight: $base-font-bold;
+        text-shadow:  1px 1px $dark-white ,2px 2px $darker-white;
+        margin: 0 5px;
+	}
+	.jp-current {
+        pointer-events: none;
+        cursor: auto;
+        @include border-radius(0.3em);
+        background-color: $blue;
+        text-shadow: none;
+        color: $white;
+        box-shadow: 1px 1px 0 1px $darker-white;
+        -webkit-box-shadow: 1px 1px 0 1px $darker-white;
+    }
+	.jp-disabled {
+		color: $grey-color;
+		cursor: auto;
+		event-pointers:none;
+	}
+}
+
+.post-pagination {
+  height: 1.5em;
+  margin-top: 1.5em;
+  .next {
+    float: right;
+  }
 }

@@ -26,7 +26,12 @@
   
   <link rel="canonical" href="/"/>
   <link rel="alternate" type="application/rss+xml" title="Kevin Price" href="/feed.xml"/>
+  <!--<script src="http://localhost:4000/theme/js/vendor/jquery-3.2.1.min.js"></script>-->
   <script src="http://localhost:4000/assets/js/jquery-1.8.2.min.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="http://localhost:4000/assets/js/jquery.captions.js"></script>
+  <script src="http://localhost:4000/assets/js/vendor/jquery.colorbox-min.js"></script>
+  <script src="http://localhost:4000/assets/js/main.js"></script>
   <script src="http://localhost:4000/assets/js/jPages.js"></script>
   <script src="http://localhost:4000/assets/js/script.js"></script>
   <script src="http://localhost:4000/assets/js/snap.svg-min.js"></script>
@@ -86,6 +91,11 @@
 	                         <!-- CONTENT -->
 	                         
 	                         <div class="wrapper">
+
+<div class="page-holder page-holder-one"></div> <!-- top pagination links -->
+<br/>
+
+<div id="pag-itemContainer-one" class="posts-list tab-one-list" style="padding-bottom: 0">
 	
 	
 	
@@ -100,8 +110,8 @@
 		    </time>
 		</header>
 	    </div>
-	    <div class="span2">
-		<!--
+	    <div class="span2"> <!-- THIS IS FOR THE OPTIONAL STICKY TAGS ON THE LEFT -->
+		<!-- 
 		    <div class="article-meta article-meta-border">
 		      <dl class="dl-horizontal">
 		      <dt><i class="icon-tags"></i></dt>
@@ -125,7 +135,7 @@
 		{ endblock } -->
 
 	    </div>
-	    <div class="span7">
+	    <div class="span7"> <!-- Article preview -->
 		<section>
 		    <article class="entry">
 		    	
@@ -149,7 +159,7 @@
 		</section>
 	    </div> <!-- span -->
 
-	</div>
+	</div> <!-- article-page -->
 	
 	
 		
@@ -163,8 +173,8 @@
 		    </time>
 		</header>
 	    </div>
-	    <div class="span2">
-		<!--
+	    <div class="span2"> <!-- THIS IS FOR THE OPTIONAL STICKY TAGS ON THE LEFT -->
+		<!-- 
 		    <div class="article-meta article-meta-border">
 		      <dl class="dl-horizontal">
 		      <dt><i class="icon-tags"></i></dt>
@@ -188,7 +198,7 @@
 		{ endblock } -->
 
 	    </div>
-	    <div class="span7">
+	    <div class="span7"> <!-- Article preview -->
 		<section>
 		    <article class="entry">
 		    	
@@ -210,7 +220,7 @@
 		</section>
 	    </div> <!-- span -->
 
-	</div>
+	</div> <!-- article-page -->
 	
 	
 		
@@ -224,8 +234,8 @@
 		    </time>
 		</header>
 	    </div>
-	    <div class="span2">
-		<!--
+	    <div class="span2"> <!-- THIS IS FOR THE OPTIONAL STICKY TAGS ON THE LEFT -->
+		<!-- 
 		    <div class="article-meta article-meta-border">
 		      <dl class="dl-horizontal">
 		      <dt><i class="icon-tags"></i></dt>
@@ -249,7 +259,7 @@
 		{ endblock } -->
 
 	    </div>
-	    <div class="span7">
+	    <div class="span7"> <!-- Article preview -->
 		<section>
 		    <article class="entry">
 		    	
@@ -271,7 +281,7 @@
 		</section>
 	    </div> <!-- span -->
 
-	</div>
+	</div> <!-- article-page -->
 	
 	
 		
@@ -285,8 +295,8 @@
 		    </time>
 		</header>
 	    </div>
-	    <div class="span2">
-		<!--
+	    <div class="span2"> <!-- THIS IS FOR THE OPTIONAL STICKY TAGS ON THE LEFT -->
+		<!-- 
 		    <div class="article-meta article-meta-border">
 		      <dl class="dl-horizontal">
 		      <dt><i class="icon-tags"></i></dt>
@@ -310,7 +320,7 @@
 		{ endblock } -->
 
 	    </div>
-	    <div class="span7">
+	    <div class="span7"> <!-- Article preview -->
 		<section>
 		    <article class="entry">
 		    	
@@ -334,7 +344,7 @@
 		</section>
 	    </div> <!-- span -->
 
-	</div>
+	</div> <!-- article-page -->
 	
 	
 		
@@ -348,8 +358,8 @@
 		    </time>
 		</header>
 	    </div>
-	    <div class="span2">
-		<!--
+	    <div class="span2"> <!-- THIS IS FOR THE OPTIONAL STICKY TAGS ON THE LEFT -->
+		<!-- 
 		    <div class="article-meta article-meta-border">
 		      <dl class="dl-horizontal">
 		      <dt><i class="icon-tags"></i></dt>
@@ -373,7 +383,7 @@
 		{ endblock } -->
 
 	    </div>
-	    <div class="span7">
+	    <div class="span7"> <!-- Article preview -->
 		<section>
 		    <article class="entry">
 		    	
@@ -397,7 +407,7 @@
 		</section>
 	    </div> <!-- span -->
 
-	</div>
+	</div> <!-- article-page -->
 	
 	
 		
@@ -411,8 +421,8 @@
 		    </time>
 		</header>
 	    </div>
-	    <div class="span2">
-		<!--
+	    <div class="span2"> <!-- THIS IS FOR THE OPTIONAL STICKY TAGS ON THE LEFT -->
+		<!-- 
 		    <div class="article-meta article-meta-border">
 		      <dl class="dl-horizontal">
 		      <dt><i class="icon-tags"></i></dt>
@@ -436,7 +446,7 @@
 		{ endblock } -->
 
 	    </div>
-	    <div class="span7">
+	    <div class="span7"> <!-- Article preview -->
 		<section>
 		    <article class="entry">
 		    	
@@ -460,20 +470,21 @@
 		</section>
 	    </div> <!-- span -->
 
-	</div>
+	</div> <!-- article-page -->
 	
+	</div> <!-- pag-itemContainer-one necessary for pagination script.js -->
 		
-	<div class="pagination">
-  
-    <span class="previous">Previous</span>
-  
-  <span class="page_number ">
-    Page:  of 
-  </span>
-  
-    <span class="next ">Next</span>
-  
-</div>
+	
+    <div>
+		<div class="page-holder page-holder-one"></div>
+		<br/>
+	</div>
+
+
+
+<!--
+
+-->
 
 </div>
 
@@ -595,13 +606,10 @@
           </div> <!-- row -->
       </div> <!-- /container -->
 
-          <script src="//ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-        <script>window.jQuery || document.write('<script src="/theme/js/vendor/jquery-3.2.1.min.js"><\/script>')</script>
+  
         <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.0/js/bootstrap.min.js"></script>
         <script>$('body').popover || document.write('<script src="http://localhost:4000/assets/js/vendor/bootstrap.min.js"><\/script>')</script>
-        <script src="http://localhost:4000/assets/js/jquery.captions.js"></script>
-        <script src="http://localhost:4000/assets/js/vendor/jquery.colorbox-min.js"></script>
-        <script src="http://localhost:4000/assets/js/main.js"></script>
+
 
   </body>
 

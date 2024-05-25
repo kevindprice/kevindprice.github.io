@@ -55,5 +55,21 @@ $(function(){
       midRange     : 4,
       endRange     : 1,
       direction    : "auto"
-  });
+  }).on("click", function () {
+	$('html,body').animate({
+	  scrollTop: 0
+	}, 400);
+});
+  ;
+  /*$("div.page-holder-two").jPages({
+      containerID  : "pag-itemContainer-two",
+      previous: "«",
+      next: "»",
+      perPage      : 5,
+      startPage    : 1,
+      startRange   : 1,
+      midRange     : 4,
+      endRange     : 1,
+      direction    : "auto"
+  }); */
 });
